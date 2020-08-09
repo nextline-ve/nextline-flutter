@@ -24,24 +24,29 @@ class _Services extends State<Services> {
       decoration: BoxDecoration(
         border: Border.all(width: 2.0, color: Color.fromRGBO(82, 192, 242, 1)),
         borderRadius: BorderRadius.circular(22), color: Colors.white),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 8,
-            child: Text(
-              widget.name,
-              style: TextStyle(
-                  fontFamily: "fontSubTitle",
-                  fontSize: 20,
-                  color: Color.fromRGBO(0, 109, 186, 1)),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/select-internet-plan');
+        },
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child: Text(
+                widget.name,
+                style: TextStyle(
+                    fontFamily: "fontSubTitle",
+                    fontSize: 20,
+                    color: Color.fromRGBO(0, 109, 186, 1)),
+              ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: SvgPicture.asset("assets/images/${widget.name.toLowerCase()}.svg",
-                color: Color.fromRGBO(0, 109, 186, 1))
-          )
-        ],
+            Expanded(
+                flex: 4,
+                child: SvgPicture.asset("assets/images/${widget.name.toLowerCase()}.svg",
+                    color: Color.fromRGBO(0, 109, 186, 1))
+            )
+          ],
+        ),
       ),
     );
   }

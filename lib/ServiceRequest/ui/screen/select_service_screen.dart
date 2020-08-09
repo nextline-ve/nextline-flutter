@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/apps/ServiceRequest/ui/widgets/services.dart';
+import 'package:nextline/ServiceRequest/ui/widgets/services.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jtitle.dart';
+import 'package:nextline/widgets/line.dart';
 
-class SelectionServiceScreen extends StatelessWidget {
+class SelectServiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,16 +18,18 @@ class SelectionServiceScreen extends StatelessWidget {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.all(10),
-                margin: EdgeInsets.only(top: 28),
+                margin: EdgeInsets.only(top: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.only(bottom: 50),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           JTitle(title: "Selecciona"),
                           JTitle(title: "un Servicio"),
+                          Line(top: 10,),
                         ],
                       ),
                     ),
