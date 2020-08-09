@@ -40,10 +40,7 @@ class _JTextField extends State<JTextField> {
         validator: widget.onValidator,
         onSaved: widget.onKeyValue,
         decoration: InputDecoration(
-          prefixIcon: (widget.icon == null) ? null : Icon(
-              Icons.email,
-              color: Color.fromRGBO(2, 144, 223, 1)
-          ),
+          prefixIcon: (widget.icon == null) ? null : widget.icon,
           hintText: widget.label,
           hintStyle: TextStyle(
               color: Colors.grey,
