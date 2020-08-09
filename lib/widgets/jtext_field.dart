@@ -36,6 +36,7 @@ class _JTextField extends State<JTextField> {
       margin: EdgeInsets.only(top: 20),
       child: TextFormField(
         autofocus: true,
+        obscureText: widget.isPass,
         keyboardType: widget.inputType,
         validator: widget.onValidator,
         onSaved: widget.onKeyValue,
