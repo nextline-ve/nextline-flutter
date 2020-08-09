@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'apps/Auth/ui/screens/login_screen.dart';
+import 'apps/ServiceRequest/ui/screen/selection_service_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,12 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: LoginScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginScreen(),
+        '/select-service': (context) => SelectionServiceScreen(),
+      },
     );
   }
 }
