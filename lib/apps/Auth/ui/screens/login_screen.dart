@@ -20,30 +20,36 @@ class _LoginScreen extends State<LoginScreen> {
         alignment: Alignment.center,
         children: <Widget>[
           BackgroundLogin(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              WhiteLogo(),
-              FormLogin(),
-              Text(
-                "¿Olvido la contraseña?",
-                style: TextStyle(color: Colors.white),
-              ),
-              JButton(label: "INGRESAR", onTab: _setLogin, top: 30),
-              JButton(
-                label: "SOLICITA TU SERVICIO",
-                onTab: _setLogin,
-                top: 60,
-                background: Color.fromRGBO(83, 224, 160, 1),
-              ),
-            ],
-          )
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                WhiteLogo(),
+                FormLogin(),
+                Text(
+                  "¿Olvido la contraseña?",
+                  style: TextStyle(color: Colors.white),
+                ),
+                JButton(label: "INGRESAR", onTab: _setLogin, top: 30),
+                JButton(
+                  label: "SOLICITA TU SERVICIO",
+                  onTab: _serviceRequest,
+                  top: 60,
+                  background: Color.fromRGBO(83, 224, 160, 1),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
   void _setLogin() {
+
+  }
+
+  void _serviceRequest() {
     Navigator.pushNamed(context, '/select-service');
   }
 }
