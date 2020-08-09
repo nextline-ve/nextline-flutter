@@ -127,6 +127,6 @@ class _FormPersonal extends State<FormPersonal> {
   }
 
   _makeForm() {
-
+    Navigator.pushNamed(context, '/instalations');
   }
 }

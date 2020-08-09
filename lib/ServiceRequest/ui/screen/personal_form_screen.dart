@@ -39,7 +39,6 @@ class _PersonalFormScreen extends State<PersonalFormScreen> {
             ),
           ),
         ),
-
       ],
     )
     );
