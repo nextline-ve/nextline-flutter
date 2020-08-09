@@ -58,12 +58,17 @@ flutter:
     - family: fontInput
       fonts:
         - asset: fonts/SegoeUI.ttf
+    - family: fontLight
+      fonts:
+        - asset: fonts/PoppinsLight.ttf
 
   assets:
     - assets/images/fondo_login.png
     - assets/images/imagotipo.png
     - assets/images/info.png
     - assets/images/logo_white.png
+    - assets/images/up-arrow.png
+    - assets/images/down-arrow.png
     - assets/images/bg.jpg
     - assets/images/empresarial.svg
     - assets/images/dedicado.svg
