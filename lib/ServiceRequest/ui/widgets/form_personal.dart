@@ -31,7 +31,7 @@ class _FormPersonal extends State<FormPersonal> {
           child: Column(
             children: [
               JTextField(
-                isPass: false,
+                isPass: false, inputType: TextInputType.text,
                 label: "Nombre / Razón Social",
                 onKeyValue: (val) {
                   _name = val;
@@ -119,9 +119,14 @@ class _FormPersonal extends State<FormPersonal> {
               JButton(
                 label: "CONTINUAR",
                 top: 40,
+                onTab: _makeForm,
               ),
             ],
           ),
         ));
+  }
+
+  _makeForm() {
+
   }
 }
