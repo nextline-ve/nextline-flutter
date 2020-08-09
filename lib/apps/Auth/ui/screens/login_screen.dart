@@ -44,7 +44,6 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   void _setLogin() {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Processing Data')));
+    Navigator.pushNamed(context, '/select-service');
   }
 }
