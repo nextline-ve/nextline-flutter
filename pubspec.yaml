@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_launcher_icons: ^0.7.5
   flutter:
     sdk: flutter
 
@@ -34,6 +35,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+flutter_icons:
+  image_path: 'assets/images/imagotipo.png'
+  android: true
+  ios: true
 
 # The following section is specific to Flutter.
 flutter:
@@ -54,10 +59,10 @@ flutter:
         - asset: fonts/SegoeUI.ttf
 
   assets:
-    - assets/fondo_login.png
-    - assets/imagotipo.png
-    - assets/info.png
-    - assets/logo_white.png
+    - assets/images/fondo_login.png
+    - assets/images/imagotipo.png
+    - assets/images/info.png
+    - assets/images/logo_white.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
