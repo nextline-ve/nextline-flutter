@@ -3,6 +3,7 @@ import 'package:nextline/apps/Auth/ui/widgets/background_login.dart';
 import 'package:nextline/apps/Auth/ui/widgets/form_login.dart';
 import 'package:nextline/apps/Auth/ui/widgets/white_logo.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/line.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -28,13 +29,17 @@ class _LoginScreen extends State<LoginScreen> {
                 FormLogin(),
                 Text(
                   "¿Olvido la contraseña?",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "fontInput",
+                  ),
                 ),
                 JButton(label: "INGRESAR", onTab: _setLogin, top: 30),
+                Line(top: 30),
                 JButton(
                   label: "SOLICITA TU SERVICIO",
                   onTab: _serviceRequest,
-                  top: 60,
+                  top: 30,
                   background: Color.fromRGBO(83, 224, 160, 1),
                 ),
               ],
@@ -45,9 +50,7 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  void _setLogin() {
-
-  }
+  void _setLogin() {}
 
   void _serviceRequest() {
     Navigator.pushNamed(context, '/select-service');
