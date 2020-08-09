@@ -26,7 +26,7 @@ class SelectInternetPlanScreen extends StatelessWidget {
                   JTitle(title: "Internet"),
                   Line(top: 10),
                   Container(
-                    height: 290,
+                    height: 295,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
