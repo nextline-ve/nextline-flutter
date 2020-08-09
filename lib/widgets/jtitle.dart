@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class JTitle extends StatelessWidget {
   final String title;
+  final Color color;
 
-  const JTitle({Key key, @required this.title}) : super(key: key);
+  const JTitle({Key key, @required this.title, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class JTitle extends StatelessWidget {
       title,
       style: TextStyle(
         fontFamily: "fontTitle",
-        color: Colors.white,
+        color: (color == null) ? Colors.white : color,
         fontSize: 45,
       ),
     );
