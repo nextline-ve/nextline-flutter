@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'apps/Auth/ui/screens/login_screen.dart';
-import 'apps/ServiceRequest/ui/screen/selection_service_screen.dart';
+import 'Auth/ui/screens/login_screen.dart';
+import 'ServiceRequest/ui/screen/select_internet_plan_screen.dart';
+import 'ServiceRequest/ui/screen/select_service_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        '/select-service': (context) => SelectionServiceScreen(),
+        '/select-service': (context) => SelectServiceScreen(),
+        '/select-internet-plan': (context) => SelectInternetPlanScreen(),
       },
     );
   }

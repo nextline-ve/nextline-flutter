@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/apps/Auth/ui/widgets/background_login.dart';
-import 'package:nextline/apps/Auth/ui/widgets/form_login.dart';
-import 'package:nextline/apps/Auth/ui/widgets/white_logo.dart';
+import 'package:nextline/Auth/ui/widgets/background_login.dart';
+import 'package:nextline/Auth/ui/widgets/form_login.dart';
+import 'package:nextline/Auth/ui/widgets/white_logo.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/line.dart';
 
