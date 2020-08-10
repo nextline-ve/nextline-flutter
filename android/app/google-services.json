@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "537378303085",
+    "firebase_url": "https://nextline-93685.firebaseio.com",
+    "project_id": "nextline-93685",
+    "storage_bucket": "nextline-93685.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537378303085:android:f9732c6a107ce5a0592364",
+        "android_client_info": {
+          "package_name": "nextline.jaspesoft.com.nextline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537378303085-mbrei9fucekqgt126c80elliip58hdpm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nextline.jaspesoft.com.nextline",
+            "certificate_hash": "2044f1a9b3e00fa268bfb50e6ad3d8703bd05818"
+          }
+        },
+        {
+          "client_id": "537378303085-5e2ae4mabh758h2b88110hi0a1r7qdsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpCpMU0Kpk8S8G1tH0pRuW60vA8PoT_74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537378303085-5e2ae4mabh758h2b88110hi0a1r7qdsn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "537378303085-fqmrd620nvgf5d0dkon600tf5bhu24kn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nextline.jaspesoft.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
