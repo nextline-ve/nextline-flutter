@@ -3,7 +3,7 @@ description: App iOS de Nextline C,A
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -40,13 +40,12 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 flutter_icons:
-  image_path: 'assets/images/imagotipo.png'
+  image_path: "assets/images/imagotipo.png"
   android: true
   ios: true
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -57,16 +56,26 @@ flutter:
         - asset: fonts/TrebuchetBold.TTF
     - family: fontSubTitle
       fonts:
-          - asset: fonts/TrebuchetRegular.TTF
+        - asset: fonts/TrebuchetRegular.TTF
     - family: fontInput
       fonts:
         - asset: fonts/SegoeUI.ttf
-    - family: fontLight
+    - family: fontPoppinsBold
+      fonts:
+        - asset: fonts/PoppinsBold.ttf
+    - family: fontPoppinsLight
       fonts:
         - asset: fonts/PoppinsLight.ttf
+    - family: fontPoppinsRegular
+      fonts:
+        - asset: fonts/PoppinsRegular.ttf
+    - family: fontPoppinsSemiBold
+      fonts:
+        - asset: fonts/PoppinsSemiBold.ttf
 
   assets:
     - assets/images/fondo_login.png
+    - assets/images/fondo_home.png
     - assets/images/imagotipo.png
     - assets/images/info.png
     - assets/images/logo_white.png
@@ -80,13 +89,10 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
