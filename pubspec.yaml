@@ -23,6 +23,9 @@ environment:
 dependencies:
   flutter_launcher_icons: ^0.7.5
   flutter_svg: ^0.18.0
+  generic_bloc_provider: ^1.0.9
+  firebase_messaging: ^6.0.16
+  cloud_firestore: ^0.13.7
   flutter:
     sdk: flutter
 

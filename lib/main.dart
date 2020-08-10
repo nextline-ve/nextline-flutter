@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
+import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
 import 'ServiceRequest/ui/screen/instalations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
@@ -14,15 +16,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/select-service': (context) => SelectServiceScreen(),
-        '/select-internet-plan': (context) => SelectInternetPlanScreen(),
-        '/personal-form': (context) => PersonalFormScreen(),
-        '/instalations': (context) => InstalationsScreen(),
-      },
+    return BlocProvider(
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginScreen(),
+          '/select-service': (context) => SelectServiceScreen(),
+          '/select-internet-plan': (context) => SelectInternetPlanScreen(),
+          '/personal-form': (context) => PersonalFormScreen(),
+          '/instalations': (context) => InstalationsScreen(),
+        },
+      ),
+      bloc: BlocAuth(),
     );
   }
 }
