@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class HCirclePlan extends StatelessWidget {
   const HCirclePlan({Key key}) : super(key: key);
@@ -28,16 +30,38 @@ class HCirclePlan extends StatelessWidget {
                     AppColors.ligth_blue_color,
                     AppColors.blue,
                     AppColors.blue_dark,
-                    // Colors.lightBlue,
-                    // Colors.blue,
                   ])),
           child: Container(
-              // margin: EdgeInsets.all(15),
-              decoration: new BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-                color: Colors.white, style: BorderStyle.solid, width: 6),
-          ))),
+            // margin: EdgeInsets.all(15),
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                  color: Colors.white, style: BorderStyle.solid, width: 6),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/images/logo_without_text.svg",
+                    height: 35, color: AppColors.ligth_blue_color),
+                _planNameText("20MB"),
+                _planLabelText("plan"),
+              ],
+            ),
+          )),
     );
   }
+}
+
+Widget _planNameText(String plan) {
+  return Text(plan,
+      style: TextStyle(
+          color: Colors.white,
+          fontFamily: AppFonts.poppins_semiBold,
+          fontSize: 32));
+}
+
+Widget _planLabelText(String text) {
+  return Text(text.toUpperCase(),
+      style: TextStyle(
+          color: Colors.white, fontFamily: AppFonts.fontTitle, fontSize: 12));
 }
