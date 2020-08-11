@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class HLabelText extends StatelessWidget {
@@ -15,8 +16,8 @@ class HLabelText extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        color: Colors.black,
-        fontFamily: AppFonts.fontTitle,
+        color: AppColors.ligth_blue_color,
+        fontFamily: AppFonts.subTitle,
         fontSize: 14,
       ),
     );

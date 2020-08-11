@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  basic_utils: ^2.6.0
   flutter_launcher_icons: ^0.7.5
   flutter_svg: ^0.18.0
   generic_bloc_provider: ^1.0.9
