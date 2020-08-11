@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class  WhiteLogo  extends   StatelessWidget {
   @override
@@ -7,13 +8,8 @@ class  WhiteLogo  extends   StatelessWidget {
     return Container(
       height: 140,
       width: 160,
-      margin: EdgeInsets.only(bottom: 40),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.scaleDown,
-          image: AssetImage("assets/images/logo_white.png"),
-        ),
-      ),
+      margin: EdgeInsets.only(bottom: 20),
+      child: SvgPicture.asset("assets/images/logo_white.svg", color: Colors.white,),
     );
   }
   
