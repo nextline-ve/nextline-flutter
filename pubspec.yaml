@@ -77,10 +77,10 @@ flutter:
     - assets/images/fondo_login.png
     - assets/images/fondo_home.png
     - assets/images/imagotipo.png
-    - assets/images/info.png
-    - assets/images/logo_white.png
-    - assets/images/up-arrow.png
-    - assets/images/down-arrow.png
+    - assets/images/info.svg
+    - assets/images/logo_white.svg
+    - assets/images/up-arrow.svg
+    - assets/images/down-arrow.svg
     - assets/images/bg.jpg
     - assets/images/empresarial.svg
     - assets/images/dedicado.svg
