@@ -29,7 +29,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/up-arrow.png"),
+                    image: AssetImage("assets/images/up-arrow.svg"),
                   ),
                 ),
               ),
@@ -51,7 +51,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/down-arrow.png"),
+                    image: AssetImage("assets/images/down-arrow.svg"),
                   ),
                 ),
               ),
