@@ -17,5 +17,29 @@ class Line extends StatelessWidget{
       ),
     );
   }
+}
 
+class VerticalLine extends StatelessWidget {
+  final double heigth;
+  final double width;
+  final Color color;
+
+  const VerticalLine(
+      {Key key,
+      @required this.heigth,
+      this.width = 1,
+      this.color = Colors.white70})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      height: this.heigth,
+      width: this.width,
+      // margin: EdgeInsets.only(top: top),
+      decoration: BoxDecoration(
+        color: this.color,
+      ),
+    );
+  }
 }
