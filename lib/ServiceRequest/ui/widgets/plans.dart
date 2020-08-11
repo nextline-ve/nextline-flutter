@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jtitle.dart';
 
 class Plans extends StatefulWidget {
@@ -61,12 +63,7 @@ class _Plans extends State<Plans> {
                             Container(
                               height: 30,
                               width: 20,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage("assets/images/up-arrow.png"),
-                                ),
-                              ),
+                              child: SvgPicture.asset("assets/images/up-arrow.svg", color: AppColors.green_color),
                             ),
                             Text(widget.upload_speed,
                                 style: TextStyle(
@@ -83,13 +80,7 @@ class _Plans extends State<Plans> {
                             Container(
                               height: 30,
                               width: 20,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image:
-                                  AssetImage("assets/images/down-arrow.png"),
-                                ),
-                              ),
+                              child: SvgPicture.asset("assets/images/down-arrow.svg", color: AppColors.green_color),
                             ),
                             Text(widget.download_speed,
                                 style: TextStyle(
