@@ -14,30 +14,33 @@ class HStatusService extends StatefulWidget {
 class _HStatusServiceState extends State<HStatusService> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            _statusLabelText(),
-            Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColors.gray_text_color.withOpacity(0.07)),
-                margin: EdgeInsets.symmetric(horizontal: 36),
-                padding: EdgeInsets.symmetric(horizontal: 21, vertical: 5),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _statusText(widget.status),
-                      Icon(
-                        Icons.arrow_drop_down_circle,
-                        color: AppColors.red_color,
-                        size: 20,
-                      )
-                    ]))
-          ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              _statusLabelText(),
+              Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColors.gray_text_color.withOpacity(0.07)),
+                  margin: EdgeInsets.symmetric(horizontal: 36),
+                  padding: EdgeInsets.symmetric(horizontal: 21, vertical: 5),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _statusText(widget.status),
+                        Icon(
+                          Icons.arrow_drop_down_circle,
+                          color: AppColors.red_color,
+                          size: 20,
+                        )
+                      ]))
+            ],
+          ),
         ),
       ),
     );

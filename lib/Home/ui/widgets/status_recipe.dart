@@ -16,7 +16,9 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.amber,
-      margin: EdgeInsets.symmetric(horizontal: 24),
+      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      //width: 360,
+      //margin: EdgeInsets.only(bottom: 10, top: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
