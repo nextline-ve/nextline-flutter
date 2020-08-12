@@ -77,8 +77,11 @@ flutter:
   assets:
     - assets/images/fondo_login.png
     - assets/images/fondo_home.png
+    - assets/images/fondo_app.png
+    - assets/images/fondo_top_tickets.png
     - assets/images/imagotipo.png
     - assets/images/info.svg
+    - assets/images/plus.svg
     - assets/images/logo_white.svg
     - assets/images/up-arrow.svg
     - assets/images/down-arrow.svg

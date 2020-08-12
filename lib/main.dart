@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       child: MaterialApp(
-        initialRoute: '/home',
+        initialRoute: '/tickets',
         routes: {
           '/': (context) => LoginScreen(),
           '/select-service': (context) => SelectServiceScreen(),
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           '/personal-form': (context) => PersonalFormScreen(),
           '/instalations': (context) => InstalationsScreen(),
           '/home': (context) => HomeScreen(),
+          '/tickets': (context) => HistoryTicketScreen(),
         },
       ),
       bloc: BlocAuth(),
