@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Home/ui/widgets/background_home.dart';
 import 'package:nextline/Home/ui/widgets/center_circle.dart';
 import 'package:nextline/Home/ui/widgets/service_text.dart';
 import 'package:nextline/Home/ui/widgets/status_recipe.dart';
@@ -7,6 +6,7 @@ import 'package:nextline/Home/ui/widgets/status_service.dart';
 import 'package:nextline/Home/ui/widgets/user_info.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/speed_container.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
@@ -31,7 +31,7 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          BackgroundHome(),
+          Background(path_image: "assets/images/fondo_home.png"),
           SingleChildScrollView(
             child:
               Column(

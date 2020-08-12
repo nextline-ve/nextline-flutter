@@ -14,7 +14,7 @@ class SelectServiceScreen extends StatelessWidget {
       ),
       body: Stack(
           children: [
-            Background(),
+            Background(path_image: "assets/images/bg.jpg"),
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.all(10),

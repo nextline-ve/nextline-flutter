@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Auth/ui/widgets/background_login.dart';
 import 'package:nextline/Auth/ui/widgets/form_login.dart';
 import 'package:nextline/Auth/ui/widgets/white_logo.dart';
+import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/line.dart';
 
@@ -20,7 +20,7 @@ class _LoginScreen extends State<LoginScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          BackgroundLogin(),
+          Background(path_image: "assets/images/fondo_login.png",),
           SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

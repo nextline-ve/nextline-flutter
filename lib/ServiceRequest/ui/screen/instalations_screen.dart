@@ -22,7 +22,7 @@ class _InstalationsScreen extends State<InstalationsScreen> {
       ),
       body: Stack(
         children: [
-          Background(),
+          Background(path_image: "assets/images/bg.jpg"),
           Container(
             padding: EdgeInsets.all(10),
             child: Column(
