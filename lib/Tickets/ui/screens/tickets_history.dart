@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/ui/widgets/add_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
+import 'package:nextline/Tickets/ui/widgets/tickets_history_scroll.dart';
 
 class HistoryTicketScreen extends StatefulWidget {
   final bool isClient = true;
@@ -23,7 +24,7 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
           BackgroundTickets(),
           Container(
             child: Column(
-              children: [AddTicketButton()],
+              children: [AddTicketButton(), TicketHistoryScroll()],
             ),
           )
         ],
