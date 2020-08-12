@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Bills/ui/widgets/colored_label.dart';
+import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
 class BillsScreen extends StatefulWidget {
@@ -11,55 +13,81 @@ class _BillsScreen extends State<BillsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        backgroundColor: Color.fromRGBO(0, 109, 186, 1),
       ),
       body: Stack(
         children: [
           Container(
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.only(top: 24),
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("LISTADO DE FACTURAS")
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.only(top: 64),
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(left: 24),
-                      child: Column(
-                        children: [
-                          Text("1 sqs s") ,
-                          Text("12/12/23") ,
-                        ],
-                      )
+                Text(
+                  "LISTADO DE FACTURAS",
+                  style: TextStyle(color: AppColors.blue, fontSize: 16),
+                ),
+                Container(
+                  child: Expanded(
+                    child: ListView(
+                      children: [_BillRow(), _BillRow()],
                     ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Text(" 2 poiu"),
-                          Text("23\$"),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 )
               ],
             ),
-          )
-
+          ),
         ],
       ),
-      
+    );
+  }
+
+  Widget _BillRow() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white70,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gray_shadow_color,
+              blurRadius: 20,
+              spreadRadius: 6,
+            )
+          ]),
+      alignment: Alignment.center,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Factura ${123123}",
+                style: TextStyle(color: AppColors.blue),
+              ),
+              Text("formated date"),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            textDirection: TextDirection.ltr,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              ColoredLabel(text: "2 poiu"),
+              Text("\$price /Bs.342423"),
+            ],
+          ),
+        )
+      ]),
     );
   }
 }
+
+
+

@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           '/personal-form': (context) => PersonalFormScreen(),
           '/instalations': (context) => InstalationsScreen(),
           '/home': (context) => HomeScreen(),
+          '/bills': (context) => BillsScreen(),
         },
       ),
       bloc: BlocAuth(),
