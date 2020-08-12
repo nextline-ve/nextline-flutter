@@ -44,7 +44,7 @@ class _BillsScreen extends State<BillsScreen> {
 
   Widget _BillRow() {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -79,7 +79,7 @@ class _BillsScreen extends State<BillsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ColoredLabel(text: "2 poiu"),
+              ColoredLabel(text: "2 poiu 123"),
               Text("\$price /Bs.342423"),
             ],
           ),
