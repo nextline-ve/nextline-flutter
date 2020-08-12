@@ -22,7 +22,7 @@ class _HUserInformationState extends State<HUserInformation> {
     return Padding(
       padding: EdgeInsets.only(bottom: 10),
       child: Container(
-        padding: EdgeInsets.only(left: 34, top: 26),
+        padding: EdgeInsets.only(left: 34, ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
