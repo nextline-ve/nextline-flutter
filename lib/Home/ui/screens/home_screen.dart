@@ -24,7 +24,9 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.blue,),
+      appBar: AppBar(
+        backgroundColor: AppColors.blue,
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[

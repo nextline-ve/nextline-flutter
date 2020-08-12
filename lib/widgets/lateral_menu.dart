@@ -13,53 +13,62 @@ class LateralMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _logo(),
-          _item("CAMBIO DE PLAN", "assets/images/cambioplan.svg"),
-          _item("FACTURACIÓN", "assets/images/facturacion.svg"),
-          _item("ASISTENCIA TÉCNICA", "assets/images/asistenciatecnica.svg"),
+          _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
+              "change-plan"),
+          _item(context, "FACTURACIÓN", "assets/images/facturacion.svg",
+              "invoces"),
+          _item(context, "ASISTENCIA TÉCNICA",
+              "assets/images/asistenciatecnica.svg", "tickets"),
           _closed(),
         ],
       ),
     );
   }
 
-  Widget _item(String title, String path_icon) {
-    return Center(
-      child: Container(
-        width: 230,
-        margin: EdgeInsets.only(top: 20),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(204, 223, 238, 1),
-              spreadRadius: 4,
-              blurRadius: 14,
-              offset: Offset(0, 8), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: SvgPicture.asset(
-                path_icon,
-                color: AppColors.blue_dark,
+  Widget _item(context, String title, String pathIcon, String url) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, "/${url}");
+      },
+      child: Center(
+        child: Container(
+          width: 230,
+          margin: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(204, 223, 238, 1),
+                spreadRadius: 4,
+                blurRadius: 14,
+                offset: Offset(0, 8), // changes position of shadow
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 14, bottom: 10),
-              child: Text(
-                title,
-                style: TextStyle(
-                    color: AppColors.blue_dark,
-                    fontFamily: AppFonts.poppins_regular,
-                    fontSize: 17),
+            ],
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: SvgPicture.asset(
+                  pathIcon,
+                  color: AppColors.blue_dark,
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.only(top: 14, bottom: 10),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      color: AppColors.blue_dark,
+                      fontFamily: AppFonts.poppins_regular,
+                      fontSize: 17),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

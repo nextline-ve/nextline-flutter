@@ -50,7 +50,9 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  void _setLogin() {}
+  void _setLogin() {
+    Navigator.pushReplacementNamed(context, '/home');
+  }
 
   void _serviceRequest() {
     Navigator.pushNamed(context, '/select-service');
