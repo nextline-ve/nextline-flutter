@@ -122,7 +122,7 @@ class LateralMenu extends StatelessWidget {
   Widget _logo() {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(top: 80, bottom: 30),
+        margin: EdgeInsets.only(top: 40, bottom: 30),
         width: 220,
         height: 70,
         decoration: BoxDecoration(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
