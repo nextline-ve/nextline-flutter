@@ -8,6 +8,7 @@ import 'package:nextline/Home/ui/widgets/user_info.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/speed_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool isClient = true;
@@ -31,27 +32,31 @@ class _HomeScreen extends State<HomeScreen> {
         alignment: Alignment.center,
         children: <Widget>[
           BackgroundHome(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              HUserInformation(
-                userName: widget.userName,
-              ),
-              HServiceType(title: "Residencial"),
-              HCirclePlan(),
-              Padding(
-                padding:
+          SingleChildScrollView(
+            child:
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  HUserInformation(
+                    userName: widget.userName,
+                  ),
+                  HServiceType(title: "Residencial"),
+                  HCirclePlan(),
+                  Padding(
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-                child: SpeedContainer(
-                  download_speed: "15Mb",
-                  upload_speed: "5MB",
-                ),
+                    child: SpeedContainer(
+                      download_speed: "15Mb",
+                      upload_speed: "5MB",
+                    ),
+                  ),
+                  !widget.isClient ? HStatusService() : HStatusRecipe(),
+                ],
               ),
-              !widget.isClient ? HStatusService() : HStatusRecipe(),
-            ],
-          ),
+          )
         ],
       ),
+      bottomNavigationBar: NavigatorBar(),
       endDrawer: LateralMenu(),
     );
   }
