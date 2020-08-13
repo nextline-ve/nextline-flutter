@@ -47,17 +47,19 @@ class _BillsScreen extends State<BillsScreen> {
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white70,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.gray_shadow_color,
-              blurRadius: 20,
-              spreadRadius: 6,
-            )
-          ]),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white70,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.gray_shadow_color,
+            blurRadius: 20,
+            spreadRadius: 6,
+          )
+        ]
+      ),
       alignment: Alignment.center,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Expanded(
           flex: 1,
           child: Column(
