@@ -33,7 +33,9 @@ class _BillsScreen extends State<BillsScreen> {
                 Container(
                   child: Expanded(
                     child: ListView(
-                      children: [_BillRow(), _BillRow()],
+                      children: [
+                        _BillRow(123123, "2000-12-12", 12, 12321, "Ok"),
+                        _BillRow(67823123, "2000-12-12", 22,87, "Fail")],
                     ),
                   ),
                 )
@@ -45,7 +47,7 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  Widget _BillRow() {
+  Widget _BillRow(bill_id, bill_date, bill_dolar_price, bill_bolivar_price, bill_status) {
     return Container(
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(bottom: 10),
@@ -70,10 +72,10 @@ class _BillsScreen extends State<BillsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Factura ${123123}",
+                "Factura ${bill_id}",
                 style: TextStyle(color: AppColors.blue),
               ),
-              Text("formated date"),
+              Text(bill_date),
             ],
           ),
         ),
@@ -84,8 +86,8 @@ class _BillsScreen extends State<BillsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ColoredLabel(text: "2 poiu 123"),
-              Text("\$price /Bs.342423"),
+              ColoredLabel(text: bill_status),
+              Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}"),
             ],
           ),
         )
