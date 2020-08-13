@@ -37,7 +37,7 @@ class _ButtonIconState extends State<ButtonIcon> {
             BoxShadow(
                 blurRadius: 10,
                 color: Colors.black.withOpacity(0.26),
-                offset: Offset(0, 10),
+                offset: Offset(0, this.widget.height * 10 / 80),
                 spreadRadius: 3)
           ]),
       child: Row(
