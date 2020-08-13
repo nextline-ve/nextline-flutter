@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class JButton extends StatefulWidget {
   final String label;
+  final labelColor;
   final background;
   final VoidCallback onTab;
   final double top;
@@ -11,6 +12,7 @@ class JButton extends StatefulWidget {
       @required this.label,
       @required this.onTab,
       @required this.top,
+      this.labelColor,
       this.background})
       : super(key: key);
 
@@ -25,6 +27,8 @@ class _JButton extends State<JButton> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    print("widget.labelColor");
+    print(widget.labelColor);
     return Container(
       height: 60.0,
       margin: EdgeInsets.only(top: widget.top, left: 10.0, right: 10.0),
@@ -48,11 +52,12 @@ class _JButton extends State<JButton> {
                   widget.label,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 16.0, fontFamily: "fontTitle", color: Colors.white),
+                      fontSize: 16.0,
+                      fontFamily: "fontTitle",
+                      color: (widget.labelColor == null)? Colors.white : widget.labelColor),
                 ),
               ),
-            )
-        ),
+            )),
       ),
     );
   }
