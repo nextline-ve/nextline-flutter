@@ -10,6 +10,22 @@ class BillDetails extends StatefulWidget {
 class _BillDetailsState extends State<BillDetails> {
   @override
   Widget build(BuildContext context) {
+
+    var myTableRow =
+      TableRow(
+        children: [
+          TableCell(
+            child: Text("Item #2", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+          ),
+          TableCell(
+            child: Text("20", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+          ),
+          TableCell(
+            child: Text("123.000.123", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
+          ),
+        ]
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
@@ -48,11 +64,65 @@ class _BillDetailsState extends State<BillDetails> {
                     ),
                   ],
                 ),
-                Table(
-                  children: [
-                    
-                  ],
-                )
+                Container(
+                  margin: EdgeInsets.only(top: 40),
+                  child: Table(
+                    border: TableBorder(
+                      verticalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
+                      horizontalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
+                    ),
+                    columnWidths: {
+                      0: FractionColumnWidth(0.5)
+                    },
+                    children: [
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("Decripcion", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400),),
+                            ),
+                          ),
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("Total Dolar", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400),),
+                            ),
+                          ),
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("Total Bs.", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400 ),),
+                            ),
+                          ),
+                        ]
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("Item #1", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+                            ),
+                          ),
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("10", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+                            ),
+                          ),
+                          TableCell(
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              child: Text("100.000.000", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
+                            ),
+                          ),
+                        ]
+                      ),
+//                      myTableRow
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -60,4 +130,5 @@ class _BillDetailsState extends State<BillDetails> {
       ),
     );
   }
+
 }
