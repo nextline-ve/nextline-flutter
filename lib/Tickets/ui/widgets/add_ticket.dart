@@ -47,14 +47,12 @@ class AddTicketButton extends StatelessWidget {
                       AppColors.blue,
                       AppColors.blue_dark,
                     ])),
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset("assets/images/plus.svg",
-                      height: 38, color: AppColors.white_color),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/images/plus.svg",
+                    height: 38, color: AppColors.white_color),
+              ],
             ),
           ),
           Column(
