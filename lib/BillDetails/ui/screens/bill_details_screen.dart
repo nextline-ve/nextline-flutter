@@ -14,16 +14,25 @@ class _BillDetailsState extends State<BillDetails> {
     var myTableRow =
       TableRow(
         children: [
-          TableCell(
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
             child: Text("Item #2", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
           ),
-          TableCell(
+        ),
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
             child: Text("20", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
           ),
-          TableCell(
+        ),
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
             child: Text("123.000.123", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
           ),
-        ]
+        ),
+      ]
     );
 
     return Scaffold(
@@ -119,7 +128,44 @@ class _BillDetailsState extends State<BillDetails> {
                           ),
                         ]
                       ),
-//                      myTableRow
+                      myTableRow
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 50),
+                  child: Center(
+                    child: Text("Total a pagar", style: TextStyle(color: AppColors.blue, fontSize: 21),),
+                  ),
+                ),
+                Container(
+                  child: Table(
+                    border: TableBorder(
+                      verticalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
+                      horizontalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
+                    ),
+                    columnWidths: {
+                      0: FractionColumnWidth(0.5)
+                    },
+                    children: [
+                      TableRow(),
+                      TableRow(),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Text("DESCARGAR FACTURA", style: TextStyle(color: AppColors.blue, fontSize: 10)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 14),
+                        child: Center(
+                          child: Text("icon"),
+                        ),
+                      ),
                     ],
                   ),
                 ),
