@@ -23,9 +23,12 @@ class _Chat extends State<Chat> {
         children: <Widget>[
           Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [_message()],
+              children: [
+                _message("", "", "", true),
+                _message("", "", "", false)
+              ],
             ),
           )
         ],
@@ -68,37 +71,53 @@ Widget _messageContent(String text) {
   );
 }
 
-Widget _message() {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Icon(
+Widget _message(String text, String username, String date, bool isLeft) {
+  List<Widget> children = [
+    Container(
+      transform: Matrix4.translationValues(0, 10, 0),
+      child: Icon(
         Icons.account_circle,
         size: 50,
       ),
-      Icon(Icons.arrow_left,
-          size: 50, color: AppColors.light_gray_color.withOpacity(0.10)),
-      Expanded(
-          child: Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: AppColors.light_gray_color.withOpacity(0.10),
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              _nameLabel("Alberto Zambrano"),
-              _dateLabel("01/08/2020"),
-            ]),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: _messageContent(
-                    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et."))
-          ],
-        ),
-      ))
-    ],
+    ),
+    Container(
+      transform: Matrix4.translationValues(isLeft ? -15 : 15, 10, 0),
+      child: Icon(isLeft ? Icons.arrow_left : Icons.arrow_right,
+          size: 50,
+          color: isLeft
+              ? AppColors.light_gray_color.withOpacity(0.10)
+              : AppColors.ligth_blue_color.withOpacity(0.1)),
+    ),
+    Expanded(
+        child: Container(
+      transform: Matrix4.translationValues(isLeft ? -35.5 : 35.5, 0, 0),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: isLeft
+              ? AppColors.light_gray_color.withOpacity(0.10)
+              : AppColors.ligth_blue_color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            _nameLabel("Alberto Zambrano"),
+            _dateLabel("01/08/2020"),
+          ]),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: _messageContent(
+                  "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et."))
+        ],
+      ),
+    ))
+  ];
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: isLeft ? children : children.reversed.toList()),
   );
 }
