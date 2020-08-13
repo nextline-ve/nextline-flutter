@@ -25,7 +25,9 @@ class _BillDetailsState extends State<BillDetails> {
         TableCell(
           child: Container(
             margin: EdgeInsets.all(10),
-            child: Text("20", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+            child: Center(
+              child: Text("20", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+            ),
           ),
         ),
         TableCell(
@@ -38,26 +40,28 @@ class _BillDetailsState extends State<BillDetails> {
     );
 
     var myTableRow2 = TableRow(
-        children: [
-          TableCell(
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Text("Item #1", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-            ),
+      children: [
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Text("Item #1", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
           ),
-          TableCell(
-            child: Container(
-              margin: EdgeInsets.all(10),
+        ),
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Center(
               child: Text("10", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
             ),
           ),
-          TableCell(
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Text("100.000.000", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
-            ),
+        ),
+        TableCell(
+          child: Container(
+            margin: EdgeInsets.all(10),
+            child: Text("100.000.000", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
           ),
-        ]
+        ),
+      ]
     );
 
     return Scaffold(
