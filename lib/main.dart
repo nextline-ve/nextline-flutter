@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       child: MaterialApp(
-        initialRoute: '/chat',
+        initialRoute: '/tickets',
         routes: {
           '/': (context) => LoginScreen(),
           '/select-service': (context) => SelectServiceScreen(),
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => HomeScreen(),
           '/tickets': (context) => HistoryTicketScreen(),
           '/create-ticket': (context) => CreateTicketScreen(),
-          '/created-ticket': (context) => CreatedTicketScreen(),
+          '/success-create-ticket': (context) => CreatedTicketScreen(),
           '/chat': (context) => Chat(),
         },
       ),

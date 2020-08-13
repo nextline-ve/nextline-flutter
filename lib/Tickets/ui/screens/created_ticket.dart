@@ -18,6 +18,13 @@ class _CreatedTicketScreen extends State<CreatedTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'Asistencia técnica',
+          style: TextStyle(fontFamily: AppFonts.input),
+        ),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[

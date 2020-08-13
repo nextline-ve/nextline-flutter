@@ -20,6 +20,13 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'Asistencia técnica',
+          style: TextStyle(fontFamily: AppFonts.input),
+        ),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -45,14 +52,17 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 24),
+                      Container(
+                        margin:
+                            EdgeInsets.only(left: 24, right: 24, bottom: 14),
                         child: ButtonIcon(
-                            icon: Icons.send,
-                            text: "VER TICKET",
-                            background: AppColors.green_color,
-                            height: 60),
+                          icon: Icons.send,
+                          text: "VER TICKET",
+                          background: AppColors.green_color,
+                          height: 60,
+                          onTab: () => Navigator.pushReplacementNamed(
+                              context, '/success-create-ticket'),
+                        ),
                       ),
                     ],
                   ),
