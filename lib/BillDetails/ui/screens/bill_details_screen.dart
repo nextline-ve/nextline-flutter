@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nextline/Bills/ui/widgets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
@@ -214,6 +215,7 @@ class _BillDetailsState extends State<BillDetails> {
                             child: JButton(
                               label: "Pagar en dolar",
                               labelColor: AppColors.blue_dark,
+                              buttonHeight: 40.0,
                               borderColor: AppColors.blue_dark,
 //                              onTab: _serviceRequest,
                               top: 10,
@@ -228,6 +230,7 @@ class _BillDetailsState extends State<BillDetails> {
                           child: JButton(
                             label: "Pagar en Bs",
                             labelColor: AppColors.blue_dark,
+                            buttonHeight: 40.0,
                             borderColor: AppColors.blue_dark,
 //                              onTab: _serviceRequest,
                             top: 10,
@@ -253,13 +256,19 @@ class _BillDetailsState extends State<BillDetails> {
           Center(
             child: Text("DESCARGAR FACTURA", style: TextStyle(color: AppColors.blue, fontSize: 10)),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 14),
-            child: Center(
-              child: Text("icon"),
-            ),
-          ),
+          _DownloadBill(),
         ],
+      ),
+    );
+  }
+
+  Widget _DownloadBill(){
+    return Container(
+      margin: EdgeInsets.only(top: 14),
+      child: Center(
+        child: InkWell(
+          child: SvgPicture.asset("assets/images/icon_download.svg", color: AppColors.blue_dark, height: 23,),
+        ),
       ),
     );
   }

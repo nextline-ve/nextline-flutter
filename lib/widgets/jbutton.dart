@@ -7,6 +7,7 @@ class JButton extends StatefulWidget {
   final borderColor;
   final VoidCallback onTab;
   final double top;
+  final double buttonHeight;
 
   const JButton(
       {Key key,
@@ -15,6 +16,7 @@ class JButton extends StatefulWidget {
       @required this.top,
       this.labelColor,
       this.borderColor,
+      this.buttonHeight,
       this.background})
       : super(key: key);
 
@@ -30,7 +32,9 @@ class _JButton extends State<JButton> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 60.0,
+      height: (widget.buttonHeight == null) 
+        ? 60.0
+        : widget.buttonHeight,
       margin: EdgeInsets.only(top: widget.top, left: 10.0, right: 10.0),
       decoration: BoxDecoration(
         border: (widget.borderColor == null) 
