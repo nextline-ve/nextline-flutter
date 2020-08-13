@@ -90,7 +90,7 @@ class _BillDetailsState extends State<BillDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          ColoredLabel(text: "2 poiu 123"),
+                          ColoredLabel(text: "32 poiu 123"),
                           Container(
                             padding: EdgeInsets.fromLTRB(0,7,0,0),
                             child: Text("formated date"),
