@@ -19,13 +19,16 @@ class _BillsScreen extends State<BillsScreen> {
         children: [
           Container(
             padding: EdgeInsets.all(10),
-            margin: EdgeInsets.only(top: 24),
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "LISTADO DE FACTURAS",
                   style: TextStyle(color: AppColors.blue, fontSize: 16),
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 27),
                 ),
                 Container(
                   child: Expanded(
