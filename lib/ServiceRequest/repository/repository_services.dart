@@ -7,14 +7,14 @@ import 'package:nextline/utils/app_http.dart';
 
 class RepositoryServices extends AppHttp{
 
-  List<ModelServices> parseService(String responseBody) {
-    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  List<ModelServices> parseService(jsonResponse) {
+    final parsed = jsonResponse.cast<Map<String, dynamic>>();
     return parsed.map<ModelServices>((json) => ModelServices.fromJson(json)).toList();
   }
 
   Future <List<ModelServices>> getListServices() async {
     Response resp = await http.get(api + 'config/tipo-servicios/');
-    return parseService(jsonEncode(resp.data['results']));
+    return parseService(resp.data['results']);
 
   }
 }
