@@ -214,6 +214,7 @@ class _BillDetailsState extends State<BillDetails> {
                             child: JButton(
                               label: "Pagar en dolar",
                               labelColor: AppColors.blue_dark,
+                              borderColor: AppColors.blue_dark,
 //                              onTab: _serviceRequest,
                               top: 10,
                               background: AppColors.white_color,
@@ -227,6 +228,7 @@ class _BillDetailsState extends State<BillDetails> {
                           child: JButton(
                             label: "Pagar en Bs",
                             labelColor: AppColors.blue_dark,
+                            borderColor: AppColors.blue_dark,
 //                              onTab: _serviceRequest,
                             top: 10,
                             background: AppColors.white_color,

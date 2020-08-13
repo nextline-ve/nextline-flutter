@@ -4,6 +4,7 @@ class JButton extends StatefulWidget {
   final String label;
   final labelColor;
   final background;
+  final borderColor;
   final VoidCallback onTab;
   final double top;
 
@@ -13,6 +14,7 @@ class JButton extends StatefulWidget {
       @required this.onTab,
       @required this.top,
       this.labelColor,
+      this.borderColor,
       this.background})
       : super(key: key);
 
@@ -27,12 +29,13 @@ class _JButton extends State<JButton> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    print("widget.labelColor");
-    print(widget.labelColor);
     return Container(
       height: 60.0,
       margin: EdgeInsets.only(top: widget.top, left: 10.0, right: 10.0),
       decoration: BoxDecoration(
+        border: (widget.borderColor == null) 
+          ? Border.all(color: Colors.blueAccent)
+          :  Border.all(color: widget.borderColor) ,
         borderRadius: BorderRadius.circular(25.0),
         color: (widget.background == null)
             ? Color.fromRGBO(82, 192, 242, 1)
@@ -54,7 +57,9 @@ class _JButton extends State<JButton> {
                   style: TextStyle(
                       fontSize: 16.0,
                       fontFamily: "fontTitle",
-                      color: (widget.labelColor == null)? Colors.white : widget.labelColor),
+                      color: (widget.labelColor == null)
+                        ? Colors.white 
+                        : widget.labelColor),
                 ),
               ),
             )),
