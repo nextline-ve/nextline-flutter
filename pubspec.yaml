@@ -27,6 +27,7 @@ dependencies:
   generic_bloc_provider: ^1.0.9
   firebase_messaging: ^6.0.16
   cloud_firestore: ^0.13.7
+  dio: ^3.0.10
   flutter:
     sdk: flutter
 
