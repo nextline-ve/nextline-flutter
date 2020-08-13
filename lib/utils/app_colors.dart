@@ -33,4 +33,7 @@ class AppColors {
 
   /// #464545
   static const Color gray_text_color = Color(0xFF464545);
+
+  /// #0C0C0C
+  static const Color black_color = Color(0xFF0C0C0C);
 }
