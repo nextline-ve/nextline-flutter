@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 
@@ -18,7 +20,7 @@ class FormLogin extends StatefulWidget {
 class _FormLogin extends State<FormLogin> {
   BlocAuth blocAuth;
   final _formKey = GlobalKey<FormState>();
-  final messageLogin = StreamController<String>();
+  final streamMessageLogin = StreamController<String>();
   String _email;
   String _pass;
   bool _makeRequest = false;
@@ -29,7 +31,7 @@ class _FormLogin extends State<FormLogin> {
   @override
   void initState() {
     super.initState();
-    messageLogin.stream.forEach((message) {
+    streamMessageLogin.stream.forEach((message) {
       if (message == "Bienvenido") {
         Navigator.pushReplacementNamed(context, "/home");
       }
@@ -41,7 +43,7 @@ class _FormLogin extends State<FormLogin> {
 
   @override
   void dispose() {
-    messageLogin.close();
+    streamMessageLogin.close();
     super.dispose();
   }
 
@@ -106,15 +108,15 @@ class _FormLogin extends State<FormLogin> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   _makeRequest = false;
-                  messageLogin.add(snapshot.error.toString());
+                  streamMessageLogin.add(snapshot.error.toString());
                 } else {
                   if (snapshot.hasData && snapshot.data) {
-                    messageLogin.add("Bienvenido");
+                    streamMessageLogin.add("Bienvenido");
                   }
                 }
 
                 return JButton(
-                  label: _makeRequest ? "Procesado los datos.." : "INGRESAR",
+                  label: "INGRESAR",
                   onTab: _setMakeLogin,
                   top: 30,
                   background: AppColors.green_color,
@@ -136,13 +138,11 @@ class _FormLogin extends State<FormLogin> {
     form.save();
     if (!form.validate()) {
       Scaffold.of(context).showSnackBar(SnackBar(content: Text('Verifique que haya cargado los datos correctamente')));
-
       return;
     }
     _makeRequest = true;
-
+    AppHttp.requestIndicator(context);
     blocAuth.dataForLogin.add({'email': _email, 'clave': _pass});
-
   }
 
 }
