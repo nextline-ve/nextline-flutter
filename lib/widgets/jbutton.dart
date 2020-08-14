@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class JButton extends StatefulWidget {
   final String label;
   final labelColor;
-  final background;
   final borderColor;
+  final Color background;
   final VoidCallback onTab;
   final double top;
   final double buttonHeight;
@@ -31,13 +33,19 @@ class _JButton extends State<JButton> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    return ButtonTheme(
+      minWidth: 380,
+      height: 60,
+      disabledColor: Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
     return Container(
-      height: (widget.buttonHeight == null) 
+      height: (widget.buttonHeight == null)
         ? 60.0
         : widget.buttonHeight,
       margin: EdgeInsets.only(top: widget.top, left: 10.0, right: 10.0),
       decoration: BoxDecoration(
-        border: (widget.borderColor == null) 
+        border: (widget.borderColor == null)
           ? Border.all(color: Colors.blueAccent)
           :  Border.all(color: widget.borderColor) ,
         borderRadius: BorderRadius.circular(25.0),
@@ -45,6 +53,17 @@ class _JButton extends State<JButton> {
             ? Color.fromRGBO(82, 192, 242, 1)
             : widget.background,
       ),
+      child: Padding(
+          padding: EdgeInsets.all(20),
+          child: RaisedButton(
+            onPressed: widget.onTab,
+            color: (widget.background == null) ? AppColors.ligth_blue_color : widget.background,
+            child: Text(
+              widget.label,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontFamily: AppFonts.fontTitle),
+            ),
+          )),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -62,7 +81,7 @@ class _JButton extends State<JButton> {
                       fontSize: 16.0,
                       fontFamily: "fontTitle",
                       color: (widget.labelColor == null)
-                        ? Colors.white 
+                        ? Colors.white
                         : widget.labelColor),
                 ),
               ),

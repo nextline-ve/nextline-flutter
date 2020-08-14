@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nextline/utils/app_colors.dart';
 
 class SpeedContainer extends StatefulWidget {
   final String download_speed;
@@ -26,12 +28,8 @@ class _SpeedContainerState extends State<SpeedContainer> {
               Container(
                 height: 30,
                 width: 20,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/up-arrow.svg"),
-                  ),
-                ),
+                child: SvgPicture.asset("assets/images/up-arrow.svg",
+                    color: AppColors.green_color),
               ),
               Text(widget.upload_speed,
                   style: TextStyle(
@@ -48,12 +46,8 @@ class _SpeedContainerState extends State<SpeedContainer> {
               Container(
                 height: 30,
                 width: 20,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/down-arrow.svg"),
-                  ),
-                ),
+                child: SvgPicture.asset("assets/images/down-arrow.svg",
+                    color: AppColors.green_color),
               ),
               Text(widget.download_speed,
                   style: TextStyle(

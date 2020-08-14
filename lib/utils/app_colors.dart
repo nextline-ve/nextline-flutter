@@ -36,4 +36,10 @@ class AppColors {
 
   /// #005FAB33
   static const Color gray_shadow_color = Color(0x1E005FAB);
+
+  /// #0C0C0C
+  static const Color black_color = Color(0xFF0C0C0C);
+
+  /// #828282
+  static const Color light_gray_color = Color(0x828282);
 }
