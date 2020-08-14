@@ -24,18 +24,20 @@ class JButton extends StatefulWidget {
 }
 
 class _JButton extends State<JButton> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ButtonTheme(
       minWidth: 380,
       height: 60,
+      disabledColor: Colors.grey,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
       child: Padding(
           padding: EdgeInsets.all(20),
           child: RaisedButton(
-            shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(30.0),
-            ),
             onPressed: widget.onTab,
             color: (widget.background == null) ? AppColors.ligth_blue_color : widget.background,
             child: Text(

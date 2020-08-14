@@ -15,8 +15,16 @@ class _FormLogin extends State<FormLogin> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String pass;
+  bool _makeRequest;
+
   final RegExp emailRegex = new RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+
+  @override
+  void initState() {
+    super.initState();
+    _makeRequest = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,21 +80,28 @@ class _FormLogin extends State<FormLogin> {
                 ),
               ),
             ),
-            JButton(label: "INGRESAR", onTab: _setLogin, top: 30, background: AppColors.green_color,),
+            JButton(
+              label: "INGRESAR",
+              onTab: _makeRequest ? null : _setMakeLogin,
+              top: 30,
+              background: AppColors.green_color,
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _setLogin() {
-    print(_formKey.toString());
-    if (_formKey.currentState.validate()) {
-      // If the form is valid, display a snackbar. In the real world,
-      // you'd often call a server or save the information in a database.
+  void _setMakeLogin() {
+    if (!_formKey.currentState.validate()) {
 
       Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Processing Data')));
+          .showSnackBar(SnackBar(content: Text('Verifique que haya cargado los datos correctamente')));
+      return;
     }
+
+    setState(() {
+      _makeRequest = true;
+    });
   }
 }
