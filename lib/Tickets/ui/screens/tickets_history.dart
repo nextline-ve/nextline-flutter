@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/ui/widgets/add_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/Tickets/ui/widgets/tickets_history_scroll.dart';
+import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 class HistoryTicketScreen extends StatefulWidget {
   final bool isClient = true;
@@ -18,6 +22,13 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'Asistencia técnica',
+          style: TextStyle(fontFamily: AppFonts.input),
+        ),
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -29,6 +40,8 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
           )
         ],
       ),
+      endDrawer: LateralMenu(),
+      bottomNavigationBar: NavigatorBar(),
     );
   }
 }
