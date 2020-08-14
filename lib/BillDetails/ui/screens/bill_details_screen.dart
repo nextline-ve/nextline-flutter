@@ -28,7 +28,7 @@ class _BillDetailsState extends State<BillDetails> {
             margin: EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
-                ItemDetailHeader(label: "My Invoice", id: "#123", status: "aproved", date: "12/10/2020"),
+                ItemDetailHeader(label: "My Invoice!", id: "#123", status: "aproved", date: "12/10/2020"),
                 BillsTable(data: []),
                 _BillResume(),
                 _BillFooter(),
