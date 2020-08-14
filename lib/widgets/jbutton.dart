@@ -4,12 +4,12 @@ import 'package:nextline/utils/app_fonts.dart';
 
 class JButton extends StatefulWidget {
   final String label;
-  final labelColor;
-  final borderColor;
   final Color background;
   final VoidCallback onTab;
   final double top;
-  final double buttonHeight;
+  final labelColor;
+  final borderColor;
+  final buttonHeight;
 
   const JButton(
       {Key key,
@@ -30,28 +30,16 @@ class JButton extends StatefulWidget {
 }
 
 class _JButton extends State<JButton> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ButtonTheme(
       minWidth: 380,
       height: 60,
-      disabledColor: Colors.grey,
+      disabledColor: AppColors.gray_text_color,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
-    return Container(
-      height: (widget.buttonHeight == null)
-        ? 60.0
-        : widget.buttonHeight,
-      margin: EdgeInsets.only(top: widget.top, left: 10.0, right: 10.0),
-      decoration: BoxDecoration(
-        border: (widget.borderColor == null)
-          ? Border.all(color: Colors.blueAccent)
-          :  Border.all(color: widget.borderColor) ,
-        borderRadius: BorderRadius.circular(25.0),
-        color: (widget.background == null)
-            ? Color.fromRGBO(82, 192, 242, 1)
-            : widget.background,
       ),
       child: Padding(
           padding: EdgeInsets.all(20),
@@ -64,29 +52,6 @@ class _JButton extends State<JButton> {
               style: TextStyle(color: Colors.white, fontFamily: AppFonts.fontTitle),
             ),
           )),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-            onTap: widget.onTab,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              child: Center(
-                child: Text(
-                  widget.label,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: "fontTitle",
-                      color: (widget.labelColor == null)
-                        ? Colors.white
-                        : widget.labelColor),
-                ),
-              ),
-            )),
-      ),
     );
   }
 }
