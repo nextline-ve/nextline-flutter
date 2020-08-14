@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Bills/ui/widgets/colored_label.dart';
+import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
@@ -9,6 +9,7 @@ class BillsScreen extends StatefulWidget {
 }
 
 class _BillsScreen extends State<BillsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,51 +49,58 @@ class _BillsScreen extends State<BillsScreen> {
   }
 
   Widget _BillRow(bill_id, bill_date, bill_dolar_price, bill_bolivar_price, bill_status) {
-    return Container(
-      padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white70,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.gray_shadow_color,
-            blurRadius: 20,
-            spreadRadius: 6,
-          )
-        ]
-      ),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Factura ${bill_id}",
-                style: TextStyle(color: AppColors.blue),
-              ),
-              Text(bill_date),
-            ],
-          ),
+    return InkWell(
+      onTap: _showDetails,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white70,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gray_shadow_color,
+              blurRadius: 20,
+              spreadRadius: 6,
+            )
+          ]
         ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            textDirection: TextDirection.ltr,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ColoredLabel(text: bill_status),
-              Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}"),
-            ],
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Factura ${bill_id}",
+                  style: TextStyle(color: AppColors.blue),
+                ),
+                Text(bill_date),
+              ],
+            ),
           ),
-        )
-      ]),
+          Expanded(
+            flex: 1,
+            child: Column(
+              textDirection: TextDirection.ltr,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ColoredLabel(text: bill_status),
+                Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}"),
+              ],
+            ),
+          )
+        ]),
+      ),
     );
+  }
+
+  void _showDetails() {
+    Navigator.pushNamed(context, '/bill-details');
   }
 }
 

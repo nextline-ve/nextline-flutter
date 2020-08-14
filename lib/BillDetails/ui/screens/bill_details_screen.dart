@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nextline/Bills/ui/widgets/colored_label.dart';
+import 'package:nextline/BillDetails/ui/wdigets/bills_table.dart';
+import 'package:nextline/BillDetails/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
@@ -13,57 +17,6 @@ class _BillDetailsState extends State<BillDetails> {
   @override
   Widget build(BuildContext context) {
 
-    var myTableRow =
-      TableRow(
-        children: [
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text("Item #2", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Center(
-              child: Text("20", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-            ),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text("123.000.123", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
-          ),
-        ),
-      ]
-    );
-
-    var myTableRow2 = TableRow(
-      children: [
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text("Item #1", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Center(
-              child: Text("10", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-            ),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text("100.000.000", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
-          ),
-        ),
-      ]
-    );
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
@@ -75,74 +28,8 @@ class _BillDetailsState extends State<BillDetails> {
             margin: EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Factura", style: TextStyle(color: AppColors.blue, fontSize: 21),),
-                          Text("#56757567", style: TextStyle(color: AppColors.blue_dark, fontSize: 23),),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          ColoredLabel(text: "32 poiu 123"),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0,7,0,0),
-                            child: Text("formated date"),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 40),
-                  child: Table(
-                    border: TableBorder(
-                      verticalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
-                      horizontalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
-                    ),
-                    columnWidths: {
-                      0: FractionColumnWidth(0.5)
-                    },
-                    children: [
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              child: Text("Decripcion", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400),),
-                            ),
-                          ),
-                          TableCell(
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              child: Text("Total Dolar", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400),),
-                            ),
-                          ),
-                          TableCell(
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              child: Text("Total Bs.", style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.w400 ),),
-                            ),
-                          ),
-                        ]
-                      ),
-                      myTableRow,
-                      myTableRow2,
-                    ],
-                  ),
-                ),
+                ItemDetailHeader(label: "My Invoice", id: "#123", status: "aproved", date: "12/10/2020"),
+                BillsTable(data: []),
                 _BillResume(),
                 _BillFooter(),
               ],
@@ -221,7 +108,7 @@ class _BillDetailsState extends State<BillDetails> {
                               labelColor: AppColors.blue_dark,
                               buttonHeight: 40.0,
                               borderColor: AppColors.blue_dark,
-//                              onTab: _serviceRequest,
+                              onTab: _payInDolar,
                               top: 10,
                               background: AppColors.white_color,
                             ),
@@ -236,7 +123,7 @@ class _BillDetailsState extends State<BillDetails> {
                             labelColor: AppColors.blue_dark,
                             buttonHeight: 40.0,
                             borderColor: AppColors.blue_dark,
-//                              onTab: _serviceRequest,
+                              onTab: _payInBolivar,
                             top: 10,
                             background: AppColors.white_color,
                           ),
@@ -271,10 +158,23 @@ class _BillDetailsState extends State<BillDetails> {
       margin: EdgeInsets.only(top: 14),
       child: Center(
         child: InkWell(
+          onTap: _downloadBill,
           child: SvgPicture.asset("assets/images/icon_download.svg", color: AppColors.blue_dark, height: 23,),
         ),
       ),
     );
+  }
+
+  Void _payInDolar(){
+    print("_payInDolar");
+  }
+
+  Void _payInBolivar(){
+    print("_payInBolivar");
+  }
+
+  Void _downloadBill(){
+    print("_downloadBill");
   }
 
 }
