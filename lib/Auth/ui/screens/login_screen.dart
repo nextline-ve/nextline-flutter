@@ -5,6 +5,7 @@ import 'package:nextline/Auth/ui/widgets/form_login.dart';
 import 'package:nextline/Auth/ui/widgets/white_logo.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/line.dart';
@@ -22,22 +23,10 @@ class _LoginScreen extends State<LoginScreen> {
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
     // TODO: implement build
-    return _handleCurrentSession();
+    return (AppSession.data == null) ? loginUI() : HomeScreen();
   }
 
-  Widget _handleCurrentSession() {
-    return StreamBuilder(
-      stream: blocAuth.isActiveSession,
-      builder: (context, AsyncSnapshot snapshot)  {
-        if (snapshot.hasData  && snapshot.data) {
-          return HomeScreen();
-        }
-
-        return loginUI();
-      }
-    );
-  }
-
+  
   Widget loginUI() {
     return Scaffold(
       body: Stack(
