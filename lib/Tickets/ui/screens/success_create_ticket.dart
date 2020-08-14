@@ -4,17 +4,17 @@ import 'package:nextline/Tickets/ui/widgets/button_icon.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
-class CreatedTicketScreen extends StatefulWidget {
+class SuccessCreateTicketScreen extends StatefulWidget {
   final bool isClient = true;
   final String userName = "oscar castillejo";
 
   @override
   State<StatefulWidget> createState() {
-    return _CreatedTicketScreen();
+    return _SuccessCreateTicketScreen();
   }
 }
 
-class _CreatedTicketScreen extends State<CreatedTicketScreen> {
+class _SuccessCreateTicketScreen extends State<SuccessCreateTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class _CreatedTicketScreen extends State<CreatedTicketScreen> {
                 _titleView("Su ticket se ha \n creado con éxito"),
                 _simpleLabel(
                     "Un técnico se pondrá en contacto \n con usted en un plazo de 24 horas"),
-                _card("2235", "Sin Internet"),
+                _card("2235", "Sin Internet", context),
               ],
             ),
           )
@@ -68,7 +68,7 @@ Widget _simpleLabel(String text) {
   );
 }
 
-Widget _card(String number, String type) {
+Widget _card(String number, String type, context) {
   return Container(
       padding: EdgeInsets.only(top: 31, bottom: 15, left: 26, right: 26),
       margin: EdgeInsets.symmetric(horizontal: 30),
@@ -118,11 +118,11 @@ Widget _card(String number, String type) {
             Padding(
               padding: const EdgeInsets.only(top: 35),
               child: ButtonIcon(
-                text: "Ver Ticket",
-                icon: Icons.remove_red_eye,
-                height: 40,
-                background: AppColors.ligth_blue_color,
-              ),
+                  text: "Ver Ticket",
+                  icon: Icons.remove_red_eye,
+                  height: 40,
+                  background: AppColors.ligth_blue_color,
+                  onTab: () => Navigator.popAndPushNamed(context, '/chat')),
             )
           ],
         ),

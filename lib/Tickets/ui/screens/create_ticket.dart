@@ -60,7 +60,7 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
                           text: "VER TICKET",
                           background: AppColors.green_color,
                           height: 60,
-                          onTab: () => Navigator.pushReplacementNamed(
+                          onTab: () => Navigator.popAndPushNamed(
                               context, '/success-create-ticket'),
                         ),
                       ),
