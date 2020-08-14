@@ -26,7 +26,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   Widget _handleCurrentSession() {
     return StreamBuilder(
-      stream: blocAuth.isLogin,
+      stream: blocAuth.isActiveSession,
       builder: (context, snapshot)  {
         if (snapshot.data == null) {
           return Container(

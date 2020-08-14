@@ -23,11 +23,8 @@ class AppSession {
     }
   }
 
-  Future<bool>isLogin() async {
-    print("aaa");
+  Future<bool>isActiveSession() async {
     String dataString = await _getPrefs();
-    print(dataString.length);
-    print('aaa');
     if (dataString.length == 0) {
       return false;
     } else {

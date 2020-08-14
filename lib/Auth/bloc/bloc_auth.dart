@@ -9,8 +9,8 @@ class BlocAuth implements Bloc {
       StreamController<ModelSession>.broadcast();
 
 
-  Stream<bool> get isLogin =>
-      Stream.fromFuture(appSession.isLogin());
+  Stream<bool> get isActiveSession =>
+      Stream.fromFuture(appSession.isActiveSession());
 
   @override
   void dispose() {
