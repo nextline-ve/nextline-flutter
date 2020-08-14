@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
@@ -12,10 +16,12 @@ class FormLogin extends StatefulWidget {
 }
 
 class _FormLogin extends State<FormLogin> {
+  BlocAuth blocAuth;
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String pass;
-  bool _makeRequest;
+  final messageLogin = StreamController<String>();
+  String _email;
+  String _pass;
+  bool _makeRequest = false;
 
   final RegExp emailRegex = new RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
@@ -23,12 +29,30 @@ class _FormLogin extends State<FormLogin> {
   @override
   void initState() {
     super.initState();
-    _makeRequest = false;
+    messageLogin.stream.forEach((message) {
+      if (message == "Bienvenido") {
+        Navigator.pushReplacementNamed(context, "/home");
+      }
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text(message)));
+    });
+
+  }
+
+  @override
+  void dispose() {
+    messageLogin.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    blocAuth = BlocProvider.of(context);
     // TODO: implement build
+    return formUI();
+  }
+
+  Widget formUI() {
     return Form(
       key: _formKey,
       child: Container(
@@ -40,10 +64,7 @@ class _FormLogin extends State<FormLogin> {
               label: "Correo Electrónico",
               inputType: TextInputType.emailAddress,
               icon: Icon(Icons.email, color: Color.fromRGBO(2, 144, 223, 1)),
-              onKeyValue: (val) {
-                email = val;
-                return val;
-              },
+              onKeyValue: (val) => _email = val,
               onValidator: (val) {
                 if (val.isEmpty) {
                   return 'Por favor escriba su correo electrónico';
@@ -66,7 +87,7 @@ class _FormLogin extends State<FormLogin> {
                 return null;
               },
               onKeyValue: (val) {
-                pass = val;
+                _pass = val;
                 return val;
               },
             ),
@@ -80,11 +101,25 @@ class _FormLogin extends State<FormLogin> {
                 ),
               ),
             ),
-            JButton(
-              label: "INGRESAR",
-              onTab: _makeRequest ? null : _setMakeLogin,
-              top: 30,
-              background: AppColors.green_color,
+            StreamBuilder(
+              stream: blocAuth.responseMakeLogin,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  _makeRequest = false;
+                  messageLogin.add(snapshot.error.toString());
+                } else {
+                  if (snapshot.hasData && snapshot.data) {
+                    messageLogin.add("Bienvenido");
+                  }
+                }
+
+                return JButton(
+                  label: _makeRequest ? "Procesado los datos.." : "INGRESAR",
+                  onTab: _setMakeLogin,
+                  top: 30,
+                  background: AppColors.green_color,
+                );
+              },
             ),
           ],
         ),
@@ -93,15 +128,21 @@ class _FormLogin extends State<FormLogin> {
   }
 
   void _setMakeLogin() {
-    if (!_formKey.currentState.validate()) {
-
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Verifique que haya cargado los datos correctamente')));
+    if(_makeRequest){
       return;
     }
+    print("a");
+    final form = _formKey.currentState;
+    form.save();
+    if (!form.validate()) {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text('Verifique que haya cargado los datos correctamente')));
 
-    setState(() {
-      _makeRequest = true;
-    });
+      return;
+    }
+    _makeRequest = true;
+
+    blocAuth.dataForLogin.add({'email': _email, 'clave': _pass});
+
   }
+
 }

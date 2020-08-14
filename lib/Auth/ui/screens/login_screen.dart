@@ -28,17 +28,12 @@ class _LoginScreen extends State<LoginScreen> {
   Widget _handleCurrentSession() {
     return StreamBuilder(
       stream: blocAuth.isActiveSession,
-      builder: (context, snapshot)  {
-        if (snapshot.data == null) {
-          return Container(
-              child:
-              Center(child: CircularProgressIndicator()));
+      builder: (context, AsyncSnapshot snapshot)  {
+        if (snapshot.hasData  && snapshot.data) {
+          return HomeScreen();
         }
-        if (!snapshot.data) {
-          return loginUI();
-        }
-        return HomeScreen();
 
+        return loginUI();
       }
     );
   }
