@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class SpeedContainer extends StatefulWidget {
   final String downloadSpeed;
@@ -34,7 +35,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
               ),
               Text(widget.downloadSpeed,
                   style: TextStyle(
-                      fontFamily: "fontLight",
+                      fontFamily: AppFonts.poppins_light,
                       fontSize: 18,
                       color: Color.fromRGBO(70, 69, 69, 1)))
             ],
@@ -52,7 +53,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
               ),
               Text(widget.uploadSpeed,
                   style: TextStyle(
-                      fontFamily: "fontLight",
+                      fontFamily: AppFonts.poppins_light,
                       fontSize: 18,
                       color: Color.fromRGBO(70, 69, 69, 1)))
             ],
