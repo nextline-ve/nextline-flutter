@@ -1,53 +1,44 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+
+import 'database_helper.dart';
 
 class AppSession {
+  static bool isLoggedIn = false;
   static ModelSession data;
 
   Future register(ModelSession _data) async {
-    final prefs = await SharedPreferences.getInstance();
-    String dataString = json.encode(_data.toJson());
-    AppSession.data = ModelSession.fromJson(json.decode(dataString));
-    prefs.setString("session", dataString);
+    await _data.saveObject();
+    AppSession.data = _data;
   }
+
   Future unregister() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove("session");
+    
   }
 
-  Future<String>_getPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString("session") == null)  {
-      return '';
-    } else {
-      prefs.getString("session");
-    }
-  }
-
-  Future<bool>isActiveSession() async {
-    String dataString = await _getPrefs();
-    if (dataString == null) {
+  Future<bool> isActiveSession() async {
+    print("activo");
+    ModelSession session = ModelSession();
+    AppSession.data = await session.getObject(1);
+    print(AppSession.data);
+    print("=====activo");
+    if (AppSession.data == null) {
+      AppSession.isLoggedIn = false;
       return false;
     } else {
+      print("^^^^^^^");
+      print(AppSession.data.nombre);
+      AppSession.isLoggedIn = true;
       return true;
     }
-  }
-
-  // get data => _getData();
-
-  Future<ModelSession> getData() async{
-    String dataString = await _getPrefs();
-    if (dataString == null) {
-      return null;
-    } else {
-      return ModelSession.fromJson(json.decode(dataString));
-    }
 
   }
+
 }
 
-class ModelSession {
+class ModelSession extends DatabaseHelper implements DataBaseInterface {
   String token;
   String nombre;
   String tipoUsuario;
@@ -57,11 +48,11 @@ class ModelSession {
 
   ModelSession(
       {this.token,
-        this.nombre,
-        this.tipoUsuario,
-        this.motivoRechazo,
-        this.idUsuario,
-        this.esCliente});
+      this.nombre,
+      this.tipoUsuario,
+      this.motivoRechazo,
+      this.idUsuario,
+      this.esCliente});
 
   ModelSession.fromJson(Map<String, dynamic> json) {
     token = json['token'];
@@ -81,5 +72,61 @@ class ModelSession {
     data['id_usuario'] = this.idUsuario;
     data['es_cliente'] = this.esCliente;
     return data;
+  }
+
+  @override
+  Future getObject(int id) async {
+    Database db = await this.database;
+    try {
+      List<Map> maps = await db.query('cliente',
+          columns: ['*'],
+          where: "id = ?",
+          whereArgs: [id] );
+      if (maps.length > 0) {        
+        AppSession.isLoggedIn = true;
+        var data = json.decode(json.encode(maps.first));
+        if (data['es_cliente'] == 1) {
+          data['es_cliente'] = true;
+        } else {
+          data['es_cliente'] = false;
+        }
+        
+        return ModelSession.fromJson(data);
+      } else{
+        return null;
+      }
+    } catch(e) {
+      print("====  ===");
+      print(e.toString());
+      print("==== error session ===");
+      return null;
+    }
+  }
+
+  @override
+  Future<int> saveObject() async {
+    Database db = await database;
+    try {
+      await _createTable();
+    } catch (e) {
+      print ("tabla existe");
+    }
+    return await db.insert('cliente', toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<bool> _createTable() async {
+    Database db = await database;
+    db.execute("DROP TABLE IF EXISTS cliente;");
+    db.execute(
+      "CREATE TABLE cliente(id INTEGER PRIMARY KEY, "
+          "token TEXT,"
+          "nombre TEXT,"
+          "tipo_usuario TEXT,"
+          "motivo_rechazo TEXT,"
+          "id_usuario INTEGER,"
+          "es_cliente BOOLEAN)",
+    );
+    return true;
   }
 }
