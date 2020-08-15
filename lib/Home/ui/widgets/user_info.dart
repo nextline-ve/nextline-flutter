@@ -22,7 +22,9 @@ class _HUserInformationState extends State<HUserInformation> {
     return Padding(
       padding: EdgeInsets.only(bottom: 10),
       child: Container(
-        padding: EdgeInsets.only(left: 34, ),
+        padding: EdgeInsets.only(
+          left: 34,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,7 +40,9 @@ class _HUserInformationState extends State<HUserInformation> {
                 children: [
                   HLabelText(title: "usuario".toUpperCase()),
                   Text(
-                    StringUtils.capitalize(widget.userName, allWords: true),
+                    StringUtils.capitalize(
+                        widget.userName != null ? widget.userName : "",
+                        allWords: true),
                     style: TextStyle(
                         fontFamily: AppFonts.input,
                         fontSize: 20,

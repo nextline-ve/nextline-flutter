@@ -14,7 +14,7 @@ import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  bool isClient;
+  bool isClient = false;
   String userName;
 
   @override

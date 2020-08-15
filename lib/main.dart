@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       child: MaterialApp(
-        initialRoute: '/chat',
+        initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
           '/login': (context) => LoginScreen(),
