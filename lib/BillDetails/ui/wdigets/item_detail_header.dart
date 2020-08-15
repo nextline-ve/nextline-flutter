@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class ItemDetailHeader extends StatefulWidget {
   final String label;
@@ -35,13 +36,19 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.label,
-                style: TextStyle(color: AppColors.blue, fontSize: 21),
+              Container(
+                margin: EdgeInsets.only(top: 7),
+                child: Text(
+                  widget.label,
+                  style: TextStyle(color: AppColors.blue, fontSize: 21, fontFamily: AppFonts.fontTitle),
+                ),
               ),
-              Text(
-                widget.id,
-                style: TextStyle(color: AppColors.blue_dark, fontSize: 23),
+              Container(
+                margin: EdgeInsets.only(top: 7),
+                child: Text(
+                  widget.id,
+                  style: TextStyle(color: AppColors.blue_dark, fontSize: 23, fontFamily: AppFonts.fontTitle),
+                ),
               ),
             ],
           ),
@@ -52,10 +59,13 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              ColoredLabel(text: widget.status),
               Container(
-                padding: EdgeInsets.fromLTRB(7, 7, 0, 0),
-                child: Text(widget.date),
+                margin: EdgeInsets.only(top: 3),
+                child: ColoredLabel(text: widget.status),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(7, 15, 0, 0),
+                child: Text(widget.date, style: TextStyle(fontFamily: AppFonts.fontTitle),),
               ),
             ],
           ),

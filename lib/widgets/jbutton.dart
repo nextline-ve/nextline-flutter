@@ -30,13 +30,12 @@ class JButton extends StatefulWidget {
 }
 
 class _JButton extends State<JButton> {
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ButtonTheme(
       minWidth: 380,
-      height: 60,
+      height: (widget.buttonHeight == null) ? 60 : widget.buttonHeight,
       disabledColor: AppColors.gray_text_color,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -45,11 +44,14 @@ class _JButton extends State<JButton> {
           padding: EdgeInsets.all(20),
           child: RaisedButton(
             onPressed: widget.onTab,
-            color: (widget.background == null) ? AppColors.ligth_blue_color : widget.background,
+            color: (widget.background == null)
+                ? AppColors.ligth_blue_color
+                : widget.background,
             child: Text(
               widget.label,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontFamily: AppFonts.fontTitle),
+              style: TextStyle(
+                  color: (widget.labelColor == null) ? Colors.white : widget.labelColor, fontFamily: AppFonts.fontTitle),
             ),
           )),
     );

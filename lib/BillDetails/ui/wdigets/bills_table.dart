@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class BillsTable extends StatelessWidget {
   final List data;
@@ -33,6 +34,7 @@ class BillsTable extends StatelessWidget {
                 child: Text(
                   "Decripcion",
                   style: TextStyle(
+                      fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
@@ -46,6 +48,7 @@ class BillsTable extends StatelessWidget {
                   "Total Dolar",
                   style: TextStyle(
                       color: Colors.black,
+                      fontFamily: AppFonts.poppins_regular,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
                 ),
@@ -58,6 +61,7 @@ class BillsTable extends StatelessWidget {
                   "Total Bs.",
                   style: TextStyle(
                       color: Colors.black,
+                      fontFamily: AppFonts.poppins_regular,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
                 ),
@@ -77,21 +81,21 @@ class BillsTable extends StatelessWidget {
         TableCell(
           child: Container(
             margin: EdgeInsets.all(10),
-            child: Text(description, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+            child: Text(description, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular,),),
           ),
         ),
         TableCell(
           child: Container(
             margin: EdgeInsets.all(10),
             child: Center(
-              child: Text(dolar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
+              child: Text(dolar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular,),),
             ),
           ),
         ),
         TableCell(
           child: Container(
             margin: EdgeInsets.all(10),
-            child: Text(bolivar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14 ),),
+            child: Text(bolivar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular, ),),
           ),
         ),
       ]

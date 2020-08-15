@@ -6,6 +6,7 @@ import 'package:nextline/BillDetails/ui/wdigets/bills_table.dart';
 import 'package:nextline/BillDetails/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
 class BillDetails extends StatefulWidget {
@@ -16,7 +17,6 @@ class BillDetails extends StatefulWidget {
 class _BillDetailsState extends State<BillDetails> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
@@ -28,7 +28,11 @@ class _BillDetailsState extends State<BillDetails> {
             margin: EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
-                ItemDetailHeader(label: "My Invoice!", id: "#123", status: "aproved", date: "12/10/2020"),
+                ItemDetailHeader(
+                    label: "My Invoice!",
+                    id: "#123",
+                    status: "aproved",
+                    date: "12/10/2020"),
                 BillsTable(data: []),
                 _BillResume(),
                 _BillFooter(),
@@ -44,94 +48,82 @@ class _BillDetailsState extends State<BillDetails> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.all( 30),
+          margin: EdgeInsets.all(30),
           child: Center(
-            child: Text("Total a pagar", style: TextStyle(color: AppColors.blue, fontSize: 21),),
+            child: Text(
+              "Total a pagar",
+              style: TextStyle(
+                color: AppColors.blue,
+                fontSize: 21,
+                fontFamily: AppFonts.poppins_regular,
+              ),
+            ),
           ),
         ),
         Container(
           child: Table(
             border: TableBorder(
-              verticalInside: BorderSide(width: 1, color: AppColors.gray_shadow_color, style: BorderStyle.solid),
+              verticalInside: BorderSide(
+                  width: 1,
+                  color: AppColors.gray_shadow_color,
+                  style: BorderStyle.solid),
             ),
-            columnWidths: {
-              0: FractionColumnWidth(0.5)
-            },
+            columnWidths: {0: FractionColumnWidth(0.5)},
             children: [
-              TableRow(
-                  children: [
-                    TableCell(
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text("Total dolar", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-                        ),
+              TableRow(children: [
+                _TableHead("Total dolar"),
+                _TableHead("Total Bs."),
+              ]),
+              TableRow(children: [
+                TableCell(
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: _TotalToPayDollar("40"),
+                    ),
+                  ),
+                ),
+                TableCell(
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: _TotalToPayBs("50.000.000"),
+                    ),
+                  ),
+                ),
+              ]),
+              TableRow(children: [
+                TableCell(
+                  child: Container(
+                    child: Center(
+                      child: JButton(
+                        label: "Pagar en dolar",
+                        labelColor: AppColors.blue_dark,
+                        buttonHeight: 40.0,
+                        borderColor: AppColors.blue_dark,
+                        onTab: _payInDolar,
+                        top: 10,
+                        background: AppColors.white_color,
                       ),
                     ),
-                    TableCell(
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text("Total Bs.", style: TextStyle( color: AppColors.gray_text_color, fontSize: 14),),
-                        ),
+                  ),
+                ),
+                TableCell(
+                  child: Container(
+                    child: Center(
+                      child: JButton(
+                        label: "Pagar en Bs",
+                        labelColor: AppColors.blue_dark,
+                        buttonHeight: 40.0,
+                        borderColor: AppColors.blue_dark,
+                        onTab: _payInBolivar,
+                        top: 10,
+                        background: AppColors.white_color,
                       ),
                     ),
-                  ]
-              ),
-              TableRow(
-                  children: [
-                    TableCell(
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text("\$50", style: TextStyle( color: AppColors.ligth_blue_color, fontSize: 14),),
-                        ),
-                      ),
-                    ),
-                    TableCell(
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text("Bs. 50.000.000", style: TextStyle( color: AppColors.ligth_blue_color, fontSize: 14),),
-                        ),
-                      ),
-                    ),
-                  ]
-              ),
-              TableRow(
-                  children: [
-                    TableCell(
-                      child: Container(
-                        child: Center(
-                            child: JButton(
-                              label: "Pagar en dolar",
-                              labelColor: AppColors.blue_dark,
-                              buttonHeight: 40.0,
-                              borderColor: AppColors.blue_dark,
-                              onTab: _payInDolar,
-                              top: 10,
-                              background: AppColors.white_color,
-                            ),
-                        ),
-                      ),
-                    ),
-                    TableCell(
-                      child: Container(
-                        child: Center(
-                          child: JButton(
-                            label: "Pagar en Bs",
-                            labelColor: AppColors.blue_dark,
-                            buttonHeight: 40.0,
-                            borderColor: AppColors.blue_dark,
-                              onTab: _payInBolivar,
-                            top: 10,
-                            background: AppColors.white_color,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ]
-              ),
+                  ),
+                ),
+              ]),
             ],
           ),
         ),
@@ -139,13 +131,58 @@ class _BillDetailsState extends State<BillDetails> {
     );
   }
 
-  Widget _BillFooter(){
+  TableCell _TableHead(title) {
+    return TableCell(
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: AppColors.gray_text_color,
+              fontSize: 14,
+              fontFamily: AppFonts.poppins_regular,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Text _TotalToPayDollar(value) {
+    return Text(
+      "\$ ${value}",
+      style: TextStyle(
+        color: AppColors.ligth_blue_color,
+        fontSize: 14,
+        fontFamily: AppFonts.poppins_regular,
+      ),
+    );
+  }
+
+  Text _TotalToPayBs(value) {
+    return Text(
+      "Bs. ${value}",
+      style: TextStyle(
+        color: AppColors.ligth_blue_color,
+        fontSize: 14,
+        fontFamily: AppFonts.poppins_regular,
+      ),
+    );
+  }
+
+  Widget _BillFooter() {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: Column(
         children: [
           Center(
-            child: Text("DESCARGAR FACTURA", style: TextStyle(color: AppColors.blue, fontSize: 10)),
+            child: Text("DESCARGAR FACTURA",
+                style: TextStyle(
+                  color: AppColors.blue,
+                  fontSize: 10,
+                  fontFamily: AppFonts.poppins_regular,
+                )),
           ),
           _DownloadBill(),
         ],
@@ -153,28 +190,31 @@ class _BillDetailsState extends State<BillDetails> {
     );
   }
 
-  Widget _DownloadBill(){
+  Widget _DownloadBill() {
     return Container(
       margin: EdgeInsets.only(top: 14),
       child: Center(
         child: InkWell(
           onTap: _downloadBill,
-          child: SvgPicture.asset("assets/images/icon_download.svg", color: AppColors.blue_dark, height: 23,),
+          child: SvgPicture.asset(
+            "assets/images/icon_download.svg",
+            color: AppColors.blue_dark,
+            height: 23,
+          ),
         ),
       ),
     );
   }
 
-  Void _payInDolar(){
+  Void _payInDolar() {
     print("_payInDolar");
   }
 
-  Void _payInBolivar(){
+  Void _payInBolivar() {
     print("_payInBolivar");
   }
 
-  Void _downloadBill(){
+  Void _downloadBill() {
     print("_downloadBill");
   }
-
 }

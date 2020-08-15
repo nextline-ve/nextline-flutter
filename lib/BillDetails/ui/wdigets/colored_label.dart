@@ -9,9 +9,9 @@ class ColoredLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: BorderRadius.circular(10),
           color: AppColors.green_color
       ),
       child: Text(
