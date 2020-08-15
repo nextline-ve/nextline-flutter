@@ -12,7 +12,11 @@ class AppSession {
     AppSession.data = _data;
   }
 
-  Future unregister() async {}
+  Future unregister() async {
+    AppSession.data = null;
+    await ModelSession().deleteObject();
+    return true;
+  }
 
   Future<bool> isActiveSession() async {
     ModelSession session = ModelSession();
@@ -61,6 +65,17 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     data['id_usuario'] = this.idUsuario;
     data['es_cliente'] = this.esCliente;
     return data;
+  }
+
+  Future deleteObject() async {
+    final db = await database;
+
+    // Remove the Dog from the Database.
+    await db.delete(
+      'cliente',
+      where: "id = ?",
+      whereArgs: [1],
+    );
   }
 
   @override

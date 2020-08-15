@@ -49,7 +49,6 @@ class _HomeScreen extends State<HomeScreen> {
                   }
                   if (snapshot.hasData) {
                     Map<String, dynamic> data = snapshot.data;
-                    print(data['contratos'][0]);
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -75,7 +74,7 @@ class _HomeScreen extends State<HomeScreen> {
                             : HStatusRecipe(
                                 precioBs:data['contratos'][0]['plan']['precio_bs'],
                                 precioUsb: data['contratos'][0]['plan']['precio'],
-                                diaCorte: data['contratos'][0]['plan']['dia_corte'],
+                                diaCorte: data['contratos'][0]['dia_corte'],
                               ),
                       ],
                     );
