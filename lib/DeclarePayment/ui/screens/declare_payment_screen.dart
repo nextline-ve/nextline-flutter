@@ -36,10 +36,22 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                   child: Expanded(
                     child: DropdownWidget(hintText: "hola")
                   ),
-                )
+                ),
+                Container(
+                  child: Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Column(
+                          children: [],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          Container(),
         ],
       ),
     );
