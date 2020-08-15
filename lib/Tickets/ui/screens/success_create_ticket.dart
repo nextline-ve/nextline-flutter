@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/ui/widgets/button_icon.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/lateral_menu.dart';
 
 class SuccessCreateTicketScreen extends StatefulWidget {
   final bool isClient = true;
@@ -42,6 +43,7 @@ class _SuccessCreateTicketScreen extends State<SuccessCreateTicketScreen> {
           )
         ],
       ),
+      endDrawer: LateralMenu(),
     );
   }
 }

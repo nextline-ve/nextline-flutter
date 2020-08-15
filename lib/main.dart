@@ -3,14 +3,18 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/Tickets/ui/screens/create_ticket.dart';
-import 'package:nextline/Tickets/ui/screens/success_create_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
+
 import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
+import 'Bills/ui/screens/bill_details_screen.dart';
+import 'Bills/ui/screens/bills_screen.dart';
+import 'Home/ui/screens/splash_screen.dart';
 import 'ServiceRequest/ui/screen/instalations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
 import 'ServiceRequest/ui/screen/select_internet_plan_screen.dart';
 import 'ServiceRequest/ui/screen/select_service_screen.dart';
+import 'Tickets/ui/screens/success_create_ticket.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +28,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/chat',
         routes: {
-          '/': (context) => LoginScreen(),
+          '/': (context) => SplashScreen(),
+          '/login': (context) => LoginScreen(),
           '/select-service': (context) => SelectServiceScreen(),
           '/select-internet-plan': (context) => SelectInternetPlanScreen(),
           '/personal-form': (context) => PersonalFormScreen(),
@@ -34,6 +39,8 @@ class MyApp extends StatelessWidget {
           '/create-ticket': (context) => CreateTicketScreen(),
           '/success-create-ticket': (context) => SuccessCreateTicketScreen(),
           '/chat': (context) => Chat(),
+          '/bills': (context) => BillsScreen(),
+          '/bill-details': (context) => BillDetailsScreen(),
         },
       ),
       bloc: BlocAuth(),
