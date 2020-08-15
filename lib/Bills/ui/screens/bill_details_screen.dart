@@ -7,6 +7,8 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 class BillDetailsScreen extends StatefulWidget {
   @override
@@ -40,6 +42,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: NavigatorBar(),
+      endDrawer: LateralMenu(),
     );
   }
 

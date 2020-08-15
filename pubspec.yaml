@@ -89,6 +89,7 @@ flutter:
     - assets/images/up-arrow.svg
     - assets/images/down-arrow.svg
     - assets/images/bg.jpg
+    - assets/images/splash.jpg
     - assets/images/empresarial.svg
     - assets/images/dedicado.svg
     - assets/images/residencial.svg

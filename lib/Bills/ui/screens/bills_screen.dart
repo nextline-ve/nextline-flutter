@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 class BillsScreen extends StatefulWidget {
   @override
@@ -45,6 +47,8 @@ class _BillsScreen extends State<BillsScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: NavigatorBar(),
+      endDrawer: LateralMenu(),
     );
   }
 

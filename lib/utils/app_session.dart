@@ -15,16 +15,21 @@ class AppSession {
   }
 
   Future unregister() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove("session");
+    
   }
 
   Future<bool> isActiveSession() async {
+    print("activo");
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
+    print(AppSession.data);
+    print("=====activo");
     if (AppSession.data == null) {
+      AppSession.isLoggedIn = false;
       return false;
     } else {
+      print("^^^^^^^");
+      print(AppSession.data.nombre);
       AppSession.isLoggedIn = true;
       return true;
     }
@@ -77,14 +82,23 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
           columns: ['*'],
           where: "id = ?",
           whereArgs: [id] );
-      if (maps.length > 0) {
-        return ModelSession.fromJson(maps.first);
+      if (maps.length > 0) {        
+        AppSession.isLoggedIn = true;
+        var data = json.decode(json.encode(maps.first));
+        if (data['es_cliente'] == 1) {
+          data['es_cliente'] = true;
+        } else {
+          data['es_cliente'] = false;
+        }
+        
+        return ModelSession.fromJson(data);
       } else{
         return null;
       }
     } catch(e) {
-      print(e);
-      print("==== session ===");
+      print("====  ===");
+      print(e.toString());
+      print("==== error session ===");
       return null;
     }
   }
@@ -110,8 +124,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
           "nombre TEXT,"
           "tipo_usuario TEXT,"
           "motivo_rechazo TEXT,"
-          "id_usuario TEXT,"
-          "es_cliente TEXT)",
+          "id_usuario INTEGER,"
+          "es_cliente BOOLEAN)",
     );
     return true;
   }

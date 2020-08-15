@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
@@ -20,15 +22,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   BlocAuth blocAuth;
 
-  startApp() async {
-    AppSession session = AppSession();
-    return session.isActiveSession();
-  }
-
   @override
   Widget build(BuildContext context) {
-    blocAuth = BlocProvider.of(context);
-    return (AppSession.isLoggedIn) ? HomeScreen() : loginUI();
+    
+    return loginUI();        
   }
 
   
