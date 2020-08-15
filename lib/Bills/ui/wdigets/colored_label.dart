@@ -11,13 +11,18 @@ class ColoredLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.green_color),
       child: Text(
-        "             ${this.text}            ",
-        style: TextStyle(color: (this.textColor == null) ? AppColors.white_color : this.textColor, fontFamily: AppFonts.fontTitle),
+        "${this.text}",
+        style: TextStyle(
+            fontSize: 12,
+            color: (this.textColor == null)
+                ? AppColors.white_color
+                : this.textColor,
+            fontFamily: AppFonts.fontTitle),
       ),
     );
   }

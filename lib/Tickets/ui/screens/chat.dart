@@ -1,8 +1,11 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/jtext_field.dart';
+import 'package:nextline/widgets/line.dart';
 
 class Chat extends StatefulWidget {
   final bool isClient = true;
@@ -18,11 +21,28 @@ class _Chat extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'Asistencia técnica',
+          style: TextStyle(fontFamily: AppFonts.input),
+        ),
+      ),
       body: Stack(
         children: [
           Container(
             child: Column(
               children: [
+                Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: ItemDetailHeader(
+                    label: "Ticket2956",
+                    id: "Sin Internet",
+                    date: "01/08/2020",
+                    status: "Técnico Asignado",
+                  ),
+                ),
                 Container(
                   child: Expanded(
                     child: ListView(
@@ -36,7 +56,7 @@ class _Chat extends State<Chat> {
                     ),
                   ),
                 ),
-                // _box()
+                _box()
               ],
             ),
           ),
@@ -47,23 +67,58 @@ class _Chat extends State<Chat> {
 }
 
 Widget _box() {
-  String _messageToSend;
   return Container(
-    padding: EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: AppColors.white_color,
-    ),
-    child: Row(
+    alignment: Alignment.bottomCenter,
+    decoration: BoxDecoration(),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        JTextField(
-            label: "Escribe tu Mensaje",
-            inputType: TextInputType.text,
-            isPass: false,
-            onValidator: null,
-            onKeyValue: (val) {
-              _messageToSend = val;
-              return val;
-            })
+        Line(
+          width: 100,
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15, right: 5, left: 10),
+                        child: JTextField(
+                            backgoundColor: AppColors.white_color,
+                            label: "Escribe tu Mensaje",
+                            inputType: TextInputType.text,
+                            isPass: false,
+                            iconRigth: Icon(
+                              Icons.file_upload,
+                              color: AppColors.blue,
+                            ),
+                            onValidator: null,
+                            onKeyValue: (val) {
+                              return val;
+                            }),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: AppColors.blue_dark),
+                      child: Icon(
+                        Icons.send,
+                        color: AppColors.white_color,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ],
     ),
   );
