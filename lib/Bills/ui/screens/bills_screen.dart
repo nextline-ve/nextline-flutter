@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/colored_label.dart';
+import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
@@ -11,7 +12,6 @@ class BillsScreen extends StatefulWidget {
 }
 
 class _BillsScreen extends State<BillsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,10 @@ class _BillsScreen extends State<BillsScreen> {
               children: [
                 Text(
                   "LISTADO DE FACTURAS",
-                  style: TextStyle(color: AppColors.blue, fontSize: 16, fontFamily: AppFonts.fontTitle),
+                  style: TextStyle(
+                      color: AppColors.blue,
+                      fontSize: 16,
+                      fontFamily: AppFonts.fontTitle),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 27),
@@ -38,7 +41,8 @@ class _BillsScreen extends State<BillsScreen> {
                     child: ListView(
                       children: [
                         _BillRow(123123, "2000-12-12", 12, 12321, "Ok"),
-                        _BillRow(67823123, "2000-12-12", 22,87, "Fail")],
+                        _BillRow(67823123, "2000-12-12", 22, 87, "Fail")
+                      ],
                     ),
                   ),
                 )
@@ -52,66 +56,34 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  Widget _BillRow(bill_id, bill_date, bill_dolar_price, bill_bolivar_price, bill_status) {
+  Widget _BillRow(
+      bill_id, bill_date, bill_dolar_price, bill_bolivar_price, bill_status) {
+    String date = "\$${bill_dolar_price} / Bs. ${bill_bolivar_price}";
+    String id = "Factura #${bill_id}";
+
     return InkWell(
       onTap: _showDetails,
       child: Container(
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white70,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.gray_shadow_color,
-              blurRadius: 20,
-              spreadRadius: 10,
-            )
-          ]
-        ),
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(bottom: 7),
-                  child: Text(
-                    "Factura #${bill_id}",
-                    style: TextStyle(color: AppColors.blue, fontFamily:  AppFonts.fontTitle ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 7),
-                  child: Text(bill_date, style: TextStyle(fontFamily:  AppFonts.fontTitle )),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Column(
-              textDirection: TextDirection.ltr,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(bottom: 7),
-                  child: ColoredLabel(text: bill_status),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 7),
-                  child: Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}", style: TextStyle(fontFamily:  AppFonts.fontTitle),),
-                ),
-              ],
-            ),
-          )
-        ]),
-      ),
+          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white70,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.gray_shadow_color,
+                  blurRadius: 20,
+                  spreadRadius: 10,
+                )
+              ]),
+          alignment: Alignment.center,
+          child: ItemDetailHeader(
+            date: date,
+            id: id,
+            status: bill_status,
+            label: bill_date,
+            reverseLeft: true,
+          )),
     );
   }
 
@@ -119,6 +91,3 @@ class _BillsScreen extends State<BillsScreen> {
     Navigator.pushNamed(context, '/bill-details');
   }
 }
-
-
-

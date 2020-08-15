@@ -35,7 +35,11 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
           BackgroundTickets(),
           Container(
             child: Column(
-              children: [AddTicketButton(), TicketHistoryScroll()],
+              children: [
+                AddTicketButton(),
+                _titleText("Histórico de tickets"),
+                TicketHistoryScroll()
+              ],
             ),
           )
         ],
@@ -44,4 +48,15 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
       bottomNavigationBar: NavigatorBar(),
     );
   }
+}
+
+Widget _titleText(String status) {
+  return Container(
+    margin: EdgeInsets.only(top: 52, bottom: 15),
+    child: Text(status.toUpperCase(),
+        style: TextStyle(
+            fontFamily: AppFonts.poppins_regular,
+            fontSize: 18,
+            color: AppColors.blue_dark)),
+  );
 }
