@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/speed_container.dart';
 import 'package:nextline/widgets/jtitle.dart';
 
 class Plans extends StatefulWidget {
   final int id;
-  final String plan_name;
-  final String download_speed;
-  final String upload_speed;
-  final String price_usd;
-  final String price_bs;
+  final String planName;
+  final String downloadSpeed;
+  final String uploadSpeed;
+  final String priceUsd;
+  final String priceBs;
 
   const Plans(
       {Key key,
       @required this.id,
-      @required this.plan_name,
-      @required this.download_speed,
-      @required this.upload_speed,
-      @required this.price_usd,
-      @required this.price_bs})
+      @required this.planName,
+      @required this.downloadSpeed,
+      @required this.uploadSpeed,
+      @required this.priceUsd,
+      @required this.priceBs})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Plans();
   }
 }
@@ -32,7 +29,6 @@ class Plans extends StatefulWidget {
 class _Plans extends State<Plans> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/personal-form');
@@ -54,11 +50,11 @@ class _Plans extends State<Plans> {
               child: Column(
                 children: [
                   JTitle(
-                      title: widget.plan_name,
+                      title: widget.planName,
                       color: Color.fromRGBO(2, 144, 223, 1)),
                   SpeedContainer(
-                    download_speed: widget.download_speed,
-                    upload_speed: widget.upload_speed,
+                    downloadSpeed: widget.downloadSpeed,
+                    uploadSpeed: widget.uploadSpeed,
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
@@ -79,7 +75,7 @@ class _Plans extends State<Plans> {
                         Expanded(
                           flex: 4,
                           child: Text(
-                            widget.price_usd,
+                            widget.priceUsd,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -101,7 +97,7 @@ class _Plans extends State<Plans> {
                         Expanded(
                           flex: 7,
                           child: Text(
-                            widget.price_bs,
+                            widget.priceBs,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

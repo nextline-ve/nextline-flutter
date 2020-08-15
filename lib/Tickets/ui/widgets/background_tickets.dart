@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class BackgroundTickets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Stack(alignment: Alignment.center, children: [
       Container(
         height: null,

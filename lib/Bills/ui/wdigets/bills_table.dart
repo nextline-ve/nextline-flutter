@@ -68,37 +68,56 @@ class BillsTable extends StatelessWidget {
               ),
             ),
           ]),
-          _BillRow("Item #9", "80", "123.123.123"),
-          _BillRow("Item #1", "10", "79.123.123"),
+          _billRow("Item #9", "80", "123.123.123"),
+          _billRow("Item #1", "10", "79.123.123"),
         ],
       ),
     );
   }
 
-  TableRow _BillRow(description, dolar_price, bolivar_price){
-    return TableRow(
-      children: [
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text(description, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular,),),
-          ),
-        ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Center(
-              child: Text(dolar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular,),),
+  TableRow _billRow(description, dolarPrice, bolivarPrice) {
+    return TableRow(children: [
+      TableCell(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Text(
+            description,
+            style: TextStyle(
+              color: AppColors.gray_text_color,
+              fontSize: 14,
+              fontFamily: AppFonts.poppins_regular,
             ),
           ),
         ),
-        TableCell(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Text(bolivar_price, style: TextStyle( color: AppColors.gray_text_color, fontSize: 14, fontFamily: AppFonts.poppins_regular, ),),
+      ),
+      TableCell(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Center(
+            child: Text(
+              dolarPrice,
+              style: TextStyle(
+                color: AppColors.gray_text_color,
+                fontSize: 14,
+                fontFamily: AppFonts.poppins_regular,
+              ),
+            ),
           ),
         ),
-      ]
-    );
+      ),
+      TableCell(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Text(
+            bolivarPrice,
+            style: TextStyle(
+              color: AppColors.gray_text_color,
+              fontSize: 14,
+              fontFamily: AppFonts.poppins_regular,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

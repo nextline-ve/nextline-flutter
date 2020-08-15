@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'database_helper.dart';
@@ -14,9 +12,7 @@ class AppSession {
     AppSession.data = _data;
   }
 
-  Future unregister() async {
-    
-  }
+  Future unregister() async {}
 
   Future<bool> isActiveSession() async {
     ModelSession session = ModelSession();
@@ -28,9 +24,7 @@ class AppSession {
       AppSession.isLoggedIn = true;
       return true;
     }
-
   }
-
 }
 
 class ModelSession extends DatabaseHelper implements DataBaseInterface {
@@ -74,10 +68,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     Database db = await this.database;
     try {
       List<Map> maps = await db.query('cliente',
-          columns: ['*'],
-          where: "id = ?",
-          whereArgs: [id] );
-      if (maps.length > 0) {        
+          columns: ['*'], where: "id = ?", whereArgs: [id]);
+      if (maps.length > 0) {
         AppSession.isLoggedIn = true;
         var data = json.decode(json.encode(maps.first));
         if (data['es_cliente'] == 1) {
@@ -85,12 +77,12 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
         } else {
           data['es_cliente'] = false;
         }
-        
+
         return ModelSession.fromJson(data);
-      } else{
+      } else {
         return null;
       }
-    } catch(e) {
+    } catch (e) {
       print("====  ===");
       print(e.toString());
       print("==== error session ===");
@@ -104,10 +96,10 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     try {
       await _createTable();
     } catch (e) {
-      print ("tabla existe");
+      print("tabla existe");
     }
     return await db.insert('cliente', toJson(),
-          conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<bool> _createTable() async {
@@ -115,12 +107,12 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     db.execute("DROP TABLE IF EXISTS cliente;");
     db.execute(
       "CREATE TABLE cliente(id INTEGER PRIMARY KEY, "
-          "token TEXT,"
-          "nombre TEXT,"
-          "tipo_usuario TEXT,"
-          "motivo_rechazo TEXT,"
-          "id_usuario INTEGER,"
-          "es_cliente BOOLEAN)",
+      "token TEXT,"
+      "nombre TEXT,"
+      "tipo_usuario TEXT,"
+      "motivo_rechazo TEXT,"
+      "id_usuario INTEGER,"
+      "es_cliente BOOLEAN)",
     );
     return true;
   }

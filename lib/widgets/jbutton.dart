@@ -24,7 +24,6 @@ class JButton extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _JButton();
   }
 }
@@ -32,7 +31,6 @@ class JButton extends StatefulWidget {
 class _JButton extends State<JButton> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ButtonTheme(
       minWidth: 380,
       height: (widget.buttonHeight == null) ? 60 : widget.buttonHeight,
@@ -51,7 +49,10 @@ class _JButton extends State<JButton> {
               widget.label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: (widget.labelColor == null) ? Colors.white : widget.labelColor, fontFamily: AppFonts.fontTitle),
+                  color: (widget.labelColor == null)
+                      ? Colors.white
+                      : widget.labelColor,
+                  fontFamily: AppFonts.fontTitle),
             ),
           )),
     );
