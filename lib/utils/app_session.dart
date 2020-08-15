@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSession {
+  static ModelSession data;
 
-  register(ModelSession _data) async {
+  Future register(ModelSession _data) async {
     final prefs = await SharedPreferences.getInstance();
     String dataString = json.encode(_data.toJson());
+    AppSession.data = ModelSession.fromJson(json.decode(dataString));
     prefs.setString("session", dataString);
   }
-  unregister() async {
+  Future unregister() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("session");
   }
@@ -25,18 +27,23 @@ class AppSession {
 
   Future<bool>isActiveSession() async {
     String dataString = await _getPrefs();
-    if (dataString.length == 0) {
+    if (dataString == null) {
       return false;
     } else {
       return true;
     }
   }
 
-  get data => _getData();
+  // get data => _getData();
 
-  Future<ModelSession>_getData() async{
+  Future<ModelSession> getData() async{
     String dataString = await _getPrefs();
-    return ModelSession.fromJson(json.decode(dataString));
+    if (dataString == null) {
+      return null;
+    } else {
+      return ModelSession.fromJson(json.decode(dataString));
+    }
+
   }
 }
 

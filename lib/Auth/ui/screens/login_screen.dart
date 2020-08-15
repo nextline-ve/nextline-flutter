@@ -4,6 +4,8 @@ import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/Auth/ui/widgets/form_login.dart';
 import 'package:nextline/Auth/ui/widgets/white_logo.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/line.dart';
@@ -21,27 +23,10 @@ class _LoginScreen extends State<LoginScreen> {
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
     // TODO: implement build
-    return _handleCurrentSession();
+    return (AppSession.data == null) ? loginUI() : HomeScreen();
   }
 
-  Widget _handleCurrentSession() {
-    return StreamBuilder(
-      stream: blocAuth.isActiveSession,
-      builder: (context, snapshot)  {
-        if (snapshot.data == null) {
-          return Container(
-              child:
-              Center(child: CircularProgressIndicator()));
-        }
-        if (!snapshot.data) {
-          return loginUI();
-        }
-        return HomeScreen();
-
-      }
-    );
-  }
-
+  
   Widget loginUI() {
     return Scaffold(
       body: Stack(
@@ -54,20 +39,12 @@ class _LoginScreen extends State<LoginScreen> {
               children: <Widget>[
                 WhiteLogo(),
                 FormLogin(),
-                Text(
-                  "¿Olvido la contraseña?",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "fontInput",
-                  ),
-                ),
-                JButton(label: "INGRESAR", onTab: _setLogin, top: 30),
-                Line(top: 30),
+                Line(top: 0),
                 JButton(
                   label: "SOLICITA TU SERVICIO",
                   onTab: _serviceRequest,
                   top: 30,
-                  background: Color.fromRGBO(83, 224, 160, 1),
+                  background: AppColors.ligth_blue_color,
                 ),
               ],
             ),
@@ -75,10 +52,6 @@ class _LoginScreen extends State<LoginScreen> {
         ],
       ),
     );
-  }
-
-  void _setLogin() {
-    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _serviceRequest() {
