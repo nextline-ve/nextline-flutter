@@ -5,6 +5,7 @@ import 'package:nextline/utils/app_colors.dart';
 class SpeedContainer extends StatefulWidget {
   final String downloadSpeed;
   final String uploadSpeed;
+
   const SpeedContainer({
     Key key,
     @required this.downloadSpeed,
@@ -28,10 +29,10 @@ class _SpeedContainerState extends State<SpeedContainer> {
               Container(
                 height: 30,
                 width: 20,
-                child: SvgPicture.asset("assets/images/up-arrow.svg",
+                child: SvgPicture.asset("assets/images/down-arrow.svg",
                     color: AppColors.green_color),
               ),
-              Text(widget.uploadSpeed,
+              Text(widget.downloadSpeed,
                   style: TextStyle(
                       fontFamily: "fontLight",
                       fontSize: 18,
@@ -46,17 +47,17 @@ class _SpeedContainerState extends State<SpeedContainer> {
               Container(
                 height: 30,
                 width: 20,
-                child: SvgPicture.asset("assets/images/down-arrow.svg",
+                child: SvgPicture.asset("assets/images/up-arrow.svg",
                     color: AppColors.green_color),
               ),
-              Text(widget.downloadSpeed,
+              Text(widget.uploadSpeed,
                   style: TextStyle(
                       fontFamily: "fontLight",
                       fontSize: 18,
                       color: Color.fromRGBO(70, 69, 69, 1)))
             ],
           ),
-        )
+        ),
       ]),
     );
   }

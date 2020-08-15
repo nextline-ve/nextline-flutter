@@ -15,17 +15,12 @@ class AppSession {
   Future unregister() async {}
 
   Future<bool> isActiveSession() async {
-    print("activo");
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
-    print(AppSession.data);
-    print("=====activo");
     if (AppSession.data == null) {
       AppSession.isLoggedIn = false;
       return false;
     } else {
-      print("^^^^^^^");
-      print(AppSession.data.nombre);
       AppSession.isLoggedIn = true;
       return true;
     }
