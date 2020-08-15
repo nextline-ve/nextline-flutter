@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 
 class ColoredLabel extends StatelessWidget {
   final String text;
@@ -14,9 +15,10 @@ class ColoredLabel extends StatelessWidget {
           color: AppColors.green_color
       ),
       child: Text(
-        "    ${this.text}   " ,
+        "             ${this.text}            " ,
         style: TextStyle(
           color: AppColors.white_color,
+          fontFamily:  AppFonts.fontTitle
         ),
       ),
     );

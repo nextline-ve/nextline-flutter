@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
 class BillsScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _BillsScreen extends State<BillsScreen> {
               children: [
                 Text(
                   "LISTADO DE FACTURAS",
-                  style: TextStyle(color: AppColors.blue, fontSize: 16),
+                  style: TextStyle(color: AppColors.blue, fontSize: 16, fontFamily: AppFonts.fontTitle),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 27),
@@ -55,13 +56,13 @@ class _BillsScreen extends State<BillsScreen> {
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
           color: Colors.white70,
           boxShadow: [
             BoxShadow(
               color: AppColors.gray_shadow_color,
               blurRadius: 20,
-              spreadRadius: 6,
+              spreadRadius: 10,
             )
           ]
         ),
@@ -76,7 +77,7 @@ class _BillsScreen extends State<BillsScreen> {
               children: [
                 Text(
                   "Factura ${bill_id}",
-                  style: TextStyle(color: AppColors.blue),
+                  style: TextStyle(color: AppColors.blue, fontFamily:  AppFonts.fontTitle ),
                 ),
                 Text(bill_date),
               ],
@@ -90,7 +91,7 @@ class _BillsScreen extends State<BillsScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 ColoredLabel(text: bill_status),
-                Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}"),
+                Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}", style: TextStyle(fontFamily:  AppFonts.fontTitle),),
               ],
             ),
           )
