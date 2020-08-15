@@ -5,11 +5,11 @@ import 'package:nextline/utils/app_fonts.dart';
 import '../../../widgets/line.dart';
 
 class HStatusRecipe extends StatefulWidget {
-  final String precio_bs;
-  final String precio_usb;
-  final String dia_corte;
+  final String precioBs;
+  final String precioUsb;
+  final String diaCorte;
 
-  HStatusRecipe({Key key, this.precio_bs, this.precio_usb, this.dia_corte})
+  HStatusRecipe({Key key, this.precioBs, this.precioUsb, this.diaCorte})
       : super(key: key);
 
   @override
@@ -55,8 +55,8 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label("total a pagar".toUpperCase()),
-              _currencyText(widget.precio_usb, 24, 1.2),
-              _currencyText(widget.precio_bs, 14, 0.7),
+              _currencyText(widget.precioUsb, 24, 1.2),
+              _currencyText(widget.precioBs, 14, 0.7),
             ],
           )
         ],

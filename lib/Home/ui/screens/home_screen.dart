@@ -73,9 +73,9 @@ class _HomeScreen extends State<HomeScreen> {
                         !AppSession.data.esCliente
                             ? HStatusService(status: "En Analisis")
                             : HStatusRecipe(
-                                precio_bs:data['contratos'][0]['plan']['precio_bs'],
-                                precio_usb: data['contratos'][0]['plan']['precio'],
-                                dia_corte: data['contratos'][0]['plan']['dia_corte'],
+                                precioBs:data['contratos'][0]['plan']['precio_bs'],
+                                precioUsb: data['contratos'][0]['plan']['precio'],
+                                diaCorte: data['contratos'][0]['plan']['dia_corte'],
                               ),
                       ],
                     );
