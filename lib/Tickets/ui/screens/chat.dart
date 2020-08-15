@@ -35,10 +35,10 @@ class _Chat extends State<Chat> {
               children: [
                 Container(
                   color: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: ItemDetailHeader(
-                    label: "Ticket2956",
-                    id: "Sin Internet",
+                    id: "Ticket2956",
+                    label: "Sin Internet",
                     date: "01/08/2020",
                     status: "Técnico Asignado",
                   ),

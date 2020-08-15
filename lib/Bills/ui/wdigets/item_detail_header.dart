@@ -37,17 +37,21 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(top: 7),
                 child: Text(
                   widget.label,
-                  style: TextStyle(color: AppColors.blue, fontSize: 21, fontFamily: AppFonts.fontTitle),
+                  style: TextStyle(
+                      color: AppColors.blue,
+                      fontSize: 18,
+                      fontFamily: AppFonts.poppins_light),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 7),
                 child: Text(
                   widget.id,
-                  style: TextStyle(color: AppColors.blue_dark, fontSize: 23, fontFamily: AppFonts.fontTitle),
+                  style: TextStyle(
+                      color: AppColors.blue_dark,
+                      fontSize: 23,
+                      fontFamily: AppFonts.poppins_bold),
                 ),
               ),
             ],
@@ -60,12 +64,14 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                margin: EdgeInsets.only(top: 3),
                 child: ColoredLabel(text: widget.status),
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(7, 15, 0, 0),
-                child: Text(widget.date, style: TextStyle(fontFamily: AppFonts.fontTitle),),
+                child: Text(
+                  widget.date,
+                  style: TextStyle(fontFamily: AppFonts.fontTitle),
+                ),
               ),
             ],
           ),
