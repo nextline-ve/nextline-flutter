@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nextline/Bills/ui/wdigets/bills_table.dart';
@@ -35,8 +33,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     status: "aproved",
                     date: "12/10/2020"),
                 BillsTable(data: []),
-                _BillResume(),
-                _BillFooter(),
+                _billResume(),
+                _billFooter(),
               ],
             ),
           ),
@@ -47,7 +45,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  Widget _BillResume() {
+  Widget _billResume() {
     return Column(
       children: [
         Container(
@@ -74,15 +72,15 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
             columnWidths: {0: FractionColumnWidth(0.5)},
             children: [
               TableRow(children: [
-                _TableHead("Total dolar"),
-                _TableHead("Total Bs."),
+                _tableHead("Total dolar"),
+                _tableHead("Total Bs."),
               ]),
               TableRow(children: [
                 TableCell(
                   child: Container(
                     margin: EdgeInsets.all(10),
                     child: Center(
-                      child: _TotalToPayDollar("40"),
+                      child: _totalToPayDollar("40"),
                     ),
                   ),
                 ),
@@ -90,7 +88,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                   child: Container(
                     margin: EdgeInsets.all(10),
                     child: Center(
-                      child: _TotalToPayBs("50.000.000"),
+                      child: _totalToPayBs("50.000.000"),
                     ),
                   ),
                 ),
@@ -134,7 +132,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  TableCell _TableHead(title) {
+  TableCell _tableHead(title) {
     return TableCell(
       child: Container(
         margin: EdgeInsets.all(10),
@@ -152,9 +150,9 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  Text _TotalToPayDollar(value) {
+  Text _totalToPayDollar(value) {
     return Text(
-      "\$ ${value}",
+      "\$ $value",
       style: TextStyle(
         color: AppColors.ligth_blue_color,
         fontSize: 14,
@@ -163,9 +161,9 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  Text _TotalToPayBs(value) {
+  Text _totalToPayBs(value) {
     return Text(
-      "Bs. ${value}",
+      "Bs. $value",
       style: TextStyle(
         color: AppColors.ligth_blue_color,
         fontSize: 14,
@@ -174,7 +172,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  Widget _BillFooter() {
+  Widget _billFooter() {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: Column(
@@ -187,18 +185,18 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                   fontFamily: AppFonts.poppins_regular,
                 )),
           ),
-          _DownloadBill(),
+          _downloadBill(),
         ],
       ),
     );
   }
 
-  Widget _DownloadBill() {
+  Widget _downloadBill() {
     return Container(
       margin: EdgeInsets.only(top: 14),
       child: Center(
         child: InkWell(
-          onTap: _downloadBill,
+          onTap: _downloadBillAction,
           child: SvgPicture.asset(
             "assets/images/icon_download.svg",
             color: AppColors.blue_dark,
@@ -209,15 +207,15 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
-  Void _payInDolar() {
+  void _payInDolar() {
     print("_payInDolar");
   }
 
-  Void _payInBolivar() {
+  void _payInBolivar() {
     print("_payInBolivar");
   }
 
-  Void _downloadBill() {
+  void _downloadBillAction() {
     print("_downloadBill");
   }
 }

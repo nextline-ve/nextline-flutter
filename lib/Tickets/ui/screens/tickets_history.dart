@@ -20,7 +20,6 @@ class HistoryTicketScreen extends StatefulWidget {
 class _HistoryTicketScreen extends State<HistoryTicketScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,

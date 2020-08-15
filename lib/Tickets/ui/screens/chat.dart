@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
-import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
 

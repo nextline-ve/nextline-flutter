@@ -12,7 +12,6 @@ class HServiceType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         HLabelText(title: "Tipo de Servicio"),

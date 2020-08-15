@@ -12,7 +12,6 @@ class HLabelText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Text(
       title,
       style: TextStyle(

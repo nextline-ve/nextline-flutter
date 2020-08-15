@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Bills/ui/wdigets/colored_label.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -40,8 +39,8 @@ class _BillsScreen extends State<BillsScreen> {
                   child: Expanded(
                     child: ListView(
                       children: [
-                        _BillRow(123123, "2000-12-12", 12, 12321, "Ok"),
-                        _BillRow(67823123, "2000-12-12", 22, 87, "Fail")
+                        _billRow(123123, "2000-12-12", 12, 12321, "Ok"),
+                        _billRow(67823123, "2000-12-12", 22, 87, "Fail")
                       ],
                     ),
                   ),
@@ -56,10 +55,10 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  Widget _BillRow(
-      bill_id, bill_date, bill_dolar_price, bill_bolivar_price, bill_status) {
-    String date = "\$${bill_dolar_price} / Bs. ${bill_bolivar_price}";
-    String id = "Factura #${bill_id}";
+  Widget _billRow(double billId, String billDate, double billDolarPrice,
+      double billBolivarPrice, String billStatus) {
+    String date = "\$$billDolarPrice / Bs. $billBolivarPrice";
+    String id = "Factura #$billId";
 
     return InkWell(
       onTap: _showDetails,
@@ -80,8 +79,8 @@ class _BillsScreen extends State<BillsScreen> {
           child: ItemDetailHeader(
             date: date,
             id: id,
-            status: bill_status,
-            label: bill_date,
+            status: billStatus,
+            label: billDate,
             reverseLeft: true,
           )),
     );

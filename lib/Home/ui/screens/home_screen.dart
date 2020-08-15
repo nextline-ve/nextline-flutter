@@ -15,7 +15,7 @@ import 'package:nextline/widgets/navigator_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   bool isClient;
-  String userName;  
+  String userName;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  BlocAuth blocAuth; 
+  BlocAuth blocAuth;
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
-    // TODO: implement build
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue,
@@ -43,28 +43,27 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Background(path_image: "assets/images/fondo_home.png"),
+          Background(pathImage: "assets/images/fondo_home.png"),
           SingleChildScrollView(
-            child:
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  HUserInformation(
-                    userName: widget.userName,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                HUserInformation(
+                  userName: widget.userName,
+                ),
+                HServiceType(title: "Residencial"),
+                HCirclePlan(),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+                  child: SpeedContainer(
+                    downloadSpeed: "15Mb",
+                    uploadSpeed: "5MB",
                   ),
-                  HServiceType(title: "Residencial"),
-                  HCirclePlan(),
-                  Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-                    child: SpeedContainer(
-                      download_speed: "15Mb",
-                      upload_speed: "5MB",
-                    ),
-                  ),
-                  !widget.isClient ? HStatusService() : HStatusRecipe(),
-                ],
-              ),
+                ),
+                !widget.isClient ? HStatusService() : HStatusRecipe(),
+              ],
+            ),
           )
         ],
       ),

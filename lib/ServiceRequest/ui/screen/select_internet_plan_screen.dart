@@ -7,14 +7,13 @@ import 'package:nextline/widgets/line.dart';
 class SelectInternetPlanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
       ),
       body: Stack(
         children: [
-          Background(path_image: "assets/images/bg.jpg"),
+          Background(pathImage: "assets/images/bg.jpg"),
           SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(10),
@@ -32,25 +31,25 @@ class SelectInternetPlanScreen extends StatelessWidget {
                       children: [
                         Plans(
                           id: 1,
-                          plan_name: "5 MB",
-                          price_bs: "Bs 1.1300.450",
-                          price_usd: "10 USD",
-                          upload_speed: "3.5 MB",
-                          download_speed: "5 MB",
+                          planName: "5 MB",
+                          priceBs: "Bs 1.1300.450",
+                          priceUsd: "10 USD",
+                          uploadSpeed: "3.5 MB",
+                          downloadSpeed: "5 MB",
                         ),
                         Plans(
                           id: 1,
-                          plan_name: "10 MB",
-                          price_bs: "Bs 2.1300.450",
-                          price_usd: "17 USD",
-                          upload_speed: "5.5 MB",
-                          download_speed: "10 MB",
+                          planName: "10 MB",
+                          priceBs: "Bs 2.1300.450",
+                          priceUsd: "17 USD",
+                          uploadSpeed: "5.5 MB",
+                          downloadSpeed: "10 MB",
                         ),
                       ],
                     ),
                   ),
-                  _Text("Selecciona el plan", 30),
-                  _Text("de tu preferencia", 1),
+                  _text("Selecciona el plan", 30),
+                  _text("de tu preferencia", 1),
                 ],
               ),
             ),
@@ -60,7 +59,7 @@ class SelectInternetPlanScreen extends StatelessWidget {
     );
   }
 
-  Widget _Text(txt, double top) {
+  Widget _text(txt, double top) {
     return Container(
       margin: EdgeInsets.only(top: top),
       child: Center(
