@@ -2,6 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/jtext_field.dart';
 
 class Chat extends StatefulWidget {
   final bool isClient = true;
@@ -16,25 +17,56 @@ class Chat extends StatefulWidget {
 class _Chat extends State<Chat> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
+        children: [
           Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _message("", "", "", true),
-                _message("", "", "", false)
+                Container(
+                  child: Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        _message("", "", "", true),
+                        _message("", "", "", false),
+                        _message("", "", "", false),
+                        _message("", "", "", true)
+                      ],
+                    ),
+                  ),
+                ),
+                // _box()
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
+}
+
+Widget _box() {
+  String _messageToSend;
+  return Container(
+    padding: EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: AppColors.white_color,
+    ),
+    child: Row(
+      children: [
+        JTextField(
+            label: "Escribe tu Mensaje",
+            inputType: TextInputType.text,
+            isPass: false,
+            onValidator: null,
+            onKeyValue: (val) {
+              _messageToSend = val;
+              return val;
+            })
+      ],
+    ),
+  );
 }
 
 Widget _nameLabel(String text) {
@@ -59,10 +91,10 @@ Widget _dateLabel(String text) {
   );
 }
 
-Widget _messageContent(String text) {
+Widget _messageContent(String text, bool isLeft) {
   return Text(
     text,
-    textAlign: TextAlign.left,
+    textAlign: isLeft ? TextAlign.left : TextAlign.right,
     style: TextStyle(
         fontFamily: AppFonts.poppins_regular,
         fontSize: 12,
@@ -108,7 +140,8 @@ Widget _message(String text, String username, String date, bool isLeft) {
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: _messageContent(
-                  "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et."))
+                  "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et.",
+                  isLeft))
         ],
       ),
     ))

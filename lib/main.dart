@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: '/chat',
         routes: {
           '/': (context) => LoginScreen(),
           '/select-service': (context) => SelectServiceScreen(),
