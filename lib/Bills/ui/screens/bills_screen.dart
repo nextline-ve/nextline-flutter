@@ -75,11 +75,17 @@ class _BillsScreen extends State<BillsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Factura ${bill_id}",
-                  style: TextStyle(color: AppColors.blue, fontFamily:  AppFonts.fontTitle ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 7),
+                  child: Text(
+                    "Factura #${bill_id}",
+                    style: TextStyle(color: AppColors.blue, fontFamily:  AppFonts.fontTitle ),
+                  ),
                 ),
-                Text(bill_date),
+                Container(
+                  margin: EdgeInsets.only(top: 7),
+                  child: Text(bill_date, style: TextStyle(fontFamily:  AppFonts.fontTitle )),
+                ),
               ],
             ),
           ),
@@ -90,8 +96,14 @@ class _BillsScreen extends State<BillsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ColoredLabel(text: bill_status),
-                Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}", style: TextStyle(fontFamily:  AppFonts.fontTitle),),
+                Container(
+                  padding: EdgeInsets.only(bottom: 7),
+                  child: ColoredLabel(text: bill_status),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 7),
+                  child: Text("\$${bill_dolar_price} / Bs. ${bill_bolivar_price}", style: TextStyle(fontFamily:  AppFonts.fontTitle),),
+                ),
               ],
             ),
           )
