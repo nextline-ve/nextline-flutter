@@ -9,12 +9,9 @@ class BlocAuth implements Bloc {
   // Para hacer login
   final StreamController<Map<String, dynamic>> _streamMakeLogin =
       StreamController<Map<String, dynamic>>.broadcast();
-
   Sink<Map<String, dynamic>> get dataForLogin => _streamMakeLogin.sink;
-
   Stream<bool> get responseMakeLogin =>
       _streamMakeLogin.stream.asyncMap((dataLogin) => _makeLogin(dataLogin));
-
   Future<bool> _makeLogin(Map<String, dynamic> dataLogin) async {
     ModelSession data = await RepositoryAuth().setMakeLoginAPI(dataLogin);
     if (data.idUsuario is int) {
@@ -23,12 +20,14 @@ class BlocAuth implements Bloc {
     return data.idUsuario is int;
   }
 
+
   Stream<bool> get isActiveSession =>
       Stream.fromFuture(appSession.isActiveSession());
 
   Future closeSession() async {
     await appSession.unregister();
   }
+
 
   @override
   void dispose() {
