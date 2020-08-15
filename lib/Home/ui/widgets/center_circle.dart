@@ -5,7 +5,10 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class HCirclePlan extends StatelessWidget {
-  const HCirclePlan({Key key}) : super(key: key);
+  final String planName;
+
+  const HCirclePlan({Key key, @required this.planName}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class HCirclePlan extends StatelessWidget {
               children: [
                 SvgPicture.asset("assets/images/logo_without_text.svg",
                     height: 35, color: AppColors.ligth_blue_color),
-                _planNameText("20MB"),
+                _planNameText(planName),
                 _planLabelText("plan"),
               ],
             ),
