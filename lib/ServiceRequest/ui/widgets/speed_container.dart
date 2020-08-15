@@ -3,13 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 class SpeedContainer extends StatefulWidget {
-  final String download_speed;
-  final String upload_speed;
+  final String downloadSpeed;
+  final String uploadSpeed;
 
   const SpeedContainer({
     Key key,
-    @required this.download_speed,
-    @required this.upload_speed,
+    @required this.downloadSpeed,
+    @required this.uploadSpeed,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
                 child: SvgPicture.asset("assets/images/down-arrow.svg",
                     color: AppColors.green_color),
               ),
-              Text(widget.download_speed,
+              Text(widget.downloadSpeed,
                   style: TextStyle(
                       fontFamily: "fontLight",
                       fontSize: 18,
@@ -50,7 +50,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
                 child: SvgPicture.asset("assets/images/up-arrow.svg",
                     color: AppColors.green_color),
               ),
-              Text(widget.upload_speed,
+              Text(widget.uploadSpeed,
                   style: TextStyle(
                       fontFamily: "fontLight",
                       fontSize: 18,

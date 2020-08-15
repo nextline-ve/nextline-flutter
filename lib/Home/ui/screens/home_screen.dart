@@ -39,7 +39,7 @@ class _HomeScreen extends State<HomeScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Background(path_image: "assets/images/fondo_home.png"),
+          Background(pathImage: "assets/images/fondo_home.png"),
           SingleChildScrollView(
             child: StreamBuilder(
                 stream: blocHome.responseDataHome,
@@ -64,9 +64,9 @@ class _HomeScreen extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 100, vertical: 10),
                           child: SpeedContainer(
-                            upload_speed:
+                            uploadSpeed:
                                 "${data['contratos'][0]["plan"]["velocidad_subida"].toString()} MB",
-                            download_speed:
+                            downloadSpeed:
                                 "${data['contratos'][0]["plan"]["velocidad_baja"].toString()} MB",
                           ),
                         ),
