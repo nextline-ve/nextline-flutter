@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
+import 'package:nextline/Bills/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
-import 'package:nextline/widgets/jbutton.dart';
 
 class BillsScreen extends StatefulWidget {
   @override

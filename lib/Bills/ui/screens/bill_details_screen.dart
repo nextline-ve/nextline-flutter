@@ -2,19 +2,18 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nextline/BillDetails/ui/wdigets/bills_table.dart';
-import 'package:nextline/BillDetails/ui/wdigets/item_detail_header.dart';
-import 'package:nextline/BillDetails/ui/wdigets/colored_label.dart';
+import 'package:nextline/Bills/ui/wdigets/bills_table.dart';
+import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
-class BillDetails extends StatefulWidget {
+class BillDetailsScreen extends StatefulWidget {
   @override
-  _BillDetailsState createState() => _BillDetailsState();
+  _BillDetailsScreen createState() => _BillDetailsScreen();
 }
 
-class _BillDetailsState extends State<BillDetails> {
+class _BillDetailsScreen extends State<BillDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
