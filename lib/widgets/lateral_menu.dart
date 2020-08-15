@@ -6,7 +6,6 @@ import 'package:nextline/utils/app_fonts.dart';
 class LateralMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Drawer(
       child: ListView(
         // Important: Remove any padding from the ListView.
@@ -15,8 +14,8 @@ class LateralMenu extends StatelessWidget {
           _logo(),
           _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
               "change-plan"),
-          _item(context, "FACTURACIÓN", "assets/images/facturacion.svg",
-              "bills"),
+          _item(
+              context, "FACTURACIÓN", "assets/images/facturacion.svg", "bills"),
           _item(context, "ASISTENCIA TÉCNICA",
               "assets/images/asistenciatecnica.svg", "tickets"),
           _closed(),
@@ -29,7 +28,7 @@ class LateralMenu extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
-        Navigator.pushNamed(context, "/${url}");
+        Navigator.pushNamed(context, "/$url");
       },
       child: Center(
         child: Container(

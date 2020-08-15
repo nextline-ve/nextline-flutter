@@ -5,7 +5,6 @@ import 'package:nextline/widgets/jtext_field.dart';
 class FormPersonal extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _FormPersonal();
   }
 }
@@ -23,7 +22,6 @@ class _FormPersonal extends State<FormPersonal> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Form(
         key: _formKey,
         child: Container(
@@ -31,7 +29,8 @@ class _FormPersonal extends State<FormPersonal> {
           child: Column(
             children: [
               JTextField(
-                isPass: false, inputType: TextInputType.text,
+                isPass: false,
+                inputType: TextInputType.text,
                 label: "Nombre / Razón Social",
                 onKeyValue: (val) {
                   _name = val;
@@ -45,7 +44,8 @@ class _FormPersonal extends State<FormPersonal> {
                 },
               ),
               JTextField(
-                isPass: false, inputType: TextInputType.text,
+                isPass: false,
+                inputType: TextInputType.text,
                 label: "Cedula / Rif",
                 onKeyValue: (val) {
                   _cedula = val;
@@ -59,7 +59,8 @@ class _FormPersonal extends State<FormPersonal> {
                 },
               ),
               JTextField(
-                isPass: false, inputType: TextInputType.phone,
+                isPass: false,
+                inputType: TextInputType.phone,
                 label: "Número de Teléfono",
                 onKeyValue: (val) {
                   _phone = val;
@@ -73,7 +74,8 @@ class _FormPersonal extends State<FormPersonal> {
                 },
               ),
               JTextField(
-                isPass: false, inputType: TextInputType.emailAddress,
+                isPass: false,
+                inputType: TextInputType.emailAddress,
                 label: "Correo Electrónico",
                 onKeyValue: (val) {
                   _email = val;
@@ -89,8 +91,10 @@ class _FormPersonal extends State<FormPersonal> {
                   return null;
                 },
               ),
-              JTextField(isPass: true,
-                label: "Contraseña", inputType: TextInputType.text,
+              JTextField(
+                isPass: true,
+                label: "Contraseña",
+                inputType: TextInputType.text,
                 onValidator: (value) {
                   if (value.isEmpty) {
                     return 'Por favor escriba su contraseña';
@@ -103,7 +107,8 @@ class _FormPersonal extends State<FormPersonal> {
                 },
               ),
               JTextField(
-                isPass: true, inputType: TextInputType.text,
+                isPass: true,
+                inputType: TextInputType.text,
                 label: "Confirmar Contraseña",
                 onKeyValue: (val) {
                   _confirmpass = val;
@@ -127,6 +132,14 @@ class _FormPersonal extends State<FormPersonal> {
   }
 
   _makeForm() {
+    print("""
+      $_email,
+      $_name,
+      $_cedula,
+      $_phone,
+      $_pass,
+      $_confirmpass,
+      """);
     Navigator.pushNamed(context, '/instalations');
   }
 }
