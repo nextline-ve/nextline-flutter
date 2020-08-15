@@ -16,7 +16,7 @@ class LateralMenu extends StatelessWidget {
           _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
               "change-plan"),
           _item(context, "FACTURACIÓN", "assets/images/facturacion.svg",
-              "invoces"),
+              "bills"),
           _item(context, "ASISTENCIA TÉCNICA",
               "assets/images/asistenciatecnica.svg", "tickets"),
           _closed(),

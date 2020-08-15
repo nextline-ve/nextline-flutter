@@ -28,6 +28,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    print(AppSession.data);
     widget.userName = AppSession.data.nombre;
     widget.isClient = AppSession.data.esCliente;
   }

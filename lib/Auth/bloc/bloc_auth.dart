@@ -16,7 +16,6 @@ class BlocAuth implements Bloc {
       _streamMakeLogin.stream.asyncMap((dataLogin) => _makeLogin(dataLogin));
 
   Future<bool> _makeLogin(Map<String, dynamic> dataLogin) async {
-    //return true;
     ModelSession data = await RepositoryAuth().setMakeLoginAPI(dataLogin);
     if (data.idUsuario is int) {
       await appSession.register(data);

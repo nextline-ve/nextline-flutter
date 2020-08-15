@@ -19,11 +19,16 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreen extends State<LoginScreen> {
   BlocAuth blocAuth;
+
+  startApp() async {
+    AppSession session = AppSession();
+    return session.isActiveSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
-    // TODO: implement build
-    return (AppSession.data == null) ? loginUI() : HomeScreen();
+    return (AppSession.isLoggedIn) ? HomeScreen() : loginUI();
   }
 
   
