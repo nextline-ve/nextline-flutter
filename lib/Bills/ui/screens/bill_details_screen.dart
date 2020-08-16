@@ -208,10 +208,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
 
   void _payInDolar() {
     print("_payInDolar");
+    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _payInBolivar() {
     print("_payInBolivar");
+    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _downloadBillAction() {

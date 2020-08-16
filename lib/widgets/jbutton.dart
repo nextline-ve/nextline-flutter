@@ -10,6 +10,7 @@ class JButton extends StatefulWidget {
   // Label
   final String label;
   final Color labelColor;
+  final double fontSize;
   final Function labelWidget;
   // Icon
   final IconData icon;
@@ -20,6 +21,7 @@ class JButton extends StatefulWidget {
     @required this.label,
     @required this.onTab,
     this.labelColor,
+    this.fontSize,
     this.borderColor,
     this.buttonHeight = 60,
     this.labelWidget,
@@ -70,8 +72,8 @@ class _JButton extends State<JButton> {
       widget.label,
       textAlign: TextAlign.center,
       style: TextStyle(
-          color: (widget.labelColor == null) ? Colors.white : widget.labelColor,
-          fontFamily: AppFonts.fontTitle),
+        fontSize: (widget.fontSize == null) ? 14 : widget.fontSize, color: (widget.labelColor == null) ? Colors.white : widget.labelColor, fontFamily: AppFonts.fontTitle
+      ),
     );
   }
 }
