@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
+import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
@@ -43,11 +44,13 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
                     children: [
                       _titleView("Nuevo Ticket"),
                       _date("01/08/2020"),
-                      _inputContainer(_inputLabel("Tipo de Avería"),
-                          DropdownWidget(hintText: "Seleccione una avería")),
-                      _inputContainer(
-                        _inputLabel("Comentario2"),
-                        _textArea(
+                      InputContainer(
+                          label: "Tipo de Avería",
+                          input: DropdownWidget(
+                              hintText: "Seleccione una avería")),
+                      InputContainer(
+                        label: "Comentario2",
+                        input: _textArea(
                             "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
                       ),
                     ],
@@ -93,16 +96,6 @@ Widget _date(String text) {
   );
 }
 
-Widget _inputLabel(String text) {
-  return Text(
-    text.toUpperCase(),
-    style: TextStyle(
-        fontFamily: AppFonts.subTitle,
-        fontSize: 11,
-        color: AppColors.blue_dark),
-  );
-}
-
 Widget _textArea(String hinText) {
   return Column(
     children: <Widget>[
@@ -124,32 +117,4 @@ Widget _textArea(String hinText) {
       )
     ],
   );
-}
-
-Widget _inputContainer(Widget label, Widget input) {
-  return Container(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: label,
-          ),
-          Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      color: AppColors.blue_dark.withOpacity(0.15),
-                      offset: Offset(0, 5),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(10)),
-              child: input)
-        ],
-      ));
 }
