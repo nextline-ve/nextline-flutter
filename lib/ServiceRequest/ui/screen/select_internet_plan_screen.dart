@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/ServiceRequest/bloc/bloc_service_request.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/scrollPlans.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 
 class SelectInternetPlanScreen extends StatelessWidget {
+  BlocServiceRequest bloc = BlocServiceRequest();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,24 +27,18 @@ class SelectInternetPlanScreen extends StatelessWidget {
                   JTitle(title: "Planes de"),
                   JTitle(title: "Internet"),
                   Line(top: 10),
-                  ScrollPlans(scrollDirection: Axis.horizontal, children: [
-                    {
-                      "id": 1,
-                      "planName": "5 MB",
-                      "priceBs": "Bs 1.1300.450",
-                      "priceUsd": "10 USD",
-                      "uploadSpeed": "3.5 MB",
-                      "downloadSpeed": "5 MB",
+                  StreamBuilder(
+                    stream: bloc.listPlans,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print(snapshot.data);
+                        return ScrollPlans(scrollDirection: Axis.horizontal, children: snapshot.data);
+                      }
+                      return Container(
+                          child:
+                          Center(child: CircularProgressIndicator()));
                     },
-                    {
-                      "id": 1,
-                      "planName": "10 MB",
-                      "priceBs": "Bs 2.1300.450",
-                      "priceUsd": "17 USD",
-                      "uploadSpeed": "5.5 MB",
-                      "downloadSpeed": "10 MB",
-                    },
-                  ]),
+                  ),
                   _text("Selecciona el plan", 30),
                   _text("de tu preferencia", 1),
                 ],
