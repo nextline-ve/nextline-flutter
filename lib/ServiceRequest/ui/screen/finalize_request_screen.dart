@@ -1,12 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/ServiceRequest/ui/widgets/form_location.dart';
 import 'package:nextline/utils/geolocation_background.dart';
 import 'package:nextline/widgets/background.dart';
-import 'package:nextline/widgets/jbutton.dart';
-import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,21 +17,31 @@ class FinalizeRequestScreen extends StatefulWidget {
 
 class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  String _address;
-  String _referencePoint;
-  double _latitude;
-  double _longitude;
-  Map<String, dynamic> requestData;
+  Map<String, dynamic> _requestData;
+
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
+  _initData() async {
+    SharedPreferences prefs = await _prefs;
+    String data = prefs.getString("dataPersonal");
+    _requestData = jsonDecode(data);
+  }
 
   Future<String> _getAddress() async {
-    // _address = await GeolocationBackground().getAddressFromLatLng();
-    Map<String, dynamic> data = await GeolocationBackground().getAddressFromLatLng();
+    Map<String, dynamic> data =
+        await GeolocationBackground().getAddressFromLatLng();
     if (data['longitude'] != 0.0) {
-      _address = data['address'];
-      _latitude = data['latitude'];
-      _longitude = data['longitude '];
+      _requestData['direccion'] = data['address'];
+      _requestData['latitud'] = data['latitude'];
+      _requestData['longitud'] = data['longitude'];
+      print(_requestData);
+      print("colocando las geolocalizacion");
     }
-    return _address;
+    return jsonEncode(_requestData);
   }
 
   @override
@@ -57,9 +64,14 @@ class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
                   Line(top: 1),
                   FutureBuilder(
                     future: _getAddress(),
-                    builder: (BuildContext context, AsyncSnapshot <String> snapshot ){
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.hasData) {
-                        return getForm(snapshot.data);
+                        Map<String, dynamic> data = jsonDecode(snapshot.data);
+                        return FormLocation(
+                          address: data['direccion'],
+                          requestData: data,
+                        );
                       }
                       return Padding(
                         padding: EdgeInsets.all(40),
@@ -67,75 +79,12 @@ class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-
                     },
                   )
-
                 ],
               ),
             ),
           ),
         ]));
-  }
-  Widget getForm(String address) {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Column(
-        children: [
-          JTextField(initialValue: address,
-            label: "Dirección",
-            inputType: TextInputType.multiline,
-            onKeyValue: (val) => _address = val,
-          ),
-          JTextField(
-            label: "Punto de Referencia",
-            inputType: TextInputType.multiline,
-            onKeyValue: (val) => _referencePoint = val,
-          ),
-          _text("Antes de finalizar confirme", 60),
-          _text("si su dirección es correcta", 1),
-          Container(
-            margin: EdgeInsets.only(top: 30),
-            child: JButton(
-              label: "FINALIZAR SOLICITUD",
-              onTab: _finish,
-              background: AppColors.ligth_blue_color,
-              icon: Icons.navigate_next,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _text(txt, double top) {
-    return Container(
-      margin: EdgeInsets.only(top: top),
-      child: Center(
-          child: Text(
-        txt,
-        style: TextStyle(
-            fontFamily: "fontTitle", color: Colors.white, fontSize: 20),
-      )),
-    );
-  }
-
-  void _finish() async {
-    if (_address == '') {
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Verifique que haya cargado su dirección.')));
-      return;
-    }
-
-    if (_referencePoint != '') {
-      _address += ' Punto de referencia: ' + _referencePoint;
-    }
-
-    SharedPreferences prefs = await _prefs;
-    String data = prefs.getString("dataPersonal");
-    requestData = jsonDecode(data);
-    requestData['direccion'] = _address;
-    requestData['latitud'] = _latitude;
-    requestData['longitud'] = _longitude;
   }
 }

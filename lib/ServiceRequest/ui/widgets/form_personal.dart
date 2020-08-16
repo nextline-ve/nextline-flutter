@@ -81,10 +81,7 @@ class _FormPersonal extends State<FormPersonal> {
                 isPass: false,
                 inputType: TextInputType.emailAddress,
                 label: "Correo Electrónico",
-                onKeyValue: (val) {
-                  _email = val;
-                  return val;
-                },
+                onKeyValue: (val) => _email = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
                     return 'Por favor escriba su correo electrónico';
@@ -114,10 +111,7 @@ class _FormPersonal extends State<FormPersonal> {
                 isPass: true,
                 inputType: TextInputType.text,
                 label: "Confirmar Contraseña",
-                onKeyValue: (val) {
-                  _confirmpass = val;
-                  return val;
-                },
+                onKeyValue: (val) => _confirmpass = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
                     return 'Por favor Confirmar su Contraseña';
@@ -136,8 +130,8 @@ class _FormPersonal extends State<FormPersonal> {
   }
 
   void _makeForm() async {
-
     final form = _formKey.currentState;
+    form.save();
     if (!form.validate()) {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text('Verifique que haya cargado los datos correctamente')));
@@ -150,7 +144,6 @@ class _FormPersonal extends State<FormPersonal> {
     }
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     SharedPreferences prefs = await _prefs;
-
     prefs.setString("dataPersonal", jsonEncode({
       "correo": _email,
       "nombre_razsoc": _name,
@@ -165,6 +158,7 @@ class _FormPersonal extends State<FormPersonal> {
     }));
     prefs.remove("service");
     prefs.remove("plan");
+
     Navigator.pushNamed(context, '/installation');
   }
 }

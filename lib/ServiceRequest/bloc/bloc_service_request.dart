@@ -14,8 +14,8 @@ class BlocServiceRequest implements Bloc {
   Sink<Map<String, dynamic>> get dataServiceRequest => _streamControllerService.sink;
   Stream<String> get responseServiceRequest =>
       _streamControllerService.stream.asyncMap((dataServiceRequest) => _sendServiceRequest(dataServiceRequest));
-  Future<String> _sendServiceRequest(dataServiceRequest) async {
-
+  Future<String> _sendServiceRequest(Map<String, dynamic> dataServiceRequest) async {
+    return await repositoy.setSendRequestServiceAPI(dataServiceRequest);
   }
 
   Stream<List<ModelServices>> get listServices =>
