@@ -66,7 +66,7 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 5),
+                margin: EdgeInsets.only(bottom: 6, top: 14),
                 child: ColoredLabel(text: widget.status),
               ),
               Container(

@@ -40,7 +40,6 @@ class _LoginScreen extends State<LoginScreen> {
                 JButton(
                   label: "SOLICITA TU SERVICIO",
                   onTab: _serviceRequest,
-                  top: 30,
                   background: AppColors.ligth_blue_color,
                 ),
               ],

@@ -63,7 +63,7 @@ class _BillsScreen extends State<BillsScreen> {
     return InkWell(
       onTap: _showDetails,
       child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),

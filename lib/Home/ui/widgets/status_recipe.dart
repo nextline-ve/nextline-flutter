@@ -43,7 +43,9 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
             children: [
               _label("Fecha de pago".toUpperCase()),
               Expanded(
-                  child: Center(child: _lastRecipeDate(new DateTime(2020))))
+                  child: Center(
+                      child:
+                          _lastRecipeDate(_getNextPaycheck(widget.diaCorte))))
             ],
           ),
           VerticalLine(
@@ -76,7 +78,7 @@ Widget _label(String text) {
 }
 
 Widget _lastRecipeDate(DateTime date) {
-  return Text("20/09/2020",
+  return Text("${date.day}/${date.month}/${date.year}",
       style: TextStyle(
           color: AppColors.blue_dark,
           fontFamily: AppFonts.poppins_regular,
@@ -92,4 +94,11 @@ Widget _currencyText(String text, double fontSize, double spacing) {
         fontSize: fontSize,
         letterSpacing: spacing),
   );
+}
+
+DateTime _getNextPaycheck(current) {
+  DateTime now = DateTime.now();
+  int currentDay = int.parse(current);
+  return new DateTime(
+      now.year, now.day <= currentDay ? now.month : now.month + 1, currentDay);
 }

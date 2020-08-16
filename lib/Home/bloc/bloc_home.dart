@@ -11,9 +11,9 @@ class BlocHome implements Bloc {
 
   Sink<int> get idUsuario => _streamController.sink;
   Stream<Map<String, dynamic>> get responseDataHome =>
-      _streamController.stream.asyncMap((idUsuario) => getDataHome(idUsuario));
+      _streamController.stream.asyncMap((idUsuario) => getDataHome());
 
-  Future<Map<String, dynamic>> getDataHome(int idUsuario) async {
+  Future<Map<String, dynamic>> getDataHome() async {
     if (AppSession.data.esCliente) {
       return await RepositoryHome().getDataHomeAPI('admon/contratos-status');
     } else {
@@ -24,6 +24,6 @@ class BlocHome implements Bloc {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _streamController.close();
   }
 }

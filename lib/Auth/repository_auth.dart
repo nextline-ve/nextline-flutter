@@ -6,15 +6,16 @@ import 'package:nextline/utils/app_session.dart';
 
 class RepositoryAuth extends AppHttp {
   Future<ModelSession> setMakeLoginAPI(Map<String, dynamic> dataLogin) async {
+    Response resp;
     try {
       FormData formData = new FormData.fromMap(dataLogin);
-      Response resp = await http.post(api + 'config/auth/', data: formData);
-      return ModelSession.fromJson(resp.data);
-    } on DioError catch(e) {
+      resp = await http.post(api + 'config/auth/', data: formData);
+    } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {
-        throw(value);
+        throw (value);
       });
     }
+    return ModelSession.fromJson(resp.data);
   }
 }

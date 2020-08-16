@@ -1,9 +1,9 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:nextline/Tickets/ui/widgets/button_icon.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
 class CreateTicketScreen extends StatefulWidget {
@@ -30,44 +30,37 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(
-              top: 24,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _titleView("Nuevo Ticket"),
-                _date("01/08/2020"),
-                _inputContainer(_inputLabel("Tipo de Avería"),
-                    DropdownWidget(hintText: "Seleccione una avería")),
-                _inputContainer(
-                  _inputLabel("Comentario2"),
-                  _textArea(
-                      "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                top: 12,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
                     children: [
-                      Container(
-                        margin:
-                            EdgeInsets.only(left: 24, right: 24, bottom: 14),
-                        child: ButtonIcon(
-                          icon: Icons.send,
-                          text: "VER TICKET",
-                          background: AppColors.green_color,
-                          height: 60,
-                          onTab: () => Navigator.popAndPushNamed(
-                              context, '/success-create-ticket'),
-                        ),
+                      _titleView("Nuevo Ticket"),
+                      _date("01/08/2020"),
+                      _inputContainer(_inputLabel("Tipo de Avería"),
+                          DropdownWidget(hintText: "Seleccione una avería")),
+                      _inputContainer(
+                        _inputLabel("Comentario2"),
+                        _textArea(
+                            "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
                       ),
                     ],
                   ),
-                )
-              ],
+                  JButton(
+                    icon: Icons.send,
+                    label: "VER TICKET",
+                    background: AppColors.green_color,
+                    onTab: () => Navigator.popAndPushNamed(
+                        context, '/success-create-ticket'),
+                  ),
+                ],
+              ),
             ),
           )
         ],
