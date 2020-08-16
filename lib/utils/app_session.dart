@@ -52,7 +52,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     nombre = json['nombre'];
     tipoUsuario = json['tipo_usuario'];
     motivoRechazo = json['motivo_rechazo'];
-    idUsuario = json['idUsuario'];
+    idUsuario = json['id_usuario'];
     esCliente = json['es_cliente'];
   }
 
