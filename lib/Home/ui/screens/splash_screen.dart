@@ -22,7 +22,7 @@ class _SplashScreen extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       checkSession().then( (isLoggedIn) {
         (isLoggedIn) ? Navigator.pushReplacementNamed(context, '/home') : 
-        Navigator.pushNamed(context, '/login'); 
+        Navigator.pushNamed(context, '/login');
       });
     });
     

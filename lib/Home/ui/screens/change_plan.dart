@@ -37,7 +37,7 @@ class _ChangePlan extends State<ChangePlan> {
             child: Column(
               children: [
                 _header(),
-                ScrollPlans(scrollDirection: Axis.vertical, children: [
+                /*ScrollPlans(scrollDirection: Axis.vertical, children: [
                   {
                     "id": 1,
                     "planName": "5 MB",
@@ -54,7 +54,7 @@ class _ChangePlan extends State<ChangePlan> {
                     "uploadSpeed": "5.5 MB",
                     "downloadSpeed": "10 MB",
                   },
-                ]),
+                ]),*/
                 _footer()
               ],
             ),

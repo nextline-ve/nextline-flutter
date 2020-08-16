@@ -7,6 +7,7 @@ class JButton extends StatefulWidget {
   final VoidCallback onTab;
   final Color borderColor;
   final double buttonHeight;
+  final double minWidth;
   // Label
   final String label;
   final Color labelColor;
@@ -28,7 +29,7 @@ class JButton extends StatefulWidget {
     this.icon,
     this.isIconRight = true,
     this.background = AppColors.blue_dark,
-    this.iconColor = Colors.white,
+    this.iconColor = Colors.white, this.minWidth = 380,
   }) : super(key: key);
 
   @override
@@ -41,11 +42,12 @@ class _JButton extends State<JButton> {
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
-        minWidth: 380,
+        minWidth: widget.minWidth,
         height: widget.buttonHeight,
         disabledColor: AppColors.gray_text_color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
+          side: BorderSide(color: (widget.borderColor == null) ? widget.background : widget.borderColor),
         ),
         child: Padding(
           padding: EdgeInsets.all(20),
