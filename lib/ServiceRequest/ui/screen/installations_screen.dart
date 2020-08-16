@@ -77,7 +77,7 @@ class _InstallationsScreen extends State<InstallationsScreen> {
   }
 
   void _geolocate() {
-    print("aa");
+    Navigator.pushNamed(context, '/finalize-request');
   }
 
   void _showMap() {
