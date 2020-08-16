@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:nextline/Home/ui/screens/change_plan.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/Tickets/ui/screens/create_ticket.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           '/chat': (context) => Chat(),
           '/bills': (context) => BillsScreen(),
           '/bill-details': (context) => BillDetailsScreen(),
+          '/change-plan': (context) => ChangePlan(),
         },
       ),
       bloc: BlocAuth(),
