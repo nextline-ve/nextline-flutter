@@ -43,5 +43,12 @@
 	<false/>
 	<key>EnableBackgroundLocationUpdates</key>
     <true/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>La geolocalización es necesaria para saber dónde se realiza la instalación del servicio de internet.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>La geolocalización es necesario para conocer la ubicación del personal técnico durante la jornada laboral.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Geolocation is needed in the background to monitor the technical personnel who perform the repairs and installations of the internet service.</string>
+
 </dict>
 </plist>
