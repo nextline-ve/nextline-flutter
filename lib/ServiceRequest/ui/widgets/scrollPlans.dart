@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/ServiceRequest/ui/widgets/plans.dart';
 
 class ScrollPlans extends StatefulWidget {
   final Axis scrollDirection;
-  final List<Widget> children;
+  final List<Map> children;
   const ScrollPlans({
     Key key,
     @required this.scrollDirection,
@@ -28,7 +29,16 @@ class _ScrollPlans extends State<ScrollPlans> {
       height: 295,
       child: ListView(
         scrollDirection: widget.scrollDirection,
-        children: widget.children,
+        children: widget.children
+            .map((plan) => Plans(
+                  id: plan["id"],
+                  planName: plan["planName"],
+                  priceBs: plan["priceBs"],
+                  priceUsd: plan["priceUsd"],
+                  uploadSpeed: plan["uploadSpeed"],
+                  downloadSpeed: plan["downloadSpeed"],
+                ))
+            .toList(),
       ),
     );
   }
