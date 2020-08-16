@@ -15,12 +15,10 @@ class ProfileImageSelector extends StatefulWidget {
 class _ProfileImageSelectorState extends State<ProfileImageSelector> {
   File imageFile;
 
-  void getImage() {
-    widget.picker
-        .getImage(source: ImageSource.camera)
-        .then((pickedFile) => setState(() {
-              imageFile = File(pickedFile.path);
-            }));
+  void getImage(ImageSource source) {
+    widget.picker.getImage(source: source).then((pickedFile) => setState(() {
+          imageFile = File(pickedFile.path);
+        }));
   }
 
   @override
@@ -36,14 +34,14 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                 FlatButton(
                   autofocus: false,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  onPressed: () => {getImage()},
+                  onPressed: () => {_showMyDialog()},
                   child: imageFile != null
-                      ? CircleAvatar(
-                          radius: 20,
+                      ? ClipOval(
                           child: Image.file(
                             imageFile,
-                            height: 140,
-                            width: 100,
+                            height: 136,
+                            width: 136,
+                            fit: BoxFit.cover,
                           ),
                         )
                       : Icon(
@@ -69,6 +67,82 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    final content = Text('Tomar una foto con la camara o de la galeria?');
+    final title = Text('Seleccionar foto de perfil');
+
+    if (Platform.isAndroid) {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: title,
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  content,
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              RaisedButton(
+                color: AppColors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Camara'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2, left: 5),
+                      child: Icon(Icons.camera_alt,
+                          size: 14, color: AppColors.white_color),
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  getImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+              RaisedButton(
+                color: AppColors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Galeria'),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2, left: 5),
+                      child: Icon(Icons.filter,
+                          size: 14, color: AppColors.white_color),
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  getImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    return CupertinoAlertDialog(
+      title: title,
+      content: content,
+      actions: [
+        CupertinoDialogAction(
+          child: Text("Camara"),
+          onPressed: () => {getImage(ImageSource.camera)},
+        ),
+        CupertinoDialogAction(
+          child: Text("Galeria"),
+          onPressed: () => {getImage(ImageSource.gallery)},
+        )
+      ],
     );
   }
 }
