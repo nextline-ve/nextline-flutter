@@ -12,20 +12,19 @@ class AppSession {
     AppSession.data = _data;
   }
 
-  Future unregister() async {}
+  Future unregister() async {
+    AppSession.data = null;
+    await ModelSession().deleteObject();
+    return true;
+  }
 
   Future<bool> isActiveSession() async {
-    print("activo");
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
-    print(AppSession.data);
-    print("=====activo");
     if (AppSession.data == null) {
       AppSession.isLoggedIn = false;
       return false;
     } else {
-      print("^^^^^^^");
-      print(AppSession.data.nombre);
       AppSession.isLoggedIn = true;
       return true;
     }
@@ -53,7 +52,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     nombre = json['nombre'];
     tipoUsuario = json['tipo_usuario'];
     motivoRechazo = json['motivo_rechazo'];
-    idUsuario = json['id_usuario'];
+    idUsuario = json['idUsuario'];
     esCliente = json['es_cliente'];
   }
 
@@ -63,9 +62,20 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     data['nombre'] = this.nombre;
     data['tipo_usuario'] = this.tipoUsuario;
     data['motivo_rechazo'] = this.motivoRechazo;
-    data['id_usuario'] = this.idUsuario;
+    data['idUsuario'] = this.idUsuario;
     data['es_cliente'] = this.esCliente;
     return data;
+  }
+
+  Future deleteObject() async {
+    final db = await database;
+
+    // Remove the Dog from the Database.
+    await db.delete(
+      'cliente',
+      where: "id = ?",
+      whereArgs: [1],
+    );
   }
 
   @override
@@ -116,7 +126,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
       "nombre TEXT,"
       "tipo_usuario TEXT,"
       "motivo_rechazo TEXT,"
-      "id_usuario INTEGER,"
+      "idUsuario INTEGER,"
       "es_cliente BOOLEAN)",
     );
     return true;
