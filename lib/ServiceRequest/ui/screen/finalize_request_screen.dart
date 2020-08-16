@@ -93,7 +93,7 @@ class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
             onKeyValue: (val) => _referencePoint = val,
           ),
           _text("Antes de finalizar confirme", 60),
-          _text("si su ubicaciones es correcta", 1),
+          _text("si su dirección es correcta", 1),
           Container(
             margin: EdgeInsets.only(top: 30),
             child: JButton(
