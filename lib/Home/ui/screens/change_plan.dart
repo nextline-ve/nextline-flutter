@@ -109,7 +109,6 @@ class _ChangePlan extends State<ChangePlan> {
                 child: JButton(
                   label: "CONTINUAR",
                   onTab: _serviceRequest,
-                  top: 30,
                   background: AppColors.green_color,
                 ),
               ),

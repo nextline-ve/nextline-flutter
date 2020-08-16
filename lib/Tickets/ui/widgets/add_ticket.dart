@@ -16,7 +16,7 @@ class AddTicketButton extends StatelessWidget {
           height: 160,
           margin: EdgeInsets.only(top: 45),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(24),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -27,47 +27,46 @@ class AddTicketButton extends StatelessWidget {
               ),
             ],
           ),
-          child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: new BoxDecoration(
-                // color: Colors.orange,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 15,
-                        color: Color(0x005FAB33),
-                        offset: Offset(0, 3))
-                  ],
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        AppColors.ligth_blue_color,
-                        AppColors.blue,
-                        AppColors.blue_dark,
-                      ])),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset("assets/images/plus.svg",
-                      height: 38, color: AppColors.white_color),
-                ],
-              ),
-            ),
-            Column(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buttonLabelText("Crear nuevo ticket"),
-                _buttonLowLabelText(
-                    "Crea un nuevo ticket para reportar una avería"),
-              ],
-            )
-          ])),
-    ) ;
-
-
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: new BoxDecoration(
+                      // color: Colors.orange,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 15,
+                            color: Color(0x005FAB33),
+                            offset: Offset(0, 3))
+                      ],
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            AppColors.ligth_blue_color,
+                            AppColors.blue,
+                            AppColors.blue_dark,
+                          ])),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset("assets/images/plus.svg",
+                          height: 38, color: AppColors.white_color),
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    _buttonLabelText("Crear nuevo ticket"),
+                    _buttonLowLabelText(
+                        "Crea un nuevo ticket para reportar una avería"),
+                  ],
+                )
+              ])),
+    );
   }
 }
 

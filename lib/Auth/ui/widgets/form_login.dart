@@ -115,7 +115,6 @@ class _FormLogin extends State<FormLogin> {
                 return JButton(
                   label: "INGRESAR",
                   onTab: _setMakeLogin,
-                  top: 30,
                   background: AppColors.green_color,
                 );
               },

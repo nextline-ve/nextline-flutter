@@ -20,14 +20,12 @@ class BlocAuth implements Bloc {
     return data.idUsuario is int;
   }
 
-
   Stream<bool> get isActiveSession =>
       Stream.fromFuture(appSession.isActiveSession());
 
   Future closeSession() async {
     await appSession.unregister();
   }
-
 
   @override
   void dispose() {
