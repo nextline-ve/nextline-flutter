@@ -12,12 +12,20 @@ class NavigatorBar extends StatefulWidget {
 class _NavigatorBar extends State<NavigatorBar> {
   int _currentIndex = 0;
 
+  List<IconData> items = [
+    Icons.home,
+    Icons.person,
+  ];
+
   onTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
     switch (_currentIndex) {
       case 0:
+        if (ModalRoute.of(context).settings.name == "/home") {
+          return;
+        }
         Navigator.pushReplacementNamed(context, '/home');
         break;
     }
@@ -25,28 +33,45 @@ class _NavigatorBar extends State<NavigatorBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: AppColors.blue_dark,
-          primaryColor: Colors.white70,
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: onTapped,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  size: 30,
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 55),
+      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      decoration: BoxDecoration(
+          color: AppColors.blue_dark,
+          borderRadius: BorderRadius.circular(100),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.gray_shadow_color,
+              blurRadius: 20,
+              spreadRadius: 10,
+            )
+          ]),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: items
+              .asMap()
+              .entries
+              .map(
+                (entry) => Container(
+                  child: ButtonTheme(
+                    height: 30,
+                    buttonColor: AppColors.blue_dark,
+                    disabledColor: AppColors.blue_dark,
+                    child: FlatButton(
+                      color: AppColors.blue_dark,
+                      onPressed: () => onTapped(entry.key),
+                      child: Icon(
+                        entry.value,
+                        color: _currentIndex == entry.key
+                            ? Colors.white70
+                            : Colors.white,
+                        size: 30,
+                      ),
+                    ),
+                  ),
                 ),
-                title: Text("")),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
-                  size: 30,
-                ),
-                title: Text(""))
-          ],
-        ));
+              )
+              .toList()),
+    );
   }
 }
