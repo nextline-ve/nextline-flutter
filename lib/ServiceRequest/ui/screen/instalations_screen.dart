@@ -3,14 +3,14 @@ import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 
-class InstalationsScreen extends StatefulWidget {
+class InstallationsScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _InstalationsScreen();
+    return _InstallationsScreen();
   }
 }
 
-class _InstalationsScreen extends State<InstalationsScreen> {
+class _InstallationsScreen extends State<InstallationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

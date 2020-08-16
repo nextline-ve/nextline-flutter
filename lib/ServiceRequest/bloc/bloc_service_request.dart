@@ -4,6 +4,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/ServiceRequest/model/model_plans.dart';
 import 'package:nextline/ServiceRequest/model/model_services.dart';
 import 'package:nextline/ServiceRequest/repository/repository_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BlocServiceRequest implements Bloc {
   RepositoryServices repositoy = RepositoryServices();
@@ -27,6 +28,8 @@ class BlocServiceRequest implements Bloc {
   }
 
   Future<List<ModelPlans>> _getListPlans() async {
-    return await repositoy.getListPlansAPI();
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    SharedPreferences prefs = await _prefs;
+    return await repositoy.getListPlansAPI(prefs.getInt("service"));
   }
 }

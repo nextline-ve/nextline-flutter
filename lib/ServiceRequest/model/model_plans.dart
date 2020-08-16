@@ -6,8 +6,8 @@ class ModelPlans {
   bool activo;
   TipoServicio tipoServicio;
   String precioBs;
-  String velocidadSubida;
-  String velocidadBaja;
+  int velocidadSubida;
+  int velocidadBaja;
 
   ModelPlans(
       {this.id,

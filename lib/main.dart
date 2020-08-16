@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           '/select-service': (context) => SelectServiceScreen(),
           '/select-internet-plan': (context) => SelectInternetPlanScreen(),
           '/personal-form': (context) => PersonalFormScreen(),
-          '/instalations': (context) => InstalationsScreen(),
+          '/installation': (context) => InstallationsScreen(),
           '/home': (context) => HomeScreen(),
           '/tickets': (context) => HistoryTicketScreen(),
           '/create-ticket': (context) => CreateTicketScreen(),

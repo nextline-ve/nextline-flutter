@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/speed_container.dart';
 import 'package:nextline/widgets/jtitle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Plans extends StatefulWidget {
   final int id;
@@ -9,6 +10,7 @@ class Plans extends StatefulWidget {
   final String uploadSpeed;
   final String priceUsd;
   final String priceBs;
+  final String pushUrl;
 
   const Plans(
       {Key key,
@@ -17,7 +19,7 @@ class Plans extends StatefulWidget {
       @required this.downloadSpeed,
       @required this.uploadSpeed,
       @required this.priceUsd,
-      @required this.priceBs})
+      @required this.priceBs, this.pushUrl})
       : super(key: key);
 
   @override
@@ -30,8 +32,11 @@ class _Plans extends State<Plans> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/personal-form');
+      onTap: () async {
+        Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+        SharedPreferences prefs = await _prefs;
+        await  prefs.setInt('plan', widget.id);
+        Navigator.pushNamed(context, widget.pushUrl);
       },
       child: Container(
         margin: EdgeInsets.only(top: 50, left: 20),

@@ -5,7 +5,12 @@ import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 
-class SelectInternetPlanScreen extends StatelessWidget {
+class SelectInternetPlanScreen extends StatefulWidget {
+  @override
+  _SelectInternetPlanScreenState createState() => _SelectInternetPlanScreenState();
+}
+
+class _SelectInternetPlanScreenState extends State<SelectInternetPlanScreen> {
   BlocServiceRequest bloc = BlocServiceRequest();
 
   @override
