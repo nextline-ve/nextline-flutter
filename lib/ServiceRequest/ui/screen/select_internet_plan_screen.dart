@@ -31,10 +31,10 @@ class SelectInternetPlanScreen extends StatelessWidget {
                     stream: bloc.listPlans,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        print(snapshot.data);
                         return ScrollPlans(scrollDirection: Axis.horizontal, children: snapshot.data);
                       }
                       return Container(
+                        margin: EdgeInsets.only(top: 30),
                           child:
                           Center(child: CircularProgressIndicator()));
                     },

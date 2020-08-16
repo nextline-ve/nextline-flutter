@@ -34,13 +34,13 @@ class _Plans extends State<Plans> {
         Navigator.pushNamed(context, '/personal-form');
       },
       child: Container(
-        margin: EdgeInsets.only(top: 50, left: 30),
+        margin: EdgeInsets.only(top: 50, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 260,
-              padding: EdgeInsets.all(10),
+              width: 272,
+              padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.0),
                 color: Colors.white,
@@ -53,12 +53,13 @@ class _Plans extends State<Plans> {
                       title: widget.planName,
                       color: Color.fromRGBO(2, 144, 223, 1)),
                   SpeedContainer(
-                    downloadSpeed: widget.downloadSpeed,
-                    uploadSpeed: widget.uploadSpeed,
+                    downloadSpeed: widget.downloadSpeed + "  MB",
+                    uploadSpeed: widget.uploadSpeed + "  MB",
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Text("PRECIO MESUAL",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: "fontLight",
                               color: Color.fromRGBO(70, 69, 69, 0.4)))),
@@ -73,12 +74,13 @@ class _Plans extends State<Plans> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          flex: 4,
+                          flex: 5,
                           child: Text(
                             widget.priceUsd,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontFamily: "fontSubTitle",
                             ),
                           ),
@@ -87,6 +89,7 @@ class _Plans extends State<Plans> {
                           flex: 1,
                           child: Text(
                             "/",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -95,12 +98,13 @@ class _Plans extends State<Plans> {
                           ),
                         ),
                         Expanded(
-                          flex: 7,
+                          flex: 6,
                           child: Text(
                             widget.priceBs,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 14,
                               fontFamily: "fontSubTitle",
                             ),
                           ),
