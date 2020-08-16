@@ -33,12 +33,27 @@ class _ChangePlan extends State<ChangePlan> {
       body: Stack(
         children: [
           Container(
+            color: AppColors.blue_dark,
             child: Column(
               children: [
                 _header(),
                 ScrollPlans(scrollDirection: Axis.vertical, children: [
-                  Text("test"),
-                  Text("test"),
+                  {
+                    "id": 1,
+                    "planName": "5 MB",
+                    "priceBs": "Bs 1.1300.450",
+                    "priceUsd": "10 USD",
+                    "uploadSpeed": "3.5 MB",
+                    "downloadSpeed": "5 MB",
+                  },
+                  {
+                    "id": 1,
+                    "planName": "10 MB",
+                    "priceBs": "Bs 2.1300.450",
+                    "priceUsd": "17 USD",
+                    "uploadSpeed": "5.5 MB",
+                    "downloadSpeed": "10 MB",
+                  },
                 ]),
                 _footer()
               ],

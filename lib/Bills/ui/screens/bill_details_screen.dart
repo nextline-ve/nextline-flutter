@@ -19,6 +19,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        centerTitle: true,
       ),
       body: Stack(
         children: [

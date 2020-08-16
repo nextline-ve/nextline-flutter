@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/ServiceRequest/ui/widgets/plans.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/scrollPlans.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jtitle.dart';
@@ -26,22 +25,22 @@ class SelectInternetPlanScreen extends StatelessWidget {
                   JTitle(title: "Internet"),
                   Line(top: 10),
                   ScrollPlans(scrollDirection: Axis.horizontal, children: [
-                    Plans(
-                      id: 1,
-                      planName: "5 MB",
-                      priceBs: "Bs 1.1300.450",
-                      priceUsd: "10 USD",
-                      uploadSpeed: "3.5 MB",
-                      downloadSpeed: "5 MB",
-                    ),
-                    Plans(
-                      id: 1,
-                      planName: "10 MB",
-                      priceBs: "Bs 2.1300.450",
-                      priceUsd: "17 USD",
-                      uploadSpeed: "5.5 MB",
-                      downloadSpeed: "10 MB",
-                    ),
+                    {
+                      "id": 1,
+                      "planName": "5 MB",
+                      "priceBs": "Bs 1.1300.450",
+                      "priceUsd": "10 USD",
+                      "uploadSpeed": "3.5 MB",
+                      "downloadSpeed": "5 MB",
+                    },
+                    {
+                      "id": 1,
+                      "planName": "10 MB",
+                      "priceBs": "Bs 2.1300.450",
+                      "priceUsd": "17 USD",
+                      "uploadSpeed": "5.5 MB",
+                      "downloadSpeed": "10 MB",
+                    },
                   ]),
                   _text("Selecciona el plan", 30),
                   _text("de tu preferencia", 1),
