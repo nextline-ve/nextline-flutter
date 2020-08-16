@@ -123,7 +123,6 @@ class _FormPersonal extends State<FormPersonal> {
               ),
               JButton(
                 label: "CONTINUAR",
-                top: 40,
                 onTab: _makeForm,
               ),
             ],

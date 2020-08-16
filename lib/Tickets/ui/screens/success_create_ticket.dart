@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/ui/widgets/button_icon.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
 class SuccessCreateTicketScreen extends StatefulWidget {
@@ -119,10 +120,10 @@ Widget _card(String number, String type, context) {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 35),
-              child: ButtonIcon(
-                  text: "Ver Ticket",
+              child: JButton(
+                  label: "Ver Ticket",
                   icon: Icons.remove_red_eye,
-                  height: 40,
+                  buttonHeight: 40,
                   background: AppColors.ligth_blue_color,
                   onTab: () => Navigator.popAndPushNamed(context, '/chat')),
             )
