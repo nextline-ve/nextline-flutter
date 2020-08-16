@@ -6,7 +6,7 @@ import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 
 class SelectServiceScreen extends StatelessWidget {
-  BlocServiceRequest bloc = BlocServiceRequest();
+  final BlocServiceRequest bloc = BlocServiceRequest();
 
   @override
   Widget build(BuildContext context) {
