@@ -11,7 +11,8 @@ import 'Auth/ui/screens/login_screen.dart';
 import 'Bills/ui/screens/bill_details_screen.dart';
 import 'Bills/ui/screens/bills_screen.dart';
 import 'Home/ui/screens/splash_screen.dart';
-import 'ServiceRequest/ui/screen/instalations_screen.dart';
+import 'ServiceRequest/ui/screen/finalize_request_screen.dart';
+import 'ServiceRequest/ui/screen/installations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
 import 'ServiceRequest/ui/screen/select_internet_plan_screen.dart';
 import 'ServiceRequest/ui/screen/select_service_screen.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
           '/select-service': (context) => SelectServiceScreen(),
           '/select-internet-plan': (context) => SelectInternetPlanScreen(),
           '/personal-form': (context) => PersonalFormScreen(),
-          '/instalations': (context) => InstalationsScreen(),
+          '/installation': (context) => InstallationsScreen(),
+          '/finalize-request': (context) => FinalizeRequestScreen(),
           '/home': (context) => HomeScreen(),
           '/tickets': (context) => HistoryTicketScreen(),
           '/create-ticket': (context) => CreateTicketScreen(),

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FormPersonal extends StatefulWidget {
   @override
@@ -77,10 +81,7 @@ class _FormPersonal extends State<FormPersonal> {
                 isPass: false,
                 inputType: TextInputType.emailAddress,
                 label: "Correo Electrónico",
-                onKeyValue: (val) {
-                  _email = val;
-                  return val;
-                },
+                onKeyValue: (val) => _email = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
                     return 'Por favor escriba su correo electrónico';
@@ -110,10 +111,7 @@ class _FormPersonal extends State<FormPersonal> {
                 isPass: true,
                 inputType: TextInputType.text,
                 label: "Confirmar Contraseña",
-                onKeyValue: (val) {
-                  _confirmpass = val;
-                  return val;
-                },
+                onKeyValue: (val) => _confirmpass = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
                     return 'Por favor Confirmar su Contraseña';
@@ -124,21 +122,43 @@ class _FormPersonal extends State<FormPersonal> {
               JButton(
                 label: "CONTINUAR",
                 onTab: _makeForm,
+                background: AppColors.ligth_blue_color,
               ),
             ],
           ),
         ));
   }
 
-  _makeForm() {
-    print("""
-      $_email,
-      $_name,
-      $_cedula,
-      $_phone,
-      $_pass,
-      $_confirmpass,
-      """);
-    Navigator.pushNamed(context, '/instalations');
+  void _makeForm() async {
+    final form = _formKey.currentState;
+    form.save();
+    if (!form.validate()) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Verifique que haya cargado los datos correctamente')));
+      return;
+    }
+    if (_pass != _confirmpass) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Verifique que haya cargado los datos correctamente')));
+      return;
+    }
+    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    SharedPreferences prefs = await _prefs;
+    prefs.setString("dataPersonal", jsonEncode({
+      "correo": _email,
+      "nombre_razsoc": _name,
+      "cedula_rif": _cedula,
+      "celular": _phone,
+      "clave": _pass,
+      "plan": prefs.getInt("plan"),
+      "latitud": "",
+      "longitud": "",
+      "direccion": "",
+      "avatar": "",
+    }));
+    prefs.remove("service");
+    prefs.remove("plan");
+
+    Navigator.pushNamed(context, '/installation');
   }
 }

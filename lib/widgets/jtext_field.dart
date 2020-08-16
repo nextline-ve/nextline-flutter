@@ -11,17 +11,19 @@ class JTextField extends StatefulWidget {
   final TextInputType inputType;
   final StringValue onValidator;
   final StringValue onKeyValue;
+  final String initialValue;
 
   const JTextField(
       {Key key,
       @required this.label,
       @required this.inputType,
-      @required this.isPass,
-      @required this.onValidator,
       @required this.onKeyValue,
+      this.onValidator,
+      this.isPass = false,
       this.iconRigth,
       this.icon,
-      this.backgoundColor})
+      this.backgoundColor,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -36,9 +38,11 @@ class _JTextField extends State<JTextField> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: TextFormField(
+        initialValue: widget.initialValue,
         autofocus: true,
         obscureText: widget.isPass,
         keyboardType: widget.inputType,
+        maxLines: (widget.inputType == TextInputType.multiline) ? null : 1,
         validator: widget.onValidator,
         onSaved: widget.onKeyValue,
         decoration: InputDecoration(

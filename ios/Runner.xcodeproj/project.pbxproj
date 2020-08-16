@@ -48,6 +48,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B53FF3754A48D86F1930C940 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F052123824E22EE70003817C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F0F0653324E98AF200B2D7D1 /* Nextline.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nextline.entitlements; sourceTree = "<group>"; };
 		F97FD11AA2668742F1CE876B /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +107,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				F0F0653324E98AF200B2D7D1 /* Nextline.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -366,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;
@@ -504,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;
@@ -536,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;

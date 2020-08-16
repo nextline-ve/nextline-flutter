@@ -40,17 +40,19 @@ class SelectServiceScreen extends StatelessWidget {
                   StreamBuilder(
                       stream: bloc.listServices,
                       builder: (context, snapshot) {
-                        if (snapshot.data == null) {
-                          return Container(
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        }
-                        return ListView.builder(
+                        if (snapshot.hasData) {
+                          return ListView.builder(
                             itemCount: snapshot.data.length,
                             shrinkWrap: true,
                             itemBuilder: (ctx, i) => Services(
                                 id: snapshot.data[i].id,
                                 name: snapshot.data[i].servicio));
+                        }
+                        
+                        return Container(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        
                       }),
                 ],
               ),
