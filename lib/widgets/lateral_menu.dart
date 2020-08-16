@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_session.dart';
 
 class LateralMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Drawer(
       child: ListView(
         // Important: Remove any padding from the ListView.
@@ -15,11 +15,11 @@ class LateralMenu extends StatelessWidget {
           _logo(),
           _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
               "change-plan"),
-          _item(context, "FACTURACIÓN", "assets/images/facturacion.svg",
-              "invoces"),
+          _item(
+              context, "FACTURACIÓN", "assets/images/facturacion.svg", "bills"),
           _item(context, "ASISTENCIA TÉCNICA",
               "assets/images/asistenciatecnica.svg", "tickets"),
-          _closed(),
+          _closed(context),
         ],
       ),
     );
@@ -29,7 +29,7 @@ class LateralMenu extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
-        Navigator.pushNamed(context, "/${url}");
+        Navigator.pushNamed(context, "/$url");
       },
       child: Center(
         child: Container(
@@ -74,11 +74,11 @@ class LateralMenu extends StatelessWidget {
     );
   }
 
-  Widget _closed() {
+  Widget _closed(context) {
     return Center(
       child: Container(
         width: 230,
-        margin: EdgeInsets.only(top: 80),
+        margin: EdgeInsets.only(top: 60, bottom: 20),
         padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -94,25 +94,30 @@ class LateralMenu extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 10,
-                  child: Text("CERRAR SESIÓN",
-                      style: TextStyle(
-                          color: AppColors.blue_dark,
-                          fontFamily: AppFonts.poppins_regular,
-                          fontSize: 17)),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: SvgPicture.asset(
-                    "assets/images/cerrarsesion.svg",
-                    color: AppColors.blue_dark,
+            GestureDetector(
+              onTap: () {
+                AppSession().unregister().then((value) => Navigator.pushNamed(context, '/login'));
+              },
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 10,
+                    child: Text("CERRAR SESIÓN",
+                        style: TextStyle(
+                            color: AppColors.blue_dark,
+                            fontFamily: AppFonts.poppins_regular,
+                            fontSize: 17)),
                   ),
-                )
-              ],
-            ),
+                  Expanded(
+                    flex: 2,
+                    child: SvgPicture.asset(
+                      "assets/images/cerrarsesion.svg",
+                      color: AppColors.blue_dark,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

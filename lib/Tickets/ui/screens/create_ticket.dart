@@ -19,7 +19,6 @@ class CreateTicketScreen extends StatefulWidget {
 class _CreateTicketScreen extends State<CreateTicketScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,

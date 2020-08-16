@@ -5,7 +5,12 @@ import 'package:nextline/utils/app_fonts.dart';
 import '../../../widgets/line.dart';
 
 class HStatusRecipe extends StatefulWidget {
-  HStatusRecipe({Key key}) : super(key: key);
+  final String precioBs;
+  final String precioUsb;
+  final String diaCorte;
+
+  HStatusRecipe({Key key, this.precioBs, this.precioUsb, this.diaCorte})
+      : super(key: key);
 
   @override
   _HStatusRecipeState createState() => _HStatusRecipeState();
@@ -17,8 +22,6 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
     return Container(
       // color: Colors.amber,
       margin: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-      //width: 360,
-      //margin: EdgeInsets.only(bottom: 10, top: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -52,8 +55,8 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _label("total a pagar".toUpperCase()),
-              _currencyText("\$20", 24, 1.2),
-              _currencyText("Bs 2.200.000", 14, 0.7),
+              _currencyText(widget.precioUsb, 24, 1.2),
+              _currencyText(widget.precioBs, 14, 0.7),
             ],
           )
         ],

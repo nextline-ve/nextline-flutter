@@ -9,7 +9,6 @@ class Services extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _Services();
   }
 }
@@ -17,13 +16,14 @@ class Services extends StatefulWidget {
 class _Services extends State<Services> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       padding: EdgeInsets.only(top: 18, bottom: 18, left: 20, right: 20),
       margin: EdgeInsets.only(top: 30),
       decoration: BoxDecoration(
-        border: Border.all(width: 2.0, color: Color.fromRGBO(82, 192, 242, 1)),
-        borderRadius: BorderRadius.circular(22), color: Colors.white),
+          border:
+              Border.all(width: 2.0, color: Color.fromRGBO(82, 192, 242, 1)),
+          borderRadius: BorderRadius.circular(22),
+          color: Colors.white),
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, '/select-internet-plan');
@@ -42,9 +42,9 @@ class _Services extends State<Services> {
             ),
             Expanded(
                 flex: 4,
-                child: SvgPicture.asset("assets/images/${widget.name.toLowerCase()}.svg",
-                    color: Color.fromRGBO(0, 109, 186, 1))
-            )
+                child: SvgPicture.asset(
+                    "assets/images/${widget.name.toLowerCase()}.svg",
+                    color: Color.fromRGBO(0, 109, 186, 1)))
           ],
         ),
       ),

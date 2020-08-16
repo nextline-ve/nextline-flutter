@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/utils/app_colors.dart';
-import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
@@ -12,7 +11,6 @@ import 'package:nextline/widgets/jtext_field.dart';
 class FormLogin extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _FormLogin();
   }
 }
@@ -35,10 +33,8 @@ class _FormLogin extends State<FormLogin> {
       if (message == "Bienvenido") {
         Navigator.pushReplacementNamed(context, "/home");
       }
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
     });
-
   }
 
   @override
@@ -50,7 +46,7 @@ class _FormLogin extends State<FormLogin> {
   @override
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
-    // TODO: implement build
+
     return formUI();
   }
 
@@ -108,6 +104,7 @@ class _FormLogin extends State<FormLogin> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   _makeRequest = false;
+                  print(snapshot.error.toString());
                   streamMessageLogin.add(snapshot.error.toString());
                 } else {
                   if (snapshot.hasData && snapshot.data) {
@@ -130,19 +127,19 @@ class _FormLogin extends State<FormLogin> {
   }
 
   void _setMakeLogin() {
-    if(_makeRequest){
+    if (_makeRequest) {
       return;
     }
     print("a");
     final form = _formKey.currentState;
     form.save();
     if (!form.validate()) {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text('Verifique que haya cargado los datos correctamente')));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Verifique que haya cargado los datos correctamente')));
       return;
     }
     _makeRequest = true;
     AppHttp.requestIndicator(context);
     blocAuth.dataForLogin.add({'email': _email, 'clave': _pass});
   }
-
 }

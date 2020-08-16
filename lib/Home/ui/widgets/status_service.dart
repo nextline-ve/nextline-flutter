@@ -4,8 +4,8 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class HStatusService extends StatefulWidget {
-  final String status = "En análisis";
-  HStatusService({Key key}) : super(key: key);
+  final String status;
+  HStatusService({Key key, this.status}) : super(key: key);
 
   @override
   _HStatusServiceState createState() => _HStatusServiceState();
