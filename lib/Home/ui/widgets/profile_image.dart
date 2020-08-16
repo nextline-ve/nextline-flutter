@@ -37,11 +37,20 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                   autofocus: false,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   onPressed: () => {getImage()},
-                  child: Icon(
-                    Icons.account_circle,
-                    size: 136,
-                    color: AppColors.blue_dark,
-                  ),
+                  child: imageFile != null
+                      ? CircleAvatar(
+                          radius: 20,
+                          child: Image.file(
+                            imageFile,
+                            height: 140,
+                            width: 100,
+                          ),
+                        )
+                      : Icon(
+                          Icons.account_circle,
+                          size: 136,
+                          color: AppColors.blue_dark,
+                        ),
                 ),
                 Container(
                   padding: EdgeInsets.all(6),
