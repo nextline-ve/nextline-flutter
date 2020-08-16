@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/background.dart';
+import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtitle.dart';
 import 'package:nextline/widgets/line.dart';
 
@@ -32,13 +34,7 @@ class _InstallationsScreen extends State<InstallationsScreen> {
                 Line(
                   top: 1,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _textos("¿Esta usted en el sitio donde se", 70),
-                    _textos("va a instalar el servicios?", 1)
-                  ],
-                )
+                _question(),
               ],
             ),
           )
@@ -47,7 +43,48 @@ class _InstallationsScreen extends State<InstallationsScreen> {
     );
   }
 
-  Widget _textos(String title, double top) {
+  Widget _question() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _texts("¿Esta usted en el sitio donde se", 70),
+        _texts("va a instalar el servicios?", 1),
+        Container(
+          margin: EdgeInsets.only(top: 40),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              JButton(
+                label: "SI",
+                labelColor: AppColors.blue_dark,
+                borderColor: AppColors.ligth_blue_color,
+                background: Colors.white,
+                onTab: _geolocate,
+                minWidth: 100,
+              ),
+              JButton(
+                  label: "NO",
+                  labelColor: AppColors.blue_dark,
+                  borderColor: AppColors.ligth_blue_color,
+                  background: Colors.white,
+                  onTab: _showMap,
+                  minWidth: 100),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  void _geolocate() {
+    print("aa");
+  }
+
+  void _showMap() {
+    print("mapa");
+  }
+
+  Widget _texts(String title, double top) {
     return Container(
       margin: EdgeInsets.only(top: top),
       child: Center(

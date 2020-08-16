@@ -11,7 +11,7 @@ import 'Auth/ui/screens/login_screen.dart';
 import 'Bills/ui/screens/bill_details_screen.dart';
 import 'Bills/ui/screens/bills_screen.dart';
 import 'Home/ui/screens/splash_screen.dart';
-import 'ServiceRequest/ui/screen/instalations_screen.dart';
+import 'ServiceRequest/ui/screen/installations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
 import 'ServiceRequest/ui/screen/select_internet_plan_screen.dart';
 import 'ServiceRequest/ui/screen/select_service_screen.dart';
