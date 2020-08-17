@@ -30,22 +30,20 @@ class _LoginScreen extends State<LoginScreen> {
           Background(
             pathImage: "assets/images/fondo_login.png",
           ),
-          SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                WhiteLogo(),
-                FormLogin(),
-                Line(top: 0),
-                JButton(
-                  label: "SOLICITA TU SERVICIO",
-                  onTab: _serviceRequest,
-                  background: AppColors.ligth_blue_color,
-                ),
-              ],
-            ),
-          ),
+          ListView(
+            children: [
+              WhiteLogo(),
+              FormLogin(),
+              Line(top: 0),
+              JButton(
+                label: "SOLICITA TU SERVICIO",
+                onTab: _serviceRequest,
+                background: AppColors.ligth_blue_color,
+              ),
+            ],
+          )
         ],
+          
       ),
     );
   }
