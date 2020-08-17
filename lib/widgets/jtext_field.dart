@@ -42,6 +42,7 @@ class _JTextField extends State<JTextField> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        
         border: Border.all(
           color: (widget.borderColor == null) ? AppColors.gray_color :  widget.borderColor,
         ),

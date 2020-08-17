@@ -137,9 +137,9 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("myFile.pdf"),
+                Text("!myFile.pdf"),
                 InkWell(
-                  onTap: ,
+                  onTap: () => _deleteBill(),
                   child: Icon(
                     Icons.delete_forever,
                     color: AppColors.blue_dark,
@@ -158,6 +158,10 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
 
   _uploadBill(){
     print("_uploadBill");
+  }
+
+  _deleteBill(){
+    print("_deleteBill");
   }
 
   _finishPayment(){
