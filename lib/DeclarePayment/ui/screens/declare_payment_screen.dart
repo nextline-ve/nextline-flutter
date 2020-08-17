@@ -166,6 +166,7 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
 
   _finishPayment(){
     print("_finishPayment");
+    Navigator.pushNamed(context, '/success-declare-payments');
   }
 
 }
