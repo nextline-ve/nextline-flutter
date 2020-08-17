@@ -151,19 +151,24 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
         },
       );
     }
-    return CupertinoAlertDialog(
-      title: title,
-      content: content,
-      actions: [
-        CupertinoDialogAction(
-          child: Text("Camara"),
-          onPressed: () => {getImage(ImageSource.camera)},
-        ),
-        CupertinoDialogAction(
-          child: Text("Galeria"),
-          onPressed: () => {getImage(ImageSource.gallery)},
-        )
-      ],
-    );
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: title,
+            content: content,
+            actions: [
+              CupertinoDialogAction(
+                child: Text("Camara"),
+                onPressed: () => {getImage(ImageSource.camera)},
+              ),
+              CupertinoDialogAction(
+                child: Text("Galeria"),
+                onPressed: () => {getImage(ImageSource.gallery)},
+              )
+            ],
+          );
+        });
   }
 }
