@@ -115,7 +115,7 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
             child: JButton(
               icon: Icons.file_upload,
               fontSize: 10.0,
-              label: "ADJUNTAR COMPROBANTE DE PAGO",
+              label: "ADJUNTAR COMPROBANTE",
               background: AppColors.blue_dark,
               onTab: () => _uploadBill(),
             ),
