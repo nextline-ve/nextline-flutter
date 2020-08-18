@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/ServiceRequest/model/model_plans.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/plans.dart';
 
 class ScrollPlans extends StatefulWidget {
   final Axis scrollDirection;
-  final List<Map> children;
+  final List<ModelPlans> children;
+  final String pushUrl;
+
   const ScrollPlans({
     Key key,
     @required this.scrollDirection,
     @required this.children,
+    this.pushUrl: '/personal-form',
   }) : super(key: key);
 
   @override
@@ -26,17 +30,18 @@ class _ScrollPlans extends State<ScrollPlans> {
 
   Widget _scrollableContainer() {
     return Container(
-      height: 295,
+      height: 300,
       child: ListView(
         scrollDirection: widget.scrollDirection,
         children: widget.children
-            .map((plan) => Plans(
-                  id: plan["id"],
-                  planName: plan["planName"],
-                  priceBs: plan["priceBs"],
-                  priceUsd: plan["priceUsd"],
-                  uploadSpeed: plan["uploadSpeed"],
-                  downloadSpeed: plan["downloadSpeed"],
+            .map((ModelPlans plan) => Plans(
+                  id: plan.id,
+                  planName: plan.plan,
+                  priceBs: plan.precioBs,
+                  priceUsd: plan.precio,
+                  uploadSpeed: plan.velocidadSubida.toString(),
+                  downloadSpeed: plan.velocidadBaja.toString(),
+                  pushUrl: widget.pushUrl,
                 ))
             .toList(),
       ),

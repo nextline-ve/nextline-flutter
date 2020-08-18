@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:nextline/ServiceRequest/model/model_plans.dart';
 import 'package:nextline/ServiceRequest/model/model_services.dart';
 import 'package:nextline/utils/app_http.dart';
 
@@ -10,8 +13,39 @@ class RepositoryServices extends AppHttp {
         .toList();
   }
 
-  Future<List<ModelServices>> getListServices() async {
+  List<ModelPlans> parsePlan(jsonResponse) {
+    final parsed = jsonResponse.cast<Map<String, dynamic>>();
+    return parsed
+        .map<ModelPlans>((json) => ModelPlans.fromJson(json))
+        .toList();
+  }
+
+  Future<List<ModelServices>> getListServicesAPI() async {
     Response resp = await http.get(api + 'config/tipo-servicios/');
     return parseService(resp.data['results']);
+  }
+
+  Future<List<ModelPlans>> getListPlansAPI(int serviceId) async {
+    print(serviceId);
+    Response resp = await http.get(api + 'config/planes/', queryParameters: {'tipo_servicio__id': serviceId});
+    return parsePlan(resp.data['results']);
+  }
+  Future<String> setSendRequestServiceAPI(Map<String, dynamic> dataRequestService) async {
+    Response resp;
+    try {
+      FormData formData = new FormData.fromMap(dataRequestService);
+      resp = await http.post(api + 'admon/service-request', data: formData);
+    } on DioError catch (e) {
+      Map error = jsonDecode(jsonEncode(e.response.data));
+      error.forEach((key, value) {
+        throw (value);
+      });
+    }
+    return resp.data['message'];
+  }
+
+  Future<ModelPlans> getDataPlanAPI(int planId) async {
+    Response resp = await http.get(api + 'config/planes/${planId}');
+    return ModelPlans.fromJson(resp.data);
   }
 }

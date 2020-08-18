@@ -22,6 +22,7 @@ class _SpeedContainerState extends State<SpeedContainer> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 16),
+      width: 160,
       child: Row(children: [
         Expanded(
           flex: 3,

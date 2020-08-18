@@ -26,16 +26,20 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           Container(
             padding: EdgeInsets.all(20),
             margin: EdgeInsets.only(bottom: 10),
-            child: Column(
+            child: ListView(
               children: [
-                ItemDetailHeader(
-                    label: "My Invoice!",
-                    id: "#123",
-                    status: "aproved",
-                    date: "12/10/2020"),
-                BillsTable(data: []),
-                _billResume(),
-                _billFooter(),
+                Column(
+                  children: [
+                    ItemDetailHeader(
+                        label: "My Invoice",
+                        id: "#123",
+                        status: "aproved",
+                        date: "12/10/2020"),
+                    BillsTable(data: []),
+                    _billResume(),
+                    _billFooter(),
+                  ],
+                ),
               ],
             ),
           ),
@@ -99,6 +103,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                   child: Container(
                     child: Center(
                       child: JButton(
+                        fontSize: 10,
                         label: "Pagar en dolar",
                         labelColor: AppColors.blue_dark,
                         buttonHeight: 40.0,
@@ -113,6 +118,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                   child: Container(
                     child: Center(
                       child: JButton(
+                        fontSize: 10,
                         label: "Pagar en Bs",
                         labelColor: AppColors.blue_dark,
                         buttonHeight: 40.0,
@@ -208,10 +214,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
 
   void _payInDolar() {
     print("_payInDolar");
+    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _payInBolivar() {
     print("_payInBolivar");
+    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _downloadBillAction() {

@@ -41,7 +41,7 @@ class _NavigatorBar extends State<NavigatorBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 55),
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       margin: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
       decoration: BoxDecoration(
           color: AppColors.blue_dark,
@@ -64,10 +64,10 @@ class _NavigatorBar extends State<NavigatorBar> {
                     height: 30,
                     buttonColor: AppColors.blue_dark,
                     disabledColor: AppColors.blue_dark,
-                    child: FlatButton(
+                    child: IconButton(
                       color: AppColors.blue_dark,
                       onPressed: () => onTapped(entry.key),
-                      child: Icon(
+                      icon: Icon(
                         entry.value,
                         color: _currentIndex == entry.key
                             ? Colors.white70

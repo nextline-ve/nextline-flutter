@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:nextline/utils/app_http.dart';
 
 class RepositoryHome extends AppHttp {
+  
   Future<Map<String, dynamic>> getDataHomeAPI(String urlEndpoint) async {
+    
     Response response;
     try {
       response =
@@ -11,6 +13,6 @@ class RepositoryHome extends AppHttp {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    return response.data;
+    return response.data['results'][0];
   }
 }
