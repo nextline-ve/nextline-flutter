@@ -55,12 +55,12 @@ class _JButton extends State<JButton> {
               onPressed: widget.onTab,
               color: widget.background,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: (widget.icon != null) ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(this.widget.icon, color: this.widget.background),
+                  if (widget.icon != null) Icon(this.widget.icon, color: this.widget.background),
                   _buttonLabel(),
-                  Icon( this.widget.icon, color: this.widget.iconColor, )
+                  if (widget.icon != null) Icon( this.widget.icon, color: this.widget.iconColor, )
                 ],
               )),
         ));
