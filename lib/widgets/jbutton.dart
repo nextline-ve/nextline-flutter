@@ -60,10 +60,7 @@ class _JButton extends State<JButton> {
                 children: [
                   Icon(this.widget.icon, color: this.widget.background),
                   _buttonLabel(),
-                  Icon(
-                    this.widget.icon,
-                    color: this.widget.iconColor,
-                  )
+                  Icon( this.widget.icon, color: this.widget.iconColor, )
                 ],
               )),
         ));
