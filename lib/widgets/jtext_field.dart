@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/utils/app_colors.dart';
 
 typedef StringValue = String Function(String);
 
@@ -8,8 +9,10 @@ class JTextField extends StatefulWidget {
   final Icon icon;
   final Icon iconRigth;
   final Color backgoundColor;
+  final Color borderColor;
   final TextInputType inputType;
   final StringValue onValidator;
+  final double top;
   final StringValue onKeyValue;
   final String initialValue;
 
@@ -21,7 +24,9 @@ class JTextField extends StatefulWidget {
       this.onValidator,
       this.isPass = false,
       this.iconRigth,
+      this.borderColor,
       this.icon,
+      this.top,
       this.backgoundColor,
       this.initialValue})
       : super(key: key);
@@ -36,7 +41,16 @@ class _JTextField extends State<JTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      decoration: BoxDecoration(
+        
+        border: Border.all(
+          color: (widget.borderColor == null) ? AppColors.gray_color :  widget.borderColor,
+        ),
+        borderRadius: BorderRadius.circular(22),
+      ),
+      margin: EdgeInsets.only(
+          top: (widget.top == null) ? 20 : widget.top
+      ),
       child: TextFormField(
         initialValue: widget.initialValue,
         autofocus: true,
