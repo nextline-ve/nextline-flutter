@@ -2,6 +2,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Home/ui/widgets/label_text.dart';
+import 'package:nextline/Home/ui/widgets/profile_image.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class HUserInformation extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HUserInformationState extends State<HUserInformation> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: 10, top: 10),
       child: Container(
         padding: EdgeInsets.only(
           left: 34,
@@ -28,10 +29,11 @@ class _HUserInformationState extends State<HUserInformation> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.account_circle,
+            ProfileImageSelector(
               size: 80,
+              withAction: false,
               color: Colors.white,
+              imgUrl: "https://picsum.photos/200/300",
             ),
             Padding(
               padding: const EdgeInsets.only(top: 7, left: 5),
