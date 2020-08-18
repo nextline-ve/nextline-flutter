@@ -46,7 +46,6 @@ class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(0, 109, 186, 1),
