@@ -11,6 +11,8 @@ import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
 import 'Bills/ui/screens/bill_details_screen.dart';
 import 'Bills/ui/screens/bills_screen.dart';
+import 'ChangePlan/ui/screens/change_plan.dart';
+import 'ChangePlan/ui/screens/confirm_change_plan.dart';
 import 'Home/ui/screens/splash_screen.dart';
 import 'ServiceRequest/ui/screen/finalize_request_screen.dart';
 import 'ServiceRequest/ui/screen/installations_screen.dart';
@@ -47,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/bill-details': (context) => BillDetailsScreen(),
           '/change-plan': (context) => ChangePlan(),
           '/declare-payments': (context) => DeclarePaymentScreen(),
+          '/confirm-change-plan': (context) => ConfirmChangePlan(),
         },
       ),
       bloc: BlocAuth(),

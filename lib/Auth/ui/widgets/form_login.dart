@@ -104,9 +104,9 @@ class _FormLogin extends State<FormLogin> {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   _makeRequest = false;
-                  print(snapshot.error.toString());
                   streamMessageLogin.add(snapshot.error.toString());
                 } else {
+                  _makeRequest = false;
                   if (snapshot.hasData && snapshot.data) {
                     streamMessageLogin.add("Bienvenido");
                   }
@@ -129,7 +129,6 @@ class _FormLogin extends State<FormLogin> {
     if (_makeRequest) {
       return;
     }
-    print("a");
     final form = _formKey.currentState;
     form.save();
     if (!form.validate()) {

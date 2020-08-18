@@ -5,11 +5,13 @@ import 'package:nextline/ServiceRequest/ui/widgets/plans.dart';
 class ScrollPlans extends StatefulWidget {
   final Axis scrollDirection;
   final List<ModelPlans> children;
+  final String pushUrl;
 
   const ScrollPlans({
     Key key,
     @required this.scrollDirection,
     @required this.children,
+    this.pushUrl: '/personal-form',
   }) : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class _ScrollPlans extends State<ScrollPlans> {
                   priceUsd: plan.precio,
                   uploadSpeed: plan.velocidadSubida.toString(),
                   downloadSpeed: plan.velocidadBaja.toString(),
-                  pushUrl: '/personal-form',
+                  pushUrl: widget.pushUrl,
                 ))
             .toList(),
       ),

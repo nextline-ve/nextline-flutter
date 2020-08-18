@@ -52,28 +52,25 @@ class _HomeScreen extends State<HomeScreen> {
                       children: [
                         HUserInformation(userName: AppSession.data.nombre),
                         HServiceType(
-                            title: data['contratos'][0]["plan"]["tipo_servicio"]
-                                ["servicio"]),
+                            title: data['plan']["tipo_servicio"]["servicio"]),
                         HCirclePlan(
-                            planName: data['contratos'][0]['plan']['plan']),
+                            planName: data['plan']['plan']),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 100, vertical: 10),
                           child: SpeedContainer(
                             uploadSpeed:
-                                "${data['contratos'][0]["plan"]["velocidad_subida"].toString()} MB",
+                                "${data["plan"]["velocidad_subida"].toString()} Mb",
                             downloadSpeed:
-                                "${data['contratos'][0]["plan"]["velocidad_baja"].toString()} MB",
+                                "${data["plan"]["velocidad_baja"].toString()} Mb",
                           ),
                         ),
                         !AppSession.data.esCliente
-                            ? HStatusService(status: "En Analisis")
+                            ? HStatusService(status: data["status"])
                             : HStatusRecipe(
-                                precioBs: data['contratos'][0]['plan']
-                                    ['precio_bs'],
-                                precioUsb: data['contratos'][0]['plan']
-                                    ['precio'],
-                                diaCorte: data['contratos'][0]['dia_corte'],
+                                precioBs: data['plan']['precio_bs'],
+                                precioUsb: data['plan']['precio'],
+                                diaCorte: data['dia_corte'],
                               ),
                       ],
                     );

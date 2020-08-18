@@ -37,6 +37,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
   String tipoUsuario;
   String motivoRechazo;
   int idUsuario;
+  int idPlan;
+  int idServicio;
   bool esCliente;
 
   ModelSession(
@@ -45,6 +47,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
       this.tipoUsuario,
       this.motivoRechazo,
       this.idUsuario,
+      this.idPlan,
+      this.idServicio,
       this.esCliente});
 
   ModelSession.fromJson(Map<String, dynamic> json) {
@@ -53,6 +57,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     tipoUsuario = json['tipo_usuario'];
     motivoRechazo = json['motivo_rechazo'];
     idUsuario = json['id_usuario'];
+    idPlan = json['id_plan'];
+    idServicio = json['id_servicio'];
     esCliente = json['es_cliente'];
   }
 
@@ -63,6 +69,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     data['tipo_usuario'] = this.tipoUsuario;
     data['motivo_rechazo'] = this.motivoRechazo;
     data['idUsuario'] = this.idUsuario;
+    data['idServicio'] = this.idServicio;
+    data['idPlan'] = this.idPlan;
     data['es_cliente'] = this.esCliente;
     return data;
   }
@@ -98,21 +106,16 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
         return null;
       }
     } catch (e) {
-      print("====  ===");
-      print(e.toString());
-      print("==== error session ===");
+      print("==== Es un nuevo celular ===");
+      await _createTable();
       return null;
     }
   }
 
+
   @override
   Future<int> saveObject() async {
     Database db = await database;
-    try {
-      await _createTable();
-    } catch (e) {
-      print("tabla existe");
-    }
     return await db.insert('cliente', toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -127,6 +130,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
       "tipo_usuario TEXT,"
       "motivo_rechazo TEXT,"
       "idUsuario INTEGER,"
+      "idPlan INTEGER,"
+      "idServicio INTEGER,"
       "es_cliente BOOLEAN)",
     );
     return true;

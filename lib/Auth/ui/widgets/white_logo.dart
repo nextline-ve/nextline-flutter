@@ -7,7 +7,7 @@ class WhiteLogo extends StatelessWidget {
     return Container(
       height: 140,
       width: 160,
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: 40, top:40),
       child: SvgPicture.asset(
         "assets/images/logo_white.svg",
         color: Colors.white,
