@@ -26,7 +26,7 @@ class _NavigatorBar extends State<NavigatorBar> {
         if (ModalRoute.of(context).settings.name == "/home") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/profile');
         break;
     }
   }
