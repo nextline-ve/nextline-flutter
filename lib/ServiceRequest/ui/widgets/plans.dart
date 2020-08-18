@@ -58,8 +58,8 @@ class _Plans extends State<Plans> {
                       title: widget.planName,
                       color: Color.fromRGBO(2, 144, 223, 1)),
                   SpeedContainer(
-                    downloadSpeed: widget.downloadSpeed + "  MB",
-                    uploadSpeed: widget.uploadSpeed + "  MB",
+                    downloadSpeed: widget.downloadSpeed + "  Mb",
+                    uploadSpeed: widget.uploadSpeed + "  Mb",
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
