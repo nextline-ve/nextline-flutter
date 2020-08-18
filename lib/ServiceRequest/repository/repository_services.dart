@@ -26,6 +26,7 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<List<ModelPlans>> getListPlansAPI(int serviceId) async {
+    print(serviceId);
     Response resp = await http.get(api + 'config/planes/', queryParameters: {'tipo_servicio__id': serviceId});
     return parsePlan(resp.data['results']);
   }
@@ -41,5 +42,10 @@ class RepositoryServices extends AppHttp {
       });
     }
     return resp.data['message'];
+  }
+
+  Future<ModelPlans> getDataPlanAPI(int planId) async {
+    Response resp = await http.get(api + 'config/planes/${planId}');
+    return ModelPlans.fromJson(resp.data);
   }
 }

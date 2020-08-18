@@ -9,13 +9,10 @@ class RepositoryHome extends AppHttp {
     try {
       response =
           await http.get(api + urlEndpoint, options: Options(headers: header));
-          print("hola");
     } on DioError catch (e) {
-      print("err");
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    print(response.data['results']);
     return response.data['results'][0];
   }
 }
