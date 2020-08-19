@@ -10,14 +10,13 @@ import 'package:nextline/widgets/jtext_field.dart';
 class FormLocation extends StatefulWidget {
   final String address;
   final Map<String, dynamic> requestData;
-  const FormLocation({Key key, this.address, this.requestData}) : super(key: key);
+  const FormLocation({Key key, this.address, this.requestData})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _FormLocation();
   }
-
 }
 
 class _FormLocation extends State<FormLocation> {
@@ -48,7 +47,6 @@ class _FormLocation extends State<FormLocation> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Form(
       key: _formKey,
       child: Container(
@@ -100,10 +98,10 @@ class _FormLocation extends State<FormLocation> {
       margin: EdgeInsets.only(top: top),
       child: Center(
           child: Text(
-            txt,
-            style: TextStyle(
-                fontFamily: "fontTitle", color: Colors.white, fontSize: 20),
-          )),
+        txt,
+        style: TextStyle(
+            fontFamily: "fontTitle", color: Colors.white, fontSize: 20),
+      )),
     );
   }
 
@@ -119,7 +117,8 @@ class _FormLocation extends State<FormLocation> {
     }
     _makeRequest = true;
     if (_referencePoint != '') {
-      widget.requestData['direccion'] = '${_address}. Punto de referencia: ${_referencePoint}';
+      widget.requestData['direccion'] =
+          '$_address. Punto de referencia: $_referencePoint';
     }
 
     print(widget.requestData);
@@ -127,5 +126,4 @@ class _FormLocation extends State<FormLocation> {
     AppHttp.requestIndicator(context);
     blocService.dataServiceRequest.add(widget.requestData);
   }
-
 }

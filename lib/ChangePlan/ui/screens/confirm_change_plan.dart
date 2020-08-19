@@ -10,7 +10,6 @@ import 'package:nextline/widgets/jtitle.dart';
 class ConfirmChangePlan extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _ConfirmChangePlan();
   }
 }
@@ -20,7 +19,6 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
@@ -32,20 +30,19 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
         ),
       ),
       body: StreamBuilder(
-        stream: bloc.dataPlan,
+          stream: bloc.dataPlan,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               // print(snapshot.data.plan);
               return _confirmChangePlanUI(snapshot.data);
             }
-              return Center(child: CircularProgressIndicator());
-          }
-      ),
+            return Center(child: CircularProgressIndicator());
+          }),
     );
   }
 
   Widget _confirmChangePlanUI(ModelPlans plan) {
-    return  Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -139,7 +136,6 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 )
@@ -156,7 +152,5 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
     );
   }
 
-  Future _requestChangePlan() {
-
-  }
+  Future _requestChangePlan() {}
 }
