@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Home/ui/widgets/profile_image.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Center(
                   child: Container(
                     margin: EdgeInsets.only(top: 45),
-                    child: Text("Avatar", style: TextStyle(color: AppColors.blue, fontSize: 19, fontFamily: AppFonts.poppins_bold),),
+                    child: ProfileImageSelector(),
                   ),
                 ),
                 _inputRow("raz_cocial","Nombre/Razon social", "Nombre/Razon social", false),
@@ -66,7 +67,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Text(placeholder, style: TextStyle(color: AppColors.gray_text_color, fontSize: 12, fontFamily: AppFonts.fontTitle),),
                   ),
-                  if(!isPassword)
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                     child: Center(
@@ -78,43 +78,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  if(isPassword)
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Center(
-                      child: JTextField(
-                        label: placeholder,
-                        inputType: TextInputType.text,
-                        isPass: isPassword,
-                        backgoundColor: Colors.white,
-                        icon: Icon(Icons.lock),
-                      ),
-                    ),
-                  ),
-                  if(!isPassword)
                   Row(
                     children: [
                       Container(
                         margin: EdgeInsets.fromLTRB(285, 40, 0, 0),
-                        child: InkWell(
-                          onTap: _toggleInput,
-                          child: Icon(Icons.border_color, color: Color.fromRGBO(2, 144, 223, 1)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if(isPassword)
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15, 40, 0, 0),
-                        child: InkWell(
-                          onTap: _toggleShowPassword,
-                          child: Icon(Icons.lock, color: Color.fromRGBO(2, 144, 223, 1)),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(246, 40, 0, 0),
                         child: InkWell(
                           onTap: _toggleInput,
                           child: Icon(Icons.border_color, color: Color.fromRGBO(2, 144, 223, 1)),
