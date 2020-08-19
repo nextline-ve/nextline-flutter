@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
@@ -10,6 +11,7 @@ import 'package:nextline/Home/ui/widgets/user_info.dart';
 import 'package:nextline/ServiceRequest/ui/widgets/speed_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_session.dart';
+import 'package:nextline/utils/firebase_fcm.dart';
 import 'package:nextline/widgets/background.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
@@ -25,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   BlocAuth blocAuth;
   BlocHome blocHome = BlocHome();
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class _HomeScreen extends State<HomeScreen> {
                 stream: blocHome.responseDataHome,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    blocHome.registerTokenFCM(AppSession.data.idUsuario);
+                    FirebaseFCM().registerTokenFCM();
                     blocHome.idUsuario.add(AppSession.data.idUsuario);
                   }
                   if (snapshot.hasData) {

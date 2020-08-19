@@ -24,15 +24,23 @@
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Se necesita para tomar su foto de perfil</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Geolocation is needed in the background to monitor the technical personnel.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>La geolocalización es necesario para conocer la ubicación del personal técnico durante la jornada laboral.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>La geolocalización es necesaria para saber dónde se realiza la instalación del servicio de internet.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Se necesita para tomar su foto de perfil</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Se necesita para poder obtener su foto de perfil</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -53,11 +61,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Se necesita para poder obtener su foto de perfil</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Se necesita para tomar su foto de perfil</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Se necesita para tomar su foto de perfil</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.924710173144-r7pcau548og39ht3q6bnsevp6ejrq3pe</string>
+			</array>
+		</dict>
+	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>NO</string>
 </dict>
 </plist>

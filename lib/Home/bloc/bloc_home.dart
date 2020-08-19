@@ -25,19 +25,6 @@ class BlocHome implements Bloc {
     }
   }
 
-  Future registerTokenFCM(int idUsuario) async {
-    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-    String token  = await _firebaseMessaging.getToken();
-    FormData formData = new FormData.fromMap({
-      "dev_id": AppSession.data.nombre,
-      "reg_id": token,
-      "name": "Celular de ${AppSession.data.nombre}",
-      "usuario_aplicacion": idUsuario
-    });
-    repository.sendTokenFCMAPI(formData);
-
-  }
-
   @override
   void dispose() {
     _streamController.close();
