@@ -16,6 +16,7 @@ import 'ChangePlan/ui/screens/change_plan.dart';
 import 'ChangePlan/ui/screens/confirm_change_plan.dart';
 import 'ChangePlan/ui/screens/change_plan_sent.dart';
 import 'Home/ui/screens/splash_screen.dart';
+import 'ServiceRequest/ui/screen/address_map.dart';
 import 'ServiceRequest/ui/screen/finalize_request_screen.dart';
 import 'ServiceRequest/ui/screen/installations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           '/select-internet-plan': (context) => SelectInternetPlanScreen(),
           '/personal-form': (context) => PersonalFormScreen(),
           '/installation': (context) => InstallationsScreen(),
+          '/address-map': (context) => AddressMap(),
           '/finalize-request': (context) => FinalizeRequestScreen(),
           '/home': (context) => HomeScreen(),
           '/tickets': (context) => HistoryTicketScreen(),

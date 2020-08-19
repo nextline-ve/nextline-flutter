@@ -81,7 +81,7 @@ class _InstallationsScreen extends State<InstallationsScreen> {
   }
 
   void _showMap() {
-    print("mapa");
+    Navigator.pushNamed(context, '/address-map');
   }
 
   Widget _texts(String title, double top) {
