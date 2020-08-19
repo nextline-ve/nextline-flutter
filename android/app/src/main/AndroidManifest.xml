@@ -47,6 +47,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+                   android:value="AIzaSyBHdrrwGqSIHn_mMvhUauUR1Fg7PZzh_Vw"/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
