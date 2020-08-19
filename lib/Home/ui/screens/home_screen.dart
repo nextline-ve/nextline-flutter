@@ -42,6 +42,7 @@ class _HomeScreen extends State<HomeScreen> {
                 stream: blocHome.responseDataHome,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
+                    blocHome.registerTokenFCM(AppSession.data.idUsuario);
                     blocHome.idUsuario.add(AppSession.data.idUsuario);
                   }
                   if (snapshot.hasData) {
