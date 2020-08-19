@@ -15,9 +15,7 @@ class RepositoryServices extends AppHttp {
 
   List<ModelPlans> parsePlan(jsonResponse) {
     final parsed = jsonResponse.cast<Map<String, dynamic>>();
-    return parsed
-        .map<ModelPlans>((json) => ModelPlans.fromJson(json))
-        .toList();
+    return parsed.map<ModelPlans>((json) => ModelPlans.fromJson(json)).toList();
   }
 
   Future<List<ModelServices>> getListServicesAPI() async {
@@ -27,10 +25,13 @@ class RepositoryServices extends AppHttp {
 
   Future<List<ModelPlans>> getListPlansAPI(int serviceId) async {
     print(serviceId);
-    Response resp = await http.get(api + 'config/planes/', queryParameters: {'tipo_servicio__id': serviceId});
+    Response resp = await http.get(api + 'config/planes/',
+        queryParameters: {'tipo_servicio__id': serviceId});
     return parsePlan(resp.data['results']);
   }
-  Future<String> setSendRequestServiceAPI(Map<String, dynamic> dataRequestService) async {
+
+  Future<String> setSendRequestServiceAPI(
+      Map<String, dynamic> dataRequestService) async {
     Response resp;
     try {
       FormData formData = new FormData.fromMap(dataRequestService);
@@ -45,7 +46,7 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<ModelPlans> getDataPlanAPI(int planId) async {
-    Response resp = await http.get(api + 'config/planes/${planId}');
+    Response resp = await http.get(api + 'config/planes/$planId');
     return ModelPlans.fromJson(resp.data);
   }
 }
