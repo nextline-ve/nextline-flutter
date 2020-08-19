@@ -152,5 +152,8 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
     );
   }
 
-  Future _requestChangePlan() {}
+  Future _requestChangePlan() {
+    print("TEt");
+    Navigator.pushNamed(context, "/change-plan-sent");
+  }
 }
