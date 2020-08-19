@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-//          BackgroundTickets(),
+          BackgroundTickets(),
           Container(
             child: ListView(
               children: [
