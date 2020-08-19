@@ -152,5 +152,7 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
     );
   }
 
-  Future _requestChangePlan() {}
+  Future _requestChangePlan() {
+    Navigator.pushNamed(context, "/success-change-plan");
+  }
 }
