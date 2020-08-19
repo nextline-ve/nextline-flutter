@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -7,13 +10,24 @@ import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/line.dart';
+import 'package:nextline/widgets/upload_image_modal.dart';
 
 class DeclarePaymentScreen extends StatefulWidget {
+  final picker = ImagePicker();
+
   @override
   _DeclarePaymentScreenState createState() => _DeclarePaymentScreenState();
 }
 
 class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
+  File imageFile;
+  _DeclarePaymentScreenState({this.imageFile}) : super();
+  void getImage(ImageSource source) {
+    widget.picker.getImage(source: source).then((pickedFile) => setState(() {
+          imageFile = File(pickedFile.path);
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -198,6 +212,7 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
 
   _uploadBill() {
     print("_uploadBill");
+    showMyDialog(context, "Seleccione su comprobante de pago", getImage);
   }
 
   _deleteBill() {
