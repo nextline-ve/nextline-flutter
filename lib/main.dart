@@ -14,7 +14,7 @@ import 'Bills/ui/screens/bill_details_screen.dart';
 import 'Bills/ui/screens/bills_screen.dart';
 import 'ChangePlan/ui/screens/change_plan.dart';
 import 'ChangePlan/ui/screens/confirm_change_plan.dart';
-import 'package:nextline/Home/ui/screens/change_plan_sent.dart';
+import 'ChangePlan/ui/screens/change_plan_sent.dart';
 import 'Home/ui/screens/splash_screen.dart';
 import 'ServiceRequest/ui/screen/finalize_request_screen.dart';
 import 'ServiceRequest/ui/screen/installations_screen.dart';
@@ -49,12 +49,12 @@ class MyApp extends StatelessWidget {
           '/chat': (context) => Chat(),
           '/bills': (context) => BillsScreen(),
           '/bill-details': (context) => BillDetailsScreen(),
-          '/bill-sent': (context) => BillSent(),
-          '/change-plan': (context) => ChangePlan(),
-          '/profile': (context) => ProfileScreen(),
           '/declare-payments': (context) => DeclarePaymentScreen(),
+          '/success-declare-payments': (context) => BillSent(),
+          '/change-plan': (context) => ChangePlan(),
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
-          '/change-plan-sent': (context) => ChangePlanSent(),
+          '/success-change-plan': (context) => ChangePlanSent(),
+          '/profile': (context) => ProfileScreen(),
         },
       ),
       bloc: BlocAuth(),
