@@ -35,7 +35,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text("Avatar", style: TextStyle(color: AppColors.blue, fontSize: 19, fontFamily: AppFonts.poppins_bold),),
                   ),
                 ),
-                _inputRow(),
+                _inputRow("raz_cocial","Nombre/Razon social", "Nombre/Razon social", false),
+                _inputRow("cedula","Cedula / RIF", "Cedula / RIF", false),
+                _inputRow("telf","Número de Teléfono", "Número de Teléfono", false),
+                _inputRow("email","Correo Electrónico", "Correo Electrónico", false),
+                _inputRow("password","Cambiar Contraseña", "Cambiar Contraseña", true),
               ],
             ),
           )
@@ -46,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _inputRow(){
+  Widget _inputRow(name, placeholder, value, isPassword){
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 35),
@@ -60,19 +64,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Container(
                     margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text("Nombre/Razon Social", style: TextStyle(color: AppColors.gray_text_color, fontSize: 12, fontFamily: AppFonts.fontTitle),),
+                    child: Text(placeholder, style: TextStyle(color: AppColors.gray_text_color, fontSize: 12, fontFamily: AppFonts.fontTitle),),
                   ),
+                  if(!isPassword)
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
                     child: Center(
                       child: JTextField(
-                        label: "Nombre/Razon social",
+                        label: placeholder,
                         inputType: TextInputType.text,
-                        isPass: false,
+                        isPass: isPassword,
                         backgoundColor: Colors.white,
                       ),
                     ),
                   ),
+                  if(isPassword)
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    child: Center(
+                      child: JTextField(
+                        label: placeholder,
+                        inputType: TextInputType.text,
+                        isPass: isPassword,
+                        backgoundColor: Colors.white,
+                        icon: Icon(Icons.lock),
+                      ),
+                    ),
+                  ),
+                  if(!isPassword)
                   Row(
                     children: [
                       Container(
@@ -80,7 +99,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: InkWell(
                           onTap: _toggleInput,
                           child: Icon(Icons.border_color, color: Color.fromRGBO(2, 144, 223, 1)),
-//                          child: Text("ico", style: TextStyle(color: AppColors.blue, fontSize: 19, fontFamily: AppFonts.poppins_bold),),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if(isPassword)
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 40, 0, 0),
+                        child: InkWell(
+                          onTap: _toggleShowPassword,
+                          child: Icon(Icons.lock, color: Color.fromRGBO(2, 144, 223, 1)),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(246, 40, 0, 0),
+                        child: InkWell(
+                          onTap: _toggleInput,
+                          child: Icon(Icons.border_color, color: Color.fromRGBO(2, 144, 223, 1)),
                         ),
                       ),
                     ],
@@ -96,5 +133,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _toggleInput(){
     print("toggle ");
+  }
+
+  void _toggleShowPassword(){
+    print("_toggleShowPassword ");
   }
 }
