@@ -22,9 +22,10 @@ class _Chat extends State<Chat> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
+        centerTitle: true,
         title: Text(
-          'Asistencia técnica',
-          style: TextStyle(fontFamily: AppFonts.input),
+          'ASISTENCIA TÉCNICA',
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
         ),
       ),
       body: Stack(
@@ -47,13 +48,13 @@ class _Chat extends State<Chat> {
                     child: ListView(
                       scrollDirection: Axis.vertical,
                       children: [
-                        _message(
-                            "", "", "", true, "assets/images/facturacion.png"),
-                        _message("", "", "", false),
-                        _message("", "", "", false),
-                        _message("", "", "", true),
-                        _message(
-                            "", "", "", false, "assets/images/change_plan.png"),
+                        _message(context, "", "", "", true,
+                            "assets/images/facturacion.png"),
+                        _message(context, "", "", "", false),
+                        _message(context, "", "", "", false),
+                        _message(context, "", "", "", true),
+                        _message(context, "", "", "", false,
+                            "assets/images/change_plan.png"),
                       ],
                     ),
                   ),
@@ -160,7 +161,7 @@ Widget _messageContent(String text, bool isLeft) {
   );
 }
 
-Widget _message(String text, String username, String date, bool isLeft,
+Widget _message(context, String text, String username, String date, bool isLeft,
     [String image = ""]) {
   List<Widget> children = [
     Container(
@@ -200,9 +201,14 @@ Widget _message(String text, String username, String date, bool isLeft,
                     _dateLabel("01/08/2020"),
                   ])),
           if (image != "")
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                child: Image.asset(image, width: 300)),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/view-image");
+              },
+              child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Image.asset(image, width: 300)),
+            ),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 5),
               child: _messageContent(

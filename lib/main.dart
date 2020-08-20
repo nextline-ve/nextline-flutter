@@ -7,6 +7,7 @@ import 'package:nextline/Home/ui/screens/profile_screen.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/Tickets/ui/screens/create_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
+import 'package:nextline/widgets/image_viewer.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
           '/success-change-plan': (context) => ChangePlanSent(),
           '/profile': (context) => ProfileScreen(),
+          '/view-image': (context) => ImageViewer(),
         },
       ),
       bloc: BlocAuth(),

@@ -32,6 +32,7 @@ dependencies:
   image_picker: ^0.6.7
   geolocator: ^5.3.2+2
   google_maps_flutter: ^0.5.30
+  photo_view: ^0.10.1
   flutter:
     sdk: flutter
 
