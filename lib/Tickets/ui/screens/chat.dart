@@ -47,10 +47,13 @@ class _Chat extends State<Chat> {
                     child: ListView(
                       scrollDirection: Axis.vertical,
                       children: [
+                        _message(
+                            "", "", "", true, "assets/images/facturacion.png"),
+                        _message("", "", "", false),
+                        _message("", "", "", false),
                         _message("", "", "", true),
-                        _message("", "", "", false),
-                        _message("", "", "", false),
-                        _message("", "", "", true)
+                        _message(
+                            "", "", "", false, "assets/images/change_plan.png"),
                       ],
                     ),
                   ),
@@ -157,7 +160,8 @@ Widget _messageContent(String text, bool isLeft) {
   );
 }
 
-Widget _message(String text, String username, String date, bool isLeft) {
+Widget _message(String text, String username, String date, bool isLeft,
+    [String image = ""]) {
   List<Widget> children = [
     Container(
       transform: Matrix4.translationValues(0, 10, 0),
@@ -187,12 +191,20 @@ Widget _message(String text, String username, String date, bool isLeft) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _nameLabel("Alberto Zambrano"),
-            _dateLabel("01/08/2020"),
-          ]),
           Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _nameLabel("Alberto Zambrano"),
+                    _dateLabel("01/08/2020"),
+                  ])),
+          if (image != "")
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Image.asset(image, width: 300)),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
               child: _messageContent(
                   "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et.",
                   isLeft))
