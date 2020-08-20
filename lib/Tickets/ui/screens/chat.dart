@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/image_viewer.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
 
@@ -203,7 +204,10 @@ Widget _message(context, String text, String username, String date, bool isLeft,
           if (image != "")
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, "/view-image");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(image: image)));
               },
               child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 5),
