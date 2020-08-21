@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 
+import '../../bloc/bloc_tickets.dart';
+
 class TicketHistoryScroll extends StatefulWidget {
-  TicketHistoryScroll({Key key}) : super(key: key);
+  BlocTickets blocTickets;
+  TicketHistoryScroll({Key key, this.blocTickets}) : super(key: key);
 
   @override
   _TicketHistoryScrollState createState() => _TicketHistoryScrollState();
@@ -15,15 +18,19 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
   Widget build(BuildContext context) {
     return Container(
       child: Expanded(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            _ticketRow("Ticket 1231", "Internet Lento", "Atención en curso",
-                "2000-12-12"),
-            _ticketRow("Ticket 2526", "Internet Intermitente",
-                "Pendiente por atención", "2000-12-12")
-          ],
-        ),
+        child: StreamBuilder(
+            stream: widget.blocTickets.getDataTickets().asStream(),
+            builder: (context, snapshot) {
+              return ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  _ticketRow("Ticket 1231", "Internet Lento",
+                      "Atención en curso", "2000-12-12"),
+                  _ticketRow("Ticket 2526", "Internet Intermitente",
+                      "Pendiente por atención", "2000-12-12")
+                ],
+              );
+            }),
       ),
     );
   }
