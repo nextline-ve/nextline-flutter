@@ -26,20 +26,31 @@ class BlocTickets implements Bloc {
   Future<Map<String, dynamic>> getChat(String ticketId) async {
     DatabaseReference chatRef = _chatsRef.child(ticketId);
     dynamic chatData = await chatRef.once();
-    Map<String, dynamic> chatDataMap = Map.from(chatData.value);
-    List<ModelMessage> messageList = chatDataMap.entries
-        .map((e) => ModelMessage.fromSnapshot(e.value))
-        .toList();
+    Map<String, ModelMessage> chatDataMap = Map.from(chatData.value)
+        .map((key, value) => MapEntry(key, ModelMessage.fromSnapshot(value)));
+    StreamController<ModelMessage> controller =
+        StreamController<ModelMessage>.broadcast();
     Map<String, dynamic> chat = {
-      "chatData": StreamController<ModelMessage>.broadcast(),
-      "stream": chatRef.onChildAdded.listen((Event event) {
-        chats[ticketId]["chatData"]
-            .add(ModelMessage.fromSnapshot(event.snapshot.value));
-      })
+      "controller": controller,
+      "onChildAdded": chatRef.onChildAdded.listen((Event event) {
+        ModelMessage newMessage =
+            ModelMessage.fromSnapshot(event.snapshot.value);
+        controller.add(newMessage);
+        chatDataMap.addEntries([new MapEntry(event.snapshot.key, newMessage)]);
+      }),
+      "messages": chatDataMap
     };
-
     chats[ticketId] = chat;
     return chats[ticketId];
+  }
+
+  void sendMessage(String text, String imgUrl, String ticketId) {
+    ModelMessage message = ModelMessage(
+        imageUrl: imgUrl ?? "",
+        message: text ?? "",
+        type: imgUrl == "" ? "text" : "image",
+        user: "user");
+    _chatsRef.child(ticketId).push().update(message.toJson());
   }
 
   BlocTickets() {

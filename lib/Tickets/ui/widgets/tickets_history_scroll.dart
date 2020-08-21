@@ -4,6 +4,7 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 
 import '../../bloc/bloc_tickets.dart';
 
@@ -23,21 +24,30 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
         child: FutureBuilder(
             future: widget.blocTickets.getDataTickets(),
             builder: (context, snapshot) {
-              print("snapshort");
-              print(snapshot.data);
-              return ListView(
-                scrollDirection: Axis.vertical,
-                children: snapshot.data
-                    .map<Widget>((Ticket ticket) => _ticketRow(
-                        ticket,
-                        () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Chat(
-                                      blocTickets: widget.blocTickets,
-                                      ticket: ticket,
-                                    )))))
-                    .toList(),
+              if (snapshot.connectionState == ConnectionState.done)
+                return ListView(
+                  scrollDirection: Axis.vertical,
+                  children: snapshot.data
+                      .map<Widget>((Ticket ticket) => _ticketRow(
+                          ticket,
+                          () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Chat(
+                                        blocTickets: widget.blocTickets,
+                                        ticket: ticket,
+                                      )))))
+                      .toList(),
+                );
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator()),
+                ],
               );
             }),
       ),

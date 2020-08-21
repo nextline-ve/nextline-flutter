@@ -2,16 +2,16 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/image_viewer.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
 
 class Chat extends StatefulWidget {
-  final bool isClient = true;
-  final String userName = "oscar castillejo";
   final BlocTickets blocTickets;
   final Ticket ticket;
 
@@ -25,6 +25,9 @@ class Chat extends StatefulWidget {
 }
 
 class _Chat extends State<Chat> {
+  final List<ModelMessage> messages = new List<ModelMessage>();
+  final _messageForm = GlobalKey<FormState>();
+  String _messageInput;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,18 +56,38 @@ class _Chat extends State<Chat> {
                 ),
                 Container(
                   child: Expanded(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        _message(context, "", "", "", true,
-                            "assets/images/facturacion.png"),
-                        _message(context, "", "", "", false),
-                        _message(context, "", "", "", false),
-                        _message(context, "", "", "", true),
-                        _message(context, "", "", "", false,
-                            "assets/images/change_plan.png"),
-                      ],
-                    ),
+                    child: FutureBuilder(
+                        future: widget.blocTickets
+                            .getChat(widget.ticket.id.toString()),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return StreamBuilder<Object>(
+                                stream: widget
+                                    .blocTickets
+                                    .chats[widget.ticket.id.toString()]
+                                        ["controller"]
+                                    .stream,
+                                builder: (context, snapshot) {
+                                  return ListView(
+                                    scrollDirection: Axis.vertical,
+                                    children: widget
+                                        .blocTickets
+                                        .chats[widget.ticket.id.toString()]
+                                            ["messages"]
+                                        .entries
+                                        .map<Widget>((e) => _message(
+                                            context,
+                                            e.value.message,
+                                            e.value.user,
+                                            "",
+                                            true))
+                                        .toList(),
+                                  );
+                                });
+                          }
+                          return JLoadingScreen();
+                        }),
                   ),
                 ),
                 _box()
@@ -75,64 +98,75 @@ class _Chat extends State<Chat> {
       ),
     );
   }
-}
 
-Widget _box() {
-  return Container(
-    alignment: Alignment.bottomCenter,
-    decoration: BoxDecoration(),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Line(
-          width: 100,
-        ),
-        Row(
+  Widget _box() {
+    return Form(
+      key: _messageForm,
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        decoration: BoxDecoration(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Container(
-                color: Colors.white,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 15, right: 5, left: 10),
-                        child: JTextField(
-                            backgoundColor: AppColors.white_color,
-                            label: "Escribe tu Mensaje",
-                            inputType: TextInputType.text,
-                            isPass: false,
-                            iconRigth: Icon(
-                              Icons.file_upload,
-                              color: AppColors.blue,
+            Line(
+              width: 100,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 15, right: 5, left: 10),
+                            child: JTextField(
+                                backgoundColor: AppColors.white_color,
+                                label: "Escribe tu Mensaje",
+                                inputType: TextInputType.text,
+                                isPass: false,
+                                iconRigth: Icon(
+                                  Icons.file_upload,
+                                  color: AppColors.blue,
+                                ),
+                                onValidator: null,
+                                onKeyValue: (val) {
+                                  _messageInput = val;
+                                  return val;
+                                }),
+                          ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            widget.blocTickets.sendMessage(
+                                _messageInput, "", widget.ticket.id.toString());
+                            _messageForm.currentState.reset();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: AppColors.blue_dark),
+                            child: Icon(
+                              Icons.send,
+                              color: AppColors.white_color,
                             ),
-                            onValidator: null,
-                            onKeyValue: (val) {
-                              return val;
-                            }),
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: AppColors.blue_dark),
-                      child: Icon(
-                        Icons.send,
-                        color: AppColors.white_color,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
+                  ),
+                )
+              ],
+            ),
           ],
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
 
 Widget _nameLabel(String text) {
@@ -222,9 +256,7 @@ Widget _message(context, String text, String username, String date, bool isLeft,
             ),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 5),
-              child: _messageContent(
-                  "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et.",
-                  isLeft))
+              child: _messageContent(text ?? "", isLeft))
         ],
       ),
     ))

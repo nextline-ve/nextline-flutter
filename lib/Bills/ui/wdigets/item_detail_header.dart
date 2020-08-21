@@ -28,16 +28,33 @@ class ItemDetailHeader extends StatefulWidget {
 class _ItemDetailHeaderState extends State<ItemDetailHeader> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Expanded(
-            child: Column(
+        Row(
           verticalDirection: widget.reverseLeft
               ? VerticalDirection.up
               : VerticalDirection.down,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Text(
+                widget.id,
+                style: TextStyle(
+                    color: AppColors.blue_dark,
+                    fontSize: widget.reverseLeft ? 16 : 24,
+                    fontFamily: AppFonts.poppins_bold),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 6, top: 14),
+              child: ColoredLabel(text: widget.status),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
               child: Text(
@@ -52,36 +69,14 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             ),
             Container(
               child: Text(
-                widget.id,
+                _getDate(widget.date),
                 style: TextStyle(
-                    color: AppColors.blue_dark,
-                    fontSize: widget.reverseLeft ? 16 : 24,
-                    fontFamily: AppFonts.poppins_bold),
+                    fontFamily: AppFonts.poppins_light,
+                    color: AppColors.black_color),
               ),
             ),
           ],
-        )),
-        Expanded(
-            child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 6, top: 14),
-                child: ColoredLabel(text: widget.status),
-              ),
-              Container(
-                child: Text(
-                  _getDate(widget.date),
-                  style: TextStyle(
-                      fontFamily: AppFonts.poppins_light,
-                      color: AppColors.black_color),
-                ),
-              ),
-            ],
-          ),
-        )),
+        ),
       ],
     );
   }

@@ -14,7 +14,6 @@ class ModelMessage {
   }
 
   ModelMessage.fromSnapshot(Map<dynamic, dynamic> json) {
-    print(json);
     user = json['user'];
     type = json['type'];
     message = json['message'];
