@@ -30,7 +30,7 @@ class _ScrollPlans extends State<ScrollPlans> {
 
   Widget _scrollableContainer() {
     return Container(
-      height: 300,
+      height: 320,
       child: ListView(
         scrollDirection: widget.scrollDirection,
         children: widget.children
