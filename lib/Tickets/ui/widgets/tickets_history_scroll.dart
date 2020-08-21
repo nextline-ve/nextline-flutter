@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 import '../../bloc/bloc_tickets.dart';
@@ -18,17 +19,20 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
   Widget build(BuildContext context) {
     return Container(
       child: Expanded(
-        child: StreamBuilder(
-            stream: widget.blocTickets.getDataTickets().asStream(),
+        child: FutureBuilder(
+            future: widget.blocTickets.getDataTickets(),
             builder: (context, snapshot) {
+              print("snapshort");
+              print(snapshot.data);
               return ListView(
                 scrollDirection: Axis.vertical,
-                children: [
-                  _ticketRow("Ticket 1231", "Internet Lento",
-                      "Atención en curso", "2000-12-12"),
-                  _ticketRow("Ticket 2526", "Internet Intermitente",
-                      "Pendiente por atención", "2000-12-12")
-                ],
+                children: snapshot.data
+                    .map<Widget>((Ticket ticket) => _ticketRow(
+                        "Ticket ${ticket.id}",
+                        ticket.detalle,
+                        ticket.getStatusDisplay,
+                        ticket.fechaCreacion))
+                    .toList(),
               );
             }),
       ),

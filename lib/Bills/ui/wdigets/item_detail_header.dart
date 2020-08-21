@@ -31,7 +31,8 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
+        Expanded(
+            child: Column(
           verticalDirection: widget.reverseLeft
               ? VerticalDirection.up
               : VerticalDirection.down,
@@ -59,8 +60,9 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
               ),
             ),
           ],
-        ),
-        Container(
+        )),
+        Expanded(
+            child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -71,7 +73,7 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
               ),
               Container(
                 child: Text(
-                  widget.date + "",
+                  _getDate(widget.date),
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_light,
                       color: AppColors.black_color),
@@ -79,8 +81,13 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
               ),
             ],
           ),
-        ),
+        )),
       ],
     );
   }
+}
+
+String _getDate(dateToParse) {
+  DateTime date = DateTime.parse(dateToParse);
+  return "${date.day}/${date.month}/${date.year}";
 }
