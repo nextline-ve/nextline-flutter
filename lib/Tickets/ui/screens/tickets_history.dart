@@ -39,7 +39,9 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
           Container(
             child: Column(
               children: [
-                AddTicketButton(),
+                AddTicketButton(
+                  blocTickets: blocTickets,
+                ),
                 _titleText("Histórico de tickets"),
                 TicketHistoryScroll(blocTickets: blocTickets)
               ],

@@ -1,16 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/ui/screens/create_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class AddTicketButton extends StatelessWidget {
-  const AddTicketButton({Key key}) : super(key: key);
+  final BlocTickets blocTickets;
+
+  const AddTicketButton({Key key, @required this.blocTickets})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/create-ticket'),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CreateTicketScreen(
+                    blocTickets: blocTickets,
+                  ))),
       child: Container(
           width: 330,
           height: 160,

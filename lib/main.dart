@@ -4,10 +4,7 @@ import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Home/ui/screens/profile_screen.dart';
-import 'package:nextline/Tickets/ui/screens/chat.dart';
-import 'package:nextline/Tickets/ui/screens/create_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
-import 'package:nextline/widgets/image_viewer.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
 import 'Auth/ui/screens/login_screen.dart';
@@ -23,7 +20,6 @@ import 'ServiceRequest/ui/screen/installations_screen.dart';
 import 'ServiceRequest/ui/screen/personal_form_screen.dart';
 import 'ServiceRequest/ui/screen/select_internet_plan_screen.dart';
 import 'ServiceRequest/ui/screen/select_service_screen.dart';
-import 'Tickets/ui/screens/success_create_ticket.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,8 +50,7 @@ class MyApp extends StatelessWidget {
           '/change-plan': (context) => ChangePlan(),
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
           '/success-change-plan': (context) => ChangePlanSent(),
-          '/profile': (context) => ProfileScreen(),
-          '/view-image': (context) => ImageViewer(),
+          '/profile': (context) => ProfileScreen()
         },
       ),
       bloc: BlocAuth(),

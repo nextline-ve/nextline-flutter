@@ -1,6 +1,8 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/image_viewer.dart';
@@ -10,6 +12,11 @@ import 'package:nextline/widgets/line.dart';
 class Chat extends StatefulWidget {
   final bool isClient = true;
   final String userName = "oscar castillejo";
+  final BlocTickets blocTickets;
+  final Ticket ticket;
+
+  const Chat({Key key, @required this.blocTickets, @required this.ticket})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -38,10 +45,10 @@ class _Chat extends State<Chat> {
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: ItemDetailHeader(
-                      id: "Ticket2956",
-                      label: "Sin Internet",
-                      date: "01/08/2020",
-                      status: "Técnico Asignado",
+                      date: widget.ticket.fechaCreacion,
+                      status: widget.ticket.getStatusDisplay,
+                      id: "Ticket ${widget.ticket.id}",
+                      label: widget.ticket.detalle,
                       reverseLeft: true),
                 ),
                 Container(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
+import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 import '../../bloc/bloc_tickets.dart';
@@ -28,10 +29,14 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                 scrollDirection: Axis.vertical,
                 children: snapshot.data
                     .map<Widget>((Ticket ticket) => _ticketRow(
-                        "Ticket ${ticket.id}",
-                        ticket.detalle,
-                        ticket.getStatusDisplay,
-                        ticket.fechaCreacion))
+                        ticket,
+                        () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Chat(
+                                      blocTickets: widget.blocTickets,
+                                      ticket: ticket,
+                                    )))))
                     .toList(),
               );
             }),
@@ -40,22 +45,28 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
   }
 }
 
-Widget _ticketRow(String ticket, String desc, String status, String date) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 3),
-            color: AppColors.blue_dark.withOpacity(0.33),
-          ),
-        ]),
-    child: ItemDetailHeader(
-        date: date, status: status, id: ticket, label: desc, reverseLeft: true),
-  );
+Widget _ticketRow(Ticket ticket, onTap) {
+  return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+                color: AppColors.blue_dark.withOpacity(0.33),
+              ),
+            ]),
+        child: ItemDetailHeader(
+            date: ticket.fechaCreacion,
+            status: ticket.getStatusDisplay,
+            id: "Ticket ${ticket.id}",
+            label: ticket.detalle,
+            reverseLeft: true),
+      ));
 }

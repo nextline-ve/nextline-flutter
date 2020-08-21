@@ -1,5 +1,6 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -10,6 +11,10 @@ import 'package:nextline/widgets/lateral_menu.dart';
 class CreateTicketScreen extends StatefulWidget {
   final bool isClient = true;
   final String userName = "oscar castillejo";
+  final BlocTickets blocTickets;
+
+  const CreateTicketScreen({Key key, @required this.blocTickets})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -20,6 +25,7 @@ class CreateTicketScreen extends StatefulWidget {
 class _CreateTicketScreen extends State<CreateTicketScreen> {
   @override
   Widget build(BuildContext context) {
+    DateTime today = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
@@ -43,7 +49,7 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
                   Column(
                     children: [
                       _titleView("Nuevo Ticket"),
-                      _date("01/08/2020"),
+                      _date("${today.day}/${today.month}/${today.year}"),
                       InputContainer(
                           label: "Tipo de Avería",
                           input: DropdownWidget(
