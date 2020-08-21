@@ -21,7 +21,7 @@ class RepositoryHome extends AppHttp {
       await http.post( this.api + 'device/',
           data: formData, options: Options(headers: header));
     } on DioError catch (e) {
-      // print(e.response);
+      print(e.response);
     }
   }
 }
