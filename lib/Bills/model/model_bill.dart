@@ -3,15 +3,15 @@ enum BillStatus { C, G, P, V }
 class Bill {
   int id;
   String fechaEmision;
-  double iva;
-  double alicuota;
-  double monto;
-  double subtotal;
-  double total;
+  String iva;
+  String alicuota;
+  String monto;
+  String subtotal;
+  String total;
   BillStatus status;
   String comprobantePago;
   String getStatusDisplay;
-  String cuentascobrarSet;
+  List<dynamic> cuentascobrarSet;
 
   Bill(
       {this.id,

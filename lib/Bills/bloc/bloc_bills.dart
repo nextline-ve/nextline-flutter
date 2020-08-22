@@ -6,8 +6,6 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 class BlocBills implements Bloc {
   final RepositoryBills repository = RepositoryBills();
-  DatabaseReference _billsRef;
-  FirebaseDatabase database;
   Map<String, dynamic> bills;
 
   final StreamController<dynamic> _streamController =
@@ -18,11 +16,6 @@ class BlocBills implements Bloc {
   }
 
   BlocBills() {
-    database = FirebaseDatabase();
-    print("${database.databaseURL} url");
-    _billsRef = database.reference().child('billsCollections');
-    database.setPersistenceEnabled(true);
-    database.setPersistenceCacheSizeBytes(10000000);
     bills = new Map();
   }
 
