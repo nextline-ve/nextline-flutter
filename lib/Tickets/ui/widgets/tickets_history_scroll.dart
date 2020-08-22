@@ -74,7 +74,7 @@ Widget _ticketRow(Ticket ticket, onTap) {
             ]),
         child: ItemDetailHeader(
             date: ticket.fechaCreacion,
-            status: ticket.getStatusDisplay,
+            status: ticket.mapToTicketStatusString(ticket.status),
             id: "Ticket ${ticket.id}",
             label: ticket.detalle,
             reverseLeft: true),

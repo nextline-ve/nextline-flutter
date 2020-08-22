@@ -77,7 +77,7 @@ class Ticket {
     }
   }
 
-  String _mapToTicketTypeString(TicketType type) {
+  String mapToTicketTypeString(TicketType type) {
     switch (type) {
       case TicketType.C:
         return "Cambio de Plan";
@@ -88,7 +88,7 @@ class Ticket {
     }
   }
 
-  String _mapToTicketStatusString(TicketStatus status) {
+  String mapToTicketStatusString(TicketStatus status) {
     switch (status) {
       case TicketStatus.A:
         return "Asignado al Ténico";
