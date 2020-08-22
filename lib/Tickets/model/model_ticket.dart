@@ -76,4 +76,30 @@ class Ticket {
         return TicketStatus.S;
     }
   }
+
+  String _mapToTicketTypeString(TicketType type) {
+    switch (type) {
+      case TicketType.C:
+        return "Cambio de Plan";
+      case TicketType.R:
+        return "Reparación";
+      case TicketType.I:
+        return "Instalación";
+    }
+  }
+
+  String _mapToTicketStatusString(TicketStatus status) {
+    switch (status) {
+      case TicketStatus.A:
+        return "Asignado al Ténico";
+      case TicketStatus.C:
+        return "Atención en Curso";
+      case TicketStatus.F:
+        return "Finalizado";
+      case TicketStatus.P:
+        return "Pendiente por Atención";
+      case TicketStatus.S:
+        return "Pendiente por Soporte Técnico";
+    }
+  }
 }
