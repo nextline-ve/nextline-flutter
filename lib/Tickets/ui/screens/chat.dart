@@ -27,6 +27,7 @@ class Chat extends StatefulWidget {
 class _Chat extends State<Chat> {
   final List<ModelMessage> messages = new List<ModelMessage>();
   final _messageForm = GlobalKey<FormState>();
+  ScrollController _scrollController = new ScrollController();
   String _messageInput;
   @override
   Widget build(BuildContext context) {
@@ -69,8 +70,21 @@ class _Chat extends State<Chat> {
                                         ["controller"]
                                     .stream,
                                 builder: (context, snapshot) {
+                                  Future.delayed(Duration(milliseconds: 300))
+                                      .then((value) {
+                                    _scrollController.animateTo(
+                                      _scrollController
+                                          .position.maxScrollExtent,
+                                      curve: Curves.easeOut,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                    );
+                                    return null;
+                                  });
                                   return ListView(
+                                    controller: _scrollController,
                                     scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
                                     children: widget
                                         .blocTickets
                                         .chats[widget.ticket.id.toString()]
@@ -239,7 +253,7 @@ Widget _message(context, String text, String username, String date, bool isLeft,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _nameLabel("Alberto Zambrano"),
+                    _nameLabel("Albert"),
                     _dateLabel(date),
                   ])),
           if (image != "")
