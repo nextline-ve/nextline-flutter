@@ -17,7 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AddressMap extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _AddressMap();
   }
 }
@@ -52,69 +51,63 @@ class _AddressMap extends State<AddressMap> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(0, 109, 186, 1),
         ),
         body: Stack(children: [
           Background(pathImage: "assets/images/bg.jpg"),
-
           Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      JTitle(title: "Domicilio de"),
-                      JTitle(title: "Instalación"),
-                      Line(
-                        top: 1,
-                      ),
-                      Container(
-                          child: Column(
-                            children: [
-                              _texts("Ubique en el mapa", 40),
-                              _texts("Donde se instalará el servicio", 1),
-                            ],
-                          )),
-                      _initialPosition == null
-                          ? Container(
-                          margin: EdgeInsets.only(top: 30),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                CircularProgressIndicator(),
-                                Text(
-                                  'Cargando mapa...',
-                                  style: TextStyle(
-                                      fontFamily: 'fontTitle',
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ))
-                          : Flexible(
-                          child: ListView(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              children: [
-                            _maps(),
-
-                            Padding(
-                                padding: EdgeInsets.all(20),
-                                child: JButton(
-                                  label: "CONTINUAR",
-                                  onTab: _continue,
-                                  background: AppColors.ligth_blue_color,
-                                  icon: Icons.navigate_next,
-                                ),
+              padding: EdgeInsets.all(10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    JTitle(title: "Domicilio de"),
+                    JTitle(title: "Instalación"),
+                    Line(
+                      top: 1,
+                    ),
+                    Container(
+                        child: Column(
+                      children: [
+                        _texts("Ubique en el mapa", 40),
+                        _texts("Donde se instalará el servicio", 1),
+                      ],
+                    )),
+                    _initialPosition == null
+                        ? Container(
+                            margin: EdgeInsets.only(top: 30),
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  CircularProgressIndicator(),
+                                  Text(
+                                    'Cargando mapa...',
+                                    style: TextStyle(
+                                        fontFamily: 'fontTitle',
+                                        color: Colors.white),
+                                  ),
+                                ],
                               ),
-
-
-                          ]),
-                      ),
-                    ])),
-
+                            ))
+                        : Flexible(
+                            child: ListView(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  _maps(),
+                                  Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child: JButton(
+                                      label: "CONTINUAR",
+                                      onTab: _continue,
+                                      background: AppColors.ligth_blue_color,
+                                      icon: Icons.navigate_next,
+                                    ),
+                                  ),
+                                ]),
+                          ),
+                  ])),
         ]));
   }
 
@@ -124,7 +117,9 @@ class _AddressMap extends State<AddressMap> {
       width: MediaQuery.of(context).size.width,
       height: 400,
       child: GoogleMap(
-        gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
+        gestureRecognizers: Set()
+          ..add(
+              Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
         mapType: MapType.hybrid,
         markers: _markers,
         onMapCreated: _onMapCreated,
@@ -162,7 +157,7 @@ class _AddressMap extends State<AddressMap> {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     SharedPreferences prefs = await _prefs;
     String data = prefs.getString("dataPersonal");
-    Map<String, dynamic> dataAux= jsonDecode(data);
+    Map<String, dynamic> dataAux = jsonDecode(data);
     prefs.remove("dataPersonal");
     dataAux['latitud'] = _initialPosition.latitude;
     dataAux['longitud'] = _initialPosition.longitude;

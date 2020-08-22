@@ -63,6 +63,8 @@ class Ticket {
         return TicketType.R;
       case "I":
         return TicketType.I;
+      default:
+        return null;
     }
   }
 
@@ -78,6 +80,8 @@ class Ticket {
         return TicketStatus.P;
       case "S":
         return TicketStatus.S;
+      default:
+        return null;
     }
   }
 
@@ -89,6 +93,8 @@ class Ticket {
         return "Reparación";
       case TicketType.I:
         return "Instalación";
+      default:
+        return null;
     }
   }
 
@@ -104,6 +110,8 @@ class Ticket {
         return "Pendiente por Atención";
       case TicketStatus.S:
         return "Pendiente por Soporte Técnico";
+      default:
+        return null;
     }
   }
 }

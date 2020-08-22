@@ -10,7 +10,7 @@ class BlocTickets implements Bloc {
   final RepositoryTickets repository = RepositoryTickets();
   DatabaseReference _chatsRef;
   FirebaseDatabase database;
-  Map<String, dynamic> chats;
+  Map<int, ChatModel> chats;
 
   final StreamController<dynamic> _streamController =
       StreamController<dynamic>.broadcast();
@@ -23,24 +23,10 @@ class BlocTickets implements Bloc {
     return await repository.getDataTicketsAPI();
   }
 
-  Future<Map<String, dynamic>> getChat(String ticketId) async {
-    DatabaseReference chatRef = _chatsRef.child(ticketId);
-    dynamic chatData = await chatRef.once();
-    Map<String, ModelMessage> chatDataMap = Map.from(chatData.value)
-        .map((key, value) => MapEntry(key, ModelMessage.fromSnapshot(value)));
-    StreamController<ModelMessage> controller =
-        StreamController<ModelMessage>.broadcast();
-    Map<String, dynamic> chat = {
-      "controller": controller,
-      "onChildAdded": chatRef.onChildAdded.listen((Event event) {
-        ModelMessage newMessage =
-            ModelMessage.fromSnapshot(event.snapshot.value);
-        controller.add(newMessage);
-        chatDataMap.addEntries([new MapEntry(event.snapshot.key, newMessage)]);
-      }),
-      "messages": chatDataMap
-    };
-    chats[ticketId] = chat;
+  Future<ChatModel> getChat(int ticketId) async {
+    DatabaseReference chatRef = _chatsRef.child(ticketId.toString());
+    DataSnapshot chatData = await chatRef.once();
+    chats[ticketId] = ChatModel(chatRef, chatData);
     return chats[ticketId];
   }
 
@@ -59,12 +45,39 @@ class BlocTickets implements Bloc {
     print("${database.databaseURL} url");
     _chatsRef = database.reference().child('chatsCollections');
     database.setPersistenceEnabled(true);
+    chats = new Map<int, ChatModel>();
     database.setPersistenceCacheSizeBytes(10000000);
-    chats = new Map();
   }
 
   @override
   void dispose() {
     _streamController.close();
+    chats.forEach((key, value) {
+      value.dispose();
+    });
+  }
+}
+
+class ChatModel {
+  StreamController<ModelMessage> controller;
+  StreamController<ModelMessage> sink;
+  StreamSubscription<Event> onChildAdded;
+  Map<String, ModelMessage> messages;
+
+  ChatModel(DatabaseReference chatRef, DataSnapshot chatData) {
+    Map<String, ModelMessage> chatDataMap = Map.from(chatData.value)
+        .map((key, value) => MapEntry(key, ModelMessage.fromSnapshot(value)));
+    messages = chatDataMap;
+    controller = StreamController<ModelMessage>.broadcast();
+    onChildAdded = chatRef.onChildAdded.listen((Event event) {
+      ModelMessage newMessage = ModelMessage.fromSnapshot(event.snapshot.value);
+      controller.add(newMessage);
+      messages.addEntries([new MapEntry(event.snapshot.key, newMessage)]);
+    });
+  }
+
+  void dispose() {
+    onChildAdded.cancel();
+    sink.close();
   }
 }

@@ -4,7 +4,6 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
-import 'package:nextline/widgets/jloading_screen.dart';
 
 import '../../bloc/bloc_tickets.dart';
 

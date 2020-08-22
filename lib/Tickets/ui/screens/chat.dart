@@ -57,18 +57,14 @@ class _Chat extends State<Chat> {
                 ),
                 Container(
                   child: Expanded(
-                    child: FutureBuilder(
-                        future: widget.blocTickets
-                            .getChat(widget.ticket.id.toString()),
+                    child: FutureBuilder<ChatModel>(
+                        future: widget.blocTickets.getChat(widget.ticket.id),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
                             return StreamBuilder<Object>(
-                                stream: widget
-                                    .blocTickets
-                                    .chats[widget.ticket.id.toString()]
-                                        ["controller"]
-                                    .stream,
+                                stream: widget.blocTickets
+                                    .chats[widget.ticket.id].controller.stream,
                                 builder: (context, snapshot) {
                                   Future.delayed(Duration(milliseconds: 300))
                                       .then((value) {
@@ -87,8 +83,8 @@ class _Chat extends State<Chat> {
                                     shrinkWrap: true,
                                     children: widget
                                         .blocTickets
-                                        .chats[widget.ticket.id.toString()]
-                                            ["messages"]
+                                        .chats[widget.ticket.id]
+                                        .messages
                                         .entries
                                         .map<Widget>((e) => _message(
                                             context,
