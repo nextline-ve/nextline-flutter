@@ -55,7 +55,7 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  Widget _billRow(double billId, String billDate, double billDolarPrice,
+  Widget _billRow(int billId, String billDate, double billDolarPrice,
       double billBolivarPrice, String billStatus) {
     return InkWell(
       onTap: _showDetails,
