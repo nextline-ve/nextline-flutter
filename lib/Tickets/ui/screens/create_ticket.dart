@@ -1,17 +1,17 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
 class CreateTicketScreen extends StatefulWidget {
-  final bool isClient = true;
-  final String userName = "oscar castillejo";
   final BlocTickets blocTickets;
 
   const CreateTicketScreen({Key key, @required this.blocTickets})
@@ -43,35 +43,42 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
               padding: EdgeInsets.only(
                 top: 12,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      _titleView("Nuevo Ticket"),
-                      _date("${today.day}/${today.month}/${today.year}"),
-                      InputContainer(
-                          label: "Tipo de Avería",
-                          input: DropdownWidget(
-                              hintText: "Seleccione una avería",
-                              options: Ticket.getTicketTypes())),
-                      InputContainer(
-                        label: "Comentario",
-                        input: _textArea(
-                            "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
-                      ),
-                    ],
-                  ),
-                  JButton(
-                    icon: Icons.send,
-                    label: "VER TICKET",
-                    background: AppColors.green_color,
-                    onTab: () => Navigator.popAndPushNamed(
-                        context, '/success-create-ticket'),
-                  ),
-                ],
-              ),
+              child: FutureBuilder<List<IssueType>>(
+                  future: widget.blocTickets.getDataIssueType(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done)
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              _titleView("Nuevo Ticket"),
+                              _date(
+                                  "${today.day}/${today.month}/${today.year}"),
+                              InputContainer(
+                                  label: "Tipo de Avería",
+                                  input: DropdownWidget(
+                                      hintText: "Seleccione una avería",
+                                      options: snapshot.data)),
+                              InputContainer(
+                                label: "Comentario",
+                                input: _textArea(
+                                    "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
+                              ),
+                            ],
+                          ),
+                          JButton(
+                            icon: Icons.send,
+                            label: "VER TICKET",
+                            background: AppColors.green_color,
+                            onTab: () => Navigator.popAndPushNamed(
+                                context, '/success-create-ticket'),
+                          ),
+                        ],
+                      );
+                    return JLoadingScreen();
+                  }),
             ),
           )
         ],

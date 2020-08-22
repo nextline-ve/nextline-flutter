@@ -51,10 +51,6 @@ class Ticket {
     return data;
   }
 
-  static List<String> getTicketTypes() {
-    return ["Cambio de Plan", "Reparación", "Instalación"];
-  }
-
   TicketType _mapToTicketType(String type) {
     switch (type) {
       case "C":

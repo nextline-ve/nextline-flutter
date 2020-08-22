@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
-class DropdownWidget extends StatefulWidget {
+class DropdownWidget<T> extends StatefulWidget {
   final String hintText;
-  final List<String> options;
+  final List<T> options;
   DropdownWidget({Key key, this.hintText, this.options}) : super(key: key);
 
   @override
@@ -44,10 +45,10 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           dropdownValue = newValue;
         });
       },
-      items: widget.options.map<DropdownMenuItem<String>>((String value) {
+      items: widget.options.map<DropdownMenuItem<String>>((dynamic value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value.id.toString(),
+          child: Text(value.descripcion),
         );
       }).toList(),
     );

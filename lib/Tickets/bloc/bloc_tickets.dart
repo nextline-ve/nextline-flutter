@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
+import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 
 import '../repository_tickets.dart';
@@ -21,6 +22,10 @@ class BlocTickets implements Bloc {
 
   Future<List<Ticket>> getDataTickets() async {
     return await repository.getDataTicketsAPI();
+  }
+
+  Future<List<IssueType>> getDataIssueType() async {
+    return await repository.getIssueTypeAPI();
   }
 
   Future<ChatModel> getChat(int ticketId) async {
