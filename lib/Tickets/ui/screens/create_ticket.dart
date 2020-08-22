@@ -1,6 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -53,9 +54,10 @@ class _CreateTicketScreen extends State<CreateTicketScreen> {
                       InputContainer(
                           label: "Tipo de Avería",
                           input: DropdownWidget(
-                              hintText: "Seleccione una avería")),
+                              hintText: "Seleccione una avería",
+                              options: Ticket.getTicketTypes())),
                       InputContainer(
-                        label: "Comentario2",
+                        label: "Comentario",
                         input: _textArea(
                             "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
                       ),

@@ -57,9 +57,6 @@ class _BillsScreen extends State<BillsScreen> {
 
   Widget _billRow(double billId, String billDate, double billDolarPrice,
       double billBolivarPrice, String billStatus) {
-    String date = "\$$billDolarPrice / Bs. $billBolivarPrice";
-    String id = "Factura #$billId";
-
     return InkWell(
       onTap: _showDetails,
       child: Container(
@@ -77,8 +74,8 @@ class _BillsScreen extends State<BillsScreen> {
               ]),
           alignment: Alignment.center,
           child: ItemDetailHeader(
-            date: date,
-            id: id,
+            date: "\$$billDolarPrice / Bs. $billBolivarPrice",
+            id: "Factura #$billId",
             status: billStatus,
             label: billDate,
             reverseLeft: true,

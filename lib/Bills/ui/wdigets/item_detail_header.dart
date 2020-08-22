@@ -69,7 +69,7 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
             ),
             Container(
               child: Text(
-                _getDate(widget.date),
+                widget.date,
                 style: TextStyle(
                     fontFamily: AppFonts.poppins_light,
                     color: AppColors.black_color),
@@ -80,9 +80,4 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
       ],
     );
   }
-}
-
-String _getDate(dateToParse) {
-  DateTime date = DateTime.parse(dateToParse);
-  return "${date.day}/${date.month}/${date.year}";
 }

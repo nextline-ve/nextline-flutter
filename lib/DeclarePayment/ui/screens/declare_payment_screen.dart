@@ -62,7 +62,10 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                   Column(
                     children: [
                       InputContainer(
-                        input: DropdownWidget(hintText: "Medio de pago"),
+                        input: DropdownWidget(
+                          hintText: "Medio de pago",
+                          options: ["one", "two", "three"],
+                        ),
                         label: "",
                       ),
                       Center(

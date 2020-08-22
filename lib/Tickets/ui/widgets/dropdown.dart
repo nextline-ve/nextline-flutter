@@ -4,7 +4,8 @@ import 'package:nextline/utils/app_fonts.dart';
 
 class DropdownWidget extends StatefulWidget {
   final String hintText;
-  DropdownWidget({Key key, this.hintText}) : super(key: key);
+  final List<String> options;
+  DropdownWidget({Key key, this.hintText, this.options}) : super(key: key);
 
   @override
   _DropdownWidgetState createState() => _DropdownWidgetState();
@@ -43,8 +44,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           dropdownValue = newValue;
         });
       },
-      items: <String>['One', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: widget.options.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
