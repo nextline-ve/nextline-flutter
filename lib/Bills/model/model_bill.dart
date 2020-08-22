@@ -35,7 +35,7 @@ class Bill {
     subtotal = json['subtotal'];
     total = json['total'];
     status = _mapToBillStatus(json['status']);
-    comprobantePago = json['comprobante_pago'];
+    comprobantePago = json['comprobante_pago'] ?? "";
     getStatusDisplay = json['get_status_display'];
     cuentascobrarSet = json['cuentascobrar_set'];
   }
