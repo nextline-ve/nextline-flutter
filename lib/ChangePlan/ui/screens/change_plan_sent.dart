@@ -59,8 +59,5 @@ class _ChangePlanSent extends State<ChangePlanSent> {
       endDrawer: LateralMenu(),
     );
   }
-
-  void _showDetails() {
-    Navigator.pushNamed(context, '/bill-details');
-  }
+  
 }

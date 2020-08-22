@@ -68,7 +68,4 @@ class _BillSent extends State<BillSent> {
     );
   }
 
-  void _showDetails() {
-    Navigator.pushNamed(context, '/bill-details');
-  }
 }

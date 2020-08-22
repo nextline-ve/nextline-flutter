@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/utils/app_session.dart';
 
