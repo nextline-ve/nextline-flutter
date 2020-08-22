@@ -49,7 +49,8 @@ class BlocTickets implements Bloc {
         imageUrl: imgUrl ?? "",
         message: text ?? "",
         type: imgUrl == "" ? "text" : "image",
-        user: "user");
+        customId: "customId",
+        date: DateTime.now().toString());
     _chatsRef.child(ticketId).push().update(message.toJson());
   }
 

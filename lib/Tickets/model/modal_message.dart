@@ -1,31 +1,36 @@
 class ModelMessage {
-  String user;
+  String customId;
   String type;
   String message;
   String imageUrl;
+  String date;
 
-  ModelMessage({this.user, this.type, this.message, this.imageUrl});
+  ModelMessage(
+      {this.customId, this.type, this.message, this.imageUrl, this.date});
 
   ModelMessage.fromJson(Map<String, dynamic> json) {
-    user = json['user'];
+    customId = json['customId'];
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'];
+    date = json['date'];
   }
 
   ModelMessage.fromSnapshot(Map<dynamic, dynamic> json) {
-    user = json['user'];
+    customId = json['customId'];
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'] ?? "";
+    date = json['date'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user'] = this.user;
+    data['customId'] = this.customId;
     data['type'] = this.type;
     data['message'] = this.message;
     data['imageUrl'] = this.imageUrl ?? "";
+    data['date'] = this.date ?? "";
     return data;
   }
 }

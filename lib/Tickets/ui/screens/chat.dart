@@ -79,9 +79,9 @@ class _Chat extends State<Chat> {
                                         .map<Widget>((e) => _message(
                                             context,
                                             e.value.message,
-                                            e.value.user,
-                                            "",
-                                            true))
+                                            e.value.customId,
+                                            e.value.date,
+                                            e.value.customId == "Admin"))
                                         .toList(),
                                   );
                                 });
@@ -240,7 +240,7 @@ Widget _message(context, String text, String username, String date, bool isLeft,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _nameLabel("Alberto Zambrano"),
-                    _dateLabel("01/08/2020"),
+                    _dateLabel(date),
                   ])),
           if (image != "")
             GestureDetector(
