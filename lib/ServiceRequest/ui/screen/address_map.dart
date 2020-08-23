@@ -101,7 +101,7 @@ class _AddressMap extends State<AddressMap> {
                             _maps(),
 
                             Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: JButton(
                                   label: "CONTINUAR",
                                   onTab: _continue,
@@ -120,9 +120,9 @@ class _AddressMap extends State<AddressMap> {
 
   Widget _maps() {
     return Container(
-      margin: EdgeInsets.only(top: 30),
+      margin: EdgeInsets.only(top: 20),
       width: MediaQuery.of(context).size.width,
-      height: 400,
+      height: 300,
       child: GoogleMap(
         gestureRecognizers: Set()..add(Factory<EagerGestureRecognizer>(() => EagerGestureRecognizer())),
         mapType: MapType.hybrid,
