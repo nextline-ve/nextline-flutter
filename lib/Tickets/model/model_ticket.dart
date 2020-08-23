@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 enum TicketType { C, R, I }
 
 enum TicketStatus { P, C, S, A, F }
@@ -24,6 +26,7 @@ class Ticket {
     this.cliente,
     // this.asuntoDescripcion
   });
+  Ticket.fromPartial({this.detalle, this.asunto});
 
   Ticket.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -48,6 +51,13 @@ class Ticket {
     data['detalle'] = this.detalle;
     data['cliente'] = this.cliente;
     // data['asunto__descripcion'] = this.asuntoDescripcion;
+    return data;
+  }
+
+  Map<String, dynamic> partialtoJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['asunto'] = this.asunto;
+    data['detalle'] = this.detalle;
     return data;
   }
 
@@ -109,5 +119,9 @@ class Ticket {
       default:
         return null;
     }
+  }
+
+  FormData toFormData() {
+    return FormData.fromMap(this.partialtoJson());
   }
 }

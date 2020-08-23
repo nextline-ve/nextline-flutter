@@ -12,6 +12,7 @@ class BlocTickets implements Bloc {
   DatabaseReference _chatsRef;
   FirebaseDatabase database;
   Map<int, ChatModel> chats;
+  Ticket createTicketData;
 
   final StreamController<dynamic> _streamController =
       StreamController<dynamic>.broadcast();
@@ -28,6 +29,12 @@ class BlocTickets implements Bloc {
     return await repository.getIssueTypeAPI();
   }
 
+  Future<Ticket> createTicket() async {
+    Ticket ticket = await repository.addTicket(createTicketData);
+    sendMessage(ticket.detalle, "", ticket.id);
+    return ticket;
+  }
+
   Future<ChatModel> getChat(int ticketId) async {
     DatabaseReference chatRef = _chatsRef.child(ticketId.toString());
     DataSnapshot chatData = await chatRef.once();
@@ -35,14 +42,14 @@ class BlocTickets implements Bloc {
     return chats[ticketId];
   }
 
-  void sendMessage(String text, String imgUrl, String ticketId) {
+  void sendMessage(String text, String imgUrl, int ticketId) {
     ModelMessage message = ModelMessage(
         imageUrl: imgUrl ?? "",
         message: text ?? "",
         type: imgUrl == "" ? "text" : "image",
         customId: "customId",
         date: DateTime.now().toString());
-    _chatsRef.child(ticketId).push().update(message.toJson());
+    _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
 
   BlocTickets() {
@@ -52,6 +59,8 @@ class BlocTickets implements Bloc {
     database.setPersistenceEnabled(true);
     chats = new Map<int, ChatModel>();
     database.setPersistenceCacheSizeBytes(10000000);
+    createTicketData = Ticket.fromPartial(detalle: "Detalle", asunto: 1);
+    createTicket();
   }
 
   @override
