@@ -1,15 +1,8 @@
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
-import 'package:nextline/Tickets/model/model_issue_type.dart';
-import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/form_ticket.dart';
-import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
-import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
-import 'package:nextline/widgets/jbutton.dart';
-import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
 class CreateTicketScreen extends StatefulWidget {

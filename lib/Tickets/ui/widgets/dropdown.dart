@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class DropdownWidget<T> extends StatefulWidget {
   final String hintText;
   final List<T> options;
-  DropdownWidget({Key key, this.hintText, this.options}) : super(key: key);
+  final void Function(String) onChanged;
+  final String value;
+  DropdownWidget(
+      {Key key, this.hintText, this.options, this.value, this.onChanged})
+      : super(key: key);
 
   @override
   _DropdownWidgetState createState() => _DropdownWidgetState();
 }
 
 class _DropdownWidgetState extends State<DropdownWidget> {
-  String dropdownValue;
-
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: widget.value,
       isExpanded: true,
       underline: Container(
         height: 0,
@@ -40,16 +41,10 @@ class _DropdownWidgetState extends State<DropdownWidget> {
           color: AppColors.blue_dark,
           fontFamily: AppFonts.poppins_regular,
           fontSize: 18),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
+      onChanged: widget.onChanged,
       items: widget.options.map<DropdownMenuItem<String>>((dynamic value) {
         return DropdownMenuItem<String>(
-          value: value.id.toString(),
-          child: Text(value.descripcion),
-        );
+            value: value.id.toString(), child: Text(value.descripcion));
       }).toList(),
     );
   }

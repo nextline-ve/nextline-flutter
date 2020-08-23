@@ -1,12 +1,12 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 
@@ -47,12 +47,22 @@ class _FormTicket extends State<FormTicket> {
                         InputContainer(
                             label: "Tipo de Avería",
                             input: DropdownWidget(
-                                hintText: "Seleccione una avería",
-                                options: snapshot.data)),
+                              hintText: "Seleccione una avería",
+                              options: snapshot.data,
+                              value: _tipoAveria != null
+                                  ? _tipoAveria.toString()
+                                  : null,
+                              onChanged: (val) => {
+                                setState(() {
+                                  _tipoAveria = int.parse(val);
+                                })
+                              },
+                            )),
                         InputContainer(
                           label: "Comentario",
                           input: _textArea(
-                              "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas."),
+                              "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas.",
+                              (val) => _asunto = val),
                         ),
                       ],
                     ),
@@ -61,8 +71,6 @@ class _FormTicket extends State<FormTicket> {
                       label: "VER TICKET",
                       background: AppColors.green_color,
                       onTab: _setCreateTicket,
-                      // onTab: () => Navigator.popAndPushNamed(
-                      //     context, '/success-create-ticket'),
                     ),
                   ],
                 ));
@@ -71,19 +79,17 @@ class _FormTicket extends State<FormTicket> {
   }
 
   void _setCreateTicket() {
-    // if (_createTicket) {
-    //   return;
-    // }
-    // final form = _formKey.currentState;
-    // form.save();
-    // if (!form.validate()) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text('Verifique que haya cargado los datos correctamente')));
-    return;
-    // }
-    // _createTicket = true;
-    // AppHttp.requestIndicator(context);
-    // widget.blocTickets.dataForLogin.add({'email': _email, 'clave': _pass});
+    if (_createTicket) {
+      return;
+    }
+    final form = _formKey.currentState;
+    form.save();
+    if (!form.validate() || _tipoAveria == null) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Verifique que haya cargado los datos correctamente')));
+      return;
+    }
+    AppHttp.requestIndicator(context);
   }
 }
 
@@ -110,7 +116,7 @@ Widget _date(String text) {
   );
 }
 
-Widget _textArea(String hinText) {
+Widget _textArea(String hinText, onChanged) {
   return Column(
     children: <Widget>[
       Container(
@@ -118,7 +124,7 @@ Widget _textArea(String hinText) {
             color: Colors.white,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: TextField(
+              child: TextFormField(
                 maxLines: 8,
                 decoration: InputDecoration.collapsed(
                     hintText: hinText,
@@ -126,6 +132,13 @@ Widget _textArea(String hinText) {
                         color: AppColors.black_color.withOpacity(0.34),
                         fontSize: 12,
                         fontFamily: AppFonts.poppins_regular)),
+                onChanged: onChanged,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Por favor escriba su comentario';
+                  }
+                  return null;
+                },
               ),
             )),
       )
