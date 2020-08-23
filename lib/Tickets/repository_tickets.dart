@@ -7,7 +7,7 @@ class RepositoryTickets extends AppHttp {
   Future<List<Ticket>> getDataTicketsAPI() async {
     Response response;
     try {
-      response = await http.get("${api}support/tickets/",
+      response = await http.get('${api}support/tickets/',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -17,19 +17,22 @@ class RepositoryTickets extends AppHttp {
     return parsed.map<Ticket>((json) => Ticket.fromJson(json)).toList();
   }
 
-  Future addTicket(FormData formData) async {
+  Future<Ticket> addTicket(Ticket dataTicket) async {
+    Response response;
     try {
-      await http.post(this.api + 'device/',
+      FormData formData = dataTicket.toFormData();
+      response = await http.post('${api}support/tickets/',
           data: formData, options: Options(headers: header));
     } on DioError catch (e) {
-      // print(e.response);
+      print(e.response);
     }
+    return Ticket.fromJson(response.data);
   }
 
   Future<List<IssueType>> getIssueTypeAPI() async {
     Response response;
     try {
-      response = await http.get("${api}support/tickets/categoria-fallas/",
+      response = await http.get('${api}support/tickets/categoria-fallas/',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;

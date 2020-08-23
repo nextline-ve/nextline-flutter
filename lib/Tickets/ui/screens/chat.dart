@@ -152,7 +152,7 @@ class _Chat extends State<Chat> {
                         FlatButton(
                           onPressed: () {
                             widget.blocTickets.sendMessage(
-                                _messageInput, "", widget.ticket.id.toString());
+                                _messageInput, "", widget.ticket.id);
                             _messageForm.currentState.reset();
                           },
                           child: Container(
