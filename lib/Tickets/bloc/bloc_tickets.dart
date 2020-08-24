@@ -59,8 +59,8 @@ class BlocTickets implements Bloc {
     database.setPersistenceEnabled(true);
     chats = new Map<int, ChatModel>();
     database.setPersistenceCacheSizeBytes(10000000);
-    createTicketData = Ticket.fromPartial(detalle: "Detalle", asunto: 1);
-    createTicket();
+    // createTicketData = Ticket.fromPartial(detalle: "Detalle", asunto: 1);
+    // createTicket();
   }
 
   @override
