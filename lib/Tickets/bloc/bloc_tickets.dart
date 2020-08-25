@@ -12,7 +12,6 @@ class BlocTickets implements Bloc {
   DatabaseReference _chatsRef;
   FirebaseDatabase database;
   Map<int, ChatModel> chats;
-  Ticket createTicketData;
 
   final StreamController<dynamic> _streamController =
       StreamController<dynamic>.broadcast();
@@ -29,7 +28,7 @@ class BlocTickets implements Bloc {
     return await repository.getIssueTypeAPI();
   }
 
-  Future<Ticket> createTicket() async {
+  Future<Ticket> createTicket(Ticket createTicketData) async {
     Ticket ticket = await repository.addTicket(createTicketData);
     sendMessage(ticket.detalle, "", ticket.id);
     return ticket;

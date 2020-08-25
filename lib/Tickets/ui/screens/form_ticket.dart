@@ -2,6 +2,8 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
+import 'package:nextline/Tickets/ui/screens/success_create_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -23,8 +25,8 @@ class FormTicket extends StatefulWidget {
 
 class _FormTicket extends State<FormTicket> {
   final _formKey = GlobalKey<FormState>();
-  int _tipoAveria;
-  String _asunto;
+  int _asunto;
+  String _detalle;
   bool _createTicket = false;
 
   @override
@@ -49,12 +51,11 @@ class _FormTicket extends State<FormTicket> {
                             input: DropdownWidget(
                               hintText: "Seleccione una avería",
                               options: snapshot.data,
-                              value: _tipoAveria != null
-                                  ? _tipoAveria.toString()
-                                  : null,
+                              value:
+                                  _asunto != null ? _asunto.toString() : null,
                               onChanged: (val) => {
                                 setState(() {
-                                  _tipoAveria = int.parse(val);
+                                  _asunto = int.parse(val);
                                 })
                               },
                             )),
@@ -62,7 +63,7 @@ class _FormTicket extends State<FormTicket> {
                           label: "Comentario",
                           input: _textArea(
                               "Explique en breves palabras el problema de su avería, y un técnico se pondrá en contacto con usted en un plazo de 24 horas.",
-                              (val) => _asunto = val),
+                              (val) => _detalle = val),
                         ),
                       ],
                     ),
@@ -84,12 +85,21 @@ class _FormTicket extends State<FormTicket> {
     }
     final form = _formKey.currentState;
     form.save();
-    if (!form.validate() || _tipoAveria == null) {
+    if (!form.validate() || _asunto == null) {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text('Verifique que haya cargado los datos correctamente')));
       return;
     }
     AppHttp.requestIndicator(context);
+    widget.blocTickets
+        .createTicket(Ticket.fromPartial(detalle: _detalle, asunto: _asunto))
+        .then((value) => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SuccessCreateTicketScreen(
+                      ticket: value,
+                      blocTickets: widget.blocTickets,
+                    ))));
   }
 }
 
