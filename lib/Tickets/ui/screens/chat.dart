@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
@@ -10,12 +13,14 @@ import 'package:nextline/widgets/image_viewer.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
+import 'package:nextline/widgets/upload_image_modal.dart';
 
 class Chat extends StatefulWidget {
+  final picker = ImagePicker();
   final BlocTickets blocTickets;
   final Ticket ticket;
 
-  const Chat({Key key, @required this.blocTickets, @required this.ticket})
+  Chat({Key key, @required this.blocTickets, @required this.ticket})
       : super(key: key);
 
   @override
@@ -29,6 +34,15 @@ class _Chat extends State<Chat> {
   final _messageForm = GlobalKey<FormState>();
   ScrollController _scrollController = new ScrollController();
   String _messageInput;
+  File imageFile;
+
+  void getImage(ImageSource source) {
+    widget.picker.getImage(source: source).then(
+        (PickedFile pickedFile) => print(pickedFile)
+        // widget.blocTickets.sendMessage("", pickedFile.path, widget.ticket.id)
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,22 +140,18 @@ class _Chat extends State<Chat> {
                 Expanded(
                   child: Container(
                     color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 15, right: 5, left: 10),
+                            padding: const EdgeInsets.only(bottom: 15),
                             child: JTextField(
                                 backgoundColor: AppColors.white_color,
                                 label: "Escribe tu Mensaje",
                                 inputType: TextInputType.text,
                                 isPass: false,
-                                iconRigth: Icon(
-                                  Icons.file_upload,
-                                  color: AppColors.blue,
-                                ),
                                 onValidator: null,
                                 onKeyValue: (val) {
                                   _messageInput = val;
@@ -149,13 +159,27 @@ class _Chat extends State<Chat> {
                                 }),
                           ),
                         ),
-                        FlatButton(
-                          onPressed: () {
+                        GestureDetector(
+                          onTap: () => {
+                            showMyDialog(context,
+                                "Seleccione su foto de perfil", getImage)
+                          },
+                          child: ClipOval(
+                              child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Icon(
+                                    Icons.file_upload,
+                                    color: AppColors.blue,
+                                  ))),
+                        ),
+                        GestureDetector(
+                          onTap: () {
                             widget.blocTickets.sendMessage(
                                 _messageInput, "", widget.ticket.id);
                             _messageForm.currentState.reset();
                           },
-                          child: Container(
+                          child: ClipOval(
+                              child: Container(
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -164,7 +188,7 @@ class _Chat extends State<Chat> {
                               Icons.send,
                               color: AppColors.white_color,
                             ),
-                          ),
+                          )),
                         )
                       ],
                     ),
