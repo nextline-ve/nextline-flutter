@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
@@ -11,6 +12,7 @@ class BlocTickets implements Bloc {
   final RepositoryTickets repository = RepositoryTickets();
   DatabaseReference _chatsRef;
   FirebaseDatabase database;
+  FirebaseStorage storage;
   Map<int, ChatModel> chats;
 
   final StreamController<dynamic> _streamController =
@@ -53,6 +55,7 @@ class BlocTickets implements Bloc {
 
   BlocTickets() {
     database = FirebaseDatabase();
+    storage = FirebaseStorage();
     print("${database.databaseURL} url");
     _chatsRef = database.reference().child('chatsCollections');
     database.setPersistenceEnabled(true);
