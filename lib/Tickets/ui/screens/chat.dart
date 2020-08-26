@@ -37,10 +37,11 @@ class _Chat extends State<Chat> {
   File imageFile;
 
   void getImage(ImageSource source) {
-    widget.picker.getImage(source: source).then(
-        (PickedFile pickedFile) => print(pickedFile)
-        // widget.blocTickets.sendMessage("", pickedFile.path, widget.ticket.id)
-        );
+    widget.picker.getImage(source: source).then((PickedFile pickedFile) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    });
   }
 
   @override

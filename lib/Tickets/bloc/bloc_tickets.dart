@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -14,6 +15,7 @@ class BlocTickets implements Bloc {
   FirebaseDatabase database;
   FirebaseStorage storage;
   Map<int, ChatModel> chats;
+  StorageUploadTask _uploadTask;
 
   final StreamController<dynamic> _streamController =
       StreamController<dynamic>.broadcast();
@@ -51,6 +53,18 @@ class BlocTickets implements Bloc {
         customId: "customId",
         date: DateTime.now().toString());
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
+  }
+
+  Future<StorageTaskSnapshot> uploadImage(File image) {
+    _uploadTask = storage.ref().child('images').putFile(image);
+    return _uploadTask.onComplete;
+  }
+
+  void cancelUpdload() {
+    _uploadTask.cancel();
+    if (_uploadTask.isComplete) {
+      _uploadTask.lastSnapshot.ref.delete();
+    }
   }
 
   BlocTickets() {
