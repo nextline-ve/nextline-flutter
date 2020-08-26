@@ -33,7 +33,8 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    streamTokenInvalido.stream.forEach((message) {
+    streamTokenInvalido.stream.forEach((message) async {
+      await blocAuth.closeSession();
       Navigator.pushNamed(context, "/login");
     });
   }
