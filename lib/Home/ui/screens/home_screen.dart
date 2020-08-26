@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
@@ -26,8 +28,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   BlocAuth blocAuth;
   BlocHome blocHome = BlocHome();
+  final streamTokenInvalido = StreamController<String>();
 
-
+  @override
+  void initState() {
+    super.initState();
+    streamTokenInvalido.stream.forEach((message) {
+      Navigator.pushNamed(context, "/login");
+    });
+  }
   @override
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
@@ -46,6 +55,11 @@ class _HomeScreen extends State<HomeScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     FirebaseFCM().registerTokenFCM();
                     blocHome.idUsuario.add(AppSession.data.idUsuario);
+                  }
+                  if (snapshot.hasError) {
+                    if (snapshot.error == "Token inválido.") {
+                      streamTokenInvalido.add(snapshot.error);
+                    }
                   }
                   if (snapshot.hasData) {
                     Map<String, dynamic> data = snapshot.data;
