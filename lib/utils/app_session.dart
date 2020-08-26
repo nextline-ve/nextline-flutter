@@ -8,6 +8,7 @@ class AppSession {
   static ModelSession data;
 
   Future register(ModelSession _data) async {
+    await _data.deleteObject();
     await _data.saveObject();
     AppSession.data = _data;
   }
