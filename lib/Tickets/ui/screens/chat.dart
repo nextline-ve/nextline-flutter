@@ -236,7 +236,7 @@ class _Chat extends State<Chat> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            if (imageUrl == "") {
+                            if (!loadingImage) {
                               widget.blocTickets.sendMessage(
                                   _messageInput, "", widget.ticket.id);
                               _messageForm.currentState.reset();
@@ -247,7 +247,7 @@ class _Chat extends State<Chat> {
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: imageUrl == ""
+                                color: !loadingImage
                                     ? AppColors.blue_dark
                                     : AppColors.gray_color),
                             child: Icon(
