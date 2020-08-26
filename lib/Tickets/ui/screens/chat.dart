@@ -34,13 +34,18 @@ class _Chat extends State<Chat> {
   final _messageForm = GlobalKey<FormState>();
   ScrollController _scrollController = new ScrollController();
   String _messageInput;
-  File imageFile;
+  String imageUrl = "";
+  bool loadingImage = false;
 
   void getImage(ImageSource source) {
-    widget.picker.getImage(source: source).then(
-        (PickedFile pickedFile) => print(pickedFile)
-        // widget.blocTickets.sendMessage("", pickedFile.path, widget.ticket.id)
-        );
+    widget.picker.getImage(source: source).then((PickedFile pickedFile) {
+      print(pickedFile);
+      setState(() {
+        imageUrl = pickedFile.path;
+        loadingImage = true;
+      });
+      // widget.blocTickets.sendMessage("", pickedFile.path, widget.ticket.id)
+    });
   }
 
   @override
@@ -114,6 +119,7 @@ class _Chat extends State<Chat> {
                         }),
                   ),
                 ),
+                if (imageUrl != "") _imageBox(),
                 _box()
               ],
             ),
@@ -121,6 +127,60 @@ class _Chat extends State<Chat> {
         ],
       ),
     );
+  }
+
+  Widget _imageBox() {
+    return Container(
+        alignment: Alignment.bottomCenter,
+        decoration: BoxDecoration(),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Image.asset(
+                          imageUrl,
+                          width: 50,
+                          height: 50,
+                        )),
+                    Expanded(
+                      child: Text("Imagen"),
+                    ),
+                    if (loadingImage)
+                      SizedBox(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0,
+                        ),
+                        height: 15.0,
+                        width: 15.0,
+                      ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          loadingImage = false;
+                          imageUrl = "";
+                        });
+                      },
+                      child: ClipOval(
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Icon(
+                                Icons.close,
+                                color: AppColors.blue,
+                              ))),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _box() {
@@ -161,15 +221,17 @@ class _Chat extends State<Chat> {
                         ),
                         GestureDetector(
                           onTap: () => {
-                            showMyDialog(context,
-                                "Seleccione su foto de perfil", getImage)
+                            if (imageUrl == "")
+                              showMyDialog(context, "Enviar una foto", getImage)
                           },
                           child: ClipOval(
                               child: Container(
                                   padding: EdgeInsets.all(10),
                                   child: Icon(
                                     Icons.file_upload,
-                                    color: AppColors.blue,
+                                    color: imageUrl == ""
+                                        ? AppColors.blue
+                                        : AppColors.gray_color,
                                   ))),
                         ),
                         GestureDetector(
