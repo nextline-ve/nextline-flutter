@@ -236,16 +236,20 @@ class _Chat extends State<Chat> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            widget.blocTickets.sendMessage(
-                                _messageInput, "", widget.ticket.id);
-                            _messageForm.currentState.reset();
+                            if (imageUrl == "") {
+                              widget.blocTickets.sendMessage(
+                                  _messageInput, "", widget.ticket.id);
+                              _messageForm.currentState.reset();
+                            }
                           },
                           child: ClipOval(
                               child: Container(
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: AppColors.blue_dark),
+                                color: imageUrl == ""
+                                    ? AppColors.blue_dark
+                                    : AppColors.gray_color),
                             child: Icon(
                               Icons.send,
                               color: AppColors.white_color,
