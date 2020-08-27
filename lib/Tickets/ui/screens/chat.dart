@@ -373,10 +373,14 @@ Widget _message(context, String text, String username, String date, bool isLeft,
                   child: Image.network(image, width: 300, loadingBuilder:
                       (BuildContext context, Widget child,
                           ImageChunkEvent loadingProgress) {
-                    return SizedBox(
-                      child: CircularProgressIndicator(),
-                      height: 25.0,
-                      width: 25.0,
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
                     );
                   })),
             ),

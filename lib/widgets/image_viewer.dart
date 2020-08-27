@@ -23,8 +23,8 @@ class _ImageViewer extends State<ImageViewer> {
         body: Stack(children: [
           Container(
             child: PhotoView(
-              imageProvider: AssetImage(widget.image),
-              minScale: 1 * 0.55,
+              imageProvider: NetworkImage(widget.image),
+              minScale: 1 * 0.25,
               maxScale: 1 * 1.55,
             ),
           )
