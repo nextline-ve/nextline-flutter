@@ -6,6 +6,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
+import 'package:uuid/uuid.dart';
 
 import '../repository_tickets.dart';
 
@@ -56,7 +57,8 @@ class BlocTickets implements Bloc {
   }
 
   Future<StorageTaskSnapshot> uploadImage(File image) {
-    _uploadTask = storage.ref().child('images').putFile(image);
+    _uploadTask =
+        storage.ref().child('images').child(Uuid().v4()).putFile(image);
     return _uploadTask.onComplete;
   }
 

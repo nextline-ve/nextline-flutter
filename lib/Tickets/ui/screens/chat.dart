@@ -35,16 +35,24 @@ class _Chat extends State<Chat> {
   ScrollController _scrollController = new ScrollController();
   String _messageInput;
   String imageUrl = "";
+  String imageUrlToSend = "";
   bool loadingImage = false;
 
   void getImage(ImageSource source) {
-    widget.picker.getImage(source: source).then((PickedFile pickedFile) {
+    widget.picker.getImage(source: source).then((PickedFile pickedFile) async {
       print(pickedFile);
       setState(() {
         imageUrl = pickedFile.path;
         loadingImage = true;
       });
-      // widget.blocTickets.sendMessage("", pickedFile.path, widget.ticket.id)
+      widget.blocTickets.uploadImage(File(pickedFile.path)).then((image) {
+        image.ref.getDownloadURL().then((url) {
+          setState(() {
+            imageUrlToSend = url;
+            loadingImage = false;
+          });
+        });
+      });
     });
   }
 
@@ -96,21 +104,26 @@ class _Chat extends State<Chat> {
                                     );
                                     return null;
                                   });
+                                  List modelMessage = widget.blocTickets
+                                      .chats[widget.ticket.id].messages.entries
+                                      .toList();
+                                  modelMessage.sort((a, b) {
+                                    return DateTime.parse(a.value.date)
+                                        .compareTo(
+                                            DateTime.parse(b.value.date));
+                                  });
                                   return ListView(
                                     controller: _scrollController,
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
-                                    children: widget
-                                        .blocTickets
-                                        .chats[widget.ticket.id]
-                                        .messages
-                                        .entries
+                                    children: modelMessage
                                         .map<Widget>((e) => _message(
                                             context,
                                             e.value.message,
                                             e.value.customId,
                                             e.value.date,
-                                            e.value.customId == "Admin"))
+                                            e.value.customId == "Admin",
+                                            e.value.imageUrl))
                                         .toList(),
                                   );
                                 });
@@ -165,6 +178,7 @@ class _Chat extends State<Chat> {
                         setState(() {
                           loadingImage = false;
                           imageUrl = "";
+                          widget.blocTickets.cancelUpdload();
                         });
                       },
                       child: ClipOval(
@@ -237,9 +251,13 @@ class _Chat extends State<Chat> {
                         GestureDetector(
                           onTap: () {
                             if (!loadingImage) {
-                              widget.blocTickets.sendMessage(
-                                  _messageInput, "", widget.ticket.id);
+                              widget.blocTickets.sendMessage(_messageInput,
+                                  imageUrlToSend, widget.ticket.id);
                               _messageForm.currentState.reset();
+                              setState(() {
+                                imageUrlToSend = "";
+                                imageUrl = "";
+                              });
                             }
                           },
                           child: ClipOval(
@@ -352,7 +370,15 @@ Widget _message(context, String text, String username, String date, bool isLeft,
               },
               child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Image.asset(image, width: 300)),
+                  child: Image.network(image, width: 300, loadingBuilder:
+                      (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                    return SizedBox(
+                      child: CircularProgressIndicator(),
+                      height: 25.0,
+                      width: 25.0,
+                    );
+                  })),
             ),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 5),
