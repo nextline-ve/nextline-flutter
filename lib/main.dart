@@ -3,7 +3,10 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
-import 'package:nextline/Home/ui/screens/profile_screen.dart';
+// import 'package:nextline/Home/ui/screens/profile_screen.dart';
+import 'package:nextline/Profile/ui/screens/profile_screen.dart';
+//import 'package:nextline/Home/ui/screens/profile_screen.dart';
+// import 'package:nextline/Home/ui/screens/profile_screen.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
@@ -45,6 +48,8 @@ class MyApp extends StatelessWidget {
           '/tickets': (context) => HistoryTicketScreen(),
           '/bills': (context) => BillsScreen(),
           '/bill-details': (context) => BillDetailsScreen(),
+          //'/profile': (context) => ProfileScreen(),
+          //'/profile': (context) => ProfileScreen(),
           '/declare-payments': (context) => DeclarePaymentScreen(),
           '/success-declare-payments': (context) => BillSent(),
           '/change-plan': (context) => ChangePlan(),
