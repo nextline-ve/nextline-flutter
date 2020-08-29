@@ -15,11 +15,11 @@ class RepositoryProfile extends AppHttp {
     return ProfileModel.fromJson(response.data);
   }
 
-  Future<ProfileModel> putDataProfileAPI(ProfileModel profileData) async {
+  Future<ProfileModel> patchDataProfileAPI(Map<String, dynamic> data) async {
     Response response;
     try {
-      response = await http.put(api + 'admon/perfil',
-          data: profileData, options: Options(headers: header));
+      response = await http.patch(api + 'admon/perfil',
+          data: data, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));

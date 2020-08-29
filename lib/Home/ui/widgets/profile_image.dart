@@ -9,14 +9,14 @@ import 'package:nextline/widgets/upload_image_modal.dart';
 class ProfileImageSelector extends StatefulWidget {
   final picker = ImagePicker();
   final File imageFile;
-  final String imgUrl;
+  final String imageUrl;
   final bool withAction;
   final double size;
   final Color color;
   ProfileImageSelector({
     Key key,
     this.imageFile,
-    this.imgUrl,
+    this.imageUrl,
     this.color = AppColors.blue_dark,
     this.size = 136,
     this.withAction = true,
@@ -54,7 +54,7 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                           context, "Seleccione su foto de perfil", getImage)
                     }
                 },
-                child: imageFile != null || widget.imgUrl != null
+                child: imageFile != null || widget.imageUrl != null
                     ? ClipOval(
                         child: imageFile != null
                             ? Image.file(
@@ -64,7 +64,7 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                                 fit: BoxFit.cover,
                               )
                             : Image.network(
-                                widget.imgUrl,
+                                widget.imageUrl,
                                 height: widget.size,
                                 width: widget.size,
                                 fit: BoxFit.cover,

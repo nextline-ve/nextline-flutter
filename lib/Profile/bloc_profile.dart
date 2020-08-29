@@ -17,8 +17,8 @@ class BlocProfile implements Bloc {
     return profileData;
   }
 
-  Future<ProfileModel> putDataProfile() async {
-    profileData = await repository.putDataProfileAPI(profileData);
+  Future<ProfileModel> patchDataProfile(Map<String, dynamic> data) async {
+    profileData = await repository.patchDataProfileAPI(data);
     return profileData;
   }
 

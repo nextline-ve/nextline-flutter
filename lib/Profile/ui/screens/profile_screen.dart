@@ -18,13 +18,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   BlocProfile blocProfile = BlocProfile();
 
-  String nombreRazsoc = "";
-  String cedulaRif = "";
-  String correo = "";
-  String avatar = "";
-  String celular = "";
-  String direccion = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,69 +38,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 future: blocProfile.getDataProfile(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    nombreRazsoc = blocProfile.profileData.nombreRazsoc;
-                    cedulaRif = blocProfile.profileData.cedulaRif;
-                    celular = blocProfile.profileData.celular;
-                    correo = blocProfile.profileData.correo;
-                    direccion = blocProfile.profileData.direccion;
-                    avatar = blocProfile.profileData.avatar;
                     return ListView(
                       children: [
                         Center(
                           child: Container(
                             margin: EdgeInsets.only(top: 45),
-                            child: ProfileImageSelector(),
+                            child: ProfileImageSelector(
+                                imageUrl: blocProfile.profileData.avatar),
                           ),
                         ),
                         EditableInput(
                           placeholder: "Nombre / Razón Social",
-                          value: nombreRazsoc,
+                          value: blocProfile.profileData.nombreRazsoc,
                           onSave: (val) {
-                            setState(() {
-                              nombreRazsoc = val;
-                            });
+                            if (val != blocProfile.profileData.nombreRazsoc) {
+                              blocProfile
+                                  .patchDataProfile({"nombre_razsoc": val});
+                              blocProfile.profileData.nombreRazsoc = val;
+                            }
                             return val;
                           },
                         ),
                         EditableInput(
                           placeholder: "Cédula / RIF",
-                          value: cedulaRif,
-                          onSave: (val) {
-                            setState(() {
-                              cedulaRif = val;
-                            });
-                            return val;
-                          },
+                          value: blocProfile.profileData.cedulaRif,
+                          readOnly: true,
                         ),
                         EditableInput(
                           placeholder: "Número de Teléfono",
-                          value: celular,
-                          onSave: (val) {
-                            setState(() {
-                              celular = val;
-                            });
-                            return val;
-                          },
+                          value: blocProfile.profileData.celular,
+                          readOnly: true,
                         ),
                         EditableInput(
                           placeholder: "Correo Electrónico",
-                          value: correo,
+                          value: blocProfile.profileData.correo,
                           onSave: (val) {
-                            setState(() {
-                              correo = val;
-                            });
+                            if (val != blocProfile.profileData.correo) {
+                              blocProfile.patchDataProfile({"correo": val});
+                              blocProfile.profileData.correo = val;
+                            }
                             return val;
                           },
                         ),
                         EditableInput(
                           placeholder: "Dirección",
-                          value: direccion,
-                          onSave: (val) {
-                            setState(() {
-                              direccion = val;
-                            });
-                            return val;
-                          },
+                          value: blocProfile.profileData.direccion,
+                          readOnly: true,
                         ),
                       ],
                     );

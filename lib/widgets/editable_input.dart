@@ -15,10 +15,10 @@ class EditableInput extends StatefulWidget {
     Key key,
     @required this.value,
     @required this.placeholder,
-    @required this.onSave,
     this.readOnly = false,
     this.isPassword = false,
     this.onKeyValue,
+    this.onSave,
   }) : super(key: key);
 
   @override
@@ -61,7 +61,7 @@ class _EditableInputState extends State<EditableInput> {
                       initialValue: widget.value,
                     ))
                 : Padding(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Text(
                       widget.value != "" ? widget.value : "No hay datos",
                       style: TextStyle(
@@ -70,21 +70,27 @@ class _EditableInputState extends State<EditableInput> {
                           fontFamily: AppFonts.poppins_regular),
                     ),
                   )),
-        GestureDetector(
-          onTap: () {
-            if (edit && editedValue != "") {
-              widget.onSave(editedValue);
-            }
-            setState(() {
-              edit = !edit;
-            });
-          },
-          child: ClipOval(
-              child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Icon(edit ? Icons.check_circle : Icons.border_color,
-                      color: Color.fromRGBO(2, 144, 223, 1)))),
-        ),
+        if (!widget.readOnly)
+          GestureDetector(
+            onTap: () {
+              if (edit && editedValue != "") {
+                widget.onSave(editedValue);
+              }
+              setState(() {
+                edit = !edit;
+              });
+            },
+            child: ClipOval(
+                child: edit
+                    ? Container(
+                        padding: EdgeInsets.all(10),
+                        child: Icon(Icons.check,
+                            color: Color.fromRGBO(2, 144, 223, 1)))
+                    : Container(
+                        padding: EdgeInsets.all(10),
+                        child: Icon(Icons.border_color,
+                            color: Color.fromRGBO(2, 144, 223, 1)))),
+          ),
       ])
     ]);
   }
