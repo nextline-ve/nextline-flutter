@@ -3,10 +3,12 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 
+typedef FutureValue = Future<dynamic> Function(String);
+
 class EditableInput extends StatefulWidget {
   final String value;
   final String placeholder;
-  final StringValue onSave;
+  final FutureValue onSave;
   final bool readOnly;
   final bool isPassword;
   final StringValue onKeyValue;
@@ -27,7 +29,9 @@ class EditableInput extends StatefulWidget {
 
 class _EditableInputState extends State<EditableInput> {
   bool edit = false;
+  bool saving = false;
   String editedValue = "";
+  Future res;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +62,15 @@ class _EditableInputState extends State<EditableInput> {
                         });
                         return value;
                       },
-                      initialValue: widget.value,
+                      initialValue:
+                          editedValue == "" ? widget.value : editedValue,
                     ))
                 : Padding(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: Text(
-                      widget.value != "" ? widget.value : "No hay datos",
+                      widget.value == ""
+                          ? "No hay datos"
+                          : editedValue == "" ? widget.value : editedValue,
                       style: TextStyle(
                           color: AppColors.blue_dark,
                           fontSize: 16,
@@ -74,22 +81,34 @@ class _EditableInputState extends State<EditableInput> {
           GestureDetector(
             onTap: () {
               if (edit && editedValue != "") {
-                widget.onSave(editedValue);
+                setState(() {
+                  saving = true;
+                });
+                res = widget.onSave(editedValue);
+                res.then((value) {
+                  setState(() {
+                    saving = false;
+                  });
+                });
               }
               setState(() {
                 edit = !edit;
               });
             },
-            child: ClipOval(
+            child: Container(
+                padding: EdgeInsets.all(10),
                 child: edit
-                    ? Container(
-                        padding: EdgeInsets.all(10),
-                        child: Icon(Icons.check,
-                            color: Color.fromRGBO(2, 144, 223, 1)))
-                    : Container(
-                        padding: EdgeInsets.all(10),
-                        child: Icon(Icons.border_color,
-                            color: Color.fromRGBO(2, 144, 223, 1)))),
+                    ? Icon(Icons.check, color: Color.fromRGBO(2, 144, 223, 1))
+                    : saving
+                        ? SizedBox(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                            ),
+                            height: 20.0,
+                            width: 20.0,
+                          )
+                        : Icon(Icons.border_color,
+                            color: Color.fromRGBO(2, 144, 223, 1))),
           ),
       ])
     ]);

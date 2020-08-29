@@ -24,7 +24,7 @@ class RepositoryProfile extends AppHttp {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    return ProfileModel.fromJson(response.data.cast<Map<String, dynamic>>());
+    return ProfileModel.fromJson(response.data);
   }
 
   Future<Map<String, String>> changePasswordAPI(
@@ -38,6 +38,6 @@ class RepositoryProfile extends AppHttp {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    return response.data.cast<Map<String, String>>();
+    return response.data;
   }
 }

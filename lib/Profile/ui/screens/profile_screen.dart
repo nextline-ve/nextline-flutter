@@ -52,11 +52,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           value: blocProfile.profileData.nombreRazsoc,
                           onSave: (val) {
                             if (val != blocProfile.profileData.nombreRazsoc) {
-                              blocProfile
-                                  .patchDataProfile({"nombre_razsoc": val});
                               blocProfile.profileData.nombreRazsoc = val;
+                              return blocProfile
+                                  .patchDataProfile({"nombre_razsoc": val});
                             }
-                            return val;
                           },
                         ),
                         EditableInput(
@@ -74,10 +73,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           value: blocProfile.profileData.correo,
                           onSave: (val) {
                             if (val != blocProfile.profileData.correo) {
-                              blocProfile.patchDataProfile({"correo": val});
                               blocProfile.profileData.correo = val;
+                              return blocProfile
+                                  .patchDataProfile({"correo": val});
                             }
-                            return val;
                           },
                         ),
                         EditableInput(
