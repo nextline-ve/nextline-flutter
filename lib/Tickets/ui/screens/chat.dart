@@ -1,14 +1,27 @@
+import 'dart:io';
+
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/modal_message.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/image_viewer.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
+import 'package:nextline/widgets/upload_image_modal.dart';
 
 class Chat extends StatefulWidget {
-  final bool isClient = true;
-  final String userName = "oscar castillejo";
+  final picker = ImagePicker();
+  final BlocTickets blocTickets;
+  final Ticket ticket;
+
+  Chat({Key key, @required this.blocTickets, @required this.ticket})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,14 +30,41 @@ class Chat extends StatefulWidget {
 }
 
 class _Chat extends State<Chat> {
+  final List<ModelMessage> messages = new List<ModelMessage>();
+  final _messageForm = GlobalKey<FormState>();
+  ScrollController _scrollController = new ScrollController();
+  String _messageInput;
+  String imageUrl = "";
+  String imageUrlToSend = "";
+  bool loadingImage = false;
+
+  void getImage(ImageSource source) {
+    widget.picker.getImage(source: source).then((PickedFile pickedFile) async {
+      print(pickedFile);
+      setState(() {
+        imageUrl = pickedFile.path;
+        loadingImage = true;
+      });
+      widget.blocTickets.uploadImage(File(pickedFile.path)).then((image) {
+        image.ref.getDownloadURL().then((url) {
+          setState(() {
+            imageUrlToSend = url;
+            loadingImage = false;
+          });
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
+        centerTitle: true,
         title: Text(
-          'Asistencia técnica',
-          style: TextStyle(fontFamily: AppFonts.input),
+          'ASISTENCIA TÉCNICA',
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
         ),
       ),
       body: Stack(
@@ -36,25 +76,63 @@ class _Chat extends State<Chat> {
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: ItemDetailHeader(
-                      id: "Ticket2956",
-                      label: "Sin Internet",
-                      date: "01/08/2020",
-                      status: "Técnico Asignado",
+                      date: widget.ticket.fechaCreacion,
+                      status: widget.ticket.getStatusDisplay,
+                      id: "Ticket ${widget.ticket.id}",
+                      label: widget.ticket.detalle,
                       reverseLeft: true),
                 ),
                 Container(
                   child: Expanded(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        _message("", "", "", true),
-                        _message("", "", "", false),
-                        _message("", "", "", false),
-                        _message("", "", "", true)
-                      ],
-                    ),
+                    child: FutureBuilder<ChatModel>(
+                        future: widget.blocTickets.getChat(widget.ticket.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return StreamBuilder<Object>(
+                                stream: widget.blocTickets
+                                    .chats[widget.ticket.id].controller.stream,
+                                builder: (context, snapshot) {
+                                  Future.delayed(Duration(milliseconds: 300))
+                                      .then((value) {
+                                    _scrollController.animateTo(
+                                      _scrollController
+                                          .position.maxScrollExtent,
+                                      curve: Curves.easeOut,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                    );
+                                    return null;
+                                  });
+                                  List modelMessage = widget.blocTickets
+                                      .chats[widget.ticket.id].messages.entries
+                                      .toList();
+                                  modelMessage.sort((a, b) {
+                                    return DateTime.parse(a.value.date)
+                                        .compareTo(
+                                            DateTime.parse(b.value.date));
+                                  });
+                                  return ListView(
+                                    controller: _scrollController,
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    children: modelMessage
+                                        .map<Widget>((e) => _message(
+                                            context,
+                                            e.value.message,
+                                            e.value.customId,
+                                            e.value.date,
+                                            e.value.customId == "Admin",
+                                            e.value.imageUrl))
+                                        .toList(),
+                                  );
+                                });
+                          }
+                          return JLoadingScreen();
+                        }),
                   ),
                 ),
+                if (imageUrl != "") _imageBox(),
                 _box()
               ],
             ),
@@ -63,64 +141,150 @@ class _Chat extends State<Chat> {
       ),
     );
   }
-}
 
-Widget _box() {
-  return Container(
-    alignment: Alignment.bottomCenter,
-    decoration: BoxDecoration(),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Line(
-          width: 100,
-        ),
-        Row(
+  Widget _imageBox() {
+    return Container(
+        alignment: Alignment.bottomCenter,
+        decoration: BoxDecoration(),
+        child: Row(
           children: [
             Expanded(
               child: Container(
                 color: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Image.asset(
+                          imageUrl,
+                          width: 50,
+                          height: 50,
+                        )),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 15, right: 5, left: 10),
-                        child: JTextField(
-                            backgoundColor: AppColors.white_color,
-                            label: "Escribe tu Mensaje",
-                            inputType: TextInputType.text,
-                            isPass: false,
-                            iconRigth: Icon(
-                              Icons.file_upload,
-                              color: AppColors.blue,
-                            ),
-                            onValidator: null,
-                            onKeyValue: (val) {
-                              return val;
-                            }),
-                      ),
+                      child: Text("Imagen"),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: AppColors.blue_dark),
-                      child: Icon(
-                        Icons.send,
-                        color: AppColors.white_color,
+                    if (loadingImage)
+                      SizedBox(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.0,
+                        ),
+                        height: 15.0,
+                        width: 15.0,
                       ),
-                    )
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          loadingImage = false;
+                          imageUrl = "";
+                          widget.blocTickets.cancelUpdload();
+                        });
+                      },
+                      child: ClipOval(
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Icon(
+                                Icons.close,
+                                color: AppColors.blue,
+                              ))),
+                    ),
                   ],
                 ),
               ),
             )
           ],
+        ));
+  }
+
+  Widget _box() {
+    return Form(
+      key: _messageForm,
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        decoration: BoxDecoration(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Line(
+              width: 100,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: JTextField(
+                                backgoundColor: AppColors.white_color,
+                                label: "Escribe tu Mensaje",
+                                inputType: TextInputType.text,
+                                isPass: false,
+                                onValidator: null,
+                                onKeyValue: (val) {
+                                  _messageInput = val;
+                                  return val;
+                                }),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                            if (imageUrl == "")
+                              showMyDialog(context, "Enviar una foto", getImage)
+                          },
+                          child: ClipOval(
+                              child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Icon(
+                                    Icons.file_upload,
+                                    color: imageUrl == ""
+                                        ? AppColors.blue
+                                        : AppColors.gray_color,
+                                  ))),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (!loadingImage) {
+                              widget.blocTickets.sendMessage(_messageInput,
+                                  imageUrlToSend, widget.ticket.id);
+                              _messageForm.currentState.reset();
+                              setState(() {
+                                imageUrlToSend = "";
+                                imageUrl = "";
+                              });
+                            }
+                          },
+                          child: ClipOval(
+                              child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: !loadingImage
+                                    ? AppColors.blue_dark
+                                    : AppColors.gray_color),
+                            child: Icon(
+                              Icons.send,
+                              color: AppColors.white_color,
+                            ),
+                          )),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }
 
 Widget _nameLabel(String text) {
@@ -157,7 +321,8 @@ Widget _messageContent(String text, bool isLeft) {
   );
 }
 
-Widget _message(String text, String username, String date, bool isLeft) {
+Widget _message(context, String text, String username, String date, bool isLeft,
+    [String image = ""]) {
   List<Widget> children = [
     Container(
       transform: Matrix4.translationValues(0, 10, 0),
@@ -185,17 +350,43 @@ Widget _message(String text, String username, String date, bool isLeft) {
           borderRadius: BorderRadius.circular(20)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            _nameLabel("Alberto Zambrano"),
-            _dateLabel("01/08/2020"),
-          ]),
           Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: _messageContent(
-                  "Lorem ipsum dolor sit amet,s consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et.",
-                  isLeft))
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _nameLabel("Albert"),
+                    _dateLabel(date),
+                  ])),
+          if (image != "")
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageViewer(image: image)));
+              },
+              child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Image.network(image, width: 300, loadingBuilder:
+                      (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  })),
+            ),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: _messageContent(text ?? "", isLeft))
         ],
       ),
     ))
