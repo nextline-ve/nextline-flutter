@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 Future<void> showMyDialog(context, text, getImage) async {
-  final content = Text('Tomar una foto con la camara o de la galeria?');
+  final content = Text(
+      '¿Deseas tomar una foto con la cámara o subir una foto de la galería?');
   final title = Text(text);
 
   if (Platform.isAndroid) {

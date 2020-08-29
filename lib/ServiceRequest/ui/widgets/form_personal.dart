@@ -151,8 +151,8 @@ class _FormPersonal extends State<FormPersonal> {
       "celular": _phone,
       "clave": _pass,
       "plan": prefs.getInt("plan"),
-      "latitud": "",
-      "longitud": "",
+      "latitud": 0,
+      "longitud": 0,
       "direccion": "",
       "avatar": "",
     }));

@@ -42,23 +42,23 @@ class _JTextField extends State<JTextField> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        
         border: Border.all(
-          color: (widget.borderColor == null) ? AppColors.gray_color :  widget.borderColor,
+          color: (widget.borderColor == null)
+              ? AppColors.gray_color
+              : widget.borderColor,
         ),
         borderRadius: BorderRadius.circular(22),
       ),
-      margin: EdgeInsets.only(
-          top: (widget.top == null) ? 20 : widget.top
-      ),
+      margin: EdgeInsets.only(top: (widget.top == null) ? 20 : widget.top),
       child: TextFormField(
         initialValue: widget.initialValue,
-        autofocus: true,
+        autofocus: false,
         obscureText: widget.isPass,
         keyboardType: widget.inputType,
         maxLines: (widget.inputType == TextInputType.multiline) ? null : 1,
         validator: widget.onValidator,
         onSaved: widget.onKeyValue,
+        onChanged: widget.onKeyValue,
         decoration: InputDecoration(
           prefixIcon: (widget.icon == null) ? null : widget.icon,
           hintText: widget.label,

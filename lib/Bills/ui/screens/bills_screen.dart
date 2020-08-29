@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Bills/bloc/bloc_bills.dart';
+import 'package:nextline/Bills/model/model_bill.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -11,6 +13,7 @@ class BillsScreen extends StatefulWidget {
 }
 
 class _BillsScreen extends State<BillsScreen> {
+  BlocBills blocBills = BlocBills();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,24 +28,39 @@ class _BillsScreen extends State<BillsScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "LISTADO DE FACTURAS",
-                  style: TextStyle(
-                      color: AppColors.blue,
-                      fontSize: 16,
-                      fontFamily: AppFonts.fontTitle),
-                ),
                 Container(
                   margin: EdgeInsets.only(bottom: 27),
+                  child: Text(
+                    "LISTADO DE FACTURAS",
+                    style: TextStyle(
+                        color: AppColors.blue,
+                        fontSize: 16,
+                        fontFamily: AppFonts.fontTitle),
+                  ),
                 ),
                 Container(
                   child: Expanded(
-                    child: ListView(
-                      children: [
-                        _billRow(123123, "2000-12-12", 12, 12321, "Ok"),
-                        _billRow(67823123, "2000-12-12", 22, 87, "Fail")
-                      ],
-                    ),
+                    child: FutureBuilder(
+                        future: blocBills.getDataBills(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done)
+                            return ListView(
+                              scrollDirection: Axis.vertical,
+                              children: snapshot.data
+                                  .map<Widget>((Bill bill) => _billRow(bill))
+                                  .toList(),
+                            );
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  height: 25,
+                                  width: 25,
+                                  child: CircularProgressIndicator()),
+                            ],
+                          );
+                        }),
                   ),
                 )
               ],
@@ -55,11 +73,7 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  Widget _billRow(double billId, String billDate, double billDolarPrice,
-      double billBolivarPrice, String billStatus) {
-    String date = "\$$billDolarPrice / Bs. $billBolivarPrice";
-    String id = "Factura #$billId";
-
+  Widget _billRow(Bill bill) {
     return InkWell(
       onTap: _showDetails,
       child: Container(
@@ -77,10 +91,10 @@ class _BillsScreen extends State<BillsScreen> {
               ]),
           alignment: Alignment.center,
           child: ItemDetailHeader(
-            date: date,
-            id: id,
-            status: billStatus,
-            label: billDate,
+            date: "\$${bill.total}",
+            id: "Factura #${bill.id}",
+            status: bill.mapToBillStatusString(bill.status),
+            label: bill.fechaEmision,
             reverseLeft: true,
           )),
     );
