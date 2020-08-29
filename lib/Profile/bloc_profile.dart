@@ -10,7 +10,7 @@ class BlocProfile implements Bloc {
   final StreamController<int> _streamController =
       StreamController<int>.broadcast();
 
-  ProfileModel profileData;
+  ProfileModel profileData = ProfileModel();
 
   Future<ProfileModel> getDataProfile() async {
     profileData = await repository.getDataProfileAPI('admon/contratos-status');

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Home/ui/widgets/profile_image.dart';
+import 'package:nextline/Profile/bloc_profile.dart';
+import 'package:nextline/Profile/model/model_profile.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/editable_input.dart';
-import 'package:nextline/widgets/jtext_field.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
@@ -14,17 +16,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String nombreRazsoc = "Test User";
-  String cedula = "Test User";
-  String telf = "Test User";
-  String email = "Test User";
-  String password = "Test User";
+  BlocProfile blocProfile = BlocProfile();
+
+  String nombreRazsoc = "";
+  String cedulaRif = "";
+  String correo = "";
+  String avatar = "";
+  String celular = "";
+  String direccion = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
+        centerTitle: true,
         title: Text(
           'PERFIL',
           style: TextStyle(fontFamily: AppFonts.input),
@@ -35,75 +41,84 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           BackgroundTickets(),
           Container(
-            child: ListView(
-              children: [
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 45),
-                    child: ProfileImageSelector(),
-                  ),
-                ),
-                EditableInput(
-                  placeholder: "Nombre / Razón Social",
-                  value: nombreRazsoc,
-                  onSave: (val) {
-                    setState(() {
-                      nombreRazsoc = val;
-                    });
-                    return val;
-                  },
-                ),
-                EditableInput(
-                  placeholder: "Cédula / RIF",
-                  value: cedula,
-                  onSave: (val) {
-                    setState(() {
-                      cedula = val;
-                    });
-                    return val;
-                  },
-                ),
-                EditableInput(
-                  placeholder: "Número de Teléfono",
-                  value: telf,
-                  onSave: (val) {
-                    setState(() {
-                      telf = val;
-                    });
-                    return val;
-                  },
-                ),
-                EditableInput(
-                  placeholder: "Correo Electrónico",
-                  value: email,
-                  onSave: (val) {
-                    setState(() {
-                      email = val;
-                    });
-                    return val;
-                  },
-                ),
-                EditableInput(
-                  placeholder: "Contraseña",
-                  value: password,
-                  onSave: (val) {
-                    setState(() {
-                      password = val;
-                    });
-                    return val;
-                  },
-                ),
-              ],
-            ),
+            child: FutureBuilder<ProfileModel>(
+                future: blocProfile.getDataProfile(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    nombreRazsoc = blocProfile.profileData.nombreRazsoc;
+                    cedulaRif = blocProfile.profileData.cedulaRif;
+                    celular = blocProfile.profileData.celular;
+                    correo = blocProfile.profileData.correo;
+                    direccion = blocProfile.profileData.direccion;
+                    avatar = blocProfile.profileData.avatar;
+                    return ListView(
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 45),
+                            child: ProfileImageSelector(),
+                          ),
+                        ),
+                        EditableInput(
+                          placeholder: "Nombre / Razón Social",
+                          value: nombreRazsoc,
+                          onSave: (val) {
+                            setState(() {
+                              nombreRazsoc = val;
+                            });
+                            return val;
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Cédula / RIF",
+                          value: cedulaRif,
+                          onSave: (val) {
+                            setState(() {
+                              cedulaRif = val;
+                            });
+                            return val;
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Número de Teléfono",
+                          value: celular,
+                          onSave: (val) {
+                            setState(() {
+                              celular = val;
+                            });
+                            return val;
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Correo Electrónico",
+                          value: correo,
+                          onSave: (val) {
+                            setState(() {
+                              correo = val;
+                            });
+                            return val;
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Dirección",
+                          value: direccion,
+                          onSave: (val) {
+                            setState(() {
+                              direccion = val;
+                            });
+                            return val;
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                  return JLoadingScreen();
+                }),
           )
         ],
       ),
       endDrawer: LateralMenu(),
       bottomNavigationBar: NavigatorBar(),
     );
-  }
-
-  void _toggleShowPassword() {
-    print("_toggleShowPassword ");
   }
 }

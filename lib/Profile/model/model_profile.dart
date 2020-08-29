@@ -2,6 +2,8 @@ class ProfileModel {
   String nombreRazsoc;
   String cedulaRif;
   String correo;
+  String celular;
+  String direccion;
   String avatar;
 
   ProfileModel({this.nombreRazsoc, this.cedulaRif, this.correo, this.avatar});
@@ -10,6 +12,8 @@ class ProfileModel {
     nombreRazsoc = json['nombre_razsoc'];
     cedulaRif = json['cedula_rif'];
     correo = json['correo'];
+    celular = json['celular'];
+    direccion = json['direccion'];
     avatar = json['avatar'];
   }
 
@@ -18,6 +22,8 @@ class ProfileModel {
     data['nombre_razsoc'] = this.nombreRazsoc;
     data['cedula_rif'] = this.cedulaRif;
     data['correo'] = this.correo;
+    data['celular'] = this.celular;
+    data['direccion'] = this.direccion;
     data['avatar'] = this.avatar;
     return data;
   }

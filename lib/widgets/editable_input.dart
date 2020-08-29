@@ -61,9 +61,9 @@ class _EditableInputState extends State<EditableInput> {
                       initialValue: widget.value,
                     ))
                 : Padding(
-                    padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 30),
                     child: Text(
-                      widget.value,
+                      widget.value != "" ? widget.value : "No hay datos",
                       style: TextStyle(
                           color: AppColors.blue_dark,
                           fontSize: 16,
