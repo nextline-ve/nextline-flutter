@@ -44,7 +44,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             margin: EdgeInsets.only(top: 45),
                             child: ProfileImageSelector(
-                                imageUrl: blocProfile.profileData.avatar),
+                              imageUrl: blocProfile.profileData.avatar,
+                              blocProfile: blocProfile,
+                            ),
                           ),
                         ),
                         EditableInput(

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nextline/Profile/bloc_profile.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/upload_image_modal.dart';
 
@@ -13,14 +15,16 @@ class ProfileImageSelector extends StatefulWidget {
   final bool withAction;
   final double size;
   final Color color;
-  ProfileImageSelector({
-    Key key,
-    this.imageFile,
-    this.imageUrl,
-    this.color = AppColors.blue_dark,
-    this.size = 136,
-    this.withAction = true,
-  }) : super(key: key);
+  final BlocProfile blocProfile;
+  ProfileImageSelector(
+      {Key key,
+      this.imageFile,
+      this.imageUrl,
+      this.color = AppColors.blue_dark,
+      this.size = 136,
+      this.withAction = true,
+      @required this.blocProfile})
+      : super(key: key);
   @override
   _ProfileImageSelectorState createState() =>
       _ProfileImageSelectorState(imageFile: imageFile);
@@ -28,11 +32,24 @@ class ProfileImageSelector extends StatefulWidget {
 
 class _ProfileImageSelectorState extends State<ProfileImageSelector> {
   File imageFile;
+  String imageBase64;
+  bool saving = false;
+
   _ProfileImageSelectorState({this.imageFile}) : super();
   void getImage(ImageSource source) {
-    widget.picker.getImage(source: source).then((pickedFile) => setState(() {
-          imageFile = File(pickedFile.path);
-        }));
+    widget.picker.getImage(source: source).then((pickedFile) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+        imageBase64 = base64Encode(imageFile.readAsBytesSync());
+        saving = true;
+      });
+      widget.blocProfile
+          .patchDataProfile({"avatar": imageBase64}).then((value) {
+        setState(() {
+          saving = false;
+        });
+      });
+    });
   }
 
   @override
@@ -48,7 +65,7 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                 autofocus: false,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 onPressed: () => {
-                  if (widget.withAction)
+                  if (widget.withAction && !saving)
                     {
                       showMyDialog(
                           context, "Seleccione su foto de perfil", getImage)
@@ -63,12 +80,26 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                                 width: widget.size,
                                 fit: BoxFit.cover,
                               )
-                            : Image.network(
-                                widget.imageUrl,
+                            : Image.network(widget.imageUrl,
                                 height: widget.size,
                                 width: widget.size,
-                                fit: BoxFit.cover,
-                              ))
+                                fit: BoxFit.cover, loadingBuilder:
+                                    (BuildContext context, Widget child,
+                                        ImageChunkEvent loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Container(
+                                    padding: EdgeInsets.all(50),
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress
+                                                  .expectedTotalBytes !=
+                                              null
+                                          ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                              loadingProgress.expectedTotalBytes
+                                          : null,
+                                      backgroundColor: AppColors.white_color,
+                                    ));
+                              }))
                     : Icon(
                         Icons.account_circle,
                         size: widget.size,
@@ -82,11 +113,20 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           color: AppColors.blue),
-                      child: Icon(
-                        Icons.camera_alt,
-                        size: 16,
-                        color: AppColors.white_color,
-                      ),
+                      child: saving
+                          ? SizedBox(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.0,
+                                backgroundColor: AppColors.white_color,
+                              ),
+                              height: 15.0,
+                              width: 15.0,
+                            )
+                          : Icon(
+                              Icons.camera_alt,
+                              size: 16,
+                              color: AppColors.white_color,
+                            ),
                     )
                   : Text(""),
             ],
