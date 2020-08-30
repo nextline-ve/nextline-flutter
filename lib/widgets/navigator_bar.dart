@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 class NavigatorBar extends StatefulWidget {
@@ -26,7 +28,7 @@ class _NavigatorBar extends State<NavigatorBar> {
         if (ModalRoute.of(context).settings.name == "/home") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/profile');
+        Navigator.pushReplacementNamed(context, '/home');
         break;
 
       case 1:
@@ -69,9 +71,7 @@ class _NavigatorBar extends State<NavigatorBar> {
                       onPressed: () => onTapped(entry.key),
                       icon: Icon(
                         entry.value,
-                        color: _currentIndex == entry.key
-                            ? Colors.white70
-                            : Colors.white,
+                        color: Colors.white,
                         size: 30,
                       ),
                     ),
