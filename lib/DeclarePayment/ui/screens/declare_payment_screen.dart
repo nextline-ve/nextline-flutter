@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -23,9 +24,13 @@ class DeclarePaymentScreen extends StatefulWidget {
 }
 
 class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
-  File imageFile;
   _DeclarePaymentScreenState({this.imageFile}) : super();
-  int _method;
+
+  int method;
+  File imageFile;
+  String _nroReferencia = "";
+  String _fecha = "";
+  String _monto = "";
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((pickedFile) => setState(() {
@@ -88,10 +93,10 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                                 descripcion: "PayPal",
                                 image: "assets/images/paypal.png"),
                           ],
-                          value: _method != null ? _method.toString() : null,
+                          value: method != null ? method.toString() : null,
                           onChanged: (val) => {
                             setState(() {
-                              _method = int.parse(val);
+                              method = int.parse(val);
                             })
                           },
                         ),
@@ -124,11 +129,17 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                     ],
                   ),
                   _inputsForm(),
-                  _fileNameDisplayer(),
+                  if (imageFile != null) _fileNameDisplayer(),
                   JButton(
                     label: "FINALIZAR PAGO",
                     background: AppColors.green_color,
-                    onTab: () => _finishPayment(),
+                    onTab: () {
+                      if (_isValid())
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BillSent()));
+                    },
                   ),
                 ],
               ),
@@ -149,10 +160,11 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
             padding: EdgeInsets.only(left: 24, right: 24),
             child: JTextField(
               top: 0.0,
-              label: "№ DE REFERENCIA",
+              label: "N° DE REFERENCIA",
               isPass: false,
               inputType: TextInputType.text,
               borderColor: AppColors.blue,
+              onKeyValue: (value) => _nroReferencia = value,
             ),
           ),
         ),
@@ -161,11 +173,13 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
           child: Padding(
             padding: EdgeInsets.only(left: 24, right: 24),
             child: JTextField(
-                top: 0.0,
-                label: "FECHA",
-                isPass: false,
-                inputType: TextInputType.text,
-                borderColor: AppColors.blue),
+              top: 0.0,
+              label: "FECHA",
+              isPass: false,
+              inputType: TextInputType.text,
+              borderColor: AppColors.blue,
+              onKeyValue: (value) => _fecha = value,
+            ),
           ),
         ),
         Container(
@@ -173,11 +187,13 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
           child: Padding(
             padding: EdgeInsets.only(left: 24, right: 24),
             child: JTextField(
-                top: 0.0,
-                label: "MONTO QUE PAGO",
-                isPass: false,
-                inputType: TextInputType.text,
-                borderColor: AppColors.blue),
+              top: 0.0,
+              label: "MONTO QUE PAGO",
+              isPass: false,
+              inputType: TextInputType.text,
+              borderColor: AppColors.blue,
+              onKeyValue: (value) => _monto = value,
+            ),
           ),
         ),
         Container(
@@ -189,7 +205,8 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
               fontSize: 10.0,
               label: "ADJUNTAR COMPROBANTE",
               background: AppColors.blue_dark,
-              onTab: () => _uploadBill(),
+              onTab: () => showMyDialog(
+                  context, "Seleccione su comprobante de pago", getImage),
             ),
           ),
         ),
@@ -198,7 +215,6 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
   }
 
   Widget _fileNameDisplayer() {
-    print("_fileNameDisplayer");
     return Container(
       padding: EdgeInsets.fromLTRB(60, 0, 60, 0),
       child: Column(
@@ -216,9 +232,11 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("!myFile.pdf"),
+                Text("Imagen"),
                 InkWell(
-                  onTap: () => _deleteBill(),
+                  onTap: () => setState(() {
+                    imageFile = null;
+                  }),
                   child: Icon(
                     Icons.delete_forever,
                     color: AppColors.blue_dark,
@@ -242,17 +260,11 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
     );
   }
 
-  _uploadBill() {
-    print("_uploadBill");
-    showMyDialog(context, "Seleccione su comprobante de pago", getImage);
-  }
-
-  _deleteBill() {
-    print("_deleteBill");
-  }
-
-  _finishPayment() {
-    print("_finishPayment");
-    Navigator.pushNamed(context, '/success-declare-payments');
+  bool _isValid() {
+    return method != null &&
+        imageFile != null &&
+        _nroReferencia != "" &&
+        _fecha != "" &&
+        _monto != "";
   }
 }
