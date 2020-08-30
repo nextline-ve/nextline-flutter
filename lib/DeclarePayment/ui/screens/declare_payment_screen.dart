@@ -25,6 +25,8 @@ class DeclarePaymentScreen extends StatefulWidget {
 class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
   File imageFile;
   _DeclarePaymentScreenState({this.imageFile}) : super();
+  int _method;
+
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((pickedFile) => setState(() {
           imageFile = File(pickedFile.path);
@@ -66,9 +68,32 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                   Column(
                     children: [
                       InputContainer(
-                        input: DropdownWidget<String>(
-                          hintText: "Medio de pago",
-                          options: ["one", "two", "three"],
+                        input: DropdownWidget(
+                          hintText: "Método de pago",
+                          options: [
+                            new DropdownItemType(
+                                id: 1,
+                                descripcion: "Zelle",
+                                image: "assets/images/zelle.png"),
+                            new DropdownItemType(
+                                id: 2,
+                                descripcion: "Bank of America",
+                                image: "assets/images/bofa.png"),
+                            new DropdownItemType(
+                                id: 3,
+                                descripcion: "Banesco Panamá",
+                                image: "assets/images/banesco.png"),
+                            new DropdownItemType(
+                                id: 4,
+                                descripcion: "PayPal",
+                                image: "assets/images/paypal.png"),
+                          ],
+                          value: _method != null ? _method.toString() : null,
+                          onChanged: (val) => {
+                            setState(() {
+                              _method = int.parse(val);
+                            })
+                          },
                         ),
                         label: "",
                       ),

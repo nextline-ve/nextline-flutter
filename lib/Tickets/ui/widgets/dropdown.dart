@@ -7,8 +7,13 @@ class DropdownWidget<T> extends StatefulWidget {
   final List<T> options;
   final void Function(String) onChanged;
   final String value;
+
   DropdownWidget(
-      {Key key, this.hintText, this.options, this.value, this.onChanged})
+      {Key key,
+      this.hintText = "Seleccione",
+      this.options,
+      this.value,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -29,7 +34,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
         color: AppColors.blue_dark,
       ),
       hint: Text(
-        "Seleccione una avería",
+        widget.hintText,
         style: TextStyle(
             color: AppColors.black_color.withOpacity(0.34),
             fontFamily: AppFonts.poppins_regular,
@@ -44,8 +49,42 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       onChanged: widget.onChanged,
       items: widget.options.map<DropdownMenuItem<String>>((dynamic value) {
         return DropdownMenuItem<String>(
-            value: value.id.toString(), child: Text(value.descripcion));
+            value: value.id.toString(),
+            child: value.image == ""
+                ? Text(value.descripcion)
+                : Row(
+                    children: [
+                      Image.asset(
+                        value.image,
+                        width: 40,
+                        height: 40,
+                      ),
+                      Text(value.descripcion)
+                    ],
+                  ));
       }).toList(),
     );
+  }
+}
+
+class DropdownItemType {
+  int id;
+  String descripcion;
+  String image;
+
+  DropdownItemType({this.id, this.descripcion, this.image = ""});
+
+  DropdownItemType.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    descripcion = json['descripcion'];
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['descripcion'] = this.descripcion;
+    data['image'] = this.image;
+    return data;
   }
 }
