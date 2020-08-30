@@ -81,7 +81,7 @@ class _BillsScreen extends State<BillsScreen> {
 
   Widget _billRow(Bill bill, int index) {
     return InkWell(
-      onTap: _showDetails,
+      onTap: () => _showDetails(bill),
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.only(bottom: 10),
@@ -99,8 +99,8 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  void _showDetails() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BillDetailsScreen()));
+  void _showDetails(Bill bill) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => BillDetailsScreen(bill: bill)));
   }
 }

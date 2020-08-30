@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nextline/Bills/model/model_bill.dart';
 import 'package:nextline/Bills/ui/wdigets/bills_table.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
@@ -10,6 +11,10 @@ import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
 class BillDetailsScreen extends StatefulWidget {
+  final Bill bill;
+
+  BillDetailsScreen({Key key, @required this.bill}) : super(key: key);
+
   @override
   _BillDetailsScreen createState() => _BillDetailsScreen();
 }
@@ -37,10 +42,11 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                 Column(
                   children: [
                     ItemDetailHeader(
-                        label: "My Invoice",
-                        id: "#123",
-                        status: "aproved",
-                        date: "12/10/2020"),
+                        label: "Factura",
+                        id: "#${widget.bill.id}",
+                        status:
+                            "${widget.bill.mapToBillStatusString(widget.bill.status)}",
+                        date: "${widget.bill.fechaEmision}"),
                     BillsTable(data: []),
                     _billResume(),
                     _billFooter(),
