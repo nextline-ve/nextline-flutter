@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Home/ui/widgets/profile_image.dart';
+import 'package:nextline/Profile/bloc_profile.dart';
+import 'package:nextline/Profile/model/model_profile.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
-import 'package:nextline/widgets/jtext_field.dart';
+import 'package:nextline/widgets/editable_input.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
@@ -13,11 +16,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  BlocProfile blocProfile = BlocProfile();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
+        centerTitle: true,
         title: Text(
           'PERFIL',
           style: TextStyle(fontFamily: AppFonts.input),
@@ -28,81 +34,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           BackgroundTickets(),
           Container(
-            child: ListView(
-              children: [
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 45),
-                    child: ProfileImageSelector(),
-                  ),
-                ),
-                _inputRow("raz_cocial","Nombre/Razon social", "Nombre/Razon social", false),
-                _inputRow("cedula","Cedula / RIF", "Cedula / RIF", false),
-                _inputRow("telf","Número de Teléfono", "Número de Teléfono", false),
-                _inputRow("email","Correo Electrónico", "Correo Electrónico", false),
-                _inputRow("password","Cambiar Contraseña", "Cambiar Contraseña", true),
-              ],
-            ),
+            child: FutureBuilder<ProfileModel>(
+                future: blocProfile.getDataProfile(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ListView(
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(top: 45),
+                            child: ProfileImageSelector(
+                              imageUrl: blocProfile.profileData.avatar,
+                              blocProfile: blocProfile,
+                            ),
+                          ),
+                        ),
+                        EditableInput(
+                          placeholder: "Nombre / Razón Social",
+                          value: blocProfile.profileData.nombreRazsoc,
+                          onSave: (val) {
+                            if (val != blocProfile.profileData.nombreRazsoc) {
+                              blocProfile.profileData.nombreRazsoc = val;
+                              return blocProfile
+                                  .patchDataProfile({"nombre_razsoc": val});
+                            }
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Cédula / RIF",
+                          value: blocProfile.profileData.cedulaRif,
+                          readOnly: true,
+                        ),
+                        EditableInput(
+                          placeholder: "Número de Teléfono",
+                          value: blocProfile.profileData.celular,
+                          readOnly: true,
+                        ),
+                        EditableInput(
+                          placeholder: "Correo Electrónico",
+                          value: blocProfile.profileData.correo,
+                          onSave: (val) {
+                            if (val != blocProfile.profileData.correo) {
+                              blocProfile.profileData.correo = val;
+                              return blocProfile
+                                  .patchDataProfile({"correo": val});
+                            }
+                          },
+                        ),
+                        EditableInput(
+                          placeholder: "Dirección",
+                          value: blocProfile.profileData.direccion,
+                          readOnly: true,
+                        ),
+                      ],
+                    );
+                  }
+                  return JLoadingScreen();
+                }),
           )
         ],
       ),
       endDrawer: LateralMenu(),
       bottomNavigationBar: NavigatorBar(),
     );
-  }
-
-  Widget _inputRow(name, placeholder, value, isPassword){
-    return Center(
-      child: Container(
-        margin: EdgeInsets.only(top: 35),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(placeholder, style: TextStyle(color: AppColors.gray_text_color, fontSize: 12, fontFamily: AppFonts.fontTitle),),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Center(
-                      child: JTextField(
-                        label: placeholder,
-                        inputType: TextInputType.text,
-                        isPass: isPassword,
-                        backgoundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(285, 40, 0, 0),
-                        child: InkWell(
-                          onTap: _toggleInput,
-                          child: Icon(Icons.border_color, color: Color.fromRGBO(2, 144, 223, 1)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _toggleInput(){
-    print("toggle ");
-  }
-
-  void _toggleShowPassword(){
-    print("_toggleShowPassword ");
   }
 }

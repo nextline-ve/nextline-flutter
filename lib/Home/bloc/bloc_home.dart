@@ -18,7 +18,7 @@ class BlocHome implements Bloc {
     if (AppSession.data.esCliente) {
       return await repository.getDataHomeAPI('admon/contratos-status');
     } else {
-      return await repository.getDataHomeAPI('solicitud/contratos-status');
+      return await repository.getDataHomeAPI('admon/contratos-status');
     }
   }
 

@@ -46,11 +46,11 @@ class BlocTickets implements Bloc {
     return chats[ticketId];
   }
 
-  void sendMessage(String text, String imgUrl, int ticketId) {
+  void sendMessage(String text, String imageUrl, int ticketId) {
     ModelMessage message = ModelMessage(
-        imageUrl: imgUrl ?? "",
+        imageUrl: imageUrl ?? "",
         message: text ?? "",
-        type: imgUrl == "" ? "text" : "image",
+        type: imageUrl == "" ? "text" : "image",
         customId: "customId",
         date: DateTime.now().toString());
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
