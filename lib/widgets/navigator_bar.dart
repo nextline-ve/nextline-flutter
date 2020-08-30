@@ -12,7 +12,7 @@ class NavigatorBar extends StatefulWidget {
 }
 
 class _NavigatorBar extends State<NavigatorBar> {
-  int _currentIndex = 0;
+  int _currentIndex = -1;
 
   List<IconData> items = [
     Icons.home,
@@ -28,14 +28,16 @@ class _NavigatorBar extends State<NavigatorBar> {
         if (ModalRoute.of(context).settings.name == "/home") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
         break;
 
       case 1:
         if (ModalRoute.of(context).settings.name == "/profile") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/profile');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfileScreen()));
         break;
     }
   }
@@ -71,7 +73,9 @@ class _NavigatorBar extends State<NavigatorBar> {
                       onPressed: () => onTapped(entry.key),
                       icon: Icon(
                         entry.value,
-                        color: Colors.white,
+                        color: _currentIndex == entry.key
+                            ? Colors.white.withOpacity(0.7)
+                            : Colors.white,
                         size: 30,
                       ),
                     ),
