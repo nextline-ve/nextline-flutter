@@ -33,7 +33,7 @@ class _HUserInformationState extends State<HUserInformation> {
               size: 80,
               withAction: false,
               color: Colors.white,
-              imgUrl: "https://picsum.photos/200/300",
+              imageUrl: "https://picsum.photos/200/300",
             ),
             Padding(
               padding: const EdgeInsets.only(top: 7, left: 5),
