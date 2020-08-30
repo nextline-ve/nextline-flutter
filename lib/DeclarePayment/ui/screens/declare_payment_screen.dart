@@ -14,6 +14,9 @@ import 'package:nextline/widgets/upload_image_modal.dart';
 
 class DeclarePaymentScreen extends StatefulWidget {
   final picker = ImagePicker();
+  final bool dollar;
+
+  DeclarePaymentScreen({Key key, this.dollar = true}) : super(key: key);
 
   @override
   _DeclarePaymentScreenState createState() => _DeclarePaymentScreenState();
@@ -34,27 +37,28 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
         title: Text(
-          'FACTURACION',
-          style: TextStyle(fontFamily: AppFonts.input),
+          'FACTURACIÓN',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
         ),
+        centerTitle: true,
       ),
       body: Stack(
         alignment: Alignment.center,
         children: [
           SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.only(
-                top: 39,
-              ),
+              padding: EdgeInsets.all(10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
                     child: Text(
                       "Declarar Pago",
                       style: TextStyle(
-                          color: AppColors.blue,
+                          color: AppColors.blue_dark,
                           fontSize: 19,
                           fontFamily: AppFonts.poppins_bold),
                     ),

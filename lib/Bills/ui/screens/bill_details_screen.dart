@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nextline/Bills/ui/wdigets/bills_table.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
@@ -18,7 +19,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'FACTURACIÓN',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: Stack(
@@ -104,12 +110,15 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     child: Center(
                       child: JButton(
                         fontSize: 10,
-                        label: "Pagar en dolar",
+                        label: "Pagar en Dólares",
                         labelColor: AppColors.blue_dark,
                         buttonHeight: 40.0,
                         borderColor: AppColors.blue_dark,
-                        onTab: _payInDolar,
-                        background: AppColors.white_color,
+                        onTab: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DeclarePaymentScreen())),
+                        background: Colors.white,
                       ),
                     ),
                   ),
@@ -123,8 +132,13 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                         labelColor: AppColors.blue_dark,
                         buttonHeight: 40.0,
                         borderColor: AppColors.blue_dark,
-                        onTab: _payInBolivar,
-                        background: AppColors.white_color,
+                        onTab: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DeclarePaymentScreen(
+                                      dollar: false,
+                                    ))),
+                        background: Colors.white,
                       ),
                     ),
                   ),
@@ -210,16 +224,6 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
         ),
       ),
     );
-  }
-
-  void _payInDolar() {
-    print("_payInDolar");
-    Navigator.pushNamed(context, '/declare-payments');
-  }
-
-  void _payInBolivar() {
-    print("_payInBolivar");
-    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _downloadBillAction() {

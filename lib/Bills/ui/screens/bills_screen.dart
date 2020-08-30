@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/bloc/bloc_bills.dart';
 import 'package:nextline/Bills/model/model_bill.dart';
+import 'package:nextline/Bills/ui/screens/bill_details_screen.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -99,6 +100,7 @@ class _BillsScreen extends State<BillsScreen> {
   }
 
   void _showDetails() {
-    Navigator.pushNamed(context, '/bill-details');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => BillDetailsScreen()));
   }
 }
