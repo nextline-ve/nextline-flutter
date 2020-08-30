@@ -22,13 +22,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.blue_dark,
-        centerTitle: true,
-        title: Text(
-          'PERFIL',
-          style: TextStyle(fontFamily: AppFonts.input),
-        ),
-      ),
+          backgroundColor: AppColors.blue_dark,
+          centerTitle: true,
+          title: Text(
+            'PERFIL',
+            style: TextStyle(fontFamily: AppFonts.input),
+          ),
+          automaticallyImplyLeading: false),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
