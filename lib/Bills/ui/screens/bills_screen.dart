@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/bloc/bloc_bills.dart';
 import 'package:nextline/Bills/model/model_bill.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
@@ -18,7 +19,22 @@ class _BillsScreen extends State<BillsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'FACTURACIÓN',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+        ),
+        centerTitle: true,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
+        ),
       ),
       body: Stack(
         children: [
@@ -35,7 +51,7 @@ class _BillsScreen extends State<BillsScreen> {
                     style: TextStyle(
                         color: AppColors.blue,
                         fontSize: 16,
-                        fontFamily: AppFonts.fontTitle),
+                        fontFamily: AppFonts.poppins_regular),
                   ),
                 ),
                 Container(
