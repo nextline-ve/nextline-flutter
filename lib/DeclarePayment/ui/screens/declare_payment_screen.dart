@@ -65,86 +65,90 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
                 future: widget.blocBills.getDataBanks(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              "Declarar Pago",
-                              style: TextStyle(
-                                  color: AppColors.blue_dark,
-                                  fontSize: 19,
-                                  fontFamily: AppFonts.poppins_bold),
+                    if (snapshot.hasData) {
+                      return Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                "Declarar Pago",
+                                style: TextStyle(
+                                    color: AppColors.blue_dark,
+                                    fontSize: 19,
+                                    fontFamily: AppFonts.poppins_bold),
+                              ),
                             ),
-                          ),
-                          Column(
-                            children: [
-                              InputContainer(
-                                input: DropdownWidget(
-                                  hintText: "Método de pago",
-                                  options: DropdownItemType.generateList(
-                                      snapshot.data
-                                          .where((bank) =>
-                                              bank.tipoMoneda ==
-                                              widget.currency.simbolo)
-                                          .toList()),
-                                  value: selectedBank != null
-                                      ? selectedBank.toString()
-                                      : null,
-                                  onChanged: (val) => {
-                                    setState(() {
-                                      selectedBank = int.parse(val);
-                                    })
-                                  },
+                            Column(
+                              children: [
+                                InputContainer(
+                                  input: DropdownWidget(
+                                    hintText: "Método de pago",
+                                    options: DropdownItemType.generateList(
+                                        snapshot.data
+                                            .where((bank) =>
+                                                bank.tipoMoneda ==
+                                                widget.currency.simbolo)
+                                            .toList()),
+                                    value: selectedBank != null
+                                        ? selectedBank.toString()
+                                        : null,
+                                    onChanged: (val) => {
+                                      setState(() {
+                                        selectedBank = int.parse(val);
+                                      })
+                                    },
+                                  ),
+                                  label: "",
                                 ),
-                                label: "",
-                              ),
-                              Center(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        "Datos del Beneficiario",
-                                        style: TextStyle(
-                                            fontFamily:
-                                                AppFonts.poppins_regular,
-                                            fontSize: 13),
-                                      ),
-                                    ),
-                                    if (selectedBank != null)
+                                Center(
+                                  child: Column(
+                                    children: [
                                       Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(0, 10, 0, 16),
-                                        child: _bankDetails(snapshot.data
-                                            .toList()
-                                            .singleWhere((bank) =>
-                                                bank.id == selectedBank)),
+                                        child: Text(
+                                          "Datos del Beneficiario",
+                                          style: TextStyle(
+                                              fontFamily:
+                                                  AppFonts.poppins_regular,
+                                              fontSize: 13),
+                                        ),
                                       ),
-                                  ],
+                                      if (selectedBank != null)
+                                        Container(
+                                          margin:
+                                              EdgeInsets.fromLTRB(0, 10, 0, 16),
+                                          child: _bankDetails(snapshot.data
+                                              .toList()
+                                              .singleWhere((bank) =>
+                                                  bank.id == selectedBank)),
+                                        ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          _inputsForm(),
-                          if (imageFile != null) _fileNameDisplayer(),
-                          JButton(
-                            label: "FINALIZAR PAGO",
-                            background: AppColors.green_color,
-                            onTab: () {
-                              if (_isValid())
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => BillSent()));
-                            },
-                          ),
-                        ],
-                      ),
-                    );
+                              ],
+                            ),
+                            _inputsForm(),
+                            if (imageFile != null) _fileNameDisplayer(),
+                            JButton(
+                              label: "FINALIZAR PAGO",
+                              background: AppColors.green_color,
+                              onTab: () {
+                                if (_isValid())
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BillSent()));
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return Text(
+                        "No hay datos para esta moneda. Por favor, escoja otra.");
                   }
                   return JLoadingScreen();
                 }),
