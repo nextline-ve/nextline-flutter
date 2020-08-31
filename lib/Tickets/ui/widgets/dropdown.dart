@@ -51,7 +51,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
         return DropdownMenuItem<String>(
             value: value.id.toString(),
             child: value.image == ""
-                ? Text(value.descripcion)
+                ? Text(value.nombre)
                 : Row(
                     children: [
                       Image.asset(
@@ -59,7 +59,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                         width: 40,
                         height: 40,
                       ),
-                      Text(value.descripcion)
+                      Text(value.nombre)
                     ],
                   ));
       }).toList(),
@@ -69,22 +69,30 @@ class _DropdownWidgetState extends State<DropdownWidget> {
 
 class DropdownItemType {
   int id;
-  String descripcion;
+  String nombre;
   String image;
 
-  DropdownItemType({this.id, this.descripcion, this.image = ""});
+  DropdownItemType({this.id, this.nombre, this.image = ""});
 
   DropdownItemType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    descripcion = json['descripcion'];
+    nombre = json['nombre'];
     image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['descripcion'] = this.descripcion;
+    data['nombre'] = this.nombre;
     data['image'] = this.image;
     return data;
+  }
+
+  static List<DropdownItemType> generateList(dynamic list) {
+    List<DropdownItemType> generatedList = new List<DropdownItemType>();
+    for (var item in list) {
+      generatedList.add(new DropdownItemType(id: item.id, nombre: item.nombre));
+    }
+    return generatedList;
   }
 }

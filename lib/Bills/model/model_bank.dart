@@ -12,7 +12,7 @@ class BankModel {
     id = json['id'];
     banco = json['banco'];
     numeroCuenta = json['numero_cuenta'];
-    nombre = json['nombre'];
+    nombre = json['banco'];
     tipoMoneda = json['tipo_moneda'];
   }
 
@@ -21,7 +21,6 @@ class BankModel {
     data['id'] = this.id;
     data['banco'] = this.banco;
     data['numero_cuenta'] = this.numeroCuenta;
-    data['nombre'] = this.nombre;
     data['tipo_moneda'] = this.tipoMoneda;
     return data;
   }

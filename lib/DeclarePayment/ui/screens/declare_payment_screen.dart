@@ -2,12 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nextline/Bills/bloc/bloc_bills.dart';
+import 'package:nextline/Bills/model/model_bank.dart';
+import 'package:nextline/Bills/model/model_currency.dart';
 import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/line.dart';
@@ -15,9 +19,12 @@ import 'package:nextline/widgets/upload_image_modal.dart';
 
 class DeclarePaymentScreen extends StatefulWidget {
   final picker = ImagePicker();
-  final bool dollar;
+  final BlocBills blocBills;
+  final CurrencyModel currency;
 
-  DeclarePaymentScreen({Key key, this.dollar = true}) : super(key: key);
+  DeclarePaymentScreen(
+      {Key key, @required this.blocBills, @required this.currency})
+      : super(key: key);
 
   @override
   _DeclarePaymentScreenState createState() => _DeclarePaymentScreenState();
@@ -26,7 +33,7 @@ class DeclarePaymentScreen extends StatefulWidget {
 class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
   _DeclarePaymentScreenState({this.imageFile}) : super();
 
-  int method;
+  int selectedBank;
   File imageFile;
   String _nroReferencia = "";
   String _fecha = "";
@@ -54,101 +61,103 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
         alignment: Alignment.center,
         children: [
           SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    child: Text(
-                      "Declarar Pago",
-                      style: TextStyle(
-                          color: AppColors.blue_dark,
-                          fontSize: 19,
-                          fontFamily: AppFonts.poppins_bold),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      InputContainer(
-                        input: DropdownWidget(
-                          hintText: "Método de pago",
-                          options: [
-                            new DropdownItemType(
-                                id: 1,
-                                descripcion: "Zelle",
-                                image: "assets/images/zelle.png"),
-                            new DropdownItemType(
-                                id: 2,
-                                descripcion: "Bank of America",
-                                image: "assets/images/bofa.png"),
-                            new DropdownItemType(
-                                id: 3,
-                                descripcion: "Banesco Panamá",
-                                image: "assets/images/banesco.png"),
-                            new DropdownItemType(
-                                id: 4,
-                                descripcion: "PayPal",
-                                image: "assets/images/paypal.png"),
-                          ],
-                          value: method != null ? method.toString() : null,
-                          onChanged: (val) => {
-                            setState(() {
-                              method = int.parse(val);
-                            })
-                          },
-                        ),
-                        label: "",
-                      ),
-                      Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Text(
-                                "Datos del Beneficiario",
-                                style: TextStyle(
-                                    fontFamily: AppFonts.poppins_regular,
-                                    fontSize: 13),
-                              ),
+            child: FutureBuilder<List<BankModel>>(
+                future: widget.blocBills.getDataBanks(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              "Declarar Pago",
+                              style: TextStyle(
+                                  color: AppColors.blue_dark,
+                                  fontSize: 19,
+                                  fontFamily: AppFonts.poppins_bold),
                             ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 16),
-                              child: Text(
-                                "pagos@nextline.com",
-                                style: TextStyle(
-                                    fontFamily: AppFonts.poppins_regular,
-                                    color: AppColors.blue_dark,
-                                    fontSize: 16),
+                          ),
+                          Column(
+                            children: [
+                              InputContainer(
+                                input: DropdownWidget(
+                                  hintText: "Método de pago",
+                                  options: DropdownItemType.generateList(
+                                      snapshot.data
+                                          .where((bank) =>
+                                              bank.tipoMoneda ==
+                                              widget.currency.simbolo)
+                                          .toList()),
+                                  value: selectedBank != null
+                                      ? selectedBank.toString()
+                                      : null,
+                                  onChanged: (val) => {
+                                    setState(() {
+                                      selectedBank = int.parse(val);
+                                    })
+                                  },
+                                ),
+                                label: "",
                               ),
-                            ),
-                          ],
-                        ),
+                              Center(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Datos del Beneficiario",
+                                        style: TextStyle(
+                                            fontFamily:
+                                                AppFonts.poppins_regular,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    if (selectedBank != null)
+                                      Container(
+                                        margin:
+                                            EdgeInsets.fromLTRB(0, 10, 0, 16),
+                                        child: _bankDetails(snapshot.data
+                                            .toList()
+                                            .singleWhere((bank) =>
+                                                bank.id == selectedBank)),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          _inputsForm(),
+                          if (imageFile != null) _fileNameDisplayer(),
+                          JButton(
+                            label: "FINALIZAR PAGO",
+                            background: AppColors.green_color,
+                            onTab: () {
+                              if (_isValid())
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => BillSent()));
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  _inputsForm(),
-                  if (imageFile != null) _fileNameDisplayer(),
-                  JButton(
-                    label: "FINALIZAR PAGO",
-                    background: AppColors.green_color,
-                    onTab: () {
-                      if (_isValid())
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BillSent()));
-                    },
-                  ),
-                ],
-              ),
-            ),
+                    );
+                  }
+                  return JLoadingScreen();
+                }),
           )
-        ], // <Widget>[]
+        ],
       ),
       endDrawer: LateralMenu(),
     );
+  }
+
+  Container _bankDetails(BankModel bank) {
+    return Container(
+        child: Column(children: [Text(bank.banco), Text(bank.numeroCuenta)]));
   }
 
   Column _inputsForm() {
@@ -261,7 +270,7 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
   }
 
   bool _isValid() {
-    return method != null &&
+    return selectedBank != null &&
         imageFile != null &&
         _nroReferencia != "" &&
         _fecha != "" &&

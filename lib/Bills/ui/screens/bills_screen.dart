@@ -100,7 +100,12 @@ class _BillsScreen extends State<BillsScreen> {
   }
 
   void _showDetails(Bill bill) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BillDetailsScreen(bill: bill)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BillDetailsScreen(
+                  bill: bill,
+                  blocBills: blocBills,
+                )));
   }
 }
