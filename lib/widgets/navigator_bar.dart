@@ -23,10 +23,10 @@ class _NavigatorBar extends State<NavigatorBar> {
     });
     switch (_currentIndex) {
       case 0:
-        if (ModalRoute.of(context).settings.name == "/home") {
-          return;
-        }
-        Navigator.pushReplacementNamed(context, '/profile');
+        // if (ModalRoute.of(context).settings.name == "/home") {
+        //   return;
+        // }
+        Navigator.pushReplacementNamed(context, '/assignment-details-screen');
         break;
 
       case 1:

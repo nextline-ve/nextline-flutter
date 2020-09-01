@@ -23,7 +23,6 @@ class AppSession {
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
     if (AppSession.data == null) {
-
       AppSession.isLoggedIn = false;
       return false;
     } else {
@@ -45,13 +44,13 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
 
   ModelSession(
       {this.token,
-        this.nombre,
-        this.tipoUsuario,
-        this.motivoRechazo,
-        this.idUsuario,
-        this.idPlan,
-        this.idServicio,
-        this.esCliente});
+      this.nombre,
+      this.tipoUsuario,
+      this.motivoRechazo,
+      this.idUsuario,
+      this.idPlan,
+      this.idServicio,
+      this.esCliente});
 
   ModelSession.fromJson(Map<String, dynamic> json) {
     token = json['token'];
@@ -114,7 +113,6 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     }
   }
 
-
   @override
   Future<int> saveObject() async {
     Database db = await database;
@@ -127,14 +125,14 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     db.execute("DROP TABLE IF EXISTS cliente;");
     db.execute(
       "CREATE TABLE cliente(id INTEGER PRIMARY KEY, "
-          "token TEXT,"
-          "nombre TEXT,"
-          "tipo_usuario TEXT,"
-          "motivo_rechazo TEXT,"
-          "id_usuario INTEGER,"
-          "id_plan INTEGER,"
-          "id_servicio INTEGER,"
-          "es_cliente BOOLEAN)",
+      "token TEXT,"
+      "nombre TEXT,"
+      "tipo_usuario TEXT,"
+      "motivo_rechazo TEXT,"
+      "id_usuario INTEGER,"
+      "id_plan INTEGER,"
+      "id_servicio INTEGER,"
+      "es_cliente BOOLEAN)",
     );
     return true;
   }

@@ -5,6 +5,7 @@ import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 // import 'package:nextline/Home/ui/screens/profile_screen.dart';
 import 'package:nextline/Profile/ui/screens/profile_screen.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/assignment_details_screen.dart';
 //import 'package:nextline/Home/ui/screens/profile_screen.dart';
 // import 'package:nextline/Home/ui/screens/profile_screen.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
@@ -55,7 +56,8 @@ class MyApp extends StatelessWidget {
           '/change-plan': (context) => ChangePlan(),
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
           '/success-change-plan': (context) => ChangePlanSent(),
-          '/profile': (context) => ProfileScreen()
+          '/profile': (context) => ProfileScreen(),
+          '/assignment-details-screen': (context) => AssignmentDetailsScreen()
         },
       ),
       bloc: BlocAuth(),
