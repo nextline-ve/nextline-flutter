@@ -7,6 +7,7 @@ class JLoadingScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: CircularProgressIndicator(),
@@ -14,7 +15,7 @@ class JLoadingScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              "Cargando los datos.",
+              "Cargando los datos",
               style: TextStyle(
                 fontFamily: AppFonts.fontTitle,
               ),

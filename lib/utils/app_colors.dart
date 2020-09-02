@@ -42,4 +42,7 @@ class AppColors {
 
   /// #828282
   static const Color light_gray_color = Color(0x828282);
+
+  /// #F3FAFE
+  static const Color light_blue = Color(0xF3FAFE);
 }

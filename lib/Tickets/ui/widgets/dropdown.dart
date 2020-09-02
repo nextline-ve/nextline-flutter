@@ -7,8 +7,13 @@ class DropdownWidget<T> extends StatefulWidget {
   final List<T> options;
   final void Function(String) onChanged;
   final String value;
+
   DropdownWidget(
-      {Key key, this.hintText, this.options, this.value, this.onChanged})
+      {Key key,
+      this.hintText = "Seleccione",
+      this.options,
+      this.value,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -29,7 +34,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
         color: AppColors.blue_dark,
       ),
       hint: Text(
-        "Seleccione una avería",
+        widget.hintText,
         style: TextStyle(
             color: AppColors.black_color.withOpacity(0.34),
             fontFamily: AppFonts.poppins_regular,
@@ -44,8 +49,50 @@ class _DropdownWidgetState extends State<DropdownWidget> {
       onChanged: widget.onChanged,
       items: widget.options.map<DropdownMenuItem<String>>((dynamic value) {
         return DropdownMenuItem<String>(
-            value: value.id.toString(), child: Text(value.descripcion));
+            value: value.id.toString(),
+            child: value.image == ""
+                ? Text(value.nombre)
+                : Row(
+                    children: [
+                      Image.asset(
+                        value.image,
+                        width: 40,
+                        height: 40,
+                      ),
+                      Text(value.nombre)
+                    ],
+                  ));
       }).toList(),
     );
+  }
+}
+
+class DropdownItemType {
+  int id;
+  String nombre;
+  String image;
+
+  DropdownItemType({this.id, this.nombre, this.image = ""});
+
+  DropdownItemType.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    data['image'] = this.image;
+    return data;
+  }
+
+  static List<DropdownItemType> generateList(dynamic list) {
+    List<DropdownItemType> generatedList = new List<DropdownItemType>();
+    for (var item in list) {
+      generatedList.add(new DropdownItemType(id: item.id, nombre: item.nombre));
+    }
+    return generatedList;
   }
 }

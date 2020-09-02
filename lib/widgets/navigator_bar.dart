@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 class NavigatorBar extends StatefulWidget {
@@ -10,7 +12,7 @@ class NavigatorBar extends StatefulWidget {
 }
 
 class _NavigatorBar extends State<NavigatorBar> {
-  int _currentIndex = 0;
+  int _currentIndex = -1;
 
   List<IconData> items = [
     Icons.home,
@@ -26,14 +28,16 @@ class _NavigatorBar extends State<NavigatorBar> {
         if (ModalRoute.of(context).settings.name == "/home") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/profile');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
         break;
 
       case 1:
         if (ModalRoute.of(context).settings.name == "/profile") {
           return;
         }
-        Navigator.pushReplacementNamed(context, '/profile');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfileScreen()));
         break;
     }
   }
@@ -70,7 +74,7 @@ class _NavigatorBar extends State<NavigatorBar> {
                       icon: Icon(
                         entry.value,
                         color: _currentIndex == entry.key
-                            ? Colors.white70
+                            ? Colors.white.withOpacity(0.7)
                             : Colors.white,
                         size: 30,
                       ),

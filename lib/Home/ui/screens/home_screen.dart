@@ -38,13 +38,14 @@ class _HomeScreen extends State<HomeScreen> {
       Navigator.pushNamed(context, "/login");
     });
   }
+
   @override
   Widget build(BuildContext context) {
     blocAuth = BlocProvider.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.blue,
-      ),
+          backgroundColor: AppColors.blue_dark,
+          automaticallyImplyLeading: false),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -71,8 +72,7 @@ class _HomeScreen extends State<HomeScreen> {
                         HUserInformation(userName: AppSession.data.nombre),
                         HServiceType(
                             title: data['plan']["tipo_servicio"]["servicio"]),
-                        HCirclePlan(
-                            planName: data['plan']['plan']),
+                        HCirclePlan(planName: data['plan']['plan']),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 100, vertical: 10),
