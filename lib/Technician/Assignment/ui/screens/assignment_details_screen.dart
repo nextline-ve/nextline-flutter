@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/stopwatch_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/editable_input.dart';
@@ -106,7 +107,12 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                 JButton(
                   label: "INICIAR TRABAJO",
                   background: AppColors.green_color,
-                  onTab: () => {},
+                  onTab: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StopwatchScreen()));
+                  },
                 ),
               ],
             ),

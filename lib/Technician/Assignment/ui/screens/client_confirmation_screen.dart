@@ -50,16 +50,12 @@ class _ClientConfirmationScreen extends State<ClientConfirmationScreen> {
                           fontSize: 18,
                           fontFamily: AppFonts.poppins_bold),
                     )),
-                // Padding(
-                //     padding: EdgeInsets.symmetric(vertical: 10),
-                // child:
                 Text(
                   "Firma",
                   style: TextStyle(
                       color: AppColors.black_color,
                       fontSize: 12,
                       fontFamily: AppFonts.poppins_regular),
-                  // )
                 ),
                 Expanded(
                   child: Container(
