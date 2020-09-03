@@ -34,7 +34,10 @@ class _LoginScreen extends State<LoginScreen> {
             children: [
               WhiteLogo(),
               FormLogin(),
-              Line(top: 0, width: 100,),
+              Line(
+                top: 0,
+                width: 100,
+              ),
               JButton(
                 label: "SOLICITA TU SERVICIO",
                 onTab: _serviceRequest,
@@ -43,12 +46,12 @@ class _LoginScreen extends State<LoginScreen> {
             ],
           )
         ],
-          
       ),
     );
   }
 
   void _serviceRequest() {
-    Navigator.pushNamed(context, '/select-service');
+    Navigator.pushNamed(context, '/client-confirmation');
+    // Navigator.pushNamed(context, '/select-service');
   }
 }
