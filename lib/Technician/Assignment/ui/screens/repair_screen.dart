@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nextline/Technician/Assignment/ui/screens/failed_repair_screen.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/success_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/widgets/stopwatch.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -65,7 +65,7 @@ class _RepairScreen extends State<RepairScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        FailedRepairScreen()));
+                                        SuccessRepairScreen()));
                           },
                         )
                       : JButton(
