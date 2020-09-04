@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/failed_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/widgets/stopwatch.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -56,10 +57,15 @@ class _RepairScreen extends State<RepairScreen> {
                       ? JButton(
                           label: "FINALIZAR",
                           background: AppColors.green_color,
-                          onTab: () => {
+                          onTab: () {
                             setState(() {
                               stopwatch.stop();
-                            })
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FailedRepairScreen()));
                           },
                         )
                       : JButton(
