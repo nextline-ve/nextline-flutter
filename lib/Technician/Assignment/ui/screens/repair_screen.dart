@@ -4,14 +4,14 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
-class StopwatchScreen extends StatefulWidget {
+class RepairScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _StopwatchScreen();
+    return _RepairScreen();
   }
 }
 
-class _StopwatchScreen extends State<StopwatchScreen> {
+class _RepairScreen extends State<RepairScreen> {
   Stopwatch stopwatch = new Stopwatch();
 
   @override

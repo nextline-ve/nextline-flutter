@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
-import 'package:nextline/Technician/Assignment/ui/screens/stopwatch_screen.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/repair_screen.dart';
+// import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/editable_input.dart';
@@ -89,6 +90,13 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                     background: AppColors.blue,
                     buttonHeight: 40.0,
                     onTab: () => {},
+                    // onTab: () => Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => Chat(
+                    //               blocTickets: widget.blocTickets,
+                    //               ticket: ticket,
+                    //             ))),
                   ),
                 ),
                 Container(
@@ -111,7 +119,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => StopwatchScreen()));
+                            builder: (context) => RepairScreen()));
                   },
                 ),
               ],

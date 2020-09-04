@@ -32,58 +32,77 @@ class _StopwatchWidgetState extends State<StopwatchWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Column(
-            children: [
-              Text("Horas",
-                  style: TextStyle(
-                      fontSize: 9,
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.gray_text_color)),
-              Text(StopwatchFormatter.getHours(stopwatch.elapsedMilliseconds),
-                  style: TextStyle(
-                      fontSize: 60.0,
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.blue_dark)),
-            ],
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Horas",
+                    style: TextStyle(
+                        fontSize: 9,
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.gray_text_color)),
+                Text(StopwatchFormatter.getHours(stopwatch.elapsedMilliseconds),
+                    style: TextStyle(
+                        fontSize: 60.0,
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.blue_dark)),
+              ],
+            ),
           ),
           Text(":",
               style: TextStyle(
                   fontSize: 60.0,
                   fontFamily: AppFonts.poppins_regular,
                   color: AppColors.blue_dark)),
-          Column(
-            children: [
-              Text("Minutos",
-                  style: TextStyle(
-                      fontSize: 9,
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.gray_text_color)),
-              Text(StopwatchFormatter.getMinutes(stopwatch.elapsedMilliseconds),
-                  style: TextStyle(
-                      fontSize: 60.0,
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.blue_dark)),
-            ],
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Minutos",
+                    style: TextStyle(
+                        fontSize: 9,
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.gray_text_color)),
+                Text(
+                    StopwatchFormatter.getMinutes(
+                        stopwatch.elapsedMilliseconds),
+                    style: TextStyle(
+                        fontSize: 60.0,
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.blue_dark)),
+              ],
+            ),
           ),
           Text(":",
               style: TextStyle(
                   fontSize: 60.0,
                   fontFamily: AppFonts.poppins_regular,
                   color: AppColors.blue_dark)),
-          Column(
-            children: [
-              Text("Segundos",
-                  style: TextStyle(
-                      fontSize: 9,
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.gray_text_color)),
-              Text(StopwatchFormatter.getSeconds(stopwatch.elapsedMilliseconds),
-                  style: TextStyle(
-                      fontSize: 60.0,
-                      fontFeatures: [FontFeature.tabularFigures()],
-                      fontFamily: AppFonts.poppins_regular,
-                      color: AppColors.blue_dark)),
-            ],
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Segundos",
+                    style: TextStyle(
+                        fontSize: 9,
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.gray_text_color)),
+                Text(
+                    StopwatchFormatter.getSeconds(
+                        stopwatch.elapsedMilliseconds),
+                    style: TextStyle(
+                        fontSize: 60.0,
+                        fontFeatures: [FontFeature.tabularFigures()],
+                        fontFamily: AppFonts.poppins_regular,
+                        color: AppColors.blue_dark)),
+              ],
+            ),
           )
         ])
       ],
