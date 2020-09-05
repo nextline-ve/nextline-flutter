@@ -82,7 +82,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                 Container(
                   width: 250,
                   child: JButton(
-                    padding: 10,
+                    padding: EdgeInsets.all(10),
                     icon: Icons.comment,
                     fontSize: 10,
                     labelColor: AppColors.white_color,
@@ -102,7 +102,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                 Container(
                   width: 250,
                   child: JButton(
-                    padding: 10,
+                    padding: EdgeInsets.all(10),
                     icon: Icons.location_on,
                     fontSize: 10,
                     labelColor: AppColors.white_color,

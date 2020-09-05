@@ -81,7 +81,7 @@ class _ClientConfirmationScreen extends State<ClientConfirmationScreen> {
                 Container(
                   width: 250,
                   child: JButton(
-                    padding: 10,
+                    padding: EdgeInsets.all(10),
                     fontSize: 10,
                     labelColor: AppColors.white_color,
                     label: "INICIAR DE NUEVO",

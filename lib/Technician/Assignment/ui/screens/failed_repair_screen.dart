@@ -75,7 +75,7 @@ class _FailedRepairScreen extends State<FailedRepairScreen> {
                             Container(
                               width: 250,
                               child: JButton(
-                                padding: 10,
+                                padding: EdgeInsets.all(10),
                                 icon: Icons.camera_alt,
                                 isIconRight: true,
                                 fontSize: 10,
