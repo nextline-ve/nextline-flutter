@@ -65,8 +65,8 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                           Column(children: [
                             InputContainer(
                               label: "Trabajo Realizado",
-                              paddingLeft: 0,
-                              paddingRight: 0,
+                              padding: EdgeInsets.only(
+                                  left: 0, right: 0, bottom: 24),
                               input: TextFormField(
                                 maxLines: 8,
                                 decoration: InputDecoration.collapsed(
@@ -126,7 +126,10 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                                           Expanded(
                                             flex: 2,
                                             child: InputContainer(
-                                                paddingRight: 10,
+                                                padding: EdgeInsets.only(
+                                                    left: 24,
+                                                    right: 10,
+                                                    bottom: 24),
                                                 label: "Material Utilizado",
                                                 input: DropdownWidget(
                                                   hintText:
@@ -137,7 +140,10 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                                           Expanded(
                                             flex: 1,
                                             child: InputContainer(
-                                              paddingLeft: 10,
+                                              padding: EdgeInsets.only(
+                                                  left: 10,
+                                                  right: 24,
+                                                  bottom: 24),
                                               label: "Cantidad",
                                               input: TextFormField(
                                                 keyboardType:

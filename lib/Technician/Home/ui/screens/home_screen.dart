@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/assignment_details_screen.dart';
+import 'package:nextline/Technician/Break/ui/screens/break_screen.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/ticket_row.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -209,8 +210,12 @@ class _TechHomeScreen extends State<TechHomeScreen> {
               Icons.home,
               () =>
                   Navigator.pushReplacementNamed(context, '/technician-home')),
-          NavigatorItem(2, Icons.av_timer,
-              () => Navigator.pushReplacementNamed(context, '/profile')),
+          NavigatorItem(
+            2,
+            Icons.av_timer,
+            () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BreakScreen())),
+          ),
           NavigatorItem(3, Icons.person,
               () => Navigator.pushReplacementNamed(context, '/profile'))
         ],
