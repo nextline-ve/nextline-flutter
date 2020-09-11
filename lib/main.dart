@@ -7,6 +7,7 @@ import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/assignment_details_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/client_confirmation_screen.dart';
+import 'package:nextline/Technician/Home/ui/screens/home_screen.dart';
 //import 'package:nextline/Home/ui/screens/profile_screen.dart';
 // import 'package:nextline/Home/ui/screens/profile_screen.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
           '/success-change-plan': (context) => ChangePlanSent(),
           '/profile': (context) => ProfileScreen(),
-          '/assignment-details-screen': (context) => AssignmentDetailsScreen(),
+          '/technician-home': (context) => TechHomeScreen(),
           '/client-confirmation': (context) => ClientConfirmationScreen()
         },
       ),

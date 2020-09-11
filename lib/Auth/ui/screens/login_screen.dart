@@ -51,7 +51,7 @@ class _LoginScreen extends State<LoginScreen> {
   }
 
   void _serviceRequest() {
-    Navigator.pushNamed(context, '/assignment-details-screen');
+    Navigator.pushNamed(context, '/technician-home');
     // Navigator.pushNamed(context, '/select-service');
   }
 }

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 class NavigatorBar extends StatefulWidget {
+  final List<NavigatorItem> items;
+  const NavigatorBar({Key key, this.items: const []}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _NavigatorBar();
@@ -12,34 +15,23 @@ class NavigatorBar extends StatefulWidget {
 class _NavigatorBar extends State<NavigatorBar> {
   int _currentIndex = 0;
 
-  List<IconData> items = [
-    Icons.home,
-    Icons.person,
-  ];
-
   onTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
-    switch (_currentIndex) {
-      case 0:
-        // if (ModalRoute.of(context).settings.name == "/home") {
-        //   return;
-        // }
-        Navigator.pushReplacementNamed(context, '/assignment-details-screen');
-        break;
-
-      case 1:
-        if (ModalRoute.of(context).settings.name == "/profile") {
-          return;
-        }
-        Navigator.pushReplacementNamed(context, '/profile');
-        break;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    List<NavigatorItem> itemsToShow = widget.items.length > 0
+        ? widget.items
+        : [
+            NavigatorItem(1, Icons.home,
+                () => Navigator.pushReplacementNamed(context, '/home')),
+            NavigatorItem(2, Icons.person,
+                () => Navigator.pushReplacementNamed(context, '/profile'))
+          ];
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       margin: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
@@ -55,9 +47,7 @@ class _NavigatorBar extends State<NavigatorBar> {
           ]),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: items
-              .asMap()
-              .entries
+          children: itemsToShow
               .map(
                 (entry) => Container(
                   child: ButtonTheme(
@@ -66,9 +56,12 @@ class _NavigatorBar extends State<NavigatorBar> {
                     disabledColor: AppColors.blue_dark,
                     child: IconButton(
                       color: AppColors.blue_dark,
-                      onPressed: () => onTapped(entry.key),
+                      onPressed: () {
+                        onTapped(entry.key);
+                        entry.onPressed();
+                      },
                       icon: Icon(
-                        entry.value,
+                        entry.icon,
                         color: _currentIndex == entry.key
                             ? Colors.white70
                             : Colors.white,
@@ -80,5 +73,17 @@ class _NavigatorBar extends State<NavigatorBar> {
               )
               .toList()),
     );
+  }
+}
+
+class NavigatorItem {
+  int key;
+  IconData icon;
+  void Function() onPressed;
+
+  NavigatorItem(int key, IconData icon, void Function() onPressed) {
+    this.key = key;
+    this.icon = icon;
+    this.onPressed = onPressed;
   }
 }
