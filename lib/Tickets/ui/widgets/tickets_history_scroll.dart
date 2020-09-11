@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
+import 'package:nextline/Tickets/ui/widgets/ticket_row.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 import '../../bloc/bloc_tickets.dart';
 
 class TicketHistoryScroll extends StatefulWidget {
-  BlocTickets blocTickets;
+  final BlocTickets blocTickets;
   TicketHistoryScroll({Key key, this.blocTickets}) : super(key: key);
 
   @override
@@ -27,9 +28,9 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                 return ListView(
                   scrollDirection: Axis.vertical,
                   children: snapshot.data
-                      .map<Widget>((Ticket ticket) => _ticketRow(
-                          ticket,
-                          () => Navigator.push(
+                      .map<Widget>((Ticket ticket) => TicketRow(
+                          ticket: ticket,
+                          onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Chat(

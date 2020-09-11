@@ -93,7 +93,8 @@ class _ClientConfirmationScreen extends State<ClientConfirmationScreen> {
                 JButton(
                   label: "FINALIZAR",
                   background: AppColors.green_color,
-                  onTab: () => {},
+                  onTab: () => Navigator.pushReplacementNamed(
+                      context, '/technician-home'),
                 ),
               ]),
             )

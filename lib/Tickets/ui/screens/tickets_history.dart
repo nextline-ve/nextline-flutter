@@ -8,7 +8,6 @@ import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
 import '../../bloc/bloc_tickets.dart';
-import '../../bloc/bloc_tickets.dart';
 
 class HistoryTicketScreen extends StatefulWidget {
   final bool isClient = true;
