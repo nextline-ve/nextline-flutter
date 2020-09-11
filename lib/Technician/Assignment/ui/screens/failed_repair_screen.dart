@@ -49,10 +49,12 @@ class _FailedRepairScreen extends State<FailedRepairScreen> {
                         padding: EdgeInsets.all(20),
                         child: Text(
                           "¿Por qué no se logró\nsolventar la falla?",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: AppColors.blue_dark,
-                              fontSize: 18,
-                              fontFamily: AppFonts.poppins_bold),
+                            color: AppColors.blue_dark,
+                            fontSize: 18,
+                            fontFamily: AppFonts.poppins_bold,
+                          ),
                         )),
                     Expanded(
                       child: ListView(
@@ -117,7 +119,8 @@ class _FailedRepairScreen extends State<FailedRepairScreen> {
                     JButton(
                       label: "FINALIZAR",
                       background: AppColors.green_color,
-                      onTab: () => {},
+                      onTab: () => Navigator.pushReplacementNamed(
+                          context, '/technician-home'),
                     ),
                   ]))
         ]));

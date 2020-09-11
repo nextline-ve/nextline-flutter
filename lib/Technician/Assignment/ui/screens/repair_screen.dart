@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/failed_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/success_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/widgets/stopwatch.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/confirmation_modal.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
 class RepairScreen extends StatefulWidget {
@@ -61,11 +63,20 @@ class _RepairScreen extends State<RepairScreen> {
                             setState(() {
                               stopwatch.stop();
                             });
-                            Navigator.push(
+                            showConfirmationDialog(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SuccessRepairScreen()));
+                                () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SuccessRepairScreen())),
+                                () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            FailedRepairScreen())),
+                                title: Text("¿Lograste solucionar la falla?"),
+                                content: Text(""));
                           },
                         )
                       : JButton(
