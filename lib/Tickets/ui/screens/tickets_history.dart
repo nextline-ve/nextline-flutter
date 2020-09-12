@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Tickets/ui/widgets/add_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/Tickets/ui/widgets/tickets_history_scroll.dart';
@@ -26,9 +27,20 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
+        centerTitle: true,
         title: Text(
-          'Asistencia técnica',
-          style: TextStyle(fontFamily: AppFonts.input),
+          'ASISTENCIA TÉCNICA',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+        ),
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
         ),
       ),
       body: Stack(

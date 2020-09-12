@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
+import 'package:nextline/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 class NavigatorBar extends StatefulWidget {
@@ -13,7 +15,7 @@ class NavigatorBar extends StatefulWidget {
 }
 
 class _NavigatorBar extends State<NavigatorBar> {
-  int _currentIndex = 0;
+  int _currentIndex = -1;
 
   onTapped(int index) {
     setState(() {
@@ -63,7 +65,7 @@ class _NavigatorBar extends State<NavigatorBar> {
                       icon: Icon(
                         entry.icon,
                         color: _currentIndex == entry.key
-                            ? Colors.white70
+                            ? Colors.white.withOpacity(0.7)
                             : Colors.white,
                         size: 30,
                       ),

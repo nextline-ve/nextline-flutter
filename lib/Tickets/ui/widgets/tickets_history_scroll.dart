@@ -5,6 +5,7 @@ import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/Tickets/ui/widgets/ticket_row.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 
 import '../../bloc/bloc_tickets.dart';
 
@@ -39,16 +40,7 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                                       )))))
                       .toList(),
                 );
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator()),
-                ],
-              );
+              return JLoadingScreen();
             }),
       ),
     );

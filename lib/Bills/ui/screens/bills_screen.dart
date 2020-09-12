@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/bloc/bloc_bills.dart';
 import 'package:nextline/Bills/model/model_bill.dart';
+import 'package:nextline/Bills/ui/screens/bill_details_screen.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
@@ -18,77 +21,73 @@ class _BillsScreen extends State<BillsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'FACTURACIÓN',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+        ),
+        centerTitle: true,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          },
+        ),
       ),
-      body: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 27),
-                  child: Text(
-                    "LISTADO DE FACTURAS",
-                    style: TextStyle(
-                        color: AppColors.blue,
-                        fontSize: 16,
-                        fontFamily: AppFonts.fontTitle),
-                  ),
-                ),
-                Container(
-                  child: Expanded(
-                    child: FutureBuilder(
-                        future: blocBills.getDataBills(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done)
-                            return ListView(
-                              scrollDirection: Axis.vertical,
-                              children: snapshot.data
-                                  .map<Widget>((Bill bill) => _billRow(bill))
-                                  .toList(),
-                            );
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator()),
-                            ],
-                          );
-                        }),
-                  ),
-                )
-              ],
+      body: Container(
+        color: Colors.white,
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                "LISTADO DE FACTURAS",
+                style: TextStyle(
+                    color: AppColors.blue,
+                    fontSize: 16,
+                    fontFamily: AppFonts.poppins_regular),
+              ),
             ),
-          ),
-        ],
+            Container(
+              child: Expanded(
+                child: FutureBuilder(
+                    future: blocBills.getDataBills(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return ListView(
+                          scrollDirection: Axis.vertical,
+                          children: snapshot.data.map<Widget>((Bill bill) {
+                            final int index = snapshot.data.indexOf(bill);
+                            return _billRow(bill, index);
+                          }).toList(),
+                        );
+                      return JLoadingScreen();
+                    }),
+              ),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: NavigatorBar(),
       endDrawer: LateralMenu(),
     );
   }
 
-  Widget _billRow(Bill bill) {
+  Widget _billRow(Bill bill, int index) {
     return InkWell(
-      onTap: _showDetails,
+      onTap: () => _showDetails(bill),
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.only(bottom: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white70,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.gray_shadow_color,
-                  blurRadius: 20,
-                  spreadRadius: 10,
-                )
-              ]),
+          color: index % 2 == 0
+              ? Colors.white
+              : AppColors.light_blue.withOpacity(0.95),
           alignment: Alignment.center,
           child: ItemDetailHeader(
             date: "\$${bill.total}",
@@ -100,7 +99,13 @@ class _BillsScreen extends State<BillsScreen> {
     );
   }
 
-  void _showDetails() {
-    Navigator.pushNamed(context, '/bill-details');
+  void _showDetails(Bill bill) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BillDetailsScreen(
+                  bill: bill,
+                  blocBills: blocBills,
+                )));
   }
 }

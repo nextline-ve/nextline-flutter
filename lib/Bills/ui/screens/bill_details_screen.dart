@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nextline/Bills/bloc/bloc_bills.dart';
+import 'package:nextline/Bills/model/model_bill.dart';
+import 'package:nextline/Bills/model/model_currency.dart';
 import 'package:nextline/Bills/ui/wdigets/bills_table.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
 class BillDetailsScreen extends StatefulWidget {
+  final Bill bill;
+  final BlocBills blocBills;
+
+  BillDetailsScreen({Key key, @required this.bill, @required this.blocBills})
+      : super(key: key);
+
   @override
   _BillDetailsScreen createState() => _BillDetailsScreen();
 }
@@ -18,7 +29,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(0, 109, 186, 1),
+        backgroundColor: AppColors.blue_dark,
+        title: Text(
+          'FACTURACIÓN',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: Stack(
@@ -31,10 +47,11 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                 Column(
                   children: [
                     ItemDetailHeader(
-                        label: "My Invoice",
-                        id: "#123",
-                        status: "aproved",
-                        date: "12/10/2020"),
+                        label: "Factura",
+                        id: "#${widget.bill.id}",
+                        status:
+                            "${widget.bill.mapToBillStatusString(widget.bill.status)}",
+                        date: "${widget.bill.fechaEmision}"),
                     BillsTable(data: []),
                     _billResume(),
                     _billFooter(),
@@ -67,71 +84,82 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           ),
         ),
         Container(
-          child: Table(
-            border: TableBorder(
-              verticalInside: BorderSide(
-                  width: 1,
-                  color: AppColors.gray_shadow_color,
-                  style: BorderStyle.solid),
-            ),
-            columnWidths: {0: FractionColumnWidth(0.5)},
-            children: [
-              TableRow(children: [
-                _tableHead("Total dolar"),
-                _tableHead("Total Bs."),
-              ]),
-              TableRow(children: [
-                TableCell(
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Center(
-                      child: _totalToPayDollar("40"),
+          child: FutureBuilder<List<CurrencyModel>>(
+              future: widget.blocBills.getDataCurrencies(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Table(
+                    border: TableBorder(
+                      verticalInside: BorderSide(
+                          width: 1,
+                          color: AppColors.gray_shadow_color,
+                          style: BorderStyle.solid),
                     ),
-                  ),
-                ),
-                TableCell(
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Center(
-                      child: _totalToPayBs("50.000.000"),
-                    ),
-                  ),
-                ),
-              ]),
-              TableRow(children: [
-                TableCell(
-                  child: Container(
-                    child: Center(
-                      child: JButton(
-                        fontSize: 10,
-                        label: "Pagar en dolar",
-                        labelColor: AppColors.blue_dark,
-                        buttonHeight: 40.0,
-                        borderColor: AppColors.blue_dark,
-                        onTab: _payInDolar,
-                        background: AppColors.white_color,
+                    columnWidths: {
+                      0: FractionColumnWidth(1 / snapshot.data.length)
+                    },
+                    children: [
+                      TableRow(
+                          children: snapshot.data
+                              .map(
+                                (currency) =>
+                                    _tableHead("Total en ${currency.moneda}"),
+                              )
+                              .toList()),
+                      TableRow(
+                        children: snapshot.data
+                            .map((currency) => TableCell(
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Center(
+                                      child: Text(
+                                        "${currency.simbolo}",
+                                        style: TextStyle(
+                                          color: AppColors.ligth_blue_color,
+                                          fontSize: 14,
+                                          fontFamily: AppFonts.poppins_regular,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
                       ),
-                    ),
-                  ),
-                ),
-                TableCell(
-                  child: Container(
-                    child: Center(
-                      child: JButton(
-                        fontSize: 10,
-                        label: "Pagar en Bs",
-                        labelColor: AppColors.blue_dark,
-                        buttonHeight: 40.0,
-                        borderColor: AppColors.blue_dark,
-                        onTab: _payInBolivar,
-                        background: AppColors.white_color,
+                      TableRow(
+                        children: snapshot.data
+                            .map((currency) => TableCell(
+                                  child: Container(
+                                    child: Center(
+                                      child: JButton(
+                                        fontSize: 10,
+                                        label: "Pagar en\n${currency.moneda}",
+                                        labelColor: AppColors.blue_dark,
+                                        buttonHeight: 50.0,
+                                        minWidth: 600,
+                                        padding: 10,
+                                        borderColor: AppColors.blue_dark,
+                                        onTab: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DeclarePaymentScreen(
+                                                      blocBills:
+                                                          widget.blocBills,
+                                                      currency: currency,
+                                                    ))),
+                                        background: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
                       ),
-                    ),
-                  ),
-                ),
-              ]),
-            ],
-          ),
+                    ],
+                  );
+                }
+                return JLoadingScreen();
+              }),
         ),
       ],
     );
@@ -140,6 +168,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
   TableCell _tableHead(title) {
     return TableCell(
       child: Container(
+        alignment: Alignment.center,
         margin: EdgeInsets.all(10),
         child: Center(
           child: Text(
@@ -210,16 +239,6 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
         ),
       ),
     );
-  }
-
-  void _payInDolar() {
-    print("_payInDolar");
-    Navigator.pushNamed(context, '/declare-payments');
-  }
-
-  void _payInBolivar() {
-    print("_payInBolivar");
-    Navigator.pushNamed(context, '/declare-payments');
   }
 
   void _downloadBillAction() {
