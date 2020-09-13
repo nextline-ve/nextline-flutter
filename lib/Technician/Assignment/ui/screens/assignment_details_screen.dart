@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/repair_screen.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 // import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/editable_input.dart';
 import 'package:nextline/widgets/jbutton.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
 class AssignmentDetailsScreen extends StatefulWidget {
+  final Ticket ticket;
+  final BlocTickets blocTickets;
+  AssignmentDetailsScreen(
+      {Key key, @required this.ticket, @required this.blocTickets})
+      : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _AssignmentDetailsScreen();
@@ -38,47 +47,53 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: ItemDetailHeader(
-                      date: "12/12/12",
-                      status: "Pendiente por Atención",
-                      id: "Ticket 1",
-                      label: "No tengo internet >:(",
+                      date: widget.ticket.fechaCreacion,
+                      status: widget.ticket.getStatusDisplay,
+                      id: "Ticket ${widget.ticket.id}",
+                      label: widget.ticket.detalle,
                       reverseLeft: true),
                 ),
                 Expanded(
-                    child: Column(
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
-                          "Datos del Cliente",
-                          style: TextStyle(
-                              color: AppColors.blue_dark,
-                              fontSize: 18,
-                              fontFamily: AppFonts.poppins_bold),
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: EditableInput(
-                          placeholder: "Nombre / Razón Social",
-                          value: "Alberto Mendoza",
-                          readOnly: true,
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: EditableInput(
-                          placeholder: "Número de Teléfono",
-                          value: "123123123",
-                          readOnly: true,
-                        )),
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: EditableInput(
-                          placeholder: "Correo Electrónico",
-                          value: "Alberto@Mendoza.com",
-                          readOnly: true,
-                        )),
-                  ],
-                )),
+                    child: FutureBuilder<Object>(
+                        future: null,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done)
+                            return Column(
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: Text(
+                                      "Datos del Cliente",
+                                      style: TextStyle(
+                                          color: AppColors.blue_dark,
+                                          fontSize: 18,
+                                          fontFamily: AppFonts.poppins_bold),
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: EditableInput(
+                                      placeholder: "Nombre / Razón Social",
+                                      value: "Alberto Mendoza",
+                                      readOnly: true,
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: EditableInput(
+                                      placeholder: "Número de Teléfono",
+                                      value: "123123123",
+                                      readOnly: true,
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: EditableInput(
+                                      placeholder: "Correo Electrónico",
+                                      value: "Alberto@Mendoza.com",
+                                      readOnly: true,
+                                    )),
+                              ],
+                            );
+                          return JLoadingScreen();
+                        })),
                 Container(
                   width: 250,
                   child: JButton(
@@ -116,10 +131,11 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                   label: "INICIAR TRABAJO",
                   background: AppColors.green_color,
                   onTab: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RepairScreen()));
+                    widget.blocTickets.beginAssignment(widget.ticket).then(
+                        (value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RepairScreen())));
                   },
                 ),
               ],

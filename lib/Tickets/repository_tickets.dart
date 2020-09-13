@@ -41,4 +41,31 @@ class RepositoryTickets extends AppHttp {
     final parsed = response.data['results'].cast<Map<String, dynamic>>();
     return parsed.map<IssueType>((json) => IssueType.fromJson(json)).toList();
   }
+
+  Future<List<Ticket>> getAssignedTicketsAPI() async {
+    Response response;
+    try {
+      response = await http.get('${api}support/tickets-asignados/',
+          options: Options(headers: header));
+    } on DioError catch (e) {
+      Map error = e.response.data;
+      error.forEach((key, value) => throw (value));
+    }
+    final parsed = response.data['results'].cast<Map<String, dynamic>>();
+    return parsed.map<Ticket>((json) => Ticket.fromJson(json)).toList();
+  }
+
+  Future beginAssignmentAPI() async {
+    Response response;
+    try {
+      response = await http.get('${api}support/tickets-asignados/',
+          options: Options(headers: header));
+    } on DioError catch (e) {
+      Map error = e.response.data;
+      error.forEach((key, value) => throw (value));
+    }
+    // TODO call API
+    // final parsed = response.data['results'].cast<Map<String, dynamic>>();
+    // return parsed.map<Ticket>((json) => Ticket.fromJson(json)).toList();
+  }
 }

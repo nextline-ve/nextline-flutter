@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/assignment_details_screen.dart';
 import 'package:nextline/Technician/Break/ui/screens/break_screen.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/ticket_row.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
 
 class AssignmentsScreen extends StatefulWidget {
@@ -15,6 +17,8 @@ class AssignmentsScreen extends StatefulWidget {
 }
 
 class _AssignmentsScreen extends State<AssignmentsScreen> {
+  BlocTickets blocTickets = BlocTickets();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,176 +34,39 @@ class _AssignmentsScreen extends State<AssignmentsScreen> {
       body: Stack(
         children: [
           Expanded(
-            child: ListView(children: [
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-              TicketRow(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AssignmentDetailsScreen())),
-                  ticket: Ticket(
-                      id: 1,
-                      tipo: TicketType.C,
-                      fechaCreacion: "52/52/52",
-                      status: TicketStatus.A,
-                      getStatusDisplay: "test",
-                      asunto: 1,
-                      detalle: "detalle",
-                      cliente: 1)),
-            ]),
+            child: FutureBuilder(
+                future: blocTickets.getAssignedTickets(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData)
+                      return ListView(
+                        scrollDirection: Axis.vertical,
+                        children: snapshot.data
+                            .map<Widget>((Ticket ticket) => TicketRow(
+                                ticket: ticket,
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AssignmentDetailsScreen(
+                                              ticket: ticket,
+                                              blocTickets: blocTickets,
+                                            )))))
+                            .toList(),
+                      );
+                    return Center(
+                      child: Text(
+                        "Usted no tiene\ntickets asignados",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: AppColors.blue_dark,
+                            fontSize: 19,
+                            fontFamily: AppFonts.poppins_bold),
+                      ),
+                    );
+                  }
+                  return JLoadingScreen();
+                }),
           )
         ],
       ),

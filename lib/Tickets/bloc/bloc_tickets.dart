@@ -69,6 +69,14 @@ class BlocTickets implements Bloc {
     }
   }
 
+  Future<List<Ticket>> getAssignedTickets() async {
+    return await repository.getAssignedTicketsAPI();
+  }
+
+  Future beginAssignment(Ticket ticket) async {
+    return await repository.beginAssignmentAPI();
+  }
+
   BlocTickets() {
     database = FirebaseDatabase();
     storage = FirebaseStorage();
