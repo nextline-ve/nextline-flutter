@@ -6,7 +6,9 @@ import 'package:nextline/utils/app_colors.dart';
 
 class NavigatorBar extends StatefulWidget {
   final List<NavigatorItem> items;
-  const NavigatorBar({Key key, this.items: const []}) : super(key: key);
+  final int index;
+  const NavigatorBar({Key key, this.items: const [], this.index: 1})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -15,16 +17,10 @@ class NavigatorBar extends StatefulWidget {
 }
 
 class _NavigatorBar extends State<NavigatorBar> {
-  int _currentIndex = -1;
-
-  onTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    int _currentIndex = widget.index;
+
     List<NavigatorItem> itemsToShow = widget.items.length > 0
         ? widget.items
         : [
@@ -59,7 +55,9 @@ class _NavigatorBar extends State<NavigatorBar> {
                     child: IconButton(
                       color: AppColors.blue_dark,
                       onPressed: () {
-                        onTapped(entry.key);
+                        setState(() {
+                          _currentIndex = entry.key;
+                        });
                         entry.onPressed();
                       },
                       icon: Icon(

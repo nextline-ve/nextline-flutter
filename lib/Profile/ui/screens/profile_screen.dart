@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       endDrawer: LateralMenu(),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 2),
     );
   }
 }
