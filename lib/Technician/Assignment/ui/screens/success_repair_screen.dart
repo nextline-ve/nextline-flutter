@@ -178,7 +178,6 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                                             .add({"value": "", "quantity": 0});
                                       });
                                     },
-                                    // child: ClipOval(
                                     child: Container(
                                         padding: EdgeInsets.all(10),
                                         child: Icon(
@@ -192,7 +191,6 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                                         ))),
                               ],
                             ),
-                            // ),
                           ]),
                         ],
                       ),
