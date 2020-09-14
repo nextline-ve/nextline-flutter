@@ -7,7 +7,7 @@ class ModelPlans {
   TipoServicio tipoServicio;
   String precioBs;
   int velocidadSubida;
-  int velocidadBaja;
+  int velocidadBajada;
 
   ModelPlans(
       {this.id,
@@ -18,7 +18,7 @@ class ModelPlans {
         this.tipoServicio,
         this.precioBs,
         this.velocidadSubida,
-        this.velocidadBaja});
+        this.velocidadBajada});
 
   ModelPlans.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -31,7 +31,7 @@ class ModelPlans {
         : null;
     precioBs = json['precio_bs'];
     velocidadSubida = json['velocidad_subida'];
-    velocidadBaja = json['velocidad_baja'];
+    velocidadBajada = json['velocidad_bajada'];
   }
 
   Map<String, dynamic> toJson() {
@@ -46,7 +46,7 @@ class ModelPlans {
     }
     data['precio_bs'] = this.precioBs;
     data['velocidad_subida'] = this.velocidadSubida;
-    data['velocidad_baja'] = this.velocidadBaja;
+    data['velocidad_baja'] = this.velocidadBajada;
     return data;
   }
 }

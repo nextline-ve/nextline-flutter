@@ -16,6 +16,7 @@ class ConfirmChangePlan extends StatefulWidget {
 
 class _ConfirmChangePlan extends State<ConfirmChangePlan> {
   BlocServiceRequest bloc = BlocServiceRequest();
+  ModelPlans plan;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +34,15 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
           stream: bloc.dataPlan,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              // print(snapshot.data.plan);
-              return _confirmChangePlanUI(snapshot.data);
+              plan = snapshot.data;
+              return _confirmChangePlanUI();
             }
             return Center(child: CircularProgressIndicator());
           }),
     );
   }
 
-  Widget _confirmChangePlanUI(ModelPlans plan) {
+  Widget _confirmChangePlanUI() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +73,7 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
                   font: AppFonts.poppins_bold,
                 ),
                 SpeedContainer(
-                  downloadSpeed: "${plan.velocidadBaja} Mb",
+                  downloadSpeed: "${plan.velocidadBajada} Mb",
                   uploadSpeed: "${plan.velocidadSubida} Mb",
                 ),
                 Container(
@@ -152,7 +153,13 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
     );
   }
 
-  void _requestChangePlan() {
-    Navigator.pushNamed(context, "/success-change-plan");
+  void _requestChangePlan() async {
+    print(plan.id);
+    print("plaaaaan");
+    bloc.setRequestChangePlan(plan.id).then((value) => {
+      Navigator.pushNamed(context, "/success-change-plan")
+    }).catchError( (handleError) => {
+
+    });
   }
 }

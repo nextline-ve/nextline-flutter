@@ -44,12 +44,14 @@ class BlocServiceRequest implements Bloc {
   Future<List<ModelPlans>> _getListPlans() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     SharedPreferences prefs = await _prefs;
-    print(prefs.getInt("service"));
     if (prefs.getInt("service") == null) {
       return await repositoy.getListPlansAPI(AppSession.data.idServicio);
     } else {
       return await repositoy.getListPlansAPI(prefs.getInt("service"));
     }
+  }
 
+  Future<String> setRequestChangePlan(int planId) async {
+    return await repositoy.setRequestChangePlanAPI(planId);
   }
 }

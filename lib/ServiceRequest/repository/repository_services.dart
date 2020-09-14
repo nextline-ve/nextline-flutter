@@ -24,10 +24,17 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<List<ModelPlans>> getListPlansAPI(int serviceId) async {
-    print(serviceId);
-    Response resp = await http.get(api + 'config/planes/',
-        queryParameters: {'tipo_servicio__id': serviceId});
-    return parsePlan(resp.data['results']);
+    try {
+      Response resp = await http.get(api + 'config/planes/',
+          queryParameters: {'tipo_servicio__id': serviceId});
+
+      return parsePlan(resp.data['results']);
+    } on DioError catch (e) {
+      Map error = jsonDecode(jsonEncode(e.response.data));
+      error.forEach((key, value) {
+        throw (value);
+      });
+    }
   }
 
   Future<String> setSendRequestServiceAPI(
@@ -36,17 +43,36 @@ class RepositoryServices extends AppHttp {
     try {
       FormData formData = new FormData.fromMap(dataRequestService);
       resp = await http.post(api + 'admon/service-request', data: formData);
+      return resp.data['message'];
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {
-        throw (value);
+        print(value);
+        throw ("Disculpe tenemos problemas para procesar su solicitud");
       });
     }
-    return resp.data['message'];
+
   }
 
   Future<ModelPlans> getDataPlanAPI(int planId) async {
     Response resp = await http.get(api + 'config/planes/$planId');
     return ModelPlans.fromJson(resp.data);
+  }
+
+  Future<String> setRequestChangePlanAPI(int planId) async {
+    Response resp;
+    try {
+      FormData formData = new FormData.fromMap({'plan_id': planId});
+      resp = await http.post(api + 'support/cambiar-plan/',
+        data: formData, options: Options(headers: header));
+
+    } on DioError catch (e) {
+      Map error = jsonDecode(jsonEncode(e.response.data));
+      error.forEach((key, value) {
+        print(value);
+        throw ("Disculpe tenemos problemas para procesar su solicitud");
+      });
+    }
+    return resp.data['message'];
   }
 }
