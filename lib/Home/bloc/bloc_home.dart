@@ -15,10 +15,11 @@ class BlocHome implements Bloc {
       _streamController.stream.asyncMap((idUsuario) => _getDataHome());
 
   Future<Map<String, dynamic>> _getDataHome() async {
+    print(AppSession.data.token);
     if (AppSession.data.esCliente) {
       return await repository.getDataHomeAPI('admon/contratos-status');
     } else {
-      return await repository.getDataHomeAPI('admon/contratos-status');
+      return await repository.getDataHomeAPI('admon/solicitud-status');
     }
   }
 

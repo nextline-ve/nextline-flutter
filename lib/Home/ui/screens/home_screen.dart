@@ -80,11 +80,11 @@ class _HomeScreen extends State<HomeScreen> {
                             uploadSpeed:
                                 "${data["plan"]["velocidad_subida"].toString()} Mb",
                             downloadSpeed:
-                                "${data["plan"]["velocidad_baja"].toString()} Mb",
+                                "${data["plan"]["velocidad_bajada"].toString()} Mb",
                           ),
                         ),
                         !AppSession.data.esCliente
-                            ? HStatusService(status: data["status"])
+                            ? HStatusService(status: data["get_status_display"])
                             : HStatusRecipe(
                                 precioBs: data['plan']['precio_bs'],
                                 precioUsb: data['plan']['precio'],

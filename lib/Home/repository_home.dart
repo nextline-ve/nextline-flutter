@@ -9,11 +9,15 @@ class RepositoryHome extends AppHttp {
     try {
       response =
           await http.get(api + urlEndpoint, options: Options(headers: header));
+      if (urlEndpoint == 'admon/solicitud-status')
+        return response.data;
+      else
+        return response.data['results'][0];
     } on DioError catch (e) {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    return response.data['results'][0];
+
   }
 
   Future sendTokenFCMAPI(FormData formData) async {
