@@ -35,6 +35,7 @@ class AppSession {
 
 class ModelSession extends DatabaseHelper implements DataBaseInterface {
   String token;
+  String avatar;
   String nombre;
   String tipoUsuario;
   String motivoRechazo;
@@ -45,6 +46,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
 
   ModelSession(
       {this.token,
+        this.avatar,
         this.nombre,
         this.tipoUsuario,
         this.motivoRechazo,
@@ -55,6 +57,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
 
   ModelSession.fromJson(Map<String, dynamic> json) {
     token = json['token'];
+    avatar = json['avatar'];
     nombre = json['nombre'];
     tipoUsuario = json['tipo_usuario'];
     motivoRechazo = json['motivo_rechazo'];
@@ -67,6 +70,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
+    data['avatar'] = this.avatar;
     data['nombre'] = this.nombre;
     data['tipo_usuario'] = this.tipoUsuario;
     data['motivo_rechazo'] = this.motivoRechazo;
@@ -128,6 +132,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     db.execute(
       "CREATE TABLE cliente(id INTEGER PRIMARY KEY, "
           "token TEXT,"
+          "avatar TEXT,"
           "nombre TEXT,"
           "tipo_usuario TEXT,"
           "motivo_rechazo TEXT,"

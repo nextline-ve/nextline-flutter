@@ -69,7 +69,10 @@ class _HomeScreen extends State<HomeScreen> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        HUserInformation(userName: AppSession.data.nombre),
+                        HUserInformation(
+                          userName: AppSession.data.nombre,
+                          avatar: AppSession.data.avatar,
+                        ),
                         HServiceType(
                             title: data['plan']["tipo_servicio"]["servicio"]),
                         HCirclePlan(planName: data['plan']['plan']),

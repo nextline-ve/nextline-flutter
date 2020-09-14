@@ -7,10 +7,11 @@ import 'package:nextline/utils/app_fonts.dart';
 
 class HUserInformation extends StatefulWidget {
   final String userName;
-
+  final String avatar;
   const HUserInformation({
     Key key,
     @required this.userName,
+    @required this.avatar,
   }) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class _HUserInformationState extends State<HUserInformation> {
               size: 80,
               withAction: false,
               color: Colors.white,
-              imageUrl: "https://picsum.photos/200/300",
+              imageUrl: (widget.avatar == null) ? "https://picsum.photos/200/300" : widget.avatar, blocProfile: null,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 7, left: 5),
