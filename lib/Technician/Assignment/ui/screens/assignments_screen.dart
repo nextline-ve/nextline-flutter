@@ -63,7 +63,7 @@ class _AssignmentsScreen extends State<AssignmentsScreen> {
                 future: blocTickets.getAssignedTickets(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData)
+                    if (snapshot.hasData && snapshot.data.length > 0)
                       return ListView(
                         scrollDirection: Axis.vertical,
                         children: snapshot.data
@@ -81,11 +81,11 @@ class _AssignmentsScreen extends State<AssignmentsScreen> {
                       );
                     return Center(
                       child: Text(
-                        "Usted no tiene\ntickets asignados",
+                        "Usted no tiene tickets asignados",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: AppColors.blue_dark,
-                            fontSize: 19,
+                            fontSize: 16,
                             fontFamily: AppFonts.poppins_bold),
                       ),
                     );
