@@ -40,7 +40,7 @@ class _ScrollPlans extends State<ScrollPlans> {
                   priceBs: plan.precioBs,
                   priceUsd: plan.precio,
                   uploadSpeed: plan.velocidadSubida.toString(),
-                  downloadSpeed: plan.velocidadBaja.toString(),
+                  downloadSpeed: plan.velocidadBajada.toString(),
                   pushUrl: widget.pushUrl,
                 ))
             .toList(),
