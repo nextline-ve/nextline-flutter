@@ -11,6 +11,7 @@ import 'package:nextline/widgets/editable_input.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class AssignmentDetailsScreen extends StatefulWidget {
   final Ticket ticket;
@@ -26,6 +27,45 @@ class AssignmentDetailsScreen extends StatefulWidget {
 }
 
 class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
+  openMapsSheet(context, cliente) async {
+    try {
+      final coords = Coords(37.759392, -122.5107336);
+      final title = "${cliente['nombre_razsoc']}";
+      final availableMaps = await MapLauncher.installedMaps;
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Wrap(
+                  children: <Widget>[
+                    for (var map in availableMaps)
+                      ListTile(
+                        onTap: () => map.showMarker(
+                          coords: coords,
+                          title: title,
+                        ),
+                        title: Text(map.mapName),
+                        leading: Image(
+                          image: map.icon,
+                          height: 30.0,
+                          width: 30.0,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,42 +137,44 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                                           : "${snapshot.data.cliente['correo']}",
                                       readOnly: true,
                                     )),
+                                Container(
+                                  width: 250,
+                                  child: JButton(
+                                    padding: EdgeInsets.all(10),
+                                    icon: Icons.comment,
+                                    fontSize: 10,
+                                    labelColor: AppColors.white_color,
+                                    label: "CONVERSAR CON CLIENTE",
+                                    background: AppColors.blue,
+                                    buttonHeight: 40.0,
+                                    onTab: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Chat(
+                                                  blocTickets:
+                                                      widget.blocTickets,
+                                                  ticket: widget.ticket,
+                                                ))),
+                                  ),
+                                ),
+                                Container(
+                                  width: 250,
+                                  child: JButton(
+                                    padding: EdgeInsets.all(10),
+                                    icon: Icons.location_on,
+                                    fontSize: 10,
+                                    labelColor: AppColors.white_color,
+                                    label: "VISITAR A CLIENTE",
+                                    background: AppColors.blue,
+                                    buttonHeight: 40.0,
+                                    onTab: () => openMapsSheet(
+                                        context, snapshot.data.cliente),
+                                  ),
+                                ),
                               ],
                             );
                           return JLoadingScreen();
                         })),
-                Container(
-                  width: 250,
-                  child: JButton(
-                    padding: EdgeInsets.all(10),
-                    icon: Icons.comment,
-                    fontSize: 10,
-                    labelColor: AppColors.white_color,
-                    label: "CONVERSAR CON CLIENTE",
-                    background: AppColors.blue,
-                    buttonHeight: 40.0,
-                    onTab: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Chat(
-                                  blocTickets: widget.blocTickets,
-                                  ticket: widget.ticket,
-                                ))),
-                  ),
-                ),
-                Container(
-                  width: 250,
-                  child: JButton(
-                    padding: EdgeInsets.all(10),
-                    icon: Icons.location_on,
-                    fontSize: 10,
-                    labelColor: AppColors.white_color,
-                    label: "VISITAR A CLIENTE",
-                    background: AppColors.blue,
-                    buttonHeight: 40.0,
-                    onTab: () => {},
-                  ),
-                ),
                 JButton(
                   label: "INICIAR TRABAJO",
                   background: AppColors.green_color,

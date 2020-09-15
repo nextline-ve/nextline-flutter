@@ -39,6 +39,7 @@ dependencies:
   uuid: ^2.2.0
   signature: ^3.2.0
   web_socket_channel: ^1.1.0
+  map_launcher: ^0.12.2
   flutter:
     sdk: flutter
 
