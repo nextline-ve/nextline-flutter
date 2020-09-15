@@ -73,6 +73,10 @@ class BlocTickets implements Bloc {
     return await repository.getAssignedTicketsAPI();
   }
 
+  Future<Ticket> getDetailsAssignedTickets(id) async {
+    return await repository.getDetailsAssignedTicketsAPI(id);
+  }
+
   Future beginAssignment(Ticket ticket) async {
     return await repository.beginAssignmentAPI();
   }

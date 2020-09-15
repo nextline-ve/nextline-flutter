@@ -55,6 +55,18 @@ class RepositoryTickets extends AppHttp {
     return parsed.map<Ticket>((json) => Ticket.fromJson(json)).toList();
   }
 
+  Future<Ticket> getDetailsAssignedTicketsAPI(id) async {
+    Response response;
+    try {
+      response = await http.get('${api}support/tickets-asignados/$id',
+          options: Options(headers: header));
+    } on DioError catch (e) {
+      Map error = e.response.data;
+      error.forEach((key, value) => throw (value));
+    }
+    return Ticket.fromJson(response.data);
+  }
+
   Future beginAssignmentAPI() async {
     Response response;
     try {

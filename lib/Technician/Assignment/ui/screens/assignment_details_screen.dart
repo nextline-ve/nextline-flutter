@@ -54,8 +54,9 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                       reverseLeft: true),
                 ),
                 Expanded(
-                    child: FutureBuilder<Object>(
-                        future: null,
+                    child: FutureBuilder<Ticket>(
+                        future: widget.blocTickets
+                            .getDetailsAssignedTickets(widget.ticket.id),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.done)
                             return Column(
@@ -73,21 +74,26 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: EditableInput(
                                       placeholder: "Nombre / Razón Social",
-                                      value: "Alberto Mendoza",
+                                      value:
+                                          "${snapshot.data.cliente['nombre_razsoc']}",
                                       readOnly: true,
                                     )),
                                 Padding(
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: EditableInput(
                                       placeholder: "Número de Teléfono",
-                                      value: "123123123",
+                                      value:
+                                          "${snapshot.data.cliente['celular']}",
                                       readOnly: true,
                                     )),
                                 Padding(
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: EditableInput(
                                       placeholder: "Correo Electrónico",
-                                      value: "Alberto@Mendoza.com",
+                                      value: snapshot.data.cliente['correo'] ==
+                                              null
+                                          ? ""
+                                          : "${snapshot.data.cliente['correo']}",
                                       readOnly: true,
                                     )),
                               ],
