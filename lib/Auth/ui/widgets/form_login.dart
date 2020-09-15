@@ -5,6 +5,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_http.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 
@@ -31,7 +32,13 @@ class _FormLogin extends State<FormLogin> {
     super.initState();
     streamMessageLogin.stream.forEach((message) {
       if (message == "Bienvenido") {
-        Navigator.pushReplacementNamed(context, "/home");
+        switch (AppSession.data.tipoUsuario) {
+          case "T":
+            Navigator.pushReplacementNamed(context, "/technician-home");
+            break;
+          default:
+            Navigator.pushReplacementNamed(context, "/home");
+        }
       }
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
     });
