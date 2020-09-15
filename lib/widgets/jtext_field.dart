@@ -15,6 +15,8 @@ class JTextField extends StatefulWidget {
   final double top;
   final StringValue onKeyValue;
   final String initialValue;
+  final int minLines;
+  final int maxLength;
 
   const JTextField(
       {Key key,
@@ -28,7 +30,9 @@ class JTextField extends StatefulWidget {
       this.icon,
       this.top,
       this.backgoundColor,
-      this.initialValue})
+      this.initialValue,
+      this.minLines,
+      this.maxLength})
       : super(key: key);
 
   @override
@@ -41,16 +45,9 @@ class _JTextField extends State<JTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: (widget.borderColor == null)
-              ? AppColors.gray_color
-              : widget.borderColor,
-        ),
-        borderRadius: BorderRadius.circular(22),
-      ),
       margin: EdgeInsets.only(top: (widget.top == null) ? 20 : widget.top),
       child: TextFormField(
+        maxLength: widget.maxLength,
         initialValue: widget.initialValue,
         autofocus: false,
         obscureText: widget.isPass,
@@ -70,11 +67,11 @@ class _JTextField extends State<JTextField> {
               : Colors.white,
           enabledBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: (widget.borderColor == null) ? Colors.white : widget.borderColor),
           ),
           focusedBorder: UnderlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: (widget.borderColor == null) ? Colors.white : widget.borderColor),
           ),
         ),
       ),

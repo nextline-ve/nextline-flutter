@@ -1,10 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:email_validator/email_validator.dart';
+
 
 class FormPersonal extends StatefulWidget {
   @override
@@ -15,8 +16,6 @@ class FormPersonal extends StatefulWidget {
 
 class _FormPersonal extends State<FormPersonal> {
   final _formKey = GlobalKey<FormState>();
-  final RegExp emailRegex = new RegExp(
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
   String _email;
   String _name;
   String _cedula;
@@ -41,16 +40,20 @@ class _FormPersonal extends State<FormPersonal> {
                   return val;
                 },
                 onValidator: (value) {
+                  if (value.length < 4) {
+                    return 'Escriba el nombre o razón social completo';
+                  }
                   if (value.isEmpty) {
                     return 'Por favor complete el campo de Nombre / Razón Social';
                   }
                   return null;
                 },
+                maxLength: 100,
               ),
               JTextField(
                 isPass: false,
                 inputType: TextInputType.text,
-                label: "Cedula / Rif",
+                label: "Cédula / Rif",
                 onKeyValue: (val) {
                   _cedula = val;
                   return val;
@@ -86,8 +89,8 @@ class _FormPersonal extends State<FormPersonal> {
                   if (value.isEmpty) {
                     return 'Por favor escriba su correo electrónico';
                   }
-                  if (!emailRegex.hasMatch(value)) {
-                    return 'Ingrese un correo electrónico válido';
+                  if (!EmailValidator.validate(value)) {
+                    return 'Ingresa un correo electrónico válido';
                   }
                   return null;
                 },
@@ -97,6 +100,9 @@ class _FormPersonal extends State<FormPersonal> {
                 label: "Contraseña",
                 inputType: TextInputType.text,
                 onValidator: (value) {
+                  if (value.length < 8) {
+                    return 'La contraseña debe ser mínimo 8 caracteres.';
+                  }
                   if (value.isEmpty) {
                     return 'Por favor escriba su contraseña';
                   }
