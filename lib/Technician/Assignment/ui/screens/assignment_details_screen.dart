@@ -3,6 +3,7 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/repair_screen.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
+import 'package:nextline/Tickets/ui/screens/chat.dart';
 // import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -110,14 +111,13 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                     label: "CONVERSAR CON CLIENTE",
                     background: AppColors.blue,
                     buttonHeight: 40.0,
-                    onTab: () => {},
-                    // onTab: () => Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => Chat(
-                    //               blocTickets: widget.blocTickets,
-                    //               ticket: ticket,
-                    //             ))),
+                    onTab: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Chat(
+                                  blocTickets: widget.blocTickets,
+                                  ticket: widget.ticket,
+                                ))),
                   ),
                 ),
                 Container(
