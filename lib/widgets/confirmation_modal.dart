@@ -29,6 +29,7 @@ Future<void> showConfirmationDialog(context, yesAction, noAction,
                     minWidth: 100,
                     padding: EdgeInsets.all(10),
                     onTab: () {
+                      Navigator.pop(context);
                       yesAction();
                     }),
                 JButton(
@@ -38,6 +39,7 @@ Future<void> showConfirmationDialog(context, yesAction, noAction,
                     minWidth: 100,
                     padding: EdgeInsets.all(10),
                     onTab: () {
+                      Navigator.pop(context);
                       noAction();
                     }),
               ])
