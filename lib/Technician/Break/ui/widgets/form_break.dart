@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Technician/Break/bloc_break.dart';
 import 'package:nextline/Technician/Break/model_break.dart';
+import 'package:nextline/Technician/Break/model_reason.dart';
 import 'package:nextline/Tickets/ui/widgets/dropdown.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -10,6 +11,7 @@ import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/confirmation_modal.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:intl/intl.dart';
+import 'package:nextline/widgets/jloading_screen.dart';
 
 class FormBreak extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class FormBreak extends StatefulWidget {
 
 class _FormBreak extends State<FormBreak> {
   BlocBreaks blocBreaks = new BlocBreaks();
-  int selectedMotivo = 1;
+  int selectedReason;
   int selectedHours;
   int selectedMinutes;
   final hourItems = [
@@ -57,65 +59,75 @@ class _FormBreak extends State<FormBreak> {
                     fontFamily: AppFonts.poppins_bold),
               )),
           Expanded(
-              child: Column(
-            children: [
-              InputContainer(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  label: "Motivo del Break",
-                  input: DropdownWidget(
-                    hintText: "Seleccione una avería",
-                    options: [],
-                  )),
-              // JButton(
-              //     label: "Time",
-              //     onTab: () => showTimePicker(
-              //             context: context, initialTime: selectedTime)
-              //         .then((value) => setState(() {
-              //               selectedTime = value;
-              //             }))),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: InputContainer(
-                        padding:
-                            EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                        label: "Tiempo del Break",
-                        input: DropdownWidget(
-                          hintText: "0 horas",
-                          options: hourItems,
-                          value: selectedHours != null
-                              ? selectedHours.toString()
-                              : null,
-                          onChanged: (val) => {
-                            setState(() {
-                              selectedHours = int.parse(val);
-                            })
-                          },
-                        )),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: InputContainer(
-                        padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                        label: "",
-                        input: DropdownWidget(
-                          hintText: "0 minutos",
-                          options: minuteItems,
-                          value: selectedMinutes != null
-                              ? selectedMinutes.toString()
-                              : null,
-                          onChanged: (val) => {
-                            setState(() {
-                              selectedMinutes = int.parse(val);
-                            })
-                          },
-                        )),
-                  ),
-                ],
-              ),
-            ],
-          )),
+              child: FutureBuilder<List<Reason>>(
+                  future: blocBreaks.getReasons(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done)
+                      return Column(
+                        children: [
+                          InputContainer(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              label: "Motivo del Break",
+                              input: DropdownWidget(
+                                hintText: "Seleccione una avería",
+                                options: DropdownItemType.generateList(
+                                    snapshot.data),
+                                value: selectedReason != null
+                                    ? selectedReason.toString()
+                                    : null,
+                                onChanged: (val) => {
+                                  setState(() {
+                                    selectedReason = int.parse(val);
+                                  })
+                                },
+                              )),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: InputContainer(
+                                    padding: EdgeInsets.only(
+                                        right: 10, top: 10, bottom: 10),
+                                    label: "Tiempo del Break",
+                                    input: DropdownWidget(
+                                      hintText: "0 horas",
+                                      options: hourItems,
+                                      value: selectedHours != null
+                                          ? selectedHours.toString()
+                                          : null,
+                                      onChanged: (val) => {
+                                        setState(() {
+                                          selectedHours = int.parse(val);
+                                        })
+                                      },
+                                    )),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: InputContainer(
+                                    padding: EdgeInsets.only(
+                                        left: 10, top: 10, bottom: 10),
+                                    label: "",
+                                    input: DropdownWidget(
+                                      hintText: "0 minutos",
+                                      options: minuteItems,
+                                      value: selectedMinutes != null
+                                          ? selectedMinutes.toString()
+                                          : null,
+                                      onChanged: (val) => {
+                                        setState(() {
+                                          selectedMinutes = int.parse(val);
+                                        })
+                                      },
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+
+                    return JLoadingScreen();
+                  })),
           JButton(
               label: "GUARDAR",
               padding: EdgeInsets.symmetric(vertical: 20),
@@ -135,7 +147,7 @@ class _FormBreak extends State<FormBreak> {
                           hora: selectedHours.toString(),
                           minutos: selectedMinutes.toString(),
                           fecha: "${now.year}-${now.month}-${now.day}",
-                          motivo: selectedMotivo,
+                          motivo: selectedReason,
                           tecnico: AppSession.data.idUsuario.toString()))
                       .then((value) => Navigator.pushReplacementNamed(
                           context, '/technician-home'));
@@ -147,3 +159,11 @@ class _FormBreak extends State<FormBreak> {
         ]));
   }
 }
+
+// JButton(
+//     label: "Time",
+//     onTab: () => showTimePicker(
+//             context: context, initialTime: selectedTime)
+//         .then((value) => setState(() {
+//               selectedTime = value;
+//             }))),
