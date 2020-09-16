@@ -29,7 +29,8 @@ class AssignmentDetailsScreen extends StatefulWidget {
 class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
   openMapsSheet(context, cliente) async {
     try {
-      final coords = Coords(37.759392, -122.5107336);
+      final coords = Coords(
+          double.parse(cliente['latitud']), double.parse(cliente['longitud']));
       final title = "${cliente['nombre_razsoc']}";
       final availableMaps = await MapLauncher.installedMaps;
 
