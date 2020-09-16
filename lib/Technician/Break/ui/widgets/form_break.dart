@@ -26,7 +26,6 @@ class _FormBreak extends State<FormBreak> {
   int selectedHours;
   int selectedMinutes;
   final hourItems = [
-    new DropdownItemType(id: 0, nombre: "0 horas"),
     new DropdownItemType(id: 1, nombre: "1 hora"),
     new DropdownItemType(id: 2, nombre: "2 horas"),
     new DropdownItemType(id: 3, nombre: "3 horas"),
@@ -35,13 +34,13 @@ class _FormBreak extends State<FormBreak> {
     new DropdownItemType(id: 6, nombre: "6 horas")
   ];
   final minuteItems = [
-    new DropdownItemType(id: 0, nombre: "0 minutos"),
     new DropdownItemType(id: 15, nombre: "15 minutos"),
     new DropdownItemType(id: 20, nombre: "20 minutos"),
     new DropdownItemType(id: 30, nombre: "30 minutos"),
     new DropdownItemType(id: 40, nombre: "40 minutos"),
     new DropdownItemType(id: 45, nombre: "45 minutos")
   ].toList();
+  List<Reason> reasons = [];
 
   Widget build(BuildContext context) {
     return Container(
@@ -62,7 +61,10 @@ class _FormBreak extends State<FormBreak> {
               child: FutureBuilder<List<Reason>>(
                   future: blocBreaks.getReasons(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done)
+                    if (snapshot.connectionState == ConnectionState.done ||
+                        this.reasons.length > 0) {
+                      if (this.reasons.length == 0)
+                        this.reasons = snapshot.data;
                       return Column(
                         children: [
                           InputContainer(
@@ -70,8 +72,8 @@ class _FormBreak extends State<FormBreak> {
                               label: "Motivo del Break",
                               input: DropdownWidget(
                                 hintText: "Seleccione una avería",
-                                options: DropdownItemType.generateList(
-                                    snapshot.data),
+                                options:
+                                    DropdownItemType.generateList(this.reasons),
                                 value: selectedReason != null
                                     ? selectedReason.toString()
                                     : null,
@@ -125,38 +127,57 @@ class _FormBreak extends State<FormBreak> {
                           ),
                         ],
                       );
-
+                    }
                     return JLoadingScreen();
                   })),
           JButton(
               label: "GUARDAR",
               padding: EdgeInsets.symmetric(vertical: 20),
-              background: AppColors.green_color,
+              background: this.canSave()
+                  ? AppColors.green_color
+                  : AppColors.light_gray_color,
               onTab: () {
-                final now = DateTime.now();
-                final breakTime = new DateFormat.jm().format(DateTime(
-                    now.year,
-                    now.month,
-                    now.day,
-                    now.hour + selectedHours,
-                    now.minute + selectedMinutes));
-                showConfirmationDialog(context, () {
-                  AppHttp.requestIndicator(context);
-                  blocBreaks
-                      .addBreak(Break.fromPartial(
-                          hora: selectedHours.toString(),
-                          minutos: selectedMinutes.toString(),
-                          fecha: "${now.year}-${now.month}-${now.day}",
-                          motivo: selectedReason,
-                          tecnico: AppSession.data.idUsuario.toString()))
-                      .then((value) => Navigator.pushReplacementNamed(
-                          context, '/technician-home'));
-                }, () => {},
-                    title: Text("Solicitar un Descanso"),
-                    content: Text(
-                        "Su descanso terminará a las $breakTime\n¿Está seguro de que desea soliticar un descanso?"));
+                if (this.canSave()) {
+                  if (this.selectedHours == null) this.selectedHours = 0;
+                  if (this.selectedMinutes == null) this.selectedMinutes = 0;
+                  final now = DateTime.now();
+                  final breakTime = new DateFormat.jm().format(DateTime(
+                      now.year,
+                      now.month,
+                      now.day,
+                      now.hour + selectedHours,
+                      now.minute + selectedMinutes));
+                  showConfirmationDialog(context, () {
+                    AppHttp.requestIndicator(context);
+                    blocBreaks
+                        .addBreak(Break.fromPartial(
+                            hora: selectedHours.toString(),
+                            minutos: selectedMinutes.toString(),
+                            fecha: "${now.year}-${now.month}-${now.day}",
+                            motivo: selectedReason,
+                            tecnico: AppSession.data.idUsuario.toString()))
+                        .then((value) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          content:
+                              Text("Su break ha sido solicitado con éxito")));
+                      setState(() {
+                        selectedReason = null;
+                        selectedHours = null;
+                        selectedMinutes = null;
+                      });
+                    });
+                  }, () => {},
+                      title: Text("Solicitar un Descanso"),
+                      content: Text(
+                          "Su descanso terminará a las $breakTime\n¿Está seguro de que desea soliticar un descanso?"));
+                }
               }),
         ]));
+  }
+
+  bool canSave() {
+    return this.selectedReason != null &&
+        (this.selectedHours != null || this.selectedMinutes != null);
   }
 }
 
