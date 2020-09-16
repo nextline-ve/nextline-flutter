@@ -78,6 +78,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
         ),
+        actions: [LateralMenu.exitFromAppButton(context)],
       ),
       body: Stack(
         children: [
