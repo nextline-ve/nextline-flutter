@@ -13,7 +13,7 @@ class ModelMessage {
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'];
-    date = json['date'];
+    date = json['date'] != null ? json['date'] : "";
   }
 
   ModelMessage.fromSnapshot(Map<dynamic, dynamic> json) {
@@ -21,7 +21,7 @@ class ModelMessage {
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'] ?? "";
-    date = json['date'] ?? "";
+    date = json['date'] != null ? json['date'] : "";
   }
 
   Map<String, dynamic> toJson() {
@@ -30,7 +30,7 @@ class ModelMessage {
     data['type'] = this.type;
     data['message'] = this.message;
     data['imageUrl'] = this.imageUrl ?? "";
-    data['date'] = this.date ?? "";
+    data['date'] = this.date != null ? this.date : "";
     return data;
   }
 }

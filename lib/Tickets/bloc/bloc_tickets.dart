@@ -47,12 +47,13 @@ class BlocTickets implements Bloc {
   }
 
   void sendMessage(String text, String imageUrl, int ticketId) {
+    final now = DateTime.now();
     ModelMessage message = ModelMessage(
         imageUrl: imageUrl ?? "",
         message: text ?? "",
         type: imageUrl == "" ? "text" : "image",
         customId: "customId",
-        date: DateTime.now().toString());
+        date: "${now.year}-${now.month}-${now.day}");
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
 

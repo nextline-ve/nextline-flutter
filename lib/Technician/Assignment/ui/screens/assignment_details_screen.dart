@@ -101,7 +101,9 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                         future: widget.blocTickets
                             .getDetailsAssignedTickets(widget.ticket.id),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done)
+                          if (snapshot.connectionState ==
+                                  ConnectionState.done &&
+                              snapshot.hasData)
                             return Column(
                               children: [
                                 Padding(
@@ -155,7 +157,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                                             builder: (context) => Chat(
                                                   blocTickets:
                                                       widget.blocTickets,
-                                                  ticket: widget.ticket,
+                                                  ticket: snapshot.data,
                                                 ))),
                                   ),
                                 ),

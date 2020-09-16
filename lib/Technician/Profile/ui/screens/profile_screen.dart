@@ -38,7 +38,8 @@ class _TechProfileScreenState extends State<TechProfileScreen> {
             child: FutureBuilder<TechProfile>(
                 future: blocProfile.getTechProfile(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return ListView(
                       children: [
                         EditableInput(

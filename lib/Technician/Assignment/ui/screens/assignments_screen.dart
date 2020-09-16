@@ -35,41 +35,39 @@ class _AssignmentsScreen extends State<AssignmentsScreen> {
       ),
       body: Stack(
         children: [
-          Expanded(
-            child: FutureBuilder(
-                future: blocTickets.getAssignedTickets(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData && snapshot.data.length > 0)
-                      return ListView(
-                        scrollDirection: Axis.vertical,
-                        children: snapshot.data
-                            .map<Widget>((Ticket ticket) => TicketRow(
-                                ticket: ticket,
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AssignmentDetailsScreen(
-                                              ticket: ticket,
-                                              blocTickets: blocTickets,
-                                            )))))
-                            .toList(),
-                      );
-                    return Center(
-                      child: Text(
-                        "Usted no tiene tickets asignados",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.blue_dark,
-                            fontSize: 16,
-                            fontFamily: AppFonts.poppins_bold),
-                      ),
+          FutureBuilder(
+              future: blocTickets.getAssignedTickets(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData && snapshot.data.length > 0)
+                    return ListView(
+                      scrollDirection: Axis.vertical,
+                      children: snapshot.data
+                          .map<Widget>((Ticket ticket) => TicketRow(
+                              ticket: ticket,
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AssignmentDetailsScreen(
+                                            ticket: ticket,
+                                            blocTickets: blocTickets,
+                                          )))))
+                          .toList(),
                     );
-                  }
-                  return JLoadingScreen();
-                }),
-          )
+                  return Center(
+                    child: Text(
+                      "Usted no tiene tickets asignados",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: AppColors.blue_dark,
+                          fontSize: 16,
+                          fontFamily: AppFonts.poppins_bold),
+                    ),
+                  );
+                }
+                return JLoadingScreen();
+              }),
         ],
       ),
       bottomNavigationBar: NavigatorBar(),
