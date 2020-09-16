@@ -366,28 +366,33 @@ class _Chat extends State<Chat> {
                     ])),
             if (image != "")
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ImageViewer(image: image)));
-                },
-                child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Image.network(image, width: 300, loadingBuilder:
-                        (BuildContext context, Widget child,
-                            ImageChunkEvent loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes
-                              : null,
-                        ),
-                      );
-                    })),
-              ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImageViewer(image: image)));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    width: 200,
+                    height: 200,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.network(image, loadingBuilder:
+                          (BuildContext context, Widget child,
+                              ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      }),
+                    ),
+                  )),
             Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
                 child: _messageContent(text ?? "", isLeft))
