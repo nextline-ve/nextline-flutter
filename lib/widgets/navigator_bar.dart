@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Profile/ui/screens/profile_screen.dart';
+import 'package:nextline/Technician/Break/ui/screens/break_screen.dart';
+import 'package:nextline/Technician/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_session.dart';
 
 class NavigatorBar extends StatefulWidget {
-  final List<NavigatorItem> items;
   final int index;
-  const NavigatorBar({Key key, this.items: const [], this.index: 1})
-      : super(key: key);
+  const NavigatorBar({Key key, this.index: 1}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -21,8 +22,27 @@ class _NavigatorBar extends State<NavigatorBar> {
   Widget build(BuildContext context) {
     int _currentIndex = widget.index;
 
-    List<NavigatorItem> itemsToShow = widget.items.length > 0
-        ? widget.items
+    List<NavigatorItem> itemsToShow = AppSession.data.tipoUsuario == "T"
+        ? [
+            NavigatorItem(
+                1,
+                Icons.home,
+                () => Navigator.pushReplacementNamed(
+                    context, '/technician-home')),
+            NavigatorItem(
+              2,
+              Icons.av_timer,
+              () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BreakScreen())),
+            ),
+            NavigatorItem(
+                3,
+                Icons.person,
+                () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TechProfileScreen())))
+          ]
         : [
             NavigatorItem(1, Icons.home,
                 () => Navigator.pushReplacementNamed(context, '/home')),

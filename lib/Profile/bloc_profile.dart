@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Profile/model/model_profile.dart';
-
+import 'package:nextline/Technician/Profile/model_profile.dart';
 import './repository_profile.dart';
 
 class BlocProfile implements Bloc {
@@ -13,7 +13,7 @@ class BlocProfile implements Bloc {
   ProfileModel profileData = ProfileModel();
 
   Future<ProfileModel> getDataProfile() async {
-    profileData = await repository.getDataProfileAPI('admon/contratos-status');
+    profileData = await repository.getDataProfileAPI();
     return profileData;
   }
 
@@ -25,6 +25,10 @@ class BlocProfile implements Bloc {
   Future<Map<String, String>> changePassword(
       String oldPassword, String newPassword) async {
     return await repository.changePasswordAPI(oldPassword, newPassword);
+  }
+
+  Future<TechProfile> getTechProfile() async {
+    return await repository.getTechProfileAPI();
   }
 
   @override

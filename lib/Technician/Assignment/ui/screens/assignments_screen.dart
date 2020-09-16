@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/assignment_details_screen.dart';
-import 'package:nextline/Technician/Break/ui/screens/break_screen.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/widgets/ticket_row.dart';
@@ -95,23 +94,7 @@ class _AssignmentsScreen extends State<AssignmentsScreen> {
           )
         ],
       ),
-      bottomNavigationBar: NavigatorBar(
-        items: [
-          NavigatorItem(
-              1,
-              Icons.home,
-              () =>
-                  Navigator.pushReplacementNamed(context, '/technician-home')),
-          NavigatorItem(
-            2,
-            Icons.av_timer,
-            () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BreakScreen())),
-          ),
-          NavigatorItem(3, Icons.person,
-              () => Navigator.pushReplacementNamed(context, '/profile'))
-        ],
-      ),
+      bottomNavigationBar: NavigatorBar(),
     );
   }
 }
