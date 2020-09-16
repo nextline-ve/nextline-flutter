@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_session.dart';
+import 'package:nextline/widgets/confirmation_modal.dart';
 
 class LateralMenu extends StatelessWidget {
   @override
@@ -95,9 +96,7 @@ class LateralMenu extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () {
-                AppSession().unregister().then((value) => Navigator.pushNamed(context, '/login'));
-              },
+              onTap: () => exitFromApp(context),
               child: Row(
                 children: [
                   Expanded(
@@ -138,5 +137,30 @@ class LateralMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static Widget exitFromAppButton(context) {
+    return GestureDetector(
+        onTap: () {
+          showConfirmationDialog(context, () => exitFromApp(context), () => {},
+              title: Text("Cerrar Sesión"),
+              content: Text("¿Está seguro de que desea salir?"));
+        },
+        child: Container(
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.blue_dark,
+              borderRadius: BorderRadius.circular(10),
+            )));
+  }
+
+  static void exitFromApp(context) {
+    AppSession()
+        .unregister()
+        .then((value) => Navigator.pushNamed(context, '/login'));
   }
 }
