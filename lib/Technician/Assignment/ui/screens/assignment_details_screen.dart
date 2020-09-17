@@ -4,7 +4,6 @@ import 'package:nextline/Technician/Assignment/ui/screens/repair_screen.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
-// import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/editable_input.dart';
@@ -182,13 +181,8 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                 JButton(
                   label: "INICIAR TRABAJO",
                   background: AppColors.green_color,
-                  onTab: () {
-                    widget.blocTickets.beginAssignment(widget.ticket).then(
-                        (value) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RepairScreen())));
-                  },
+                  onTab: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RepairScreen())),
                 ),
               ],
             ),

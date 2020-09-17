@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nextline/Technician/Assignment/model_assignment.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
@@ -7,6 +12,12 @@ import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/upload_image_modal.dart';
 
 class FailedRepairScreen extends StatefulWidget {
+  final Assignment assignment;
+  final BlocTickets blocTickets;
+  FailedRepairScreen(
+      {Key key, @required this.assignment, @required this.blocTickets})
+      : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _FailedRepairScreen();
@@ -16,6 +27,11 @@ class FailedRepairScreen extends StatefulWidget {
 class _FailedRepairScreen extends State<FailedRepairScreen> {
   final picker = ImagePicker();
   List<String> _uploadedFiles = new List<String>();
+  String _observacion;
+  String _fotoUno;
+  String _fotoDos;
+  String _fotoTres;
+  String _fotoCuatro;
 
   void getImage(ImageSource source) {
     picker.getImage(source: source).then((PickedFile pickedFile) async {
@@ -72,6 +88,7 @@ class _FailedRepairScreen extends State<FailedRepairScreen> {
                                             .withOpacity(0.34),
                                         fontSize: 12,
                                         fontFamily: AppFonts.poppins_regular)),
+                                onChanged: (val) => _observacion = val,
                               ),
                             ),
                             Container(
@@ -119,8 +136,25 @@ class _FailedRepairScreen extends State<FailedRepairScreen> {
                     JButton(
                       label: "FINALIZAR",
                       background: AppColors.green_color,
-                      onTab: () => Navigator.pushReplacementNamed(
-                          context, '/technician-home'),
+                      onTab: () {
+                        widget.assignment.observacion = this._observacion;
+                        if (_uploadedFiles.length > 0)
+                          widget.assignment.fotoUno =
+                              Assignment.imageToBase64(this._uploadedFiles[0]);
+                        if (_uploadedFiles.length > 1)
+                          widget.assignment.fotoDos =
+                              Assignment.imageToBase64(this._uploadedFiles[1]);
+                        if (_uploadedFiles.length > 2)
+                          widget.assignment.fotoTres =
+                              Assignment.imageToBase64(this._uploadedFiles[2]);
+                        if (_uploadedFiles.length > 3)
+                          widget.assignment.fotoCuatro =
+                              Assignment.imageToBase64(this._uploadedFiles[3]);
+                        widget.assignment.realizado = false;
+                        widget.blocTickets.finishAssignment(widget.assignment);
+                        Navigator.pushReplacementNamed(
+                            context, '/technician-home');
+                      },
                     ),
                   ]))
         ]));

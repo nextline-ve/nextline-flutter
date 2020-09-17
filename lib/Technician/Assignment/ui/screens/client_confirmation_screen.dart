@@ -1,10 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nextline/Technician/Assignment/model_assignment.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:signature/signature.dart';
 
 class ClientConfirmationScreen extends StatefulWidget {
+  final Assignment assignment;
+  final BlocTickets blocTickets;
+  ClientConfirmationScreen(
+      {Key key, @required this.assignment, @required this.blocTickets})
+      : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _ClientConfirmationScreen();
@@ -93,8 +103,12 @@ class _ClientConfirmationScreen extends State<ClientConfirmationScreen> {
                 JButton(
                   label: "FINALIZAR",
                   background: AppColors.green_color,
-                  onTab: () => Navigator.pushReplacementNamed(
-                      context, '/technician-home'),
+                  onTab: () async {
+                    widget.blocTickets.finishAssignment(widget.assignment);
+                    Navigator.pushReplacementNamed(context, '/technician-home');
+                    widget.assignment.firmaCliente =
+                        base64Encode(await _controller.toPngBytes());
+                  },
                 ),
               ]),
             )

@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Technician/Assignment/model_assignment.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/failed_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/screens/success_repair_screen.dart';
 import 'package:nextline/Technician/Assignment/ui/widgets/stopwatch.dart';
+import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
+import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/widgets/confirmation_modal.dart';
 import 'package:nextline/widgets/jbutton.dart';
 
 class RepairScreen extends StatefulWidget {
+  final Ticket ticket;
+  final BlocTickets blocTickets;
+  RepairScreen({Key key, @required this.ticket, @required this.blocTickets})
+      : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _RepairScreen();
@@ -19,6 +27,8 @@ class _RepairScreen extends State<RepairScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Assignment assignment = Assignment.fromPartial(ticket: widget.ticket);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.blue_dark,
@@ -61,6 +71,7 @@ class _RepairScreen extends State<RepairScreen> {
                           background: AppColors.green_color,
                           onTab: () {
                             setState(() {
+                              assignment.horaSalida = DateTime.now().toString();
                               stopwatch.stop();
                             });
                             showConfirmationDialog(
@@ -69,12 +80,18 @@ class _RepairScreen extends State<RepairScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            SuccessRepairScreen())),
+                                            SuccessRepairScreen(
+                                                assignment: assignment,
+                                                blocTickets:
+                                                    widget.blocTickets))),
                                 () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            FailedRepairScreen())),
+                                            FailedRepairScreen(
+                                                assignment: assignment,
+                                                blocTickets:
+                                                    widget.blocTickets))),
                                 title: Text("¿Lograste solucionar la falla?"),
                                 content: Text(""));
                           },
@@ -82,10 +99,12 @@ class _RepairScreen extends State<RepairScreen> {
                       : JButton(
                           label: "EMPEZAR",
                           background: AppColors.ligth_blue_color,
-                          onTab: () => {
+                          onTab: () {
                             setState(() {
+                              assignment.horaEntrada =
+                                  DateTime.now().toString();
                               stopwatch.start();
-                            })
+                            });
                           },
                         ),
                 ],
