@@ -15,6 +15,7 @@ class JTextField extends StatefulWidget {
   final double top;
   final StringValue onKeyValue;
   final String initialValue;
+  final bool disable;
 
   const JTextField(
       {Key key,
@@ -28,6 +29,7 @@ class JTextField extends StatefulWidget {
       this.icon,
       this.top,
       this.backgoundColor,
+      this.disable = false,
       this.initialValue})
       : super(key: key);
 
@@ -51,6 +53,7 @@ class _JTextField extends State<JTextField> {
       ),
       margin: EdgeInsets.only(top: (widget.top == null) ? 20 : widget.top),
       child: TextFormField(
+        readOnly: widget.disable,
         initialValue: widget.initialValue,
         autofocus: false,
         obscureText: widget.isPass,

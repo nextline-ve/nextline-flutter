@@ -157,6 +157,7 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                                                   blocTickets:
                                                       widget.blocTickets,
                                                   ticket: snapshot.data,
+                                                  disable: true,
                                                 ))),
                                   ),
                                 ),
