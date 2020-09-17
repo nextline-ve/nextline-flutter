@@ -20,8 +20,13 @@ class Chat extends StatefulWidget {
   final picker = ImagePicker();
   final BlocTickets blocTickets;
   final Ticket ticket;
+  final bool disable;
 
-  Chat({Key key, @required this.blocTickets, @required this.ticket})
+  Chat(
+      {Key key,
+      @required this.blocTickets,
+      @required this.ticket,
+      this.disable = false})
       : super(key: key);
 
   @override
@@ -230,6 +235,7 @@ class _Chat extends State<Chat> {
                                 label: "Escribe tu Mensaje",
                                 inputType: TextInputType.text,
                                 isPass: false,
+                                disable: widget.disable,
                                 onValidator: null,
                                 onKeyValue: (val) {
                                   _messageInput = val;
@@ -239,7 +245,7 @@ class _Chat extends State<Chat> {
                         ),
                         GestureDetector(
                           onTap: () => {
-                            if (imageUrl == "")
+                            if (imageUrl == "" && !widget.disable)
                               showMyDialog(context, "Enviar una foto", getImage)
                           },
                           child: ClipOval(
@@ -247,14 +253,14 @@ class _Chat extends State<Chat> {
                                   padding: EdgeInsets.all(10),
                                   child: Icon(
                                     Icons.file_upload,
-                                    color: imageUrl == ""
+                                    color: imageUrl == "" && !widget.disable
                                         ? AppColors.blue
                                         : AppColors.gray_color,
                                   ))),
                         ),
                         GestureDetector(
                           onTap: () {
-                            if (!loadingImage) {
+                            if (!loadingImage && !widget.disable) {
                               widget.blocTickets.sendMessage(_messageInput,
                                   imageUrlToSend, widget.ticket.id);
                               _messageForm.currentState.reset();
@@ -269,7 +275,7 @@ class _Chat extends State<Chat> {
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: !loadingImage
+                                color: !loadingImage && !widget.disable
                                     ? AppColors.blue_dark
                                     : AppColors.gray_color),
                             child: Icon(
