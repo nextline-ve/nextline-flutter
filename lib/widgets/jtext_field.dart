@@ -29,7 +29,7 @@ class JTextField extends StatefulWidget {
       this.icon,
       this.top,
       this.backgoundColor,
-      this.disable = true,
+      this.disable = false,
       this.initialValue})
       : super(key: key);
 
