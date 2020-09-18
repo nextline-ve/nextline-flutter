@@ -104,10 +104,10 @@ class _ClientConfirmationScreen extends State<ClientConfirmationScreen> {
                   label: "FINALIZAR",
                   background: AppColors.green_color,
                   onTab: () async {
-                    widget.blocTickets.finishAssignment(widget.assignment);
-                    Navigator.pushReplacementNamed(context, '/technician-home');
                     widget.assignment.firmaCliente =
                         base64Encode(await _controller.toPngBytes());
+                    widget.blocTickets.finishAssignment(widget.assignment);
+                    Navigator.pushReplacementNamed(context, '/technician-home');
                   },
                 ),
               ]),

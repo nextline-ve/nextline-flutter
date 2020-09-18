@@ -13,7 +13,7 @@ class Assignment {
   String fotoDos;
   String fotoTres;
   String fotoCuatro;
-  Ticket ticket;
+  int ticket;
   bool realizado;
 
   Assignment({this.horaEntrada, this.horaSalida, this.observacion});

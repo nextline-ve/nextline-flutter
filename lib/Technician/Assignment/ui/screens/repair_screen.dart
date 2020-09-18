@@ -13,11 +13,13 @@ import 'package:nextline/widgets/jbutton.dart';
 class RepairScreen extends StatefulWidget {
   final Ticket ticket;
   final BlocTickets blocTickets;
+  Assignment assignment;
   RepairScreen({Key key, @required this.ticket, @required this.blocTickets})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
+    this.assignment = Assignment.fromPartial(ticket: this.ticket.id);
     return _RepairScreen();
   }
 }
@@ -27,8 +29,6 @@ class _RepairScreen extends State<RepairScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Assignment assignment = Assignment.fromPartial(ticket: widget.ticket);
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.blue_dark,
@@ -71,7 +71,8 @@ class _RepairScreen extends State<RepairScreen> {
                           background: AppColors.green_color,
                           onTab: () {
                             setState(() {
-                              assignment.horaSalida = DateTime.now().toString();
+                              widget.assignment.horaSalida =
+                                  DateTime.now().toString();
                               stopwatch.stop();
                             });
                             showConfirmationDialog(
@@ -81,7 +82,7 @@ class _RepairScreen extends State<RepairScreen> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SuccessRepairScreen(
-                                                assignment: assignment,
+                                                assignment: widget.assignment,
                                                 blocTickets:
                                                     widget.blocTickets))),
                                 () => Navigator.push(
@@ -89,7 +90,7 @@ class _RepairScreen extends State<RepairScreen> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             FailedRepairScreen(
-                                                assignment: assignment,
+                                                assignment: widget.assignment,
                                                 blocTickets:
                                                     widget.blocTickets))),
                                 title: Text("¿Lograste solucionar la falla?"),
@@ -101,7 +102,7 @@ class _RepairScreen extends State<RepairScreen> {
                           background: AppColors.ligth_blue_color,
                           onTab: () {
                             setState(() {
-                              assignment.horaEntrada =
+                              widget.assignment.horaEntrada =
                                   DateTime.now().toString();
                               stopwatch.start();
                             });
