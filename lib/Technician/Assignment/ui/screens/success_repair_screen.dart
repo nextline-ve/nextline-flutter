@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nextline/Technician/Assignment/model_assignment.dart';
@@ -25,7 +28,7 @@ class SuccessRepairScreen extends StatefulWidget {
 
 class _SuccessRepairScreen extends State<SuccessRepairScreen> {
   final picker = ImagePicker();
-  List<String> _uploadedFiles = new List<String>();
+  List<Uint8List> _uploadedFiles = new List<Uint8List>();
   List<Map> _materialUsado = new List<Map>();
   String _observacion;
 
@@ -33,7 +36,7 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
     picker.getImage(source: source).then((PickedFile pickedFile) async {
       print(pickedFile);
       setState(() {
-        _uploadedFiles.add(pickedFile.path);
+        pickedFile.readAsBytes().then((value) => _uploadedFiles.add(value));
       });
     });
   }
@@ -112,17 +115,7 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   children: _uploadedFiles
-                                      .map((file) => Container(
-                                            width: 100,
-                                            height: 50,
-                                            margin: EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                image: DecorationImage(
-                                                    image: AssetImage(file),
-                                                    fit: BoxFit.cover)),
-                                          ))
+                                      .map((file) => Image.memory(file))
                                       .toList(),
                                 ),
                               ),
@@ -210,19 +203,18 @@ class _SuccessRepairScreen extends State<SuccessRepairScreen> {
                       padding: EdgeInsets.symmetric(vertical: 20),
                       background: AppColors.green_color,
                       onTab: () {
+                        if (_uploadedFiles.length != 4) {
+                          return;
+                        }
                         widget.assignment.observacion = this._observacion;
-                        if (_uploadedFiles.length > 0)
-                          widget.assignment.fotoUno =
-                              Assignment.imageToBase64(this._uploadedFiles[0]);
-                        if (_uploadedFiles.length > 1)
-                          widget.assignment.fotoDos =
-                              Assignment.imageToBase64(this._uploadedFiles[1]);
-                        if (_uploadedFiles.length > 2)
-                          widget.assignment.fotoTres =
-                              Assignment.imageToBase64(this._uploadedFiles[2]);
-                        if (_uploadedFiles.length > 3)
-                          widget.assignment.fotoCuatro =
-                              Assignment.imageToBase64(this._uploadedFiles[3]);
+                        widget.assignment.fotoUno =
+                            base64Encode(this._uploadedFiles[0]);
+                        widget.assignment.fotoDos =
+                            base64Encode(this._uploadedFiles[1]);
+                        widget.assignment.fotoTres =
+                            base64Encode(this._uploadedFiles[2]);
+                        widget.assignment.fotoCuatro =
+                            base64Encode(this._uploadedFiles[3]);
                         widget.assignment.realizado = true;
                         Navigator.push(
                             context,

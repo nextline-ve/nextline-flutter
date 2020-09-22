@@ -13,7 +13,7 @@ class Assignment {
   String fotoDos;
   String fotoTres;
   String fotoCuatro;
-  Ticket ticket;
+  int ticket;
   bool realizado;
 
   Assignment({this.horaEntrada, this.horaSalida, this.observacion});
@@ -37,7 +37,7 @@ class Assignment {
     data['hora_entrada'] = this.horaEntrada;
     data['tipo'] = this.horaSalida;
     data['observacion'] = this.observacion;
-    data['firmaCliente'] = this.firmaCliente;
+    data['firma_cliente'] = this.firmaCliente;
     data['foto_uno'] = this.fotoUno;
     data['foto_dos'] = this.fotoDos;
     data['foto_tres'] = this.fotoTres;

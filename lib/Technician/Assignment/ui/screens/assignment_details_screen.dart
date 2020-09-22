@@ -182,8 +182,13 @@ class _AssignmentDetailsScreen extends State<AssignmentDetailsScreen> {
                 JButton(
                   label: "INICIAR TRABAJO",
                   background: AppColors.green_color,
-                  onTab: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RepairScreen())),
+                  onTab: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RepairScreen(
+                                blocTickets: widget.blocTickets,
+                                ticket: widget.ticket,
+                              ))),
                 ),
               ],
             ),
