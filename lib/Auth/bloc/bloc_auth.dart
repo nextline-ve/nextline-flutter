@@ -31,6 +31,10 @@ class BlocAuth implements Bloc {
     await appSession.unregister();
   }
 
+  Future retrievePassword(Map<String, dynamic> data) async {
+    return await RepositoryAuth().retrievePassword(data);
+  }
+
   @override
   void dispose() {
     _streamMakeLogin.close();

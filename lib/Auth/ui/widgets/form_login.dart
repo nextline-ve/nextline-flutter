@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Auth/bloc/bloc_auth.dart';
+import 'package:nextline/Auth/ui/screens/retrieve_password.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/utils/app_session.dart';
@@ -14,6 +15,19 @@ class FormLogin extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _FormLogin();
   }
+
+  static String validateEmail(email) {
+    final RegExp emailRegex = new RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+
+    if (email.isEmpty) {
+      return 'Por favor escriba su correo electrónico';
+    }
+    if (!emailRegex.hasMatch(email)) {
+      return 'Ingrese un correo electrónico válido';
+    }
+    return null;
+  }
 }
 
 class _FormLogin extends State<FormLogin> {
@@ -23,9 +37,6 @@ class _FormLogin extends State<FormLogin> {
   String _email;
   String _pass;
   bool _makeRequest = false;
-
-  final RegExp emailRegex = new RegExp(
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
   @override
   void initState() {
@@ -70,15 +81,7 @@ class _FormLogin extends State<FormLogin> {
               inputType: TextInputType.emailAddress,
               icon: Icon(Icons.email, color: Color.fromRGBO(2, 144, 223, 1)),
               onKeyValue: (val) => _email = val,
-              onValidator: (val) {
-                if (val.isEmpty) {
-                  return 'Por favor escriba su correo electrónico';
-                }
-                if (!emailRegex.hasMatch(val)) {
-                  return 'Ingrese un correo electrónico válido';
-                }
-                return null;
-              },
+              onValidator: (val) => FormLogin.validateEmail(val),
             ),
             JTextField(
               isPass: true,
@@ -96,13 +99,19 @@ class _FormLogin extends State<FormLogin> {
                 return val;
               },
             ),
-            Container(
-              margin: EdgeInsets.only(top: 1, bottom: 10),
-              child: Text(
-                "¿Olvido la contraseña?",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "fontInput",
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RetrievePassword()),
+              ),
+              child: Container(
+                margin: EdgeInsets.only(top: 1, bottom: 10),
+                child: Text(
+                  "¿Olvidó su contraseña?",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "fontInput",
+                  ),
                 ),
               ),
             ),
