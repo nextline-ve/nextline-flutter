@@ -7,14 +7,19 @@ class InputContainer extends StatelessWidget {
   final Widget labelWidget;
   final String label;
   final Widget input;
-  const InputContainer(
-      {Key key, this.label, @required this.input, this.labelWidget})
-      : super(key: key);
+  final EdgeInsetsGeometry padding;
+  const InputContainer({
+    Key key,
+    this.label,
+    @required this.input,
+    this.labelWidget,
+    this.padding = const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+        padding: padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -23,7 +23,6 @@ class AppSession {
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
     if (AppSession.data == null) {
-
       AppSession.isLoggedIn = false;
       return false;
     } else {
@@ -117,7 +116,6 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
       return null;
     }
   }
-
 
   @override
   Future<int> saveObject() async {

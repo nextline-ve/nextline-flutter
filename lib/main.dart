@@ -3,6 +3,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Bills/ui/screens/bill_sent.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/Profile/ui/screens/profile_screen.dart';
+import 'package:nextline/Technician/Assignment/ui/screens/assignments_screen.dart';
 import 'package:nextline/Tickets/ui/screens/tickets_history.dart';
 
 import 'Auth/bloc/bloc_auth.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           '/change-plan': (context) => ChangePlan(),
           '/confirm-change-plan': (context) => ConfirmChangePlan(),
           '/success-change-plan': (context) => ChangePlanSent(),
-          '/profile': (context) => ProfileScreen()
+          '/profile': (context) => ProfileScreen(),
+          '/technician-home': (context) => AssignmentsScreen()
         },
       ),
       bloc: BlocAuth(),

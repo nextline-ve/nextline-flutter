@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:nextline/Technician/Assignment/model_assignment.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
@@ -47,12 +48,13 @@ class BlocTickets implements Bloc {
   }
 
   void sendMessage(String text, String imageUrl, int ticketId) {
+    final now = DateTime.now();
     ModelMessage message = ModelMessage(
         imageUrl: imageUrl ?? "",
         message: text ?? "",
         type: imageUrl == "" ? "text" : "image",
         customId: "customId",
-        date: DateTime.now().toString());
+        date: "${now.year}-${now.month}-${now.day}");
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
 
@@ -67,6 +69,18 @@ class BlocTickets implements Bloc {
     if (_uploadTask.isComplete) {
       _uploadTask.lastSnapshot.ref.delete();
     }
+  }
+
+  Future<List<Ticket>> getAssignedTickets() async {
+    return await repository.getAssignedTicketsAPI();
+  }
+
+  Future<Ticket> getDetailsAssignedTickets(id) async {
+    return await repository.getDetailsAssignedTicketsAPI(id);
+  }
+
+  Future finishAssignment(Assignment assignment) async {
+    return await repository.finishAssignmentAPI(assignment);
   }
 
   BlocTickets() {

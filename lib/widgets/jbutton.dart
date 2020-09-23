@@ -8,7 +8,6 @@ class JButton extends StatefulWidget {
   final Color borderColor;
   final double buttonHeight;
   final double minWidth;
-  final double padding;
   // Label
   final String label;
   final Color labelColor;
@@ -18,6 +17,7 @@ class JButton extends StatefulWidget {
   final IconData icon;
   final Color iconColor;
   final bool isIconRight;
+  final EdgeInsets padding;
   const JButton(
       {Key key,
       @required this.label,
@@ -32,7 +32,7 @@ class JButton extends StatefulWidget {
       this.background = AppColors.blue_dark,
       this.iconColor = Colors.white,
       this.minWidth = 380,
-      this.padding = 20})
+      this.padding = const EdgeInsets.all(20)})
       : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class _JButton extends State<JButton> {
                   : widget.borderColor),
         ),
         child: Padding(
-          padding: EdgeInsets.all(widget.padding),
+          padding: widget.padding,
           child: RaisedButton(
               onPressed: widget.onTab,
               color: widget.background,

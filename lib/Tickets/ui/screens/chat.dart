@@ -9,6 +9,7 @@ import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/image_viewer.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
@@ -19,8 +20,13 @@ class Chat extends StatefulWidget {
   final picker = ImagePicker();
   final BlocTickets blocTickets;
   final Ticket ticket;
+  final bool disable;
 
-  Chat({Key key, @required this.blocTickets, @required this.ticket})
+  Chat(
+      {Key key,
+      @required this.blocTickets,
+      @required this.ticket,
+      this.disable = false})
       : super(key: key);
 
   @override
@@ -37,6 +43,9 @@ class _Chat extends State<Chat> {
   String imageUrl = "";
   String imageUrlToSend = "";
   bool loadingImage = false;
+  String leftName = AppSession.data.tipoUsuario == "T" ? "Cliente" : "Técnico";
+  String rightName =
+      AppSession.data.tipoUsuario == "T" ? AppSession.data.nombre : "Cliente";
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((PickedFile pickedFile) async {
@@ -107,11 +116,11 @@ class _Chat extends State<Chat> {
                                   List modelMessage = widget.blocTickets
                                       .chats[widget.ticket.id].messages.entries
                                       .toList();
-                                  modelMessage.sort((a, b) {
-                                    return DateTime.parse(a.value.date)
-                                        .compareTo(
-                                            DateTime.parse(b.value.date));
-                                  });
+                                  // modelMessage.sort((a, b) {
+                                  //   return DateTime.parse(a.value.date)
+                                  //       .compareTo(
+                                  //           DateTime.parse(b.value.date));
+                                  // });
                                   return ListView(
                                     controller: _scrollController,
                                     scrollDirection: Axis.vertical,
@@ -226,6 +235,7 @@ class _Chat extends State<Chat> {
                                 label: "Escribe tu Mensaje",
                                 inputType: TextInputType.text,
                                 isPass: false,
+                                disable: widget.disable,
                                 onValidator: null,
                                 onKeyValue: (val) {
                                   _messageInput = val;
@@ -235,7 +245,7 @@ class _Chat extends State<Chat> {
                         ),
                         GestureDetector(
                           onTap: () => {
-                            if (imageUrl == "")
+                            if (imageUrl == "" && !widget.disable)
                               showMyDialog(context, "Enviar una foto", getImage)
                           },
                           child: ClipOval(
@@ -243,14 +253,14 @@ class _Chat extends State<Chat> {
                                   padding: EdgeInsets.all(10),
                                   child: Icon(
                                     Icons.file_upload,
-                                    color: imageUrl == ""
+                                    color: imageUrl == "" && !widget.disable
                                         ? AppColors.blue
                                         : AppColors.gray_color,
                                   ))),
                         ),
                         GestureDetector(
                           onTap: () {
-                            if (!loadingImage) {
+                            if (!loadingImage && !widget.disable) {
                               widget.blocTickets.sendMessage(_messageInput,
                                   imageUrlToSend, widget.ticket.id);
                               _messageForm.currentState.reset();
@@ -265,7 +275,7 @@ class _Chat extends State<Chat> {
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: !loadingImage
+                                color: !loadingImage && !widget.disable
                                     ? AppColors.blue_dark
                                     : AppColors.gray_color),
                             child: Icon(
@@ -285,117 +295,123 @@ class _Chat extends State<Chat> {
       ),
     );
   }
-}
 
-Widget _nameLabel(String text) {
-  return Text(
-    StringUtils.capitalize(text),
-    textAlign: TextAlign.center,
-    style: TextStyle(
-        fontFamily: AppFonts.poppins_bold,
-        fontSize: 10,
-        color: AppColors.blue_dark),
-  );
-}
+  Widget _nameLabel(String text) {
+    return Text(
+      StringUtils.capitalize(text),
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontFamily: AppFonts.poppins_bold,
+          fontSize: 10,
+          color: AppColors.blue_dark),
+    );
+  }
 
-Widget _dateLabel(String text) {
-  return Text(
-    text,
-    style: TextStyle(
-        fontFamily: AppFonts.poppins_regular,
-        fontSize: 10,
-        color: AppColors.light_gray_color.withOpacity(1)),
-    softWrap: true,
-  );
-}
+  Widget _dateLabel(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: AppFonts.poppins_regular,
+          fontSize: 10,
+          color: AppColors.light_gray_color.withOpacity(1)),
+      softWrap: true,
+    );
+  }
 
-Widget _messageContent(String text, bool isLeft) {
-  return Text(
-    text,
-    textAlign: isLeft ? TextAlign.left : TextAlign.right,
-    style: TextStyle(
-        fontFamily: AppFonts.poppins_regular,
-        fontSize: 12,
-        color: AppColors.black_color),
-    softWrap: true,
-  );
-}
+  Widget _messageContent(String text, bool isLeft) {
+    return Text(
+      text,
+      textAlign: isLeft ? TextAlign.left : TextAlign.right,
+      style: TextStyle(
+          fontFamily: AppFonts.poppins_regular,
+          fontSize: 12,
+          color: AppColors.black_color),
+      softWrap: true,
+    );
+  }
 
-Widget _message(context, String text, String username, String date, bool isLeft,
-    [String image = ""]) {
-  List<Widget> children = [
-    Container(
-      transform: Matrix4.translationValues(0, 10, 0),
-      child: Icon(
-        Icons.account_circle,
-        size: 50,
-      ),
-    ),
-    Container(
-      transform: Matrix4.translationValues(isLeft ? -15 : 15, 10, 0),
-      child: Icon(isLeft ? Icons.arrow_left : Icons.arrow_right,
+  Widget _message(
+      context, String text, String username, String date, bool isLeft,
+      [String image = ""]) {
+    List<Widget> children = [
+      Container(
+        transform: Matrix4.translationValues(0, 10, 0),
+        child: Icon(
+          Icons.account_circle,
           size: 50,
-          color: isLeft
-              ? AppColors.light_gray_color.withOpacity(0.10)
-              : AppColors.ligth_blue_color.withOpacity(0.1)),
-    ),
-    Expanded(
-        child: Container(
-      transform: Matrix4.translationValues(isLeft ? -35.5 : 35.5, 0, 0),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          color: isLeft
-              ? AppColors.light_gray_color.withOpacity(0.10)
-              : AppColors.ligth_blue_color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _nameLabel("Albert"),
-                    _dateLabel(date),
-                  ])),
-          if (image != "")
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ImageViewer(image: image)));
-              },
-              child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Image.network(image, width: 300, loadingBuilder:
-                      (BuildContext context, Widget child,
-                          ImageChunkEvent loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes
-                            : null,
-                      ),
-                    );
-                  })),
-            ),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: _messageContent(text ?? "", isLeft))
-        ],
+        ),
       ),
-    ))
-  ];
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: isLeft ? children : children.reversed.toList()),
-  );
+      Container(
+        transform: Matrix4.translationValues(isLeft ? -15 : 15, 10, 0),
+        child: Icon(isLeft ? Icons.arrow_left : Icons.arrow_right,
+            size: 50,
+            color: isLeft
+                ? AppColors.light_gray_color.withOpacity(0.10)
+                : AppColors.ligth_blue_color.withOpacity(0.1)),
+      ),
+      Expanded(
+          child: Container(
+        transform: Matrix4.translationValues(isLeft ? -35.5 : 35.5, 0, 0),
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            color: isLeft
+                ? AppColors.light_gray_color.withOpacity(0.10)
+                : AppColors.ligth_blue_color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _nameLabel(isLeft ? leftName : rightName),
+                      _dateLabel(date),
+                    ])),
+            if (image != "")
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImageViewer(image: image)));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    width: 200,
+                    height: 200,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.network(image, loadingBuilder:
+                          (BuildContext context, Widget child,
+                              ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      }),
+                    ),
+                  )),
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: _messageContent(text ?? "", isLeft))
+          ],
+        ),
+      ))
+    ];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: isLeft ? children : children.reversed.toList()),
+    );
+  }
 }

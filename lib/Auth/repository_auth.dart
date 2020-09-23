@@ -18,4 +18,18 @@ class RepositoryAuth extends AppHttp {
     }
     return ModelSession.fromJson(resp.data);
   }
+
+  Future retrievePassword(Map<String, dynamic> data) async {
+    Response resp;
+    try {
+      FormData formData = new FormData.fromMap(data);
+      resp = await http.post(api + 'config/restaurar-clave/', data: formData);
+    } on DioError catch (e) {
+      Map error = jsonDecode(jsonEncode(e.response.data));
+      error.forEach((key, value) {
+        throw (value);
+      });
+    }
+    return resp.data;
+  }
 }

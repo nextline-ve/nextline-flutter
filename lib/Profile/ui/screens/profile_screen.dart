@@ -37,7 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: FutureBuilder<ProfileModel>(
                 future: blocProfile.getDataProfile(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return ListView(
                       children: [
                         Center(
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       endDrawer: LateralMenu(),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 2),
     );
   }
 }

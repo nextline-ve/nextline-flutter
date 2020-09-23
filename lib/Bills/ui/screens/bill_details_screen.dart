@@ -137,7 +137,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                                         labelColor: AppColors.blue_dark,
                                         buttonHeight: 50.0,
                                         minWidth: 600,
-                                        padding: 10,
+                                        padding: EdgeInsets.all(10),
                                         borderColor: AppColors.blue_dark,
                                         onTab: () => Navigator.push(
                                             context,

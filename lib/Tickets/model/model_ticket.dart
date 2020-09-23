@@ -12,7 +12,7 @@ class Ticket {
   String getStatusDisplay;
   int asunto;
   String detalle;
-  int cliente;
+  var cliente;
   // String asuntoDescripcion;
 
   Ticket({
