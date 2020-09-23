@@ -154,8 +154,6 @@ class _ConfirmChangePlan extends State<ConfirmChangePlan> {
   }
 
   void _requestChangePlan() async {
-    print(plan.id);
-    print("plaaaaan");
     bloc.setRequestChangePlan(plan.id).then((value) => {
       Navigator.pushNamed(context, "/success-change-plan")
     }).catchError( (handleError) => {
