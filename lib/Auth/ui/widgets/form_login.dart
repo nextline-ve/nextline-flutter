@@ -21,7 +21,7 @@ class FormLogin extends StatefulWidget {
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
     if (email.isEmpty) {
-      return 'Por favor escriba su correo electrónico';
+      return 'Por favor, escriba su correo electrónico';
     }
     if (!emailRegex.hasMatch(email)) {
       return 'Ingrese un correo electrónico válido';
@@ -90,7 +90,7 @@ class _FormLogin extends State<FormLogin> {
               icon: Icon(Icons.vpn_key, color: Color.fromRGBO(2, 144, 223, 1)),
               onValidator: (value) {
                 if (value.isEmpty) {
-                  return 'Por favor escriba su contraseña';
+                  return 'Por favor, escriba su contraseña';
                 }
                 return null;
               },
@@ -102,7 +102,10 @@ class _FormLogin extends State<FormLogin> {
             GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RetrievePassword()),
+                MaterialPageRoute(
+                    builder: (context) => RetrievePassword(
+                          blocAuth: this.blocAuth,
+                        )),
               ),
               child: Container(
                 margin: EdgeInsets.only(top: 1, bottom: 10),
