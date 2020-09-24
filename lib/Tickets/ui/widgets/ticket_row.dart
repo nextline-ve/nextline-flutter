@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
@@ -38,7 +40,9 @@ class _TicketRowState extends State<TicketRow> {
               status:
                   widget.ticket.mapToTicketStatusString(widget.ticket.status),
               id: "Ticket ${widget.ticket.id}",
-              label: widget.ticket.detalle,
+              label: widget.ticket.detalle
+                      .substring(0, min(widget.ticket.detalle.length, 20)) +
+                  (widget.ticket.detalle.length > 20 ? ". . ." : ""),
               reverseLeft: true),
         ));
   }
