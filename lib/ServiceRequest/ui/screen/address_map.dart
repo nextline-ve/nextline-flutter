@@ -62,8 +62,7 @@ class _AddressMap extends State<AddressMap> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    JTitle(title: "Domicilio de"),
-                    JTitle(title: "Instalación"),
+                    JTitle(title: "Domicilio de\nInstalación"),
                     Line(
                       top: 1,
                     ),
@@ -71,7 +70,7 @@ class _AddressMap extends State<AddressMap> {
                         child: Column(
                       children: [
                         _texts("Ubique en el mapa", 40),
-                        _texts("Donde se instalará el servicio", 1),
+                        _texts("dónde se instalará el servicio", 1),
                       ],
                     )),
                     _initialPosition == null

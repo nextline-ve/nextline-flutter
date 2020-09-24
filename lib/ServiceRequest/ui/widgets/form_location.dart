@@ -32,6 +32,7 @@ class _FormLocation extends State<FormLocation> {
     super.initState();
     streamMessage.stream.forEach((message) {
       if (message == "Solicitud Enviada con Éxito") {
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
         Navigator.pushReplacementNamed(context, "/login");
       }
 

@@ -29,8 +29,7 @@ class SelectServiceScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        JTitle(title: "Selecciona"),
-                        JTitle(title: "un Servicio"),
+                        JTitle(title: "Selecciona\nun Servicio"),
                         Line(
                           top: 10,
                         ),
@@ -42,17 +41,15 @@ class SelectServiceScreen extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            itemBuilder: (ctx, i) => Services(
-                                id: snapshot.data[i].id,
-                                name: snapshot.data[i].servicio));
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: true,
+                              itemBuilder: (ctx, i) => Services(
+                                  id: snapshot.data[i].id,
+                                  name: snapshot.data[i].servicio));
                         }
-                        
+
                         return Container(
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        
+                            child: Center(child: CircularProgressIndicator()));
                       }),
                 ],
               ),
