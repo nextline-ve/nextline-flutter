@@ -72,7 +72,7 @@ class _FormLogin extends State<FormLogin> {
     return Form(
       key: _formKey,
       child: Container(
-        margin: EdgeInsets.all(8.0),
+        margin: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: <Widget>[
             JTextField(
@@ -132,6 +132,7 @@ class _FormLogin extends State<FormLogin> {
                 }
 
                 return JButton(
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   label: "INGRESAR",
                   onTab: _setMakeLogin,
                   background: AppColors.green_color,

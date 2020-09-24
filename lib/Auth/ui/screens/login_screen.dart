@@ -35,7 +35,6 @@ class _LoginScreen extends State<LoginScreen> {
               WhiteLogo(),
               FormLogin(),
               Line(
-                top: 0,
                 width: 100,
               ),
               JButton(
