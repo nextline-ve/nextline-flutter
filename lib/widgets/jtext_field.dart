@@ -60,23 +60,32 @@ class _JTextField extends State<JTextField> {
         onSaved: widget.onKeyValue,
         onChanged: widget.onKeyValue,
         decoration: InputDecoration(
-          prefixIcon: (widget.icon == null) ? null : widget.icon,
-          hintText: widget.label,
-          hintStyle: TextStyle(color: Colors.grey, fontFamily: 'fontInput'),
-          suffixIcon: widget.iconRigth,
-          filled: true,
-          fillColor: widget.backgoundColor != null
-              ? widget.backgoundColor
-              : Colors.white,
-          enabledBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: (widget.borderColor == null) ? Colors.white : widget.borderColor),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25.0)),
-            borderSide: BorderSide(color: (widget.borderColor == null) ? Colors.white : widget.borderColor),
-          ),
-        ),
+            prefixIcon: (widget.icon == null) ? null : widget.icon,
+            hintText: widget.label,
+            hintStyle: TextStyle(color: Colors.grey, fontFamily: 'fontInput'),
+            suffixIcon: widget.iconRigth,
+            filled: true,
+            fillColor: widget.backgoundColor != null
+                ? widget.backgoundColor
+                : Colors.white,
+            enabledBorder: UnderlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              borderSide: BorderSide(
+                  color: (widget.borderColor == null)
+                      ? Colors.white
+                      : widget.borderColor),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              borderSide: BorderSide(
+                  color: (widget.borderColor == null)
+                      ? Colors.white
+                      : widget.borderColor),
+            ),
+            errorBorder: UnderlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              borderSide: BorderSide(color: Colors.red, width: 2.5),
+            )),
       ),
     );
   }
