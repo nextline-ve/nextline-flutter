@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Auth/ui/widgets/white_logo.dart';
 import 'package:nextline/Profile/bloc_profile.dart';
 import 'package:nextline/Technician/Profile/model_profile.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
@@ -40,8 +41,12 @@ class _TechProfileScreenState extends State<TechProfileScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData) {
-                    return ListView(
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        WhiteLogo(
+                          margin: EdgeInsets.only(bottom: 40, top: 20),
+                        ),
                         EditableInput(
                           placeholder: "Cédula",
                           value: snapshot.data.ci,
