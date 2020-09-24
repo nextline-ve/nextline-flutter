@@ -6,8 +6,8 @@ class TechProfile {
   TechProfile({this.ci, this.nombre, this.apellido});
 
   TechProfile.fromJson(Map<String, dynamic> json) {
-    ci = json['nombre_razsoc'];
-    nombre = json['cedula_rif'];
+    ci = json['ci'];
+    nombre = json['nombre'];
     apellido = json['apellido'];
   }
 
