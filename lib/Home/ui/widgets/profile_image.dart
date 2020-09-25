@@ -88,17 +88,14 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                                         ImageChunkEvent loadingProgress) {
                                 if (loadingProgress == null) return child;
                                 return Container(
-                                    padding: EdgeInsets.all(50),
                                     child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                              null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress.expectedTotalBytes
-                                          : null,
-                                      backgroundColor: AppColors.white_color,
-                                    ));
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes
+                                      : null,
+                                  backgroundColor: AppColors.white_color,
+                                ));
                               }))
                     : Icon(
                         Icons.account_circle,

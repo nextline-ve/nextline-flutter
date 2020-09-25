@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/colored_label.dart';
 import 'package:nextline/utils/app_colors.dart';
@@ -58,7 +60,8 @@ class _ItemDetailHeaderState extends State<ItemDetailHeader> {
           children: [
             Container(
               child: Text(
-                widget.label,
+                widget.label.substring(0, min(30, widget.label.length)) +
+                    (widget.label.length > 30 ? ". . ." : ""),
                 style: TextStyle(
                     color: widget.reverseLeft
                         ? AppColors.black_color
