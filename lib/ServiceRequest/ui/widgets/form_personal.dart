@@ -6,7 +6,6 @@ import 'package:nextline/widgets/jtext_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:email_validator/email_validator.dart';
 
-
 class FormPersonal extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -44,7 +43,7 @@ class _FormPersonal extends State<FormPersonal> {
                     return 'Escriba el nombre o razón social completo';
                   }
                   if (value.isEmpty) {
-                    return 'Por favor complete el campo de Nombre / Razón Social';
+                    return 'Por favor, complete el campo de Nombre / Razón Social';
                   }
                   return null;
                 },
@@ -60,7 +59,7 @@ class _FormPersonal extends State<FormPersonal> {
                 },
                 onValidator: (value) {
                   if (value.isEmpty) {
-                    return 'Por favor complete el campo de Cedula / Rif';
+                    return 'Por favor, complete el campo de Cédula / Rif';
                   }
                   return null;
                 },
@@ -75,7 +74,7 @@ class _FormPersonal extends State<FormPersonal> {
                 },
                 onValidator: (value) {
                   if (value.isEmpty) {
-                    return 'Por favor complete el campo de Número de Teléfono';
+                    return 'Por favor, complete el campo de Número de Teléfono';
                   }
                   return null;
                 },
@@ -87,7 +86,7 @@ class _FormPersonal extends State<FormPersonal> {
                 onKeyValue: (val) => _email = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
-                    return 'Por favor escriba su correo electrónico';
+                    return 'Por favor, escriba su correo electrónico';
                   }
                   if (!EmailValidator.validate(value)) {
                     return 'Ingresa un correo electrónico válido';
@@ -104,7 +103,7 @@ class _FormPersonal extends State<FormPersonal> {
                     return 'La contraseña debe ser mínimo 8 caracteres.';
                   }
                   if (value.isEmpty) {
-                    return 'Por favor escriba su contraseña';
+                    return 'Por favor, escriba su contraseña';
                   }
                   return null;
                 },
@@ -120,16 +119,16 @@ class _FormPersonal extends State<FormPersonal> {
                 onKeyValue: (val) => _confirmpass = val,
                 onValidator: (value) {
                   if (value.isEmpty) {
-                    return 'Por favor Confirmar su Contraseña';
+                    return 'Por favor, confirme su Contraseña';
                   }
                   return null;
                 },
               ),
               JButton(
-                label: "CONTINUAR",
-                onTab: _makeForm,
-                background: AppColors.ligth_blue_color,
-              ),
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  label: "CONTINUAR",
+                  onTab: _makeForm,
+                  background: AppColors.ligth_blue_color),
             ],
           ),
         ));
@@ -150,18 +149,20 @@ class _FormPersonal extends State<FormPersonal> {
     }
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     SharedPreferences prefs = await _prefs;
-    prefs.setString("dataPersonal", jsonEncode({
-      "correo": _email,
-      "nombre_razsoc": _name,
-      "cedula_rif": _cedula,
-      "celular": _phone,
-      "clave": _pass,
-      "plan": prefs.getInt("plan"),
-      "latitud": 0,
-      "longitud": 0,
-      "direccion": "",
-      "avatar": "",
-    }));
+    prefs.setString(
+        "dataPersonal",
+        jsonEncode({
+          "correo": _email,
+          "nombre_razsoc": _name,
+          "cedula_rif": _cedula,
+          "celular": _phone,
+          "clave": _pass,
+          "plan": prefs.getInt("plan"),
+          "latitud": 0,
+          "longitud": 0,
+          "direccion": "",
+          "avatar": "",
+        }));
     prefs.remove("service");
     prefs.remove("plan");
 

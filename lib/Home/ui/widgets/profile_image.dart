@@ -16,6 +16,7 @@ class ProfileImageSelector extends StatefulWidget {
   final double size;
   final Color color;
   final BlocProfile blocProfile;
+  final EdgeInsets loadPadding;
   ProfileImageSelector(
       {Key key,
       this.imageFile,
@@ -23,7 +24,8 @@ class ProfileImageSelector extends StatefulWidget {
       this.color = AppColors.blue_dark,
       this.size = 136,
       this.withAction = true,
-      @required this.blocProfile})
+      @required this.blocProfile,
+      this.loadPadding = const EdgeInsets.all(50)})
       : super(key: key);
   @override
   _ProfileImageSelectorState createState() =>
@@ -88,14 +90,17 @@ class _ProfileImageSelectorState extends State<ProfileImageSelector> {
                                         ImageChunkEvent loadingProgress) {
                                 if (loadingProgress == null) return child;
                                 return Container(
+                                    padding: widget.loadPadding,
                                     child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes
-                                      : null,
-                                  backgroundColor: AppColors.white_color,
-                                ));
+                                      value: loadingProgress
+                                                  .expectedTotalBytes !=
+                                              null
+                                          ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                              loadingProgress.expectedTotalBytes
+                                          : null,
+                                      backgroundColor: AppColors.white_color,
+                                    ));
                               }))
                     : Icon(
                         Icons.account_circle,

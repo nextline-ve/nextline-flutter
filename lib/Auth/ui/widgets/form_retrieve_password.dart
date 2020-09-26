@@ -38,7 +38,7 @@ class _FormRetrievePassword extends State<FormRetrievePassword> {
         JButton(
           label: "RECUPERAR CONTRASEÑA",
           onTab: () {
-            if (FormLogin.validateEmail(_email) != null) {
+            if (_email == null || FormLogin.validateEmail(_email) != null) {
               Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(
                       'Verifique que haya colocado el correo electrónico correctamente')));

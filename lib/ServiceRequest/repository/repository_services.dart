@@ -47,11 +47,9 @@ class RepositoryServices extends AppHttp {
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {
-        print(value);
-        throw ("Disculpe tenemos problemas para procesar su solicitud");
+        throw (value);
       });
     }
-
   }
 
   Future<ModelPlans> getDataPlanAPI(int planId) async {
@@ -62,10 +60,10 @@ class RepositoryServices extends AppHttp {
   Future<String> setRequestChangePlanAPI(int planId) async {
     Response resp;
     try {
-      FormData formData = new FormData.fromMap({'plan_id': planId, 'asunto': 4});
+      FormData formData =
+          new FormData.fromMap({'plan_id': planId, 'asunto': 4});
       resp = await http.post(api + 'support/cambiar-plan/',
-        data: formData, options: Options(headers: header));
-
+          data: formData, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nextline/Home/ui/screens/home_screen.dart';
-import 'package:nextline/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/Technician/Break/ui/screens/break_screen.dart';
 import 'package:nextline/Technician/Profile/ui/screens/profile_screen.dart';
 import 'package:nextline/utils/app_colors.dart';

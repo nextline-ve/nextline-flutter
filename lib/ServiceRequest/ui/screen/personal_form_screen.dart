@@ -28,8 +28,7 @@ class _PersonalFormScreen extends State<PersonalFormScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    JTitle(title: "Formulario"),
-                    JTitle(title: "Personal"),
+                    JTitle(title: "Formulario\nPersonal"),
                     Line(top: 1),
                     FormPersonal(),
                   ],
