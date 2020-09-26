@@ -34,7 +34,11 @@ class _HUserInformationState extends State<HUserInformation> {
               size: 80,
               withAction: false,
               color: Colors.white,
-              imageUrl: (widget.avatar == null) ? "https://picsum.photos/200/300" : widget.avatar, blocProfile: null,
+              imageUrl: (widget.avatar == null)
+                  ? "https://picsum.photos/200/300"
+                  : widget.avatar,
+              blocProfile: null,
+              loadPadding: EdgeInsets.all(0),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 7, left: 5),
