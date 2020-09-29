@@ -18,8 +18,10 @@ class BlocAuth implements Bloc {
     ModelSession data = await RepositoryAuth().setMakeLoginAPI(dataLogin);
     if (data.idUsuario is int) {
       await appSession.register(data);
-      geolocationBackground =
-          GeolocationBackground(technicianId: data.idUsuario);
+      if (data.tipoUsuario == 'T') {
+        geolocationBackground =
+            GeolocationBackground(technicianId: data.idUsuario);
+      }
     }
     return data.idUsuario is int;
   }
