@@ -9,6 +9,7 @@ import 'package:nextline/Tickets/ui/widgets/input_container.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_http.dart';
+import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 
@@ -28,6 +29,7 @@ class _FormTicket extends State<FormTicket> {
   int _asunto;
   String _detalle;
   bool _createTicket = false;
+  List<IssueType> types = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,9 @@ class _FormTicket extends State<FormTicket> {
     return FutureBuilder<List<IssueType>>(
         future: widget.blocTickets.getDataIssueType(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done)
+          if (snapshot.connectionState == ConnectionState.done ||
+              this.types.length > 0) {
+            if (this.types.length == 0) this.types = snapshot.data;
             return Form(
                 key: _formKey,
                 child: Column(
@@ -45,12 +49,12 @@ class _FormTicket extends State<FormTicket> {
                     Column(
                       children: [
                         _titleView("Nuevo Ticket"),
-                        _date("${today.day}/${today.month}/${today.year}"),
+                        _date(AppUtils.formatDate(today.toString())),
                         InputContainer(
                             label: "Tipo de Avería",
                             input: DropdownWidget(
                               hintText: "Seleccione una avería",
-                              options: snapshot.data,
+                              options: this.types,
                               value:
                                   _asunto != null ? _asunto.toString() : null,
                               onChanged: (val) => {
@@ -75,6 +79,7 @@ class _FormTicket extends State<FormTicket> {
                     ),
                   ],
                 ));
+          }
           return JLoadingScreen();
         });
   }

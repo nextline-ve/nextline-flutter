@@ -8,6 +8,7 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
@@ -49,9 +50,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     ItemDetailHeader(
                         label: "Factura",
                         id: "#${widget.bill.id}",
-                        status:
-                            "${widget.bill.mapToBillStatusString(widget.bill.status)}",
-                        date: "${widget.bill.fechaEmision}"),
+                        status: "${widget.bill.getStatusDisplay}",
+                        date: AppUtils.formatDate(widget.bill.fechaEmision)),
                     BillsTable(data: widget.bill.facturaDetalleSet),
                     _billResume(),
                     _billFooter(),
@@ -62,7 +62,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }

@@ -24,6 +24,7 @@ class _BillSent extends State<BillSent> {
           textAlign: TextAlign.center,
           style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -63,9 +64,8 @@ class _BillSent extends State<BillSent> {
           ),
         ],
       ),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }
-
 }

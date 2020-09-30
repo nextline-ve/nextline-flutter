@@ -55,9 +55,8 @@ class _ChangePlanSent extends State<ChangePlanSent> {
           ),
         ],
       ),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }
-  
 }

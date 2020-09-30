@@ -6,6 +6,7 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Home/ui/screens/home_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
@@ -90,7 +91,7 @@ class _BillsScreen extends State<BillsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }
@@ -108,8 +109,8 @@ class _BillsScreen extends State<BillsScreen> {
           child: ItemDetailHeader(
             date: "\$${bill.total}",
             id: "Factura #${bill.id}",
-            status: bill.mapToBillStatusString(bill.status),
-            label: bill.fechaEmision,
+            status: bill.getStatusDisplay,
+            label: AppUtils.formatDate(bill.fechaEmision),
             reverseLeft: true,
           )),
     );

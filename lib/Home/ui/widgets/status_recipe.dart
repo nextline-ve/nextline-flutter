@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_utils.dart';
 import '../../../widgets/line.dart';
 
 class HStatusRecipe extends StatefulWidget {
@@ -78,7 +79,7 @@ Widget _label(String text) {
 }
 
 Widget _lastRecipeDate(DateTime date) {
-  return Text("${date.day}/${date.month}/${date.year}",
+  return Text(AppUtils.formatDate(date.toString()),
       style: TextStyle(
           color: AppColors.blue_dark,
           fontFamily: AppFonts.poppins_regular,

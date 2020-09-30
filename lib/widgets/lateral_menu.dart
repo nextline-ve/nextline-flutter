@@ -96,7 +96,7 @@ class LateralMenu extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () => exitFromApp(context),
+              onTap: () => showConfirmationExit(context),
               child: Row(
                 children: [
                   Expanded(
@@ -141,11 +141,7 @@ class LateralMenu extends StatelessWidget {
 
   static Widget exitFromAppButton(context) {
     return GestureDetector(
-        onTap: () {
-          showConfirmationDialog(context, () => exitFromApp(context), () => {},
-              title: Text("Cerrar Sesión"),
-              content: Text("¿Está seguro de que desea salir?"));
-        },
+        onTap: () => showConfirmationExit(context),
         child: Container(
             padding: EdgeInsets.all(10),
             child: Icon(
@@ -162,5 +158,11 @@ class LateralMenu extends StatelessWidget {
     AppSession()
         .unregister()
         .then((value) => Navigator.pushNamed(context, '/login'));
+  }
+
+  static void showConfirmationExit(context) {
+    showConfirmationDialog(context, () => exitFromApp(context), () => {},
+        title: Text("Cerrar Sesión"),
+        content: Text("¿Está seguro de que desea salir?"));
   }
 }
