@@ -1,3 +1,5 @@
+import 'package:nextline/Bills/model/model_bill_detail.dart';
+
 enum BillStatus { C, G, P, V }
 
 class Bill {
@@ -12,6 +14,7 @@ class Bill {
   String comprobantePago;
   String getStatusDisplay;
   List<dynamic> cuentascobrarSet;
+  List<BillDetail> facturaDetalleSet;
 
   Bill(
       {this.id,
@@ -21,6 +24,7 @@ class Bill {
       this.monto,
       this.subtotal,
       this.total,
+      this.facturaDetalleSet,
       this.status,
       this.comprobantePago,
       this.getStatusDisplay,
@@ -38,6 +42,10 @@ class Bill {
     comprobantePago = json['comprobante_pago'] ?? "";
     getStatusDisplay = json['get_status_display'];
     cuentascobrarSet = json['cuentascobrar_set'];
+
+    facturaDetalleSet = json['factuaradetalle_set']
+        .map<BillDetail>((json) => BillDetail.fromJson(json))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {

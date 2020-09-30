@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nextline/Bills/model/model_bill_detail.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 
 class BillsTable extends StatelessWidget {
-  final List data;
+  final List<BillDetail> data;
 
   const BillsTable({
     Key key,
@@ -25,7 +26,7 @@ class BillsTable extends StatelessWidget {
               color: AppColors.gray_shadow_color,
               style: BorderStyle.solid),
         ),
-        columnWidths: {0: FractionColumnWidth(0.5)},
+        columnWidths: {0: FractionColumnWidth(0.3)},
         children: [
           TableRow(children: [
             TableCell(
@@ -33,6 +34,32 @@ class BillsTable extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 child: Text(
                   "Decripcion",
+                  style: TextStyle(
+                      fontFamily: AppFonts.poppins_regular,
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  "Monto",
+                  style: TextStyle(
+                      fontFamily: AppFonts.poppins_regular,
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  "Cantidad",
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
@@ -54,28 +81,14 @@ class BillsTable extends StatelessWidget {
                 ),
               ),
             ),
-            TableCell(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Text(
-                  "Total Bs.",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: AppFonts.poppins_regular,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-            ),
           ]),
-          _billRow("Item #9", "80", "123.123.123"),
-          _billRow("Item #1", "10", "79.123.123"),
+          ...data.map((e) => _billRow(e.concepto, e.monto, e.cantidad, e.total))
         ],
       ),
     );
   }
 
-  TableRow _billRow(description, dolarPrice, bolivarPrice) {
+  TableRow _billRow(description, monto, cantidad, total) {
     return TableRow(children: [
       TableCell(
         child: Container(
@@ -93,9 +106,22 @@ class BillsTable extends StatelessWidget {
       TableCell(
         child: Container(
           margin: EdgeInsets.all(10),
+          child: Text(
+            cantidad.toString(),
+            style: TextStyle(
+              color: AppColors.gray_text_color,
+              fontSize: 14,
+              fontFamily: AppFonts.poppins_regular,
+            ),
+          ),
+        ),
+      ),
+      TableCell(
+        child: Container(
+          margin: EdgeInsets.all(10),
           child: Center(
             child: Text(
-              dolarPrice,
+              monto,
               style: TextStyle(
                 color: AppColors.gray_text_color,
                 fontSize: 14,
@@ -109,7 +135,7 @@ class BillsTable extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.all(10),
           child: Text(
-            bolivarPrice,
+            total,
             style: TextStyle(
               color: AppColors.gray_text_color,
               fontSize: 14,

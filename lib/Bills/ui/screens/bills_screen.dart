@@ -59,7 +59,9 @@ class _BillsScreen extends State<BillsScreen> {
                 child: FutureBuilder(
                     future: blocBills.getDataBills(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done)
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.data != null &&
+                          snapshot.data.length > 0)
                         return ListView(
                           scrollDirection: Axis.vertical,
                           children: snapshot.data.map<Widget>((Bill bill) {
@@ -67,6 +69,20 @@ class _BillsScreen extends State<BillsScreen> {
                             return _billRow(bill, index);
                           }).toList(),
                         );
+                      if (snapshot.error == "Error de Cliente" ||
+                          (snapshot.data != null &&
+                              snapshot.data.length == 0)) {
+                        return Center(
+                          child: Text(
+                            "Usted no tiene facturas en este momento",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: AppColors.blue_dark,
+                                fontSize: 16,
+                                fontFamily: AppFonts.poppins_bold),
+                          ),
+                        );
+                      }
                       return JLoadingScreen();
                     }),
               ),
