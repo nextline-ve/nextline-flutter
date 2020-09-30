@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
+import 'package:nextline/utils/app_utils.dart';
 
 class TicketRow extends StatefulWidget {
   final void Function() onTap;
@@ -36,7 +37,7 @@ class _TicketRowState extends State<TicketRow> {
                 ),
               ]),
           child: ItemDetailHeader(
-              date: widget.ticket.fechaCreacion,
+              date: AppUtils.formatDate(widget.ticket.fechaCreacion),
               status:
                   widget.ticket.mapToTicketStatusString(widget.ticket.status),
               id: "Ticket ${widget.ticket.id}",

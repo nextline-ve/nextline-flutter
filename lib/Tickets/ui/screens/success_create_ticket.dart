@@ -5,6 +5,7 @@ import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/Tickets/ui/screens/chat.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 
@@ -30,12 +31,13 @@ class _SuccessCreateTicketScreen extends State<SuccessCreateTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.blue_dark,
-        title: Text(
-          'Asistencia técnica',
-          style: TextStyle(fontFamily: AppFonts.input),
-        ),
-      ),
+          backgroundColor: AppColors.blue_dark,
+          centerTitle: true,
+          title: Text(
+            'ASISTENCIA TÉCNICA',
+            style: TextStyle(fontFamily: AppFonts.input, fontSize: 16),
+          ),
+          automaticallyImplyLeading: false),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -118,7 +120,7 @@ Widget _card(context, Ticket ticket, BlocTickets blocTickets) {
                   fontSize: 60,
                   color: AppColors.blue_dark),
             ),
-            _simpleLabel(ticket.fechaCreacion),
+            _simpleLabel(AppUtils.formatDate(ticket.fechaCreacion)),
             Text(
               ticket.detalle,
               textAlign: TextAlign.center,

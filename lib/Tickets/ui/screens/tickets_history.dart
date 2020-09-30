@@ -61,7 +61,7 @@ class _HistoryTicketScreen extends State<HistoryTicketScreen> {
         ],
       ),
       endDrawer: LateralMenu(),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
     );
   }
 }

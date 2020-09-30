@@ -10,6 +10,7 @@ import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_session.dart';
+import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/image_viewer.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
@@ -85,7 +86,7 @@ class _Chat extends State<Chat> {
                   color: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                   child: ItemDetailHeader(
-                      date: widget.ticket.fechaCreacion,
+                      date: AppUtils.formatDate(widget.ticket.fechaCreacion),
                       status: widget.ticket.getStatusDisplay,
                       id: "Ticket ${widget.ticket.id}",
                       label: widget.ticket.detalle,
