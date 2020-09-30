@@ -50,8 +50,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     ItemDetailHeader(
                         label: "Factura",
                         id: "#${widget.bill.id}",
-                        status:
-                            "${widget.bill.mapToBillStatusString(widget.bill.status)}",
+                        status: "${widget.bill.getStatusDisplay}",
                         date: AppUtils.formatDate(widget.bill.fechaEmision)),
                     BillsTable(data: widget.bill.facturaDetalleSet),
                     _billResume(),

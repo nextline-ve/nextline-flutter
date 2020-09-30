@@ -91,7 +91,7 @@ class _BillsScreen extends State<BillsScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }
@@ -109,7 +109,7 @@ class _BillsScreen extends State<BillsScreen> {
           child: ItemDetailHeader(
             date: "\$${bill.total}",
             id: "Factura #${bill.id}",
-            status: bill.mapToBillStatusString(bill.status),
+            status: bill.getStatusDisplay,
             label: AppUtils.formatDate(bill.fechaEmision),
             reverseLeft: true,
           )),
