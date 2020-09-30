@@ -369,7 +369,7 @@ class _Chat extends State<Chat> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _nameLabel(isLeft ? leftName : rightName),
-                      _dateLabel(date),
+                      _dateLabel(AppUtils.formatDate(date)),
                     ])),
             if (image != "")
               GestureDetector(
