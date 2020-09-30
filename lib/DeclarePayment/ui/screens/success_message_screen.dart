@@ -31,7 +31,13 @@ class _SuccessMessageScreenState extends State<SuccessMessageScreen> {
                 Center(
                   child: Container(
                     margin: EdgeInsets.only(top: 245),
-                    child: Text("¡Gracias por su pago!", style: TextStyle(color: AppColors.blue, fontSize: 19, fontFamily: AppFonts.poppins_bold),),
+                    child: Text(
+                      "¡Gracias por su pago!",
+                      style: TextStyle(
+                          color: AppColors.blue,
+                          fontSize: 19,
+                          fontFamily: AppFonts.poppins_bold),
+                    ),
                   ),
                 ),
                 Center(
@@ -57,7 +63,7 @@ class _SuccessMessageScreenState extends State<SuccessMessageScreen> {
         ],
       ),
       endDrawer: LateralMenu(),
-      bottomNavigationBar: NavigatorBar(),
+      bottomNavigationBar: NavigatorBar(index: 0),
     );
   }
 }
