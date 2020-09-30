@@ -51,7 +51,9 @@ class _DropdownWidgetState extends State<DropdownWidget> {
         return DropdownMenuItem<String>(
             value: value.id.toString(),
             child: value.image == ""
-                ? Text(value.nombre)
+                ? Text(value.nombre,
+                    style: TextStyle(
+                        fontFamily: AppFonts.poppins_regular, fontSize: 16))
                 : Row(
                     children: [
                       Image.asset(
@@ -59,7 +61,10 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                         width: 40,
                         height: 40,
                       ),
-                      Text(value.nombre)
+                      Text(value.nombre,
+                          style: TextStyle(
+                              fontFamily: AppFonts.poppins_regular,
+                              fontSize: 16))
                     ],
                   ));
       }).toList(),

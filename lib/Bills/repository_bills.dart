@@ -15,8 +15,12 @@ class RepositoryBills extends AppHttp {
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
-    final parsed = response.data['results'].cast<Map<String, dynamic>>();
-    return parsed.map<Bill>((json) => Bill.fromJson(json)).toList();
+    try {
+      final parsed = response.data['results'].cast<Map<String, dynamic>>();
+      return parsed.map<Bill>((json) => Bill.fromJson(json)).toList();
+    } on NoSuchMethodError catch (e) {
+      return [];
+    }
   }
 
   Future<List<CurrencyModel>> getDataCurrenciesAPI() async {
