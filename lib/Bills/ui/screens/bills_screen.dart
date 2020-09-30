@@ -59,7 +59,8 @@ class _BillsScreen extends State<BillsScreen> {
                 child: FutureBuilder(
                     future: blocBills.getDataBills(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done)
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.data != null)
                         return ListView(
                           scrollDirection: Axis.vertical,
                           children: snapshot.data.map<Widget>((Bill bill) {
@@ -67,6 +68,9 @@ class _BillsScreen extends State<BillsScreen> {
                             return _billRow(bill, index);
                           }).toList(),
                         );
+                      if (snapshot.error == "Error de Cliente") {
+                        return Text('No hay facturas');
+                      }
                       return JLoadingScreen();
                     }),
               ),
