@@ -52,7 +52,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                         status:
                             "${widget.bill.mapToBillStatusString(widget.bill.status)}",
                         date: "${widget.bill.fechaEmision}"),
-                    BillsTable(data: []),
+                    BillsTable(data: widget.bill.facturaDetalleSet),
                     _billResume(),
                     _billFooter(),
                   ],
