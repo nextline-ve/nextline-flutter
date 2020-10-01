@@ -46,7 +46,7 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Monto",
+                  "Cantidad",
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
@@ -59,7 +59,7 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Cantidad",
+                  "Monto",
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
