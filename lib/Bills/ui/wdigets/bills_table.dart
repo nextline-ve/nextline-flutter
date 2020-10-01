@@ -33,20 +33,7 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Decripcion",
-                  style: TextStyle(
-                      fontFamily: AppFonts.poppins_regular,
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-            ),
-            TableCell(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Text(
-                  "Monto",
+                  "Decripción",
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
@@ -72,7 +59,20 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Total Dolar",
+                  "Monto",
+                  style: TextStyle(
+                      fontFamily: AppFonts.poppins_regular,
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  "Total",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: AppFonts.poppins_regular,
