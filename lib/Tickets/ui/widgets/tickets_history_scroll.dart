@@ -18,6 +18,7 @@ class TicketHistoryScroll extends StatefulWidget {
 }
 
 class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
+  List<Ticket> tickets = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,10 +26,18 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
         child: FutureBuilder(
             future: widget.blocTickets.getDataTickets(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done)
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (this.tickets.length == 0) {
+                  this.tickets = snapshot.data;
+                  this.tickets.sort((a, b) {
+                    return DateTime.parse(b.fechaCreacion)
+                        .compareTo(DateTime.parse(a.fechaCreacion));
+                  });
+                }
                 return ListView(
                   scrollDirection: Axis.vertical,
-                  children: snapshot.data
+                  children: this
+                      .tickets
                       .map<Widget>((Ticket ticket) => TicketRow(
                           ticket: ticket,
                           onTap: () => Navigator.push(
@@ -40,35 +49,10 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                                       )))))
                       .toList(),
                 );
+              }
               return JLoadingScreen();
             }),
       ),
     );
   }
-}
-
-Widget _ticketRow(Ticket ticket, onTap) {
-  return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: Offset(0, 3),
-                color: AppColors.blue_dark.withOpacity(0.33),
-              ),
-            ]),
-        child: ItemDetailHeader(
-            date: ticket.fechaCreacion,
-            status: ticket.mapToTicketStatusString(ticket.status),
-            id: "Ticket ${ticket.id}",
-            label: ticket.detalle,
-            reverseLeft: true),
-      ));
 }
