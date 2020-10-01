@@ -73,7 +73,7 @@ class _FormTicket extends State<FormTicket> {
                     ),
                     JButton(
                       icon: Icons.send,
-                      label: "VER TICKET",
+                      label: "CREAR TICKET",
                       background: AppColors.green_color,
                       onTab: _setCreateTicket,
                     ),
