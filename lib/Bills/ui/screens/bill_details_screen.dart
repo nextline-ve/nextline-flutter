@@ -74,7 +74,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           margin: EdgeInsets.all(30),
           child: Center(
             child: Text(
-              "Total a pagar",
+              "Total a pagar\n${widget.bill.total} USD",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.blue,
                 fontSize: 21,
@@ -100,32 +101,32 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                       0: FractionColumnWidth(1 / snapshot.data.length)
                     },
                     children: [
-                      TableRow(
-                          children: snapshot.data
-                              .map(
-                                (currency) =>
-                                    _tableHead("Total en ${currency.moneda}"),
-                              )
-                              .toList()),
-                      TableRow(
-                        children: snapshot.data
-                            .map((currency) => TableCell(
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Center(
-                                      child: Text(
-                                        "${currency.simbolo}",
-                                        style: TextStyle(
-                                          color: AppColors.ligth_blue_color,
-                                          fontSize: 14,
-                                          fontFamily: AppFonts.poppins_regular,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                      ),
+                      // TableRow(
+                      //     children: snapshot.data
+                      //         .map(
+                      //           (currency) =>
+                      //               _tableHead("Total en ${currency.moneda}"),
+                      //         )
+                      //         .toList()),
+                      // TableRow(
+                      //   children: snapshot.data
+                      //       .map((currency) => TableCell(
+                      //             child: Container(
+                      //               margin: EdgeInsets.all(10),
+                      //               child: Center(
+                      //                 child: Text(
+                      //                   "${widget.bill.total} ${currency.simbolo}",
+                      //                   style: TextStyle(
+                      //                     color: AppColors.ligth_blue_color,
+                      //                     fontSize: 14,
+                      //                     fontFamily: AppFonts.poppins_regular,
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ))
+                      //       .toList(),
+                      // ),
                       TableRow(
                         children: snapshot.data
                             .map((currency) => TableCell(
