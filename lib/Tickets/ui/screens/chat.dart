@@ -2,8 +2,12 @@ import 'dart:io';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nextline/Auth/bloc/bloc_auth.dart';
 import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
+import 'package:nextline/Home/ui/widgets/profile_image.dart';
 import 'package:nextline/Tickets/bloc/bloc_tickets.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
@@ -22,6 +26,7 @@ class Chat extends StatefulWidget {
   final BlocTickets blocTickets;
   final Ticket ticket;
   final bool disable;
+  BlocAuth blocAuth;
 
   Chat(
       {Key key,
@@ -68,6 +73,7 @@ class _Chat extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
+    widget.blocAuth = BlocProvider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.blue_dark,
@@ -336,12 +342,15 @@ class _Chat extends State<Chat> {
       [String image = ""]) {
     List<Widget> children = [
       Container(
-        transform: Matrix4.translationValues(0, 10, 0),
-        child: Icon(
-          Icons.account_circle,
-          size: 50,
-        ),
-      ),
+          transform: Matrix4.translationValues(0, 10, 0),
+          child: isLeft
+              ? ProfileImageSelector(
+                  withAction: false,
+                  imageUrl: AppSession.data.avatar,
+                  size: 50,
+                )
+              : SvgPicture.asset('assets/images/logo_without_text.svg',
+                  height: 50, semanticsLabel: 'Acme Logo')),
       Container(
         transform: Matrix4.translationValues(isLeft ? -15 : 15, 10, 0),
         child: Icon(isLeft ? Icons.arrow_left : Icons.arrow_right,

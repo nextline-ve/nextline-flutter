@@ -24,7 +24,7 @@ class ProfileImageSelector extends StatefulWidget {
       this.color = AppColors.blue_dark,
       this.size = 136,
       this.withAction = true,
-      @required this.blocProfile,
+      this.blocProfile,
       this.loadPadding = const EdgeInsets.all(50)})
       : super(key: key);
   @override
