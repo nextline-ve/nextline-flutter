@@ -11,7 +11,7 @@ class AppUtils {
       final date = DateTime.parse(dateToFormat);
       return "${completeNumber(date.day)}/${completeNumber(date.month)}/${date.year}";
     } catch (e) {
-      return "";
+      return dateToFormat;
     }
   }
 }

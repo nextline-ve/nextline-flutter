@@ -19,6 +19,7 @@ class RepositoryBills extends AppHttp {
       final parsed = response.data['results'].cast<Map<String, dynamic>>();
       return parsed.map<Bill>((json) => Bill.fromJson(json)).toList();
     } on NoSuchMethodError catch (e) {
+      print(e);
       return [];
     }
   }

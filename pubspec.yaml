@@ -42,6 +42,7 @@ dependencies:
   web_socket_channel: ^1.1.0
   map_launcher: ^0.12.2
   workmanager: ^0.2.3
+  url_launcher: ^5.7.2
   flutter:
     sdk: flutter
 

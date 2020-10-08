@@ -14,6 +14,7 @@ class Bill {
   String subtotal;
   String total;
   BillStatus status;
+  String statusDisplay;
   String comprobantePago;
   String getStatusDisplay;
   List<BillDetail> facturaDetalleSet;
@@ -47,6 +48,7 @@ class Bill {
     montoBase = json['monto_base'];
     subtotal = json['subtotal'];
     total = json['total'];
+    statusDisplay = json['get_status_display'];
     status = _mapToBillStatus(json['status']);
     comprobantePago = json['comprobante_pago'] ?? "";
     getStatusDisplay = json['get_status_display'];
@@ -86,6 +88,8 @@ class Bill {
         return BillStatus.P;
       case "V":
         return BillStatus.V;
+      default:
+        return BillStatus.V;
     }
   }
 
@@ -98,7 +102,9 @@ class Bill {
       case BillStatus.P:
         return "BillStatus.P";
       case BillStatus.V:
-        return "BillStatus.V";
+        return "Vigente";
+      default:
+        return "";
     }
   }
 }

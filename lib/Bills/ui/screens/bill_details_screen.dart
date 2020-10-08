@@ -13,6 +13,7 @@ import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
 import 'package:nextline/widgets/navigator_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BillDetailsScreen extends StatefulWidget {
   final Bill bill;
@@ -89,6 +90,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {
+                  var data = snapshot.data;
                   return Table(
                     border: TableBorder(
                       verticalInside: BorderSide(
@@ -101,20 +103,20 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     },
                     children: [
                       TableRow(
-                          children: snapshot.data
+                          children: data
                               .map(
                                 (currency) =>
                                     _tableHead("Total en ${currency.moneda}"),
                               )
                               .toList()),
                       TableRow(
-                        children: snapshot.data
+                        children: data
                             .map((currency) => TableCell(
                                   child: Container(
                                     margin: EdgeInsets.all(10),
                                     child: Center(
                                       child: Text(
-                                        "${currency.simbolo}",
+                                        "${currency.simbolo} ${widget.bill.montoBase}",
                                         style: TextStyle(
                                           color: AppColors.ligth_blue_color,
                                           fontSize: 14,
@@ -127,7 +129,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                             .toList(),
                       ),
                       TableRow(
-                        children: snapshot.data
+                        children: data
                             .map((currency) => TableCell(
                                   child: Container(
                                     child: Center(
@@ -209,18 +211,21 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
   Widget _billFooter() {
     return Container(
       margin: EdgeInsets.only(top: 20),
-      child: Column(
-        children: [
-          Center(
-            child: Text("DESCARGAR FACTURA",
-                style: TextStyle(
-                  color: AppColors.blue,
-                  fontSize: 10,
-                  fontFamily: AppFonts.poppins_regular,
-                )),
-          ),
-          _downloadBill(),
-        ],
+      child: InkWell(
+        onTap: _downloadBillAction,
+        child: Column(
+          children: [
+            Center(
+              child: Text("DESCARGAR FACTURA",
+                  style: TextStyle(
+                    color: AppColors.blue,
+                    fontSize: 10,
+                    fontFamily: AppFonts.poppins_regular,
+                  )),
+            ),
+            _downloadBill(),
+          ],
+        ),
       ),
     );
   }
@@ -229,19 +234,22 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     return Container(
       margin: EdgeInsets.only(top: 14),
       child: Center(
-        child: InkWell(
-          onTap: _downloadBillAction,
-          child: SvgPicture.asset(
-            "assets/images/icon_download.svg",
-            color: AppColors.blue_dark,
-            height: 23,
-          ),
+        child: SvgPicture.asset(
+          "assets/images/icon_download.svg",
+          color: AppColors.blue_dark,
+          height: 23,
         ),
       ),
     );
   }
 
-  void _downloadBillAction() {
-    print("_downloadBill");
+  void _downloadBillAction() async {
+    var url =
+        'https://nextline.jaspesoft.com/api/v1/admon/factura/pdf/${widget.bill.id}/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
