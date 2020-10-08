@@ -7,7 +7,7 @@ class BillDetail {
   BillDetail({this.concepto, this.monto, this.cantidad, this.total});
 
   BillDetail.fromJson(Map<String, dynamic> json) {
-    concepto = json['concepto'];
+    concepto = json['concepto']['descripcion'];
     monto = json['monto'];
     cantidad = json['cantidad'];
     total = json['total'];
