@@ -75,7 +75,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
           margin: EdgeInsets.all(30),
           child: Center(
             child: Text(
-              "Total a pagar",
+              "Total a pagar\n${widget.bill.total} USD",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.blue,
                 fontSize: 21,
