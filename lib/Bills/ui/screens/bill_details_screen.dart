@@ -55,7 +55,11 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                         date: AppUtils.formatDate(widget.bill.fechaEmision)),
                     BillsTable(data: widget.bill.facturaDetalleSet),
                     _billResume(),
-                    _billFooter(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [_billFooter(), _billCompromiso()],
+                    )
                   ],
                 ),
               ],
@@ -231,7 +235,42 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
+  Widget _billCompromiso() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: InkWell(
+        onTap: _compromisoBillAction,
+        child: Column(
+          children: [
+            Center(
+              child: Text("COMPROMISO DE PAGO",
+                  style: TextStyle(
+                    color: AppColors.blue,
+                    fontSize: 10,
+                    fontFamily: AppFonts.poppins_regular,
+                  )),
+            ),
+            _compromisoBill(),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _downloadBill() {
+    return Container(
+      margin: EdgeInsets.only(top: 14),
+      child: Center(
+        child: SvgPicture.asset(
+          "assets/images/icon_download.svg",
+          color: AppColors.blue_dark,
+          height: 23,
+        ),
+      ),
+    );
+  }
+
+  Widget _compromisoBill() {
     return Container(
       margin: EdgeInsets.only(top: 14),
       child: Center(
@@ -252,5 +291,18 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  void _compromisoBillAction() async {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100),
+        locale: Locale.fromSubtags(languageCode: "en"),
+        helpText: "Seleccione una fecha de compromiso",
+        cancelText: "Cancelar",
+        confirmText: "Confirmar",
+        fieldHintText: "Intruzca una fecha");
   }
 }
