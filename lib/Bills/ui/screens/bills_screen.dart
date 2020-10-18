@@ -100,14 +100,13 @@ class _BillsScreen extends State<BillsScreen> {
     return InkWell(
       onTap: () => _showDetails(bill),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.only(bottom: 10),
           color: index % 2 == 0
               ? Colors.white
               : AppColors.light_blue.withOpacity(0.95),
           alignment: Alignment.center,
           child: ItemDetailHeader(
-            date: "\$${bill.total}",
+            date: "${bill.total} USD",
             id: "Factura #${bill.id}",
             status: bill.getStatusDisplay,
             label: AppUtils.formatDate(bill.fechaEmision),
