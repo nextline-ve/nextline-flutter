@@ -121,7 +121,7 @@ class BillsTable extends StatelessWidget {
           margin: EdgeInsets.all(10),
           child: Center(
             child: Text(
-              monto,
+              monto + ' USD',
               style: TextStyle(
                 color: AppColors.gray_text_color,
                 fontSize: 14,
@@ -135,7 +135,7 @@ class BillsTable extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.all(10),
           child: Text(
-            total,
+            total + ' USD',
             style: TextStyle(
               color: AppColors.gray_text_color,
               fontSize: 14,

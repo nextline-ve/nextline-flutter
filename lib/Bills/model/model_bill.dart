@@ -20,6 +20,13 @@ class Bill {
   List<BillDetail> facturaDetalleSet;
   List<dynamic> cuentascobrarSet;
 
+  String montoIvaBs;
+  String montoAlicuotaBs;
+  String montoDescuentoBs;
+  String montoBaseBs;
+  String subtotalBs;
+  String totalBs;
+
   Bill(
       {this.id,
       this.fechaEmision,
@@ -35,7 +42,13 @@ class Bill {
       this.comprobantePago,
       this.getStatusDisplay,
       this.facturaDetalleSet,
-      this.cuentascobrarSet});
+      this.cuentascobrarSet,
+      this.montoIvaBs,
+      this.montoAlicuotaBs,
+      this.montoDescuentoBs,
+      this.montoBaseBs,
+      this.subtotalBs,
+      this.totalBs,});
 
   Bill.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -57,6 +70,14 @@ class Bill {
     facturaDetalleSet = json['factuaradetalle_set']
         .map<BillDetail>((json) => BillDetail.fromJson(json))
         .toList();
+
+    montoIvaBs = json['monto_iva_bs'];
+    montoAlicuotaBs = json['monto_alicuota_bs'];
+    montoDescuentoBs = json['monto_descuento_bs'];
+    montoBaseBs = json['monto_base_bs'];
+    subtotalBs = json['subtotal_bs'];
+    totalBs = json['total_bs'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +96,13 @@ class Bill {
     data['comprobante_pago'] = this.comprobantePago;
     data['get_status_display'] = this.getStatusDisplay;
     data['cuentascobrar_set'] = this.cuentascobrarSet;
+
+    data['monto_iva_bs'] = this.montoIvaBs;
+    data['monto_alicuota_bs'] = this.montoAlicuotaBs;
+    data['monto_descuento_bs'] = this.montoDescuentoBs;
+    data['monto_base_bs'] = this.montoBaseBs;
+    data['subtotal_bs'] = this.subtotalBs;
+    data['total_bs'] = this.totalBs;
     return data;
   }
 
@@ -105,6 +133,15 @@ class Bill {
         return "Vigente";
       default:
         return "";
+    }
+  }
+
+  String getTotal(String simbolo, Bill bill) {
+    switch(simbolo) {
+      case 'USD':
+        return bill.total + ' USD';
+      default:
+        return bill.totalBs;
     }
   }
 }

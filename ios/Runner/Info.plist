@@ -18,10 +18,23 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.924710173144-r7pcau548og39ht3q6bnsevp6ejrq3pe</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>EnableBackgroundLocationUpdates</key>
 	<true/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>NO</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -61,19 +74,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.924710173144-r7pcau548og39ht3q6bnsevp6ejrq3pe</string>
-			</array>
-		</dict>
-	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<string>NO</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>

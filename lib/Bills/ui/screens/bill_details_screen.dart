@@ -56,9 +56,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                     BillsTable(data: widget.bill.facturaDetalleSet),
                     _billResume(),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [_billFooter(), _billCompromiso()],
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: (widget.bill.status != BillStatus.G && widget.bill.status != BillStatus.V) ? MainAxisAlignment.center : MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _billFooter(),
+                        (widget.bill.status != BillStatus.G && widget.bill.status != BillStatus.V) ? Container() : _billCompromiso()
+                      ],
                     )
                   ],
                 ),
@@ -107,33 +110,32 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                       0: FractionColumnWidth(1 / snapshot.data.length)
                     },
                     children: [
-                      TableRow(
+                      (widget.bill.status != BillStatus.G && widget.bill.status != BillStatus.V) ? getTableRowNone() : TableRow(
                           children: data
                               .map(
                                 (currency) =>
                                     _tableHead("Total en ${currency.moneda}"),
                               )
                               .toList()),
-                      TableRow(
+                      (widget.bill.status != BillStatus.G && widget.bill.status != BillStatus.V) ? getTableRowNone() : TableRow(
                         children: data
                             .map((currency) => TableCell(
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Center(
-                                      child: Text(
-                                        "${currency.simbolo} ${widget.bill.montoBase}",
-                                        style: TextStyle(
-                                          color: AppColors.ligth_blue_color,
-                                          fontSize: 14,
-                                          fontFamily: AppFonts.poppins_regular,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Center(
+                              child: Text(
+                                widget.bill.getTotal(currency.simbolo, widget.bill),
+                                style: TextStyle(
+                                  color: AppColors.ligth_blue_color,
+                                  fontSize: 14,
+                                  fontFamily: AppFonts.poppins_regular,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )).toList(),
                       ),
-                      TableRow(
+                      (widget.bill.status != BillStatus.G && widget.bill.status != BillStatus.V) ? getTableRowNone() : TableRow(
                         children: data
                             .map((currency) => TableCell(
                                   child: Container(
@@ -172,6 +174,19 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
     );
   }
 
+  TableRow getTableRowNone() {
+    return TableRow(
+      children: [
+        TableCell(
+          child: Text(''),
+        ),
+        TableCell(
+          child: Text(''),
+        )
+      ],
+    );
+  }
+
   TableCell _tableHead(title) {
     return TableCell(
       child: Container(
@@ -187,28 +202,6 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Text _totalToPayDollar(value) {
-    return Text(
-      "\$ $value",
-      style: TextStyle(
-        color: AppColors.ligth_blue_color,
-        fontSize: 14,
-        fontFamily: AppFonts.poppins_regular,
-      ),
-    );
-  }
-
-  Text _totalToPayBs(value) {
-    return Text(
-      "Bs. $value",
-      style: TextStyle(
-        color: AppColors.ligth_blue_color,
-        fontSize: 14,
-        fontFamily: AppFonts.poppins_regular,
       ),
     );
   }
