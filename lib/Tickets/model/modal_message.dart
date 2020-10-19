@@ -17,7 +17,7 @@ class ModelMessage {
   }
 
   ModelMessage.fromSnapshot(Map<dynamic, dynamic> json) {
-    customId = json['customId'];
+    customId = json['customId'].toString();
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'] ?? "";
