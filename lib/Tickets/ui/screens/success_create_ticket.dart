@@ -48,7 +48,7 @@ class _SuccessCreateTicketScreen extends State<SuccessCreateTicketScreen> {
               children: [
                 _titleView("Su ticket se ha \n creado con éxito"),
                 _simpleLabel(
-                    "Un técnico se pondrá en contacto \n con usted en un plazo de 24 horas"),
+                    "Asistencia técnica entrará en contacto \n con usted en un plazo no mayor de 24 horas"),
                 _card(context, widget.ticket, widget.blocTickets),
               ],
             ),
