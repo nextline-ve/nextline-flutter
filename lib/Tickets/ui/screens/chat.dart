@@ -49,13 +49,12 @@ class _Chat extends State<Chat> {
   String imageUrl = "";
   String imageUrlToSend = "";
   bool loadingImage = false;
-  String leftName = AppSession.data.tipoUsuario == "T" ? "Cliente" : "Técnico";
+  String leftName = AppSession.data.tipoUsuario == "T" ? AppSession.data.nombre : "Ana Karina";
   String rightName =
-      AppSession.data.tipoUsuario == "T" ? AppSession.data.nombre : "Cliente";
+      AppSession.data.tipoUsuario == "T" ? "Ana Karina": AppSession.data.nombre;
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((PickedFile pickedFile) async {
-      print(pickedFile);
       setState(() {
         imageUrl = pickedFile.path;
         loadingImage = true;
@@ -123,11 +122,6 @@ class _Chat extends State<Chat> {
                                   List modelMessage = widget.blocTickets
                                       .chats[widget.ticket.id].messages.entries
                                       .toList();
-                                  // modelMessage.sort((a, b) {
-                                  //   return DateTime.parse(a.value.date)
-                                  //       .compareTo(
-                                  //           DateTime.parse(b.value.date));
-                                  // });
                                   return ListView(
                                     controller: _scrollController,
                                     scrollDirection: Axis.vertical,
@@ -344,13 +338,13 @@ class _Chat extends State<Chat> {
       Container(
           transform: Matrix4.translationValues(0, 10, 0),
           child: isLeft
-              ? ProfileImageSelector(
+              ? SvgPicture.asset('assets/images/logo_without_text.svg',
+                  height: 50, semanticsLabel: 'Acme Logo')
+              : ProfileImageSelector(
                   withAction: false,
                   imageUrl: AppSession.data.avatar,
                   size: 50,
-                )
-              : SvgPicture.asset('assets/images/logo_without_text.svg',
-                  height: 50, semanticsLabel: 'Acme Logo')),
+                )),
       Container(
         transform: Matrix4.translationValues(isLeft ? -15 : 15, 10, 0),
         child: Icon(isLeft ? Icons.arrow_left : Icons.arrow_right,
