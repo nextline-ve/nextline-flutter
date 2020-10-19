@@ -7,6 +7,7 @@ import 'package:nextline/Technician/Assignment/model_assignment.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:uuid/uuid.dart';
 
 import '../repository_tickets.dart';
@@ -23,8 +24,6 @@ class BlocTickets implements Bloc {
       StreamController<dynamic>.broadcast();
 
   Sink<dynamic> get ticketEvents => _streamController.sink;
-  // Stream<List<Ticket>> get responseDataTickets =>
-  //     _streamController.stream.asyncMap((dynamic event) => _mapEvent(event));
 
   Future<List<Ticket>> getDataTickets() async {
     return await repository.getDataTicketsAPI();
@@ -53,7 +52,7 @@ class BlocTickets implements Bloc {
         imageUrl: imageUrl ?? "",
         message: text ?? "",
         type: imageUrl == "" ? "text" : "image",
-        customId: "customId",
+        customId: AppSession.data.idUsuario.toString(),
         date: "${now.year}-${now.month}-${now.day}");
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
@@ -91,8 +90,6 @@ class BlocTickets implements Bloc {
     database.setPersistenceEnabled(true);
     chats = new Map<int, ChatModel>();
     database.setPersistenceCacheSizeBytes(10000000);
-    // createTicketData = Ticket.fromPartial(detalle: "Detalle", asunto: 1);
-    // createTicket();
   }
 
   @override
