@@ -33,7 +33,7 @@ class FirebaseFCM {
   Future registerTokenFCM() async {
     String token = await _config();
     FormData formData = new FormData.fromMap({
-      "device_id": AppSession.data.nombre,
+      "device_id": 'Celular de ' + AppSession.data.nombre,
       "registration_id": token,
       "name": "Celular de ${AppSession.data.nombre}",
       "type": (Platform.isAndroid) ? 'android' :  'ios',

@@ -22,8 +22,9 @@ class RepositoryHome extends AppHttp {
 
   Future sendTokenFCMAPI(FormData formData) async {
     try {
-      await http.post( this.api + 'device/',
+      await http.post( this.api + 'device',
           data: formData, options: Options(headers: header));
+
     } on DioError catch (e) {
       print(e.response);
     }
