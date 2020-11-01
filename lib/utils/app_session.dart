@@ -41,6 +41,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
   int idUsuario;
   int idPlan;
   int idServicio;
+  int usuarioApp;
   bool esCliente;
 
   ModelSession(
@@ -52,7 +53,8 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
         this.idUsuario,
         this.idPlan,
         this.idServicio,
-        this.esCliente});
+        this.esCliente,
+        this.usuarioApp});
 
   ModelSession.fromJson(Map<String, dynamic> json) {
     token = json['token'];
@@ -64,6 +66,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     idPlan = json['id_plan'];
     idServicio = json['id_servicio'];
     esCliente = json['es_cliente'];
+    usuarioApp = json['usuario_app'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +80,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
     data['id_servicio'] = this.idServicio;
     data['id_plan'] = this.idPlan;
     data['es_cliente'] = this.esCliente;
+    data['usuario_app'] = this.usuarioApp;
     return data;
   }
 
@@ -85,36 +89,30 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
 
     // Remove the Dog from the Database.
     await db.delete(
-      'cliente',
-      where: "id = ?",
-      whereArgs: [1],
+      'cliente'
     );
   }
 
   @override
   Future getObject(int id) async {
     Database db = await this.database;
-    try {
-      List<Map> maps = await db.query('cliente',
-          columns: ['*'], where: "id = ?", whereArgs: [id]);
-      if (maps.length > 0) {
-        AppSession.isLoggedIn = true;
-        var data = json.decode(json.encode(maps.first));
-        if (data['es_cliente'] == 1) {
-          data['es_cliente'] = true;
-        } else {
-          data['es_cliente'] = false;
-        }
-
-        return ModelSession.fromJson(data);
+    await _createTable();
+    List<Map> maps = await db.query('cliente',
+        columns: ['*'], where: "id = ?", whereArgs: [id]);
+    if (maps.length > 0) {
+      AppSession.isLoggedIn = true;
+      var data = json.decode(json.encode(maps.first));
+      if (data['es_cliente'] == 1) {
+        data['es_cliente'] = true;
       } else {
-        return null;
+        data['es_cliente'] = false;
       }
-    } catch (e) {
-      print("==== Es un nuevo celular ===");
-      await _createTable();
+
+      return ModelSession.fromJson(data);
+    } else {
       return null;
     }
+
   }
 
   @override
@@ -137,6 +135,7 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
           "id_usuario INTEGER,"
           "id_plan INTEGER,"
           "id_servicio INTEGER,"
+          "usuario_app INTEGER,"
           "es_cliente BOOLEAN)",
     );
     return true;
