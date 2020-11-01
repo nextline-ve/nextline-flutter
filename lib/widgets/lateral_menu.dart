@@ -14,12 +14,12 @@ class LateralMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _logo(),
-          _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
-              "change-plan"),
-          _item(
-              context, "FACTURACIÓN", "assets/images/facturacion.svg", "bills"),
-          _item(context, "ASISTENCIA TÉCNICA",
-              "assets/images/asistenciatecnica.svg", "tickets"),
+          (AppSession.data.idUsuario > 0) ? _item(context, "CAMBIO DE PLAN", "assets/images/cambioplan.svg",
+              "change-plan") : Text(''),
+          (AppSession.data.idUsuario > 0) ? _item(
+              context, "FACTURACIÓN", "assets/images/facturacion.svg", "bills") : Text(''),
+          (AppSession.data.idUsuario > 0) ? _item(context, "ASISTENCIA TÉCNICA",
+              "assets/images/asistenciatecnica.svg", "tickets") : Text(''),
           _closed(context),
         ],
       ),
