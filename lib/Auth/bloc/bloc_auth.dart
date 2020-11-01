@@ -19,8 +19,7 @@ class BlocAuth implements Bloc {
     if (data.idUsuario is int) {
       await appSession.register(data);
       if (data.tipoUsuario == 'T') {
-        geolocationBackground =
-            GeolocationBackground(technicianId: data.idUsuario);
+        GeolocationBackground(technicianId: data.idUsuario);
       }
     }
     return data.idUsuario is int;
