@@ -33,7 +33,6 @@ class _AddressMap extends State<AddressMap> {
 
   void _getUserLocation() async {
     Position data = await GeolocationBackground().getCurrentLocation();
-    print(data);
     setState(() {
       _initialPosition = LatLng(data.latitude, data.longitude);
       _markers.add(Marker(
