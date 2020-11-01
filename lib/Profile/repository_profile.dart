@@ -7,7 +7,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> getDataProfileAPI() async {
     Response response;
     try {
-      response = await http.get(api + 'admon/perfil',
+      response = await http.get(api + 'admon/clientes/perfil',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
