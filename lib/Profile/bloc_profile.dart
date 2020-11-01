@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:nextline/Profile/model/model_profile.dart';
 import 'package:nextline/Technician/Profile/model_profile.dart';
+import 'package:nextline/utils/app_session.dart';
 import './repository_profile.dart';
 
 class BlocProfile implements Bloc {
@@ -13,12 +14,24 @@ class BlocProfile implements Bloc {
   ProfileModel profileData = ProfileModel();
 
   Future<ProfileModel> getDataProfile() async {
-    profileData = await repository.getDataProfileAPI();
+    if (AppSession.data.idUsuario == 0) {
+      profileData = await repository.getDataProfileFutureClientAPI();
+
+    } else {
+      profileData = await repository.getDataProfileAPI();
+    }
+
     return profileData;
   }
 
   Future<ProfileModel> patchDataProfile(Map<String, dynamic> data) async {
-    profileData = await repository.patchDataProfileAPI(data);
+    if (AppSession.data.idUsuario == 0) {
+      profileData = await repository.patchDataProfileFutureClientAPI(data);
+    } else {
+      profileData = await repository.patchDataProfileAPI(data);
+    }
+    AppSession.data.avatar = profileData.avatar;
+
     return profileData;
   }
 

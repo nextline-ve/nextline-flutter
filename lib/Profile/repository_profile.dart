@@ -19,7 +19,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> patchDataProfileAPI(Map<String, dynamic> data) async {
     Response response;
     try {
-      response = await http.patch(api + 'admon/perfil',
+      response = await http.patch(api + 'admon/clientes/perfil',
           data: data, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -52,5 +52,29 @@ class RepositoryProfile extends AppHttp {
       error.forEach((key, value) => throw (value));
     }
     return TechProfile.fromJson(response.data);
+  }
+
+  Future<ProfileModel> patchDataProfileFutureClientAPI(Map<String, dynamic> data) async {
+    Response response;
+    try {
+      response = await http.patch(api + 'admon/futuros-clientes/perfil',
+          data: data, options: Options(headers: header));
+    } on DioError catch (e) {
+      Map error = e.response.data;
+      error.forEach((key, value) => throw (value));
+    }
+    return ProfileModel.fromJson(response.data);
+  }
+
+  Future<ProfileModel> getDataProfileFutureClientAPI() async {
+    Response response;
+    try {
+      response = await http.get(api + 'admon/futuros-clientes/perfil',
+          options: Options(headers: header));
+    } on DioError catch (e) {
+      Map error = e.response.data;
+      error.forEach((key, value) => throw (value));
+    }
+    return ProfileModel.fromJson(response.data);
   }
 }
