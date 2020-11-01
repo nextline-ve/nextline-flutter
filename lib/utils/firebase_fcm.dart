@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:nextline/Home/repository_home.dart';
@@ -31,10 +33,11 @@ class FirebaseFCM {
   Future registerTokenFCM() async {
     String token = await _config();
     FormData formData = new FormData.fromMap({
-      "dev_id": AppSession.data.nombre,
-      "reg_id": token,
+      "device_id": AppSession.data.nombre,
+      "registration_id": token,
       "name": "Celular de ${AppSession.data.nombre}",
-      "usuario_aplicacion": AppSession.data.idUsuario
+      "type": (Platform.isAndroid) ? 'android' :  'ios',
+      "usuario": AppSession.data.usuarioApp
     });
     repository.sendTokenFCMAPI(formData);
   }
