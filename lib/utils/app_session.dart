@@ -96,23 +96,27 @@ class ModelSession extends DatabaseHelper implements DataBaseInterface {
   @override
   Future getObject(int id) async {
     Database db = await this.database;
-    await _createTable();
-    List<Map> maps = await db.query('cliente',
-        columns: ['*'], where: "id = ?", whereArgs: [id]);
-    if (maps.length > 0) {
-      AppSession.isLoggedIn = true;
-      var data = json.decode(json.encode(maps.first));
-      if (data['es_cliente'] == 1) {
-        data['es_cliente'] = true;
-      } else {
-        data['es_cliente'] = false;
-      }
+    try {
+      List<Map> maps = await db.query('cliente',
+          columns: ['*'], where: "id = ?", whereArgs: [id]);
+      if (maps.length > 0) {
+        AppSession.isLoggedIn = true;
+        var data = json.decode(json.encode(maps.first));
+        if (data['es_cliente'] == 1) {
+          data['es_cliente'] = true;
+        } else {
+          data['es_cliente'] = false;
+        }
 
-      return ModelSession.fromJson(data);
-    } else {
+        return ModelSession.fromJson(data);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print("==== Es un nuevo celular ===");
+      await _createTable();
       return null;
     }
-
   }
 
   @override
