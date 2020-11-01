@@ -37,12 +37,12 @@ class GeolocationBackground {
 
   GeolocationBackground({this.technicianId}) {
     channel = IOWebSocketChannel.connect(
-        'wss://nextline.jaspesoft.com/ws/tecnico/${this.technicianId}/');
+        'wss://nextline.jaspesoft.com/ws/tecnico/${this.technicianId}/'
+    );
     Workmanager.initialize(
         realTimeLocation(), // The top level function, aka callbackDispatcher
-        isInDebugMode:
-            true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-        );
+        isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+    );
   }
 
   realTimeLocation() {
