@@ -138,6 +138,10 @@ class _Chat extends State<Chat> {
           List modelMessage = widget
               .blocTickets.chats[widget.ticket.id].messages.entries
               .toList();
+          modelMessage.sort((a, b) {
+            return DateTime.parse(a.value.date)
+                .compareTo(DateTime.parse(b.value.date));
+          });
           return ListView(
             controller: _scrollController,
             scrollDirection: Axis.vertical,
@@ -150,7 +154,7 @@ class _Chat extends State<Chat> {
                     e.value.date,
                     e.value.customId == "Admin",
                     e.value.imageUrl))
-            .toList(),
+                .toList(),
           );
         });
   }

@@ -21,7 +21,21 @@ class ModelMessage {
     type = json['type'];
     message = json['message'];
     imageUrl = json['imageUrl'] ?? "";
-    date = json['date'] != null ? json['date'] : "";
+    date = json['date'] != null ? parseDate(json['date']) : "";
+  }
+
+  String parseDate(String date) {
+    List<String> dateData = date.split("/");
+    List<String> yearAndTime = dateData[2].split(" ");
+    return "${yearAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${yearAndTime[1]}:00";
+  }
+
+  String parseNumber(String numberUnparsed) {
+    int number = int.parse(numberUnparsed);
+    if (number < 10) {
+      return "0" + numberUnparsed;
+    }
+    return numberUnparsed;
   }
 
   Map<String, dynamic> toJson() {
