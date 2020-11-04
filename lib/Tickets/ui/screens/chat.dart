@@ -49,9 +49,12 @@ class _Chat extends State<Chat> {
   String imageUrl = "";
   String imageUrlToSend = "";
   bool loadingImage = false;
-  String leftName = AppSession.data.tipoUsuario == "T" ? AppSession.data.nombre : "Ana Karina";
-  String rightName =
-      AppSession.data.tipoUsuario == "T" ? "Ana Karina": AppSession.data.nombre;
+  String leftName = AppSession.data.tipoUsuario == "T"
+      ? AppSession.data.nombre
+      : "Ana Karina";
+  String rightName = AppSession.data.tipoUsuario == "T"
+      ? "Ana Karina"
+      : AppSession.data.nombre;
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((PickedFile pickedFile) async {
@@ -104,39 +107,7 @@ class _Chat extends State<Chat> {
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
-                            return StreamBuilder<Object>(
-                                stream: widget.blocTickets
-                                    .chats[widget.ticket.id].controller.stream,
-                                builder: (context, snapshot) {
-                                  Future.delayed(Duration(milliseconds: 300))
-                                      .then((value) {
-                                    _scrollController.animateTo(
-                                      _scrollController
-                                          .position.maxScrollExtent,
-                                      curve: Curves.easeOut,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                    );
-                                    return null;
-                                  });
-                                  List modelMessage = widget.blocTickets
-                                      .chats[widget.ticket.id].messages.entries
-                                      .toList();
-                                  return ListView(
-                                    controller: _scrollController,
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    children: modelMessage
-                                        .map<Widget>((e) => _message(
-                                            context,
-                                            e.value.message,
-                                            e.value.customId,
-                                            e.value.date,
-                                            e.value.customId == "Admin",
-                                            e.value.imageUrl))
-                                        .toList(),
-                                  );
-                                });
+                            return _messageChat();
                           }
                           return JLoadingScreen();
                         }),
@@ -150,6 +121,38 @@ class _Chat extends State<Chat> {
         ],
       ),
     );
+  }
+
+  Widget _messageChat() {
+    return StreamBuilder<Object>(
+        stream: widget.blocTickets.chats[widget.ticket.id].controller.stream,
+        builder: (context, snapshot) {
+          Future.delayed(Duration(milliseconds: 300)).then((value) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 300),
+            );
+            return null;
+          });
+          List modelMessage = widget
+              .blocTickets.chats[widget.ticket.id].messages.entries
+              .toList();
+          return ListView(
+            controller: _scrollController,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            children: modelMessage
+                .map<Widget>((e) => _message(
+                    context,
+                    e.value.message,
+                    e.value.customId,
+                    e.value.date,
+                    e.value.customId == "Admin",
+                    e.value.imageUrl))
+            .toList(),
+          );
+        });
   }
 
   Widget _imageBox() {

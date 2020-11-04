@@ -41,7 +41,11 @@ class BlocTickets implements Bloc {
 
   Future<ChatModel> getChat(int ticketId) async {
     DatabaseReference chatRef = _chatsRef.child(ticketId.toString());
-    DataSnapshot chatData = await chatRef.once();
+    DataSnapshot chatData = await chatRef.orderByChild('order').once();
+    DataSnapshot z = await chatRef.orderByChild('order').equalTo(1).once();
+
+    
+    
     chats[ticketId] = ChatModel(chatRef, chatData);
     return chats[ticketId];
   }
@@ -85,7 +89,6 @@ class BlocTickets implements Bloc {
   BlocTickets() {
     database = FirebaseDatabase();
     storage = FirebaseStorage();
-    print("${database.databaseURL} url");
     _chatsRef = database.reference().child('chatsCollections');
     database.setPersistenceEnabled(true);
     chats = new Map<int, ChatModel>();
@@ -110,6 +113,8 @@ class ChatModel {
   ChatModel(DatabaseReference chatRef, DataSnapshot chatData) {
     Map<String, ModelMessage> chatDataMap = Map.from(chatData.value)
         .map((key, value) => MapEntry(key, ModelMessage.fromSnapshot(value)));
+
+
     messages = chatDataMap;
     controller = StreamController<ModelMessage>.broadcast();
     onChildAdded = chatRef.onChildAdded.listen((Event event) {
