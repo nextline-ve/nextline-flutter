@@ -56,7 +56,7 @@ class BlocTickets implements Bloc {
         type: imageUrl == "" ? "text" : "image",
         customId: AppSession.data.idUsuario.toString(),
         date:
-            "${now.day.toString()}/${now.month.toString()}/${now.year.toString()} ${now.hour.toString()}:${now.minute.toString()}");
+            "${now.day < 10 ? "0" : ""}${now.day.toString()}/${now.month < 10 ? "0" : ""}${now.month.toString()}/${now.year.toString()} ${now.hour < 10 ? "0" : ""}${now.hour.toString()}:${now.minute < 10 ? "0" : ""}${now.minute.toString()}");
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
 
