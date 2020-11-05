@@ -36,7 +36,7 @@ class ModelMessage {
 
   static String parseNumber(String numberUnparsed) {
     int number = int.parse(numberUnparsed);
-    if (number < 10) {
+    if (number < 10 && numberUnparsed.length < 2) {
       return "0" + numberUnparsed;
     }
     return numberUnparsed;
