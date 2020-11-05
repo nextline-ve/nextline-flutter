@@ -151,7 +151,7 @@ class _Chat extends State<Chat> {
                     context,
                     e.value.message,
                     e.value.customId,
-                    e.value.date,
+                    ModelMessage.presentDate(e.value.date),
                     e.value.customId == "Admin",
                     e.value.imageUrl))
                 .toList(),

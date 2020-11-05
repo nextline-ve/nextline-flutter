@@ -26,16 +26,26 @@ class ModelMessage {
 
   String parseDate(String date) {
     List<String> dateData = date.split("/");
+    if (dateData.length < 2) {
+      dateData = date.split("-");
+    }
     List<String> yearAndTime = dateData[2].split(" ");
-    return "${yearAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${yearAndTime[1]}:00";
+    List<String> time = yearAndTime[1].split(":");
+    return "${yearAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${parseNumber(time[0])}:${parseNumber(time[1])}:00";
   }
 
-  String parseNumber(String numberUnparsed) {
+  static String parseNumber(String numberUnparsed) {
     int number = int.parse(numberUnparsed);
     if (number < 10) {
       return "0" + numberUnparsed;
     }
     return numberUnparsed;
+  }
+
+  static String presentDate(String date) {
+    List<String> dateData = date.split("-");
+    List<String> dayAndTime = dateData[2].split(" ");
+    return "${dayAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${dayAndTime[1].split(":00")}";
   }
 
   Map<String, dynamic> toJson() {
