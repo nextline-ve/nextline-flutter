@@ -44,8 +44,6 @@ class BlocTickets implements Bloc {
     DataSnapshot chatData = await chatRef.orderByChild('order').once();
     DataSnapshot z = await chatRef.orderByChild('order').equalTo(1).once();
 
-    
-    
     chats[ticketId] = ChatModel(chatRef, chatData);
     return chats[ticketId];
   }
@@ -57,7 +55,8 @@ class BlocTickets implements Bloc {
         message: text ?? "",
         type: imageUrl == "" ? "text" : "image",
         customId: AppSession.data.idUsuario.toString(),
-        date: "${now.day}/${now.month}/${now.year} ${now.minute}:${now.second}");
+        date:
+            "${now.day.toString()}/${now.month.toString()}/${now.year.toString()} ${now.minute.toString()}:${now.second.toString()}");
     _chatsRef.child(ticketId.toString()).push().update(message.toJson());
   }
 
@@ -113,7 +112,6 @@ class ChatModel {
   ChatModel(DatabaseReference chatRef, DataSnapshot chatData) {
     Map<String, ModelMessage> chatDataMap = Map.from(chatData.value)
         .map((key, value) => MapEntry(key, ModelMessage.fromSnapshot(value)));
-
 
     messages = chatDataMap;
     controller = StreamController<ModelMessage>.broadcast();

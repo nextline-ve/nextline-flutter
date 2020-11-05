@@ -45,7 +45,8 @@ class ModelMessage {
   static String presentDate(String date) {
     List<String> dateData = date.split("-");
     List<String> dayAndTime = dateData[2].split(" ");
-    return "${dayAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${dayAndTime[1].split(":00")}";
+    List<String> time = dayAndTime[1].split(":00");
+    return "${dayAndTime[0]}-${parseNumber(dateData[1])}-${parseNumber(dateData[0])} ${time[0]}:${time[1]}";
   }
 
   Map<String, dynamic> toJson() {
