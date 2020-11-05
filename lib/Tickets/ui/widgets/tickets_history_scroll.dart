@@ -46,8 +46,8 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                                   builder: (context) => Chat(
                                         blocTickets: widget.blocTickets,
                                         ticket: ticket,
-                                        disable: ticket.getStatusDisplay ==
-                                            "Finalizado",
+                                        disable: !(ticket.status == "P" ||
+                                            ticket.status == "C"),
                                       )))))
                       .toList(),
                 );
