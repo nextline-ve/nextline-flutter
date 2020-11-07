@@ -11,21 +11,29 @@ Future<void> showConfirmationDialog(context, yesAction, noAction,
     context: context,
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
-      return CupertinoAlertDialog(
-        title: title,
-        content: content,
-        actions: <Widget>[
-          (Platform.isAndroid)
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return (Platform.isAndroid)
+          ? AlertDialog(
+              title: title,
+              content: SingleChildScrollView(
+                child: ListBody(
                   children: [
-                      _showDialogAndroid(context, 'Sí', yesAction),
-                      _showDialogAndroid(context, 'Sí', noAction)
-                    ])
-              : _showDialogIOS(context, 'Sí', yesAction),
-          _showDialogIOS(context, 'No', noAction),
-        ],
-      );
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _showDialogAndroid(context, 'Sí', yesAction),
+                          _showDialogAndroid(context, 'No', noAction)
+                        ])
+                  ],
+                ),
+              ),
+            )
+          : CupertinoAlertDialog(
+              title: title,
+              content: content,
+              actions: <Widget>[
+                  _showDialogIOS(context, 'Sí', yesAction),
+                  _showDialogIOS(context, 'No', noAction)
+                ]);
     },
   );
 }
