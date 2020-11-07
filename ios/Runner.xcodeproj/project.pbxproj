@@ -389,7 +389,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -406,6 +406,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = nextline.jaspesoft.com;
 				PRODUCT_NAME = Nextline;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -532,7 +533,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -549,6 +550,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = nextline.jaspesoft.com;
 				PRODUCT_NAME = Nextline;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -569,7 +571,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Nextline.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2CVGCT7T72;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -586,6 +588,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = nextline.jaspesoft.com;
 				PRODUCT_NAME = Nextline;
 				PROVISIONING_PROFILE_SPECIFIER = "";
