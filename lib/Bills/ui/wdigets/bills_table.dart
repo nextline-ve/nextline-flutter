@@ -46,7 +46,7 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Cantidad",
+                  "Bs.",
                   style: TextStyle(
                       fontFamily: AppFonts.poppins_regular,
                       color: Colors.black,
@@ -59,20 +59,7 @@ class BillsTable extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Text(
-                  "Monto",
-                  style: TextStyle(
-                      fontFamily: AppFonts.poppins_regular,
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-            ),
-            TableCell(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Text(
-                  "Total",
+                  "USD",
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: AppFonts.poppins_regular,
@@ -82,13 +69,14 @@ class BillsTable extends StatelessWidget {
               ),
             ),
           ]),
-          ...data.map((e) => _billRow(e.concepto, e.monto, e.cantidad, e.total))
+
+          ...data.map((e) =>  _billRow(e.concepto, e.total, e.total_bs))
         ],
       ),
     );
   }
 
-  TableRow _billRow(description, monto, cantidad, total) {
+  TableRow _billRow(description, total, total_bs) {
     return TableRow(children: [
       TableCell(
         child: Container(
@@ -106,22 +94,9 @@ class BillsTable extends StatelessWidget {
       TableCell(
         child: Container(
           margin: EdgeInsets.all(10),
-          child: Text(
-            cantidad.toString(),
-            style: TextStyle(
-              color: AppColors.gray_text_color,
-              fontSize: 14,
-              fontFamily: AppFonts.poppins_regular,
-            ),
-          ),
-        ),
-      ),
-      TableCell(
-        child: Container(
-          margin: EdgeInsets.all(10),
           child: Center(
             child: Text(
-              monto + ' USD',
+              total + ' USD',
               style: TextStyle(
                 color: AppColors.gray_text_color,
                 fontSize: 14,
@@ -135,7 +110,7 @@ class BillsTable extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.all(10),
           child: Text(
-            total + ' USD',
+            total_bs,
             style: TextStyle(
               color: AppColors.gray_text_color,
               fontSize: 14,

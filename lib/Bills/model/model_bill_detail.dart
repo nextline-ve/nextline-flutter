@@ -1,24 +1,40 @@
 class BillDetail {
   String concepto;
-  String monto;
-  int cantidad;
   String total;
+  String total_bs;
+  String monto_bs;
+  int cantidad;
+  bool descuento;
+  double monto_concepto;
 
-  BillDetail({this.concepto, this.monto, this.cantidad, this.total});
+  BillDetail({this.concepto,
+    this.descuento,
+    this.monto_concepto,
+    this.cantidad,
+    this.monto_bs,
+    this.total,
+    this.total_bs
+  });
 
   BillDetail.fromJson(Map<String, dynamic> json) {
-    concepto = json['concepto']['descripcion'];
-    monto = json['monto'];
+    concepto = json['concepto'];
+    monto_bs = json['monto_bs'];
     cantidad = json['cantidad'];
+    descuento = json['descuento'];
+    monto_concepto = json['monto_concepto'];
+    total_bs = json['total_bs'];
     total = json['total'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['concepto'] = this.concepto;
-    data['monto'] = this.monto;
-    data['cantidad'] = this.cantidad;
     data['total'] = this.total;
+    data['total_bs'] = this.total_bs;
+    data['monto_bs'] = this.monto_bs;
+    data['cantidad'] = this.cantidad;
+    data['descuento'] = this.descuento;
+    data['monto_concepto'] = this.monto_concepto;
     return data;
   }
 }
