@@ -46,15 +46,13 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>La geolocalización es necesario para conocer la ubicación del personal técnico durante la jornada laboral.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>La geolocalización es necesaria para saber dónde se realiza la instalación del servicio de internet.</string>
+	<string>La geolocalización es necesaria para saber dónde se realizará la instalación del servicio de internet.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Se necesita para tomar su foto de perfil</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Se necesita para poder obtener su foto de perfil</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>fetch</string>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
