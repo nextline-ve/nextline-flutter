@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:nextline/Technician/Assignment/model_assignment.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_http.dart';
@@ -68,16 +67,4 @@ class RepositoryTickets extends AppHttp {
     return Ticket.fromJson(response.data);
   }
 
-  Future finishAssignmentAPI(Assignment assignment) async {
-    Response response;
-    try {
-      FormData formData = assignment.toFormData();
-      response = await http.post('${api}support/ejecutar-ticket/',
-          data: formData, options: Options(headers: header));
-    } on DioError catch (e) {
-      Map error = e.response.data;
-      error.forEach((key, value) => throw (value));
-    }
-    return Assignment.fromJson(response.data);
-  }
 }

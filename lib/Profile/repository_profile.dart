@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:nextline/Profile/model/model_profile.dart';
-import 'package:nextline/Technician/Profile/model_profile.dart';
 import 'package:nextline/utils/app_http.dart';
 
 class RepositoryProfile extends AppHttp {
@@ -40,18 +39,6 @@ class RepositoryProfile extends AppHttp {
       error.forEach((key, value) => throw (value));
     }
     return response.data;
-  }
-
-  Future<TechProfile> getTechProfileAPI() async {
-    Response response;
-    try {
-      response = await http.get(api + 'support/perfil/',
-          options: Options(headers: header));
-    } on DioError catch (e) {
-      Map error = e.response.data;
-      error.forEach((key, value) => throw (value));
-    }
-    return TechProfile.fromJson(response.data);
   }
 
   Future<ProfileModel> patchDataProfileFutureClientAPI(Map<String, dynamic> data) async {

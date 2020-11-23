@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:nextline/Technician/Assignment/model_assignment.dart';
 import 'package:nextline/Tickets/model/modal_message.dart';
 import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
@@ -79,10 +78,6 @@ class BlocTickets implements Bloc {
 
   Future<Ticket> getDetailsAssignedTickets(id) async {
     return await repository.getDetailsAssignedTicketsAPI(id);
-  }
-
-  Future finishAssignment(Assignment assignment) async {
-    return await repository.finishAssignmentAPI(assignment);
   }
 
   BlocTickets() {
