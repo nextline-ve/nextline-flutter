@@ -16,6 +16,7 @@ import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/jtext_field.dart';
 import 'package:nextline/widgets/line.dart';
 import 'package:nextline/widgets/upload_image_modal.dart';
+import 'package:intl/intl.dart';
 
 class FormDeclarePayment extends StatefulWidget {
   final picker = ImagePicker();
@@ -37,6 +38,29 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
   String _nroReferencia = "";
   String _fecha = "";
   String _monto = "";
+  DateTime selectedDate;
+  bool isShowDatePicker = true;
+  final dateController = TextEditingController();
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+    dateController.text = formatter.format(selectedDate);
+  }
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
+  }
+
+  void setDateInput(DateTime date) {
+    setState(() {
+      dateController.text = formatter.format(date);
+    });
+  }
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((pickedFile) => setState(() {
@@ -175,14 +199,7 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
           margin: EdgeInsets.symmetric(vertical: 20),
           child: Padding(
             padding: EdgeInsets.only(left: 24, right: 24),
-            child: JTextField(
-              top: 0.0,
-              label: "FECHA",
-              isPass: false,
-              inputType: TextInputType.text,
-              borderColor: AppColors.blue,
-              onKeyValue: (value) => _fecha = value,
-            ),
+            child: _inputDatePayment(),
           ),
         ),
         Container(
@@ -269,5 +286,35 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
         _nroReferencia != "" &&
         _fecha != "" &&
         _monto != "";
+  }
+
+  void _showDatePicker() async {
+    final date = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100),
+        locale: Locale.fromSubtags(languageCode: "en"),
+        helpText: "Selecciona una fecha",
+        cancelText: "Cancelar",
+        confirmText: "Confirmar",
+        fieldHintText: "Intruzca una fecha");
+
+    if (date != null && date != selectedDate) {
+      setDateInput(date);
+    }
+  }
+
+  Widget _inputDatePayment() {
+    return JTextField(
+      top: 0.0,
+      controller: dateController,
+      label: "FECHA",
+      isPass: false,
+      inputType: TextInputType.text,
+      borderColor: AppColors.blue,
+      onKeyValue: (value) => _fecha = value,
+      onTap: () => _showDatePicker(),
+    );
   }
 }

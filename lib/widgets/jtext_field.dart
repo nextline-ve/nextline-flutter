@@ -18,6 +18,8 @@ class JTextField extends StatefulWidget {
   final bool disable;
   final int minLines;
   final int maxLength;
+  final GestureTapCallback onTap;
+  final TextEditingController controller;
 
   const JTextField(
       {Key key,
@@ -34,7 +36,9 @@ class JTextField extends StatefulWidget {
       this.minLines,
       this.maxLength,
       this.disable = false,
-      this.initialValue})
+      this.initialValue,
+      this.onTap,
+      this.controller})
       : super(key: key);
 
   @override
@@ -49,6 +53,7 @@ class _JTextField extends State<JTextField> {
     return Container(
       margin: EdgeInsets.only(top: (widget.top == null) ? 20 : widget.top),
       child: TextFormField(
+        controller: widget.controller,
         maxLength: widget.maxLength,
         readOnly: widget.disable,
         initialValue: widget.initialValue,
@@ -86,6 +91,7 @@ class _JTextField extends State<JTextField> {
               borderRadius: BorderRadius.all(Radius.circular(25.0)),
               borderSide: BorderSide(color: Colors.red, width: 2.5),
             )),
+        onTap: widget.onTap,
       ),
     );
   }

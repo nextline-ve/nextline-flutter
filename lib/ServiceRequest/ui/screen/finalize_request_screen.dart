@@ -47,8 +47,6 @@ class _FinalizeRequestScreen extends State<FinalizeRequestScreen> {
     
 
     setState(() {
-      print(dataAux);
-      print("angel");
       _requestData = dataAux;
     });
 
