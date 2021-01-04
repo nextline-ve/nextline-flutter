@@ -7,7 +7,7 @@ import 'app_fonts.dart';
 
 abstract class AppHttp {
   Dio http = Dio();
-  String api = 'https://nextline.jaspesoft.com/api/v1/';
+  String api = 'https://panel.nextline.com.ve/api/v1/';
   Map<String, dynamic> header = {
     HttpHeaders.authorizationHeader:
         "Token ${(AppSession.data != null) ? AppSession.data.token : ''}"
