@@ -91,7 +91,7 @@ class _HomeScreen extends State<HomeScreen> {
                             : HStatusRecipe(
                                 precioBs: data['plan']['precio_bs'],
                                 precioUsb: data['plan']['precio'],
-                                diaCorte: data['dia_corte'],
+                                fechaCobro: data['fecha_cobro'],
                               ),
                       ],
                     );
