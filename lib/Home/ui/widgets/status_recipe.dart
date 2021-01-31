@@ -4,13 +4,14 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_utils.dart';
 import '../../../widgets/line.dart';
+import 'package:date_format/date_format.dart';
 
 class HStatusRecipe extends StatefulWidget {
   final String precioBs;
   final String precioUsb;
-  final String diaCorte;
+  final String fechaCobro;
 
-  HStatusRecipe({Key key, this.precioBs, this.precioUsb, this.diaCorte})
+  HStatusRecipe({Key key, this.precioBs, this.precioUsb, this.fechaCobro})
       : super(key: key);
 
   @override
@@ -46,7 +47,7 @@ class _HStatusRecipeState extends State<HStatusRecipe> {
               Expanded(
                   child: Center(
                       child:
-                          _lastRecipeDate(_getNextPaycheck(widget.diaCorte))))
+                          _lastRecipeDate(_convertDateFromString(widget.fechaCobro))))
             ],
           ),
           VerticalLine(
@@ -78,8 +79,8 @@ Widget _label(String text) {
   );
 }
 
-Widget _lastRecipeDate(DateTime date) {
-  return Text(AppUtils.formatDate(date.toString()),
+Widget _lastRecipeDate(String date) {
+  return Text(date,
       style: TextStyle(
           color: AppColors.blue_dark,
           fontFamily: AppFonts.poppins_regular,
@@ -97,9 +98,8 @@ Widget _currencyText(String text, double fontSize, double spacing) {
   );
 }
 
-DateTime _getNextPaycheck(current) {
-  DateTime now = DateTime.now();
-  int currentDay = int.parse(current);
-  return new DateTime(
-      now.year, now.day <= currentDay ? now.month : now.month + 1, currentDay);
+
+String _convertDateFromString(String strDate){
+  DateTime todayDate = DateTime.parse(strDate);
+  return formatDate(todayDate, [dd, '/', mm, '/', yyyy]);
 }
