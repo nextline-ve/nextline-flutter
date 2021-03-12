@@ -39,12 +39,12 @@ class _Plans extends State<Plans> {
         Navigator.pushNamed(context, widget.pushUrl);
       },
       child: Container(
-        margin: EdgeInsets.only(top: 50, left: 20),
+        margin: EdgeInsets.only(top: 70, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 272,
+              width: 280,
               padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.0),
@@ -85,7 +85,7 @@ class _Plans extends State<Plans> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontFamily: "fontSubTitle",
                             ),
                           ),
@@ -109,7 +109,7 @@ class _Plans extends State<Plans> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 13,
                               fontFamily: "fontSubTitle",
                             ),
                           ),

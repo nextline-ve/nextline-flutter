@@ -24,7 +24,7 @@ dependencies:
   date_format: ^1.0.9
   basic_utils: ^2.6.0
   flutter_launcher_icons: ^0.7.5
-  flutter_svg: ^0.19.3
+  flutter_svg: ^0.18.0
   generic_bloc_provider: ^1.0.9
   firebase_messaging: ^7.0.0
   firebase_database: ^4.0.0
