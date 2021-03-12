@@ -85,7 +85,7 @@ class _Plans extends State<Plans> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 14,
                               fontFamily: "fontSubTitle",
                             ),
                           ),
@@ -109,7 +109,7 @@ class _Plans extends State<Plans> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 13,
+                              fontSize: 11,
                               fontFamily: "fontSubTitle",
                             ),
                           ),

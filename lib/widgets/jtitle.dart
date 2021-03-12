@@ -14,7 +14,7 @@ class JTitle extends StatelessWidget {
       style: TextStyle(
         fontFamily: font,
         color: (color == null) ? Colors.white : color,
-        fontSize: 40,
+        fontSize: 37,
       ),
     );
   }
