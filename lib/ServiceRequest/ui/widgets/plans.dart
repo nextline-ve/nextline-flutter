@@ -63,7 +63,7 @@ class _Plans extends State<Plans> {
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 20),
-                      child: Text("PRECIO MESUAL",
+                      child: Text("PRECIO MENSUAL",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: "fontLight",
