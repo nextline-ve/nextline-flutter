@@ -8,7 +8,7 @@ import 'package:nextline/Tickets/model/model_issue_type.dart';
 import 'package:nextline/Tickets/model/model_ticket.dart';
 import 'package:nextline/utils/app_session.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import '../repository_tickets.dart';
 
 class BlocTickets implements Bloc {
@@ -39,7 +39,8 @@ class BlocTickets implements Bloc {
   }
 
   Future<ChatModel> getChat(int ticketId) async {
-    DatabaseReference chatRef = _chatsRef.child(ticketId.toString());
+    await DotEnv.load();
+    DatabaseReference chatRef = _chatsRef.child(ticketId.toString() + ' - ' + DotEnv.env['ENV']);
     DataSnapshot chatData = await chatRef.orderByChild('order').once();
     DataSnapshot z = await chatRef.orderByChild('order').equalTo(1).once();
 
@@ -47,7 +48,7 @@ class BlocTickets implements Bloc {
     return chats[ticketId];
   }
 
-  void sendMessage(String text, String imageUrl, int ticketId) {
+  void sendMessage(String text, String imageUrl, int ticketId) async {
     final now = DateTime.now();
     ModelMessage message = ModelMessage(
         imageUrl: imageUrl ?? "",
@@ -56,7 +57,10 @@ class BlocTickets implements Bloc {
         customId: AppSession.data.idUsuario.toString(),
         date:
             "${now.day < 10 ? "0" : ""}${now.day.toString()}/${now.month < 10 ? "0" : ""}${now.month.toString()}/${now.year.toString()} ${now.hour < 10 ? "0" : ""}${now.hour.toString()}:${now.minute < 10 ? "0" : ""}${now.minute.toString()}");
-    _chatsRef.child(ticketId.toString()).push().update(message.toJson());
+
+    await DotEnv.load();
+
+    _chatsRef.child(ticketId.toString() + ' - ' + DotEnv.env['ENV']).push().update(message.toJson());
   }
 
   Future<StorageTaskSnapshot> uploadImage(File image) {

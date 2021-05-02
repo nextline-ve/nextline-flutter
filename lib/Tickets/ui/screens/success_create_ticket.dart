@@ -8,6 +8,7 @@ import 'package:nextline/utils/app_fonts.dart';
 import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
+import 'package:nextline/widgets/navigator_bar.dart';
 
 class SuccessCreateTicketScreen extends StatefulWidget {
   final bool isClient = true;
@@ -55,6 +56,7 @@ class _SuccessCreateTicketScreen extends State<SuccessCreateTicketScreen> {
           )
         ],
       ),
+      bottomNavigationBar: NavigatorBar(index: 0),
       endDrawer: LateralMenu(),
     );
   }
