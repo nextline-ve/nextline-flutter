@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_session.dart';
 import 'app_colors.dart';
 import 'app_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 abstract class AppHttp {
   Dio http = Dio();
@@ -12,6 +13,11 @@ abstract class AppHttp {
     HttpHeaders.authorizationHeader:
         "Token ${(AppSession.data != null) ? AppSession.data.token : ''}"
   };
+
+  Future<String> getUurlAapi() async {
+    await DotEnv.load();
+    return DotEnv.env['API_SERVER'];
+  }
 
   static requestIndicator(context) {
     Scaffold.of(context).showSnackBar(SnackBar(

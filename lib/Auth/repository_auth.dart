@@ -9,7 +9,7 @@ class RepositoryAuth extends AppHttp {
     Response resp;
     try {
       FormData formData = new FormData.fromMap(dataLogin);
-      resp = await http.post(api + 'config/auth/', data: formData);
+      resp = await http.post(await this.getUurlAapi() + 'config/auth/', data: formData);
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {
@@ -23,7 +23,7 @@ class RepositoryAuth extends AppHttp {
     Response resp;
     try {
       FormData formData = new FormData.fromMap(data);
-      resp = await http.post(api + 'config/restaurar-clave/', data: formData);
+      resp = await http.post(await this.getUurlAapi() + 'config/restaurar-clave/', data: formData);
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
       error.forEach((key, value) {

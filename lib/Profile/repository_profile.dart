@@ -6,7 +6,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> getDataProfileAPI() async {
     Response response;
     try {
-      response = await http.get(api + 'admon/clientes/perfil',
+      response = await http.get(await this.getUurlAapi() + 'admon/clientes/perfil',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -18,7 +18,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> patchDataProfileAPI(Map<String, dynamic> data) async {
     Response response;
     try {
-      response = await http.patch(api + 'admon/clientes/perfil',
+      response = await http.patch(await this.getUurlAapi() + 'admon/clientes/perfil',
           data: data, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -31,7 +31,7 @@ class RepositoryProfile extends AppHttp {
       String oldPassword, String newPassword) async {
     Response response;
     try {
-      response = await http.post(api + 'admon/cambiar-clave/',
+      response = await http.post(await this.getUurlAapi() + 'admon/cambiar-clave/',
           data: {"old_clave": oldPassword, "clave": newPassword},
           options: Options(headers: header));
     } on DioError catch (e) {
@@ -44,7 +44,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> patchDataProfileFutureClientAPI(Map<String, dynamic> data) async {
     Response response;
     try {
-      response = await http.patch(api + 'admon/futuros-clientes/perfil',
+      response = await http.patch(await this.getUurlAapi() + 'admon/futuros-clientes/perfil',
           data: data, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -56,7 +56,7 @@ class RepositoryProfile extends AppHttp {
   Future<ProfileModel> getDataProfileFutureClientAPI() async {
     Response response;
     try {
-      response = await http.get(api + 'admon/futuros-clientes/perfil',
+      response = await http.get(await this.getUurlAapi() + 'admon/futuros-clientes/perfil',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
