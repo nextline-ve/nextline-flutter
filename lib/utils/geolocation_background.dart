@@ -24,7 +24,7 @@ class GeolocationBackground {
       return {
         "latitude": 0,
         "longitude": 0,
-        "address": "error podria escribir su dirección por favor."
+        "address": "error podría escribir su dirección por favor."
       };
     }
   }
