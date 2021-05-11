@@ -18,12 +18,12 @@ class BillDetail {
 
   BillDetail.fromJson(Map<String, dynamic> json) {
     concepto = json['concepto'];
-    monto_bs = json['monto_bs'];
+    monto_bs = 'Bs. ' + json['monto_bs'].toString();
     cantidad = json['cantidad'];
     descuento = json['descuento'];
     monto_concepto = json['monto_concepto'];
-    total_bs = json['total_bs'];
-    total = json['total'];
+    total_bs = 'Bs. ' + json['total_bs'].toString();
+    total = json['total'].toString();
   }
 
   Map<String, dynamic> toJson() {

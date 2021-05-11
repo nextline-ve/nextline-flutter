@@ -151,13 +151,15 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                                         onTab: () => Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DeclarePaymentScreen(
-                                                      blocBills:
-                                                          widget.blocBills,
-                                                      currency: currency,
-                                                    ))),
-                                        background: Colors.white,
+                                                      builder: (context) =>
+                                                          DeclarePaymentScreen(
+                                                              blocBills: widget
+                                                                  .blocBills,
+                                                              currency:
+                                                                  currency,
+                                                              invoiceId: widget
+                                                                  .bill.id))),
+                                              background: Colors.white,
                                       ),
                                     ),
                                   ),

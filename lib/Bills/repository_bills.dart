@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:nextline/Bills/model/model_bank.dart';
 import 'package:nextline/Bills/model/model_bill.dart';
@@ -12,6 +14,7 @@ class RepositoryBills extends AppHttp {
       response = await http.get("${await this.getUurlAapi()}admon/factura/",
           options: Options(headers: header));
     } on DioError catch (e) {
+      print('errr');
       Map error = e.response.data;
       error.forEach((key, value) => throw (value));
     }
@@ -65,5 +68,26 @@ class RepositoryBills extends AppHttp {
     }
     final parsed = response.data['results'].cast<Map<String, dynamic>>();
     return parsed.map<BankModel>((json) => BankModel.fromJson(json)).toList();
+  }
+
+  Future<bool> savePaymentStatement(
+      int invoiceId, Map<String, dynamic> data) async {
+    try {
+      // FormData formData = new FormData.fromMap(data);
+      await http.post(
+          await this.getUurlAapi() +
+              'admon/factura/${invoiceId.toString()}/declarar-pago/',
+          data: data,
+          options: Options(headers: header)
+      );
+      return true;
+    } on DioError catch (e) {
+      print(e.response.data);
+      Map error = jsonDecode(jsonEncode(e.response.data));
+      error.forEach((key, value) {
+        throw (value);
+      });
+      return false;
+    }
   }
 }

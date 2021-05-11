@@ -14,7 +14,8 @@ class BlocBills implements Bloc {
       StreamController<dynamic>.broadcast();
 
   Future<List<Bill>> getDataBills() async {
-    return await repository.getDataBillsAPI();
+    List<Bill> data = await repository.getDataBillsAPI();
+    return data;
   }
 
   Future<List<BankModel>> getDataBanks() async {

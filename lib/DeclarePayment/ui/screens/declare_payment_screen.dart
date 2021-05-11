@@ -9,9 +9,13 @@ import 'package:nextline/widgets/lateral_menu.dart';
 class DeclarePaymentScreen extends StatefulWidget {
   final BlocBills blocBills;
   final CurrencyModel currency;
+  final int invoiceId;
 
   DeclarePaymentScreen(
-      {Key key, @required this.blocBills, @required this.currency})
+      {Key key,
+      @required this.blocBills,
+      @required this.currency,
+      @required this.invoiceId})
       : super(key: key);
 
   @override
@@ -35,7 +39,10 @@ class _DeclarePaymentScreenState extends State<DeclarePaymentScreen> {
         alignment: Alignment.center,
         children: [
           FormDeclarePayment(
-              blocBills: widget.blocBills, currency: widget.currency)
+            blocBills: widget.blocBills,
+            currency: widget.currency,
+            invoiceId: widget.invoiceId,
+          )
         ],
       ),
       endDrawer: LateralMenu(),

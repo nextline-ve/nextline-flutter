@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nextline/utils/app_colors.dart';
 
 typedef StringValue = String Function(String);
@@ -20,6 +21,7 @@ class JTextField extends StatefulWidget {
   final int maxLength;
   final GestureTapCallback onTap;
   final TextEditingController controller;
+  final List<TextInputFormatter> inputFormatters;
 
   const JTextField(
       {Key key,
@@ -38,7 +40,9 @@ class JTextField extends StatefulWidget {
       this.disable = false,
       this.initialValue,
       this.onTap,
-      this.controller})
+      this.controller,
+      this.inputFormatters
+      })
       : super(key: key);
 
   @override
@@ -60,6 +64,7 @@ class _JTextField extends State<JTextField> {
         autofocus: false,
         obscureText: widget.isPass,
         keyboardType: widget.inputType,
+        inputFormatters: widget.inputFormatters,
         maxLines: (widget.inputType == TextInputType.multiline) ? null : 1,
         validator: widget.onValidator,
         onSaved: widget.onKeyValue,

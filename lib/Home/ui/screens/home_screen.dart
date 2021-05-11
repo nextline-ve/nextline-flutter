@@ -89,8 +89,8 @@ class _HomeScreen extends State<HomeScreen> {
                         !AppSession.data.esCliente
                             ? HStatusService(status: data["get_status_display"])
                             : HStatusRecipe(
-                                precioBs: data['plan']['precio_bs'],
-                                precioUsb: data['plan']['precio'],
+                                precioBs: data['plan']['precio_bs'].toString(),
+                                precioUsb: data['plan']['precio'].toString(),
                                 fechaCobro: data['fecha_cobro'],
                               ),
                       ],

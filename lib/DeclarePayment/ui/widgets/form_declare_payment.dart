@@ -1,6 +1,7 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nextline/Bills/bloc/bloc_bills.dart';
 import 'package:nextline/Bills/model/model_bank.dart';
@@ -22,9 +23,13 @@ class FormDeclarePayment extends StatefulWidget {
   final picker = ImagePicker();
   final BlocBills blocBills;
   final CurrencyModel currency;
+  final int invoiceId;
 
   FormDeclarePayment(
-      {Key key, @required this.blocBills, @required this.currency})
+      {Key key,
+      @required this.blocBills,
+      @required this.currency,
+      @required this.invoiceId})
       : super(key: key);
 
   @override
@@ -35,6 +40,7 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
   List<BankModel> banks = [];
   int selectedBank;
   File imageFile;
+  String imageFileToBase64;
   String _nroReferencia = "";
   String _fecha = "";
   String _monto = "";
@@ -42,12 +48,14 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
   bool isShowDatePicker = true;
   final dateController = TextEditingController();
   final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat format = DateFormat('yyyy-MM-dd');
 
   @override
   void initState() {
     super.initState();
     selectedDate = DateTime.now();
     dateController.text = formatter.format(selectedDate);
+    _fecha = format.format(selectedDate);
   }
 
   @override
@@ -59,12 +67,14 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
   void setDateInput(DateTime date) {
     setState(() {
       dateController.text = formatter.format(date);
+      _fecha = format.format(date);
     });
   }
 
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((pickedFile) => setState(() {
           imageFile = File(pickedFile.path);
+          imageFileToBase64 = base64Encode(imageFile.readAsBytesSync());
         }));
   }
 
@@ -151,10 +161,7 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
                         onTab: () {
                           if (_isValid()) {
                             AppHttp.requestIndicator(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BillSent()));
+                            sendPayment();
                           } else
                             Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text(
@@ -210,8 +217,11 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
               top: 0.0,
               label: "MONTO QUE PAGO",
               isPass: false,
-              inputType: TextInputType.text,
+              inputType: TextInputType.numberWithOptions(decimal: true),
               borderColor: AppColors.blue,
+              inputFormatters: [
+                WhitelistingTextInputFormatter(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
               onKeyValue: (value) => _monto = value,
             ),
           ),
@@ -316,5 +326,27 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
       onKeyValue: (value) => _fecha = value,
       onTap: () => _showDatePicker(),
     );
+  }
+
+  void sendPayment() async {
+
+    bool isSave = await widget.blocBills.repository
+        .savePaymentStatement(widget.invoiceId, {
+      'banco': selectedBank,
+      'numero_referencia': _nroReferencia,
+      'fecha_transferencia': _fecha,
+      'monto_transferencia': _monto,
+      'comprobante_pago': imageFileToBase64
+    });
+
+    if (isSave) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BillSent()));
+    } else {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'No fue posible registrar su pago, intente nuevamente. Si el '
+              'problema persiste informanos vía chat. ')));
+    }
   }
 }

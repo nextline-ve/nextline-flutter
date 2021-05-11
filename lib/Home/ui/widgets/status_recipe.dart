@@ -100,6 +100,9 @@ Widget _currencyText(String text, double fontSize, double spacing) {
 
 
 String _convertDateFromString(String strDate){
+  if (strDate == null) {
+   return '';
+  }
   DateTime todayDate = DateTime.parse(strDate);
   return formatDate(todayDate, [dd, '/', mm, '/', yyyy]);
 }

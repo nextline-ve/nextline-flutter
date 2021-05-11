@@ -70,7 +70,6 @@ class Bill {
     facturaDetalleSet = json['factuaradetalle_set']
         .map<BillDetail>((json) => BillDetail.fromJson(json))
         .toList();
-
     montoIvaBs = json['monto_iva_bs'];
     montoAlicuotaBs = json['monto_alicuota_bs'];
     montoDescuentoBs = json['monto_descuento_bs'];
