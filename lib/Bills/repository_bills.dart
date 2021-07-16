@@ -11,7 +11,7 @@ class RepositoryBills extends AppHttp {
   Future<List<Bill>> getDataBillsAPI() async {
     Response response;
     try {
-      response = await http.get("${await this.getUurlAapi()}admon/factura/",
+      response = await http.get("${await AppHttp.getUurlAapi()}admon/factura/",
           options: Options(headers: header));
     } on DioError catch (e) {
       print('errr');
@@ -30,7 +30,7 @@ class RepositoryBills extends AppHttp {
   Future<List<CurrencyModel>> getDataCurrenciesAPI() async {
     Response response;
     try {
-      response = await http.get("${await this.getUurlAapi()}config/monedas/",
+      response = await http.get("${await AppHttp.getUurlAapi()}config/monedas/",
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -45,7 +45,7 @@ class RepositoryBills extends AppHttp {
   Future<List<CompanyModel>> getDataCompaniesAPI() async {
     Response response;
     try {
-      response = await http.get("${await this.getUurlAapi()}config/empresa/",
+      response = await http.get("${await AppHttp.getUurlAapi()}config/empresa/",
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -60,7 +60,7 @@ class RepositoryBills extends AppHttp {
   Future<List<BankModel>> getDataBanksAPI() async {
     Response response;
     try {
-      response = await http.get("${await this.getUurlAapi()}config/bancos/",
+      response = await http.get("${await AppHttp.getUurlAapi()}config/bancos/",
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -75,7 +75,7 @@ class RepositoryBills extends AppHttp {
     try {
       // FormData formData = new FormData.fromMap(data);
       await http.post(
-          await this.getUurlAapi() +
+          await AppHttp.getUurlAapi() +
               'admon/factura/${invoiceId.toString()}/declarar-pago/',
           data: data,
           options: Options(headers: header)

@@ -8,6 +8,7 @@ import 'package:nextline/Bills/ui/wdigets/item_detail_header.dart';
 import 'package:nextline/DeclarePayment/ui/screens/declare_payment_screen.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/utils/app_utils.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
@@ -280,7 +281,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
 
   void _downloadBillAction() async {
     var url =
-        'https://nextline.jaspesoft.com/api/v1/admon/factura/pdf/${widget.bill.id}/';
+        '${await AppHttp.getUurlAapi()}admon/factura/pdf/${widget.bill.id}/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {

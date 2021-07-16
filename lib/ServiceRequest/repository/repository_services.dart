@@ -19,13 +19,13 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<List<ModelServices>> getListServicesAPI() async {
-    Response resp = await http.get(await this.getUurlAapi() + 'config/tipo-servicios/');
+    Response resp = await http.get(await AppHttp.getUurlAapi() + 'config/tipo-servicios/');
     return parseService(resp.data['results']);
   }
 
   Future<List<ModelPlans>> getListPlansAPI(int serviceId) async {
     try {
-      Response resp = await http.get(await this.getUurlAapi() + 'config/planes/',
+      Response resp = await http.get(await AppHttp.getUurlAapi() + 'config/planes/',
           queryParameters: {'tipo_servicio__id': serviceId});
 
       return parsePlan(resp.data['results']);
@@ -42,7 +42,7 @@ class RepositoryServices extends AppHttp {
     Response resp;
     try {
       FormData formData = new FormData.fromMap(dataRequestService);
-      resp = await http.post(await this.getUurlAapi() + 'admon/service-request', data: formData);
+      resp = await http.post(await AppHttp.getUurlAapi() + 'admon/service-request', data: formData);
       return resp.data['message'];
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));
@@ -53,7 +53,7 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<ModelPlans> getDataPlanAPI(int planId) async {
-    Response resp = await http.get(await this.getUurlAapi() + 'config/planes/$planId');
+    Response resp = await http.get(await AppHttp.getUurlAapi() + 'config/planes/$planId');
     return ModelPlans.fromJson(resp.data);
   }
 
@@ -62,7 +62,7 @@ class RepositoryServices extends AppHttp {
     try {
       FormData formData =
           new FormData.fromMap({'plan_id': planId, 'asunto': 4});
-      resp = await http.post(await this.getUurlAapi() + 'support/cambiar-plan/',
+      resp = await http.post(await AppHttp.getUurlAapi() + 'support/cambiar-plan/',
           data: formData, options: Options(headers: header));
     } on DioError catch (e) {
       Map error = jsonDecode(jsonEncode(e.response.data));

@@ -14,7 +14,7 @@ abstract class AppHttp {
         "Token ${(AppSession.data != null) ? AppSession.data.token : ''}"
   };
 
-  Future<String> getUurlAapi() async {
+  static Future<String> getUurlAapi() async {
     await DotEnv.load();
     return DotEnv.env['API_SERVER'];
   }

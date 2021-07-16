@@ -8,7 +8,7 @@ class RepositoryHome extends AppHttp {
     Response response;
     try {
       response =
-          await http.get(await this.getUurlAapi() + urlEndpoint, options: Options(headers: header));
+          await http.get(await AppHttp.getUurlAapi() + urlEndpoint, options: Options(headers: header));
       if (urlEndpoint == 'admon/solicitud-status')
         return response.data;
       else
@@ -22,7 +22,7 @@ class RepositoryHome extends AppHttp {
 
   Future sendTokenFCMAPI(FormData formData) async {
     try {
-      await http.post( await this.getUurlAapi() + 'device',
+      await http.post( await AppHttp.getUurlAapi() + 'device',
           data: formData, options: Options(headers: header));
 
     } on DioError catch (e) {

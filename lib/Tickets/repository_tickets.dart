@@ -7,7 +7,7 @@ class RepositoryTickets extends AppHttp {
   Future<List<Ticket>> getDataTicketsAPI() async {
     Response response;
     try {
-      response = await http.get('${await this.getUurlAapi()}support/tickets/',
+      response = await http.get('${await AppHttp.getUurlAapi()}support/tickets/',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -21,7 +21,7 @@ class RepositoryTickets extends AppHttp {
     Response response;
     try {
       FormData formData = dataTicket.toFormData();
-      response = await http.post('${await this.getUurlAapi()}support/tickets/',
+      response = await http.post('${await AppHttp.getUurlAapi()}support/tickets/',
           data: formData, options: Options(headers: header));
     } on DioError catch (e) {
       print(e.response);
@@ -32,7 +32,7 @@ class RepositoryTickets extends AppHttp {
   Future<List<IssueType>> getIssueTypeAPI() async {
     Response response;
     try {
-      response = await http.get('${await this.getUurlAapi()}support/tickets/categoria-fallas/',
+      response = await http.get('${await AppHttp.getUurlAapi()}support/tickets/categoria-fallas/',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -45,7 +45,7 @@ class RepositoryTickets extends AppHttp {
   Future<List<Ticket>> getAssignedTicketsAPI() async {
     Response response;
     try {
-      response = await http.get('${await this.getUurlAapi()}support/tickets-asignados/',
+      response = await http.get('${await AppHttp.getUurlAapi()}support/tickets-asignados/',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
@@ -58,7 +58,7 @@ class RepositoryTickets extends AppHttp {
   Future<Ticket> getDetailsAssignedTicketsAPI(id) async {
     Response response;
     try {
-      response = await http.get('${await this.getUurlAapi()}support/tickets-asignados/$id',
+      response = await http.get('${await AppHttp.getUurlAapi()}support/tickets-asignados/$id',
           options: Options(headers: header));
     } on DioError catch (e) {
       Map error = e.response.data;
