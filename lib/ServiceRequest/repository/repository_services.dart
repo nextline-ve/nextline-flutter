@@ -19,7 +19,8 @@ class RepositoryServices extends AppHttp {
   }
 
   Future<List<ModelServices>> getListServicesAPI() async {
-    Response resp = await http.get(await AppHttp.getUurlAapi() + 'config/tipo-servicios/');
+    String urlEndPoint = await AppHttp.getUurlAapi() + 'config/tipo-servicios/';
+    Response resp = await http.get(urlEndPoint);
     return parseService(resp.data['results']);
   }
 

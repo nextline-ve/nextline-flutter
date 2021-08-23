@@ -1,46 +1,46 @@
 {
   "project_info": {
-    "project_number": "924710173144",
-    "firebase_url": "https://nextline-ve.firebaseio.com",
-    "project_id": "nextline-ve",
-    "storage_bucket": "nextline-ve.appspot.com"
+    "project_number": "618619403342",
+    "firebase_url": "https://nextline-ve-fccaa-default-rtdb.firebaseio.com",
+    "project_id": "nextline-ve-fccaa",
+    "storage_bucket": "nextline-ve-fccaa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:924710173144:android:de70715e870a7bf2531aad",
+        "mobilesdk_app_id": "1:618619403342:android:a451fb5a4d5fc670aed71f",
         "android_client_info": {
           "package_name": "nextline.jaspesoft.com.nextline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "924710173144-osi4np2qqk7uc4vbq609nfjftbajlbkf.apps.googleusercontent.com",
+          "client_id": "618619403342-qjr0g3l3dsq14tl8i6ouf6okmm45ci32.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "nextline.jaspesoft.com.nextline",
-            "certificate_hash": "2044f1a9b3e00fa268bfb50e6ad3d8703bd05818"
+            "certificate_hash": "022e15f122fa1df951fdf267f0616ccae6d7ed75"
           }
         },
         {
-          "client_id": "924710173144-ejauv80trfuuarcuaoruplfondsph75l.apps.googleusercontent.com",
+          "client_id": "618619403342-3ckrakltnjmar8vhs49a8slnb5qurajv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVIGfO4xbsdMq0MKRG4pIojYLZjx-ZhIs"
+          "current_key": "AIzaSyCKHa6VFwWsBU4-n_9QAYz-3wsGtDgfMrY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "924710173144-ejauv80trfuuarcuaoruplfondsph75l.apps.googleusercontent.com",
+              "client_id": "618619403342-3ckrakltnjmar8vhs49a8slnb5qurajv.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "924710173144-r7pcau548og39ht3q6bnsevp6ejrq3pe.apps.googleusercontent.com",
+              "client_id": "618619403342-k3esrebhsab17gvac1ue4iu5pkme33dl.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "nextline.jaspesoft.com"
