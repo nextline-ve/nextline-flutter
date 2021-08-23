@@ -8,7 +8,7 @@ import 'ChangePlan/ui/screens/change_plan.dart';
 import 'ChangePlan/ui/screens/confirm_change_plan.dart';
 import 'ChangePlan/ui/screens/change_plan_sent.dart';
 import 'Home/ui/screens/home_screen.dart';
-import 'Home/ui/screens/profile_screen.dart';
+import 'Profile//ui/screens/profile_screen.dart';
 import 'Home/ui/screens/splash_screen.dart';
 import 'ServiceRequest/ui/screen/address_map.dart';
 import 'ServiceRequest/ui/screen/finalize_request_screen.dart';

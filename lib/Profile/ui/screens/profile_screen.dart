@@ -46,7 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             margin: EdgeInsets.only(top: 45, bottom: 20),
                             child: ProfileImageSelector(
                               imageUrl: blocProfile.profileData.avatar,
-                              blocProfile: blocProfile,
                             ),
                           ),
                         ),
