@@ -15,8 +15,9 @@ class ProfileImageSelector extends StatefulWidget {
   final bool withAction;
   final double size;
   final Color color;
-  final BlocProfile blocProfile;
+
   final EdgeInsets loadPadding;
+
   ProfileImageSelector(
       {Key key,
       this.imageFile,
@@ -24,32 +25,37 @@ class ProfileImageSelector extends StatefulWidget {
       this.color = AppColors.blue_dark,
       this.size = 136,
       this.withAction = true,
-      this.blocProfile,
       this.loadPadding = const EdgeInsets.all(50)})
       : super(key: key);
+
   @override
   _ProfileImageSelectorState createState() =>
       _ProfileImageSelectorState(imageFile: imageFile);
 }
 
 class _ProfileImageSelectorState extends State<ProfileImageSelector> {
+  BlocProfile blocProfile = BlocProfile();
   File imageFile;
   String imageBase64;
   bool saving = false;
 
   _ProfileImageSelectorState({this.imageFile}) : super();
+
   void getImage(ImageSource source) {
     widget.picker.getImage(source: source).then((pickedFile) {
       setState(() {
         imageFile = File(pickedFile.path);
         imageBase64 = base64Encode(imageFile.readAsBytesSync());
+        saveAvatar(imageBase64);
         saving = true;
       });
-      widget.blocProfile
-          .patchDataProfile({"avatar": imageBase64}).then((value) {
-        setState(() {
-          saving = false;
-        });
+    });
+  }
+
+  void saveAvatar(String imageBase64) {
+    blocProfile.patchDataProfile({"avatar": imageBase64}).then((value) {
+      setState(() {
+        saving = false;
       });
     });
   }
