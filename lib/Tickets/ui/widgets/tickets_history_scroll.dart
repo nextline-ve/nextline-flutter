@@ -11,6 +11,7 @@ import '../../bloc/bloc_tickets.dart';
 
 class TicketHistoryScroll extends StatefulWidget {
   final BlocTickets blocTickets;
+
   TicketHistoryScroll({Key key, this.blocTickets}) : super(key: key);
 
   @override
@@ -19,6 +20,7 @@ class TicketHistoryScroll extends StatefulWidget {
 
 class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
   List<Ticket> tickets = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,8 +48,7 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
                                   builder: (context) => Chat(
                                         blocTickets: widget.blocTickets,
                                         ticket: ticket,
-                                        disable: !(ticket.status == "P" ||
-                                            ticket.status == "C"),
+                                        disable: checkDisableInputWriterInChat(ticket.status),
                                       )))))
                       .toList(),
                 );
@@ -56,5 +57,17 @@ class _TicketHistoryScrollState extends State<TicketHistoryScroll> {
             }),
       ),
     );
+  }
+
+  bool checkDisableInputWriterInChat(TicketStatus status) {
+    switch (status) {
+      case TicketStatus.P:
+        return false;
+      case TicketStatus.C:
+        return false;
+      default:
+        return true;
+    }
+    return true;
   }
 }

@@ -65,6 +65,7 @@ class _Chat extends State<Chat> {
       widget.blocTickets.uploadImage(File(pickedFile.path)).then((image) {
         image.ref.getDownloadURL().then((url) {
           setState(() {
+            imageUrl = url;
             imageUrlToSend = url;
             loadingImage = false;
           });
@@ -172,13 +173,24 @@ class _Chat extends State<Chat> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Image.asset(
-                          imageUrl,
-                          width: 50,
-                          height: 50,
-                        )),
+                    Container(
+                        margin: EdgeInsets.all(10),
+                        width: 150,
+                        height: 50,
+                        child: // Image.asset(imageUrl, width: 150, height: 50,),
+                            Image.network(imageUrl, loadingBuilder:
+                                (BuildContext context, Widget child,
+                                    ImageChunkEvent loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes
+                                  : null,
+                            ),
+                          );
+                        })),
                     Expanded(
                       child: Text("Imagen"),
                     ),

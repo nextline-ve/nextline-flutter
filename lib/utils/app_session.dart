@@ -23,7 +23,6 @@ class AppSession {
     ModelSession session = ModelSession();
     AppSession.data = await session.getObject(1);
     if (AppSession.data == null) {
-      print('nada');
       AppSession.isLoggedIn = false;
       return false;
     } else {
