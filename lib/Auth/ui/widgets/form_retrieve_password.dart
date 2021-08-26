@@ -10,7 +10,9 @@ import 'package:nextline/widgets/jtext_field.dart';
 
 class FormRetrievePassword extends StatefulWidget {
   final BlocAuth blocAuth;
+
   FormRetrievePassword({Key key, @required this.blocAuth}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _FormRetrievePassword();
@@ -45,11 +47,13 @@ class _FormRetrievePassword extends State<FormRetrievePassword> {
               return;
             }
             AppHttp.requestIndicator(context);
-            blocAuth.retrievePassword({
-              "email": _email
-            }).then((value) => Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(
-                    'Se le ha enviado un email para recuperar su contraseña'))));
+            blocAuth
+                .retrievePassword({"email": _email})
+                .then((value) => Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        'Se le ha enviado un email para recuperar su contraseña'))))
+                .catchError((onError) => Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text(onError))));
           },
           background: AppColors.ligth_blue_color,
         ),
