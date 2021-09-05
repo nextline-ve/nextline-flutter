@@ -6,10 +6,12 @@ import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_http.dart';
 import 'package:nextline/widgets/jbutton.dart';
 import 'package:nextline/widgets/jtext_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FormLocation extends StatefulWidget {
   final String address;
   final Map<String, dynamic> requestData;
+
   const FormLocation({Key key, this.address, this.requestData})
       : super(key: key);
 
@@ -80,11 +82,26 @@ class _FormLocation extends State<FormLocation> {
                   streamMessage.add(snapshot.error.toString());
                   _makeRequest = false;
                 }
-                return JButton(
-                  label: "FINALIZAR SOLICITUD",
-                  onTab: _finish,
-                  background: AppColors.ligth_blue_color,
-                  icon: Icons.navigate_next,
+                return Column(
+                  children: [
+                    JButton(
+                      label: "FINALIZAR SOLICITUD",
+                      onTab: _finish,
+                      background: AppColors.ligth_blue_color,
+                      icon: Icons.navigate_next,
+                    ),
+                    GestureDetector(
+                      onTap: _launchURL,
+                      child: Text(
+                        'Al dar click en finalizar la solicitud está aceptando'
+                        'las políticas de privacidad.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    )
+                  ],
                 );
               },
             ),
@@ -92,6 +109,11 @@ class _FormLocation extends State<FormLocation> {
         ]),
       ),
     );
+  }
+
+  void _launchURL() async {
+    String url = 'https://mynextline.net/privacy-policies';
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
   }
 
   Widget _text(txt, double top) {
