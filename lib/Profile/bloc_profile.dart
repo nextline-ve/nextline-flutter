@@ -29,7 +29,11 @@ class BlocProfile implements Bloc {
     } else {
       profileData = await repository.patchDataProfileAPI(data);
     }
+
     AppSession.data.avatar = profileData.avatar;
+    AppSession.data.nombre = profileData.nombreRazsoc;
+
+    new AppSession().register(AppSession.data);
 
     return profileData;
   }

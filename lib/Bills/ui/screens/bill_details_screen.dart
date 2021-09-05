@@ -142,8 +142,8 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                                   child: Container(
                                     child: Center(
                                       child: JButton(
-                                        fontSize: 10,
-                                        label: "Pagar en\n${currency.moneda}",
+                                        fontSize: 9,
+                                        label: "Declarar pagar realizado en\n${currency.moneda}",
                                         labelColor: AppColors.blue_dark,
                                         buttonHeight: 50.0,
                                         minWidth: 600,
@@ -198,6 +198,7 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
         child: Center(
           child: Text(
             title,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.gray_text_color,
               fontSize: 14,

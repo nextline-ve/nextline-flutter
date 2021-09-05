@@ -215,7 +215,7 @@ class _FormDeclarePayment extends State<FormDeclarePayment> {
             padding: EdgeInsets.only(left: 24, right: 24),
             child: JTextField(
               top: 0.0,
-              label: "MONTO QUE PAGO",
+              label: "MONTO TRANSFERIDO",
               isPass: false,
               inputType: TextInputType.numberWithOptions(decimal: true),
               borderColor: AppColors.blue,

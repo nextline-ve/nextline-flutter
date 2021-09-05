@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
-import 'package:nextline/utils/app_utils.dart';
 import '../../../widgets/line.dart';
 import 'package:date_format/date_format.dart';
 

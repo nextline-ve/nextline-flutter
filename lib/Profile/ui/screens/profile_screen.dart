@@ -5,6 +5,7 @@ import 'package:nextline/Profile/model/model_profile.dart';
 import 'package:nextline/Tickets/ui/widgets/background_tickets.dart';
 import 'package:nextline/utils/app_colors.dart';
 import 'package:nextline/utils/app_fonts.dart';
+import 'package:nextline/utils/app_session.dart';
 import 'package:nextline/widgets/editable_input.dart';
 import 'package:nextline/widgets/jloading_screen.dart';
 import 'package:nextline/widgets/lateral_menu.dart';
@@ -45,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             margin: EdgeInsets.only(top: 45, bottom: 20),
                             child: ProfileImageSelector(
-                              imageUrl: blocProfile.profileData.avatar,
+                              imageUrl: AppSession.data.avatar,
                             ),
                           ),
                         ),
