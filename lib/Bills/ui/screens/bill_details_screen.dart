@@ -142,12 +142,12 @@ class _BillDetailsScreen extends State<BillDetailsScreen> {
                                   child: Container(
                                     child: Center(
                                       child: JButton(
-                                        fontSize: 9,
-                                        label: "Declarar pagar realizado en\n${currency.moneda}",
+                                        fontSize: 10,
+                                        label: "Declarar pago realizado en\n${currency.moneda}",
                                         labelColor: AppColors.blue_dark,
                                         buttonHeight: 50.0,
                                         minWidth: 600,
-                                        padding: EdgeInsets.all(10),
+                                        padding: EdgeInsets.all(4),
                                         borderColor: AppColors.blue_dark,
                                         onTab: () => Navigator.push(
                                             context,
